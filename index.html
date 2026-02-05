@@ -150,21 +150,13 @@
     }
 
     .cover{
-      height: 150px;
-      background: var(--cover);
+      height: 120px; /* smaller, neutral header */
+      background: transparent; /* remove LinkedIn-style color block */
       position: relative;
     }
 
     .cover::after{
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      width: 18px;
-      height: 100%;
-      background: var(--cover-stripe);
-      opacity: 0.95;
+      display: none; /* remove yellow stripe */
     }
 
     .hero-body{
@@ -176,7 +168,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: -78px; /* overlap cover */
+      margin-top: -40px; /* reduce overlap so head is fully visible */ /* overlap cover */
     }
 
     .avatar{
@@ -185,7 +177,7 @@
       border-radius: 50%;
       object-fit: cover;
       /* Fix head cropping: move the crop focus upward (LinkedIn-like) */
-      object-position: 50% 18%;
+      object-position: 50% 8%; /* move crop higher so full head shows */
       border: 6px solid rgba(255,255,255,0.98);
       box-shadow: var(--shadow-soft);
       background: #fff;
