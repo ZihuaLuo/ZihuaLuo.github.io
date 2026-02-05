@@ -28,6 +28,7 @@
       --cover: #6b1432;       /* deep wine */
       --cover-stripe: #f2b600;/* warm yellow */
       --linkedin: #0A66C2;
+      --instagram: #E1306C;
     }
 
     *{ box-sizing: border-box; }
@@ -183,8 +184,15 @@
       background: #fff;
     }
 
-    .social{
+    .social-row{
       margin-top: 10px;
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social{
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -195,6 +203,23 @@
       font-size: 13px;
       color: rgba(31,31,31,0.86);
       box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    .social:hover{
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
+    }
+
+    a.social[aria-label="LinkedIn"]:hover{
+      border-color: rgba(10,102,194,0.35);
+      background: rgba(10,102,194,0.08);
+    }
+
+    a.social[aria-label="Instagram"]:hover{
+      border-color: rgba(225,48,108,0.35);
+      background: rgba(225,48,108,0.08);
     }
 
     .social:hover{
@@ -208,6 +233,13 @@
       height: 18px;
       flex: 0 0 18px;
       color: var(--linkedin);
+    }
+
+    .ig-icon{
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      color: var(--instagram);
     }
 
     .name-line{
@@ -548,9 +580,9 @@
       <div class="nav-links">
         <a href="#top">Home</a>
         <a href="#notes">Notes</a>
+        <a href="#music">Music</a>
         <a href="#now">Now</a>
         <a href="#about">About</a>
-        <a href="#contact">Contact</a>
       </div>
     </nav>
 
@@ -564,12 +596,23 @@
           <img src="avatar.jpg" alt="Zihua Luo" class="avatar" />
 
           <!-- LinkedIn under headshot -->
-          <a class="social" href="https://www.linkedin.com/in/zihualuo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg class="li-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.4v1.56h.05c.47-.9 1.62-1.86 3.33-1.86 3.56 0 4.22 2.35 4.22 5.4v6.35zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/>
-            </svg>
-            <span>LinkedIn</span>
-          </a>
+          <div class="social-row" aria-label="Quick links">
+            <a class="social" href="https://www.linkedin.com/in/zihualuo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg class="li-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.4v1.56h.05c.47-.9 1.62-1.86 3.33-1.86 3.56 0 4.22 2.35 4.22 5.4v6.35zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+
+            <a class="social" href="https://www.instagram.com/luozzihua/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg class="ig-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9z"/>
+                <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                <path d="M17.5 6.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </div>
 
           <!-- Name line like LinkedIn (name + designation + badge + pronouns) -->
           <div class="name-line">
@@ -592,11 +635,11 @@
         </div>
 
         <div class="intro">
-          <p><b>这是我的个人品牌主页</b>：一半是介绍，一半是长期更新的“私密但不隐私”的记录。</p>
-          <p class="muted">我会把一些不适合发在社交平台的感受、吐槽、分享，甚至音乐，安静地放在这里。</p>
+          <p>一个记录生活、情绪与思考的角落。</p>
+          <p class="muted">这里不会涉及隐私，但会保留真实与温度。</p>
 
-          <p style="margin-top:14px;"><b>This is my personal branding page</b> — half introduction, half a long-term archive of reflections (personal, but not private).</p>
-          <p class="muted">Thoughts, rants, small discoveries, and sometimes music — posted quietly, without the noise of social media.</p>
+          <p style="margin-top:14px;">A quiet space for documenting life, emotions, and reflections.</p>
+          <p class="muted">Personal, but not private — calm, honest, and ongoing.</p>
         </div>
 
         <div class="cta-row">
@@ -608,153 +651,7 @@
 
 
     <!-- Notes -->
-    <section id="notes" class="section reveal">
-      <div class="section-title">
-        <h3>随想 · Notes</h3>
-        <div class="hint">短句 / 长文 / 吐槽 / 分享 / 音乐 · 每条都可以独立成链接</div>
-      </div>
-      <div class="section-title">
-        <h3>随想 · Notes</h3>
-        <div class="hint">（下一步我可以把每篇随想做成独立页面和独立链接）</div>
-      </div>
-
-      <div class="grid">
-        <article class="card">
-          <div class="card-title">第一篇随想 · First Note</div>
-          <div class="card-meta">2026 · Template</div>
-          <p>这里会放你的第一条公开随想。可以短到一句话，也可以是一段完整的心路。</p>
-          <div class="tag-row">
-            <span class="tag">Reflection</span><span class="tag">Branding</span><span class="tag">中文/EN</span>
-          </div>
-          <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
-        </article>
-
-        <article class="card">
-          <div class="card-title">吐槽区 · Rants (gentle)</div>
-          <div class="card-meta">Template · 可匿名情绪，但不涉及隐私</div>
-          <p>给自己一个安全出口：把情绪写清楚，然后让它过去。这里不需要“正确”，只需要真实。</p>
-          <div class="tag-row">
-            <span class="tag">Rant</span><span class="tag">Emotions</span><span class="tag">Release</span>
-          </div>
-          <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
-        </article>
-
-        <article class="card">
-          <div class="card-title">分享 · Shares</div>
-          <div class="card-meta">Template · 链接/截图/一句话</div>
-          <p>你喜欢的东西：一篇文章、一个观点、一个小工具、一次散步的瞬间，都可以放在这里。</p>
-          <div class="tag-row">
-            <span class="tag">Links</span><span class="tag">Ideas</span><span class="tag">Small Wins</span>
-          </div>
-          <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
-        </article>
-
-        <article class="card">
-          <div class="card-title">音乐角 · Music</div>
-          <div class="card-meta">Template · 支持 Spotify/Apple Music 嵌入</div>
-          <p>当你想分享一首歌，但不想发社交平台：就把它放在这里。</p>
-          <div class="tag-row">
-            <span class="tag">Music</span><span class="tag">Mood</span><span class="tag">Playlist</span>
-          </div>
-          <a class="mini-link" href="#music"><span>去音乐角 · Music</span></a>
-        </article>
-      </div>
-    </section>
-
-
-    <!-- Now -->
-    <section id="music" class="section reveal">
-      <div class="section-title">
-        <h3>音乐角 · Music Corner</h3>
-        <div class="hint">把链接/嵌入代码发我，我帮你排版成很干净的展示卡</div>
-      </div>
-
-      <div class="two-col">
-        <div>
-          <div class="quote">
-            <b>模板：Spotify 嵌入</b><br>
-            你可以把 Spotify 的 Embed iframe 粘贴进来（我也可以替你生成）。
-          </div>
-          <!-- Example: replace src with your Spotify embed link -->
-          <iframe style="border-radius:16px; width:100%; height:152px; border:1px solid rgba(40,40,40,0.10);" 
-                  src="" 
-                  frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-        <div>
-          <div class="quote">
-            <b>模板：一句话 + 一首歌</b><br>
-            今天的心情是：__________<br>
-            这首歌陪我：__________
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="now" class="section reveal">
-      <div class="section-title">
-        <h3>现在 · Now</h3>
-        <div class="hint">一段“此刻的我”，随时可改</div>
-      </div>
-
-      <div class="two-col">
-        <div>
-          <div class="quote">
-            <b>这段可以当作你的“近况栏”</b><br>
-            · 最近在专注：____________<br>
-            · 最近在学习：____________<br>
-            · 最近在思考：____________
-          </div>
-        </div>
-        <div>
-          <div class="quote">
-            <b>This can be your “Now” box</b><br>
-            · Focus: ____________<br>
-            · Learning: ____________<br>
-            · Thinking: ____________
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- About -->
-    <section id="about" class="section reveal">
-      <div class="section-title">
-        <h3>关于 · About</h3>
-        <div class="hint">简单、克制、长期主义</div>
-      </div>
-
-      <div class="two-col">
-        <div>
-          <p>你好，我是 <b>Zihua Luo</b>。</p>
-          <p>“只开小火车” 是我给自己的代号。它更像一种状态：<b>缓慢、专注、向前</b>，但不喧哗。</p>
-          <p class="muted">这里不会涉及隐私，更多是一些阶段性的思考、感受与记录。</p>
-        </div>
-
-        <div>
-          <p>Hi, I’m <b>Zihua Luo</b>.</p>
-          <p>“Train in Motion” is the codename I use online — a way of moving forward <b>slowly</b>, <b>quietly</b>, and <b>with focus</b>.</p>
-          <p class="muted">This site avoids private details. It’s a collection of reflections and fragments of thought.</p>
-        </div>
-      </div>
-
-      <div style="margin-top:14px;" class="quote">
-        中文：慢一点也没关系，重要的是持续向前。<br>
-        English: It’s okay to go slowly — what matters is staying in motion.
-      </div>
-    </section>
-
-    <section class="section reveal">
-      <div class="section-title">
-        <h3>定位 · Positioning</h3>
-        <div class="hint">一句话说清楚你是谁（品牌感）</div>
-      </div>
-      <div class="quote">
-        中文模板：<b>我在 ________ 与 ________ 的交界处工作/生活</b>，关注 <b>________</b>，并持续记录 <b>________</b>。<br>
-        English template: <b>I work/live at the intersection of ________ and ________</b>, focusing on <b>________</b>, while documenting <b>________</b>.
-      </div>
-    </section>
+    
 
 
     <section id="contact" class="section reveal">
