@@ -5,164 +5,499 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zihua Luo · 只开小火车</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    :root{
+      --bg: #f7f5f2;
+      --card: rgba(255,255,255,0.72);
+      --text: #1f1f1f;
+      --muted: #6b6b6b;
+      --border: rgba(40,40,40,0.10);
+      --shadow: 0 16px 44px rgba(15, 15, 15, 0.10);
+      --shadow-soft: 0 10px 30px rgba(15, 15, 15, 0.08);
+      --accent: #2a6f5d; /* warm green */
+      --accent-2: #b07a48; /* warm brown */
+      --radius: 18px;
+      --radius-lg: 28px;
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
       margin: 0;
-      font-family: "Inter", "PingFang SC", "Noto Sans SC", sans-serif;
-      background: #f7f5f2;
-      color: #2b2b2b;
-      line-height: 1.8;
+      font-family: "Inter", "PingFang SC", "Noto Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 760px;
-      margin: auto;
-      padding: 60px 24px;
+    /* --- Background: warm gradient + subtle pattern (no external image needed) --- */
+    .bg{
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(1200px 700px at 10% 10%, rgba(42,111,93,0.14), transparent 55%),
+        radial-gradient(900px 600px at 90% 20%, rgba(176,122,72,0.14), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(42,111,93,0.10), transparent 60%),
+        linear-gradient(180deg, #fbfaf7 0%, #f6f3ee 50%, #f7f5f2 100%);
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 60px;
+    /* SVG dot pattern overlay */
+    .bg::after{
+      content:"";
+      position: absolute;
+      inset: -2px;
+      z-index: -1;
+      opacity: 0.45;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none'%3E%3Ccircle cx='12' cy='18' r='1.2' fill='%232a6f5d' fill-opacity='0.16'/%3E%3Ccircle cx='64' cy='32' r='1.2' fill='%23b07a48' fill-opacity='0.14'/%3E%3Ccircle cx='94' cy='78' r='1.2' fill='%232a6f5d' fill-opacity='0.14'/%3E%3Ccircle cx='26' cy='92' r='1.2' fill='%23b07a48' fill-opacity='0.12'/%3E%3Ccircle cx='104' cy='14' r='1.2' fill='%232a6f5d' fill-opacity='0.10'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      filter: blur(0.2px);
+      pointer-events: none;
     }
 
-    h1 {
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 4px; }
+
+    .container{
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 22px 80px;
+    }
+
+    /* Top nav */
+    .nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(15,15,15,0.06);
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+    }
+
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 180px;
+    }
+
+    .brand-dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 14px rgba(42,111,93,0.25);
+    }
+
+    .brand-title{
       font-weight: 600;
-      font-size: 42px;
+      letter-spacing: 0.3px;
+      font-size: 14px;
+    }
+
+    .nav-links{
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a{
+      font-size: 13px;
+      color: rgba(31,31,31,0.78);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover{
+      text-decoration: none;
+      background: rgba(42,111,93,0.10);
+      color: rgba(31,31,31,0.92);
+    }
+
+    /* Hero */
+    header.hero{
+      margin-top: 26px;
+      padding: 34px 28px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative blobs */
+    header.hero::before{
+      content:"";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -180px;
+      top: -180px;
+      background: radial-gradient(circle at 30% 30%, rgba(176,122,72,0.22), transparent 60%);
+      border-radius: 50%;
+      filter: blur(4px);
+    }
+
+    header.hero::after{
+      content:"";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      left: -220px;
+      bottom: -260px;
+      background: radial-gradient(circle at 30% 30%, rgba(42,111,93,0.22), transparent 60%);
+      border-radius: 50%;
+      filter: blur(5px);
+    }
+
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1{
       margin: 0;
-      letter-spacing: 1px;
+      font-size: 44px;
+      letter-spacing: 0.6px;
+      line-height: 1.12;
+      font-weight: 600;
     }
 
-    h2 {
-      font-weight: 400;
-      font-size: 20px;
-      margin-top: 12px;
-      color: #666;
+    .hero .subtitle{
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      color: rgba(31,31,31,0.72);
+      font-size: 14px;
     }
 
-    .avatar {
-      width: 160px;
-      height: 160px;
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: 1px solid rgba(40,40,40,0.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.55);
+    }
+
+    .pill b{ font-weight: 600; color: rgba(31,31,31,0.86); }
+
+    .intro{
+      margin-top: 18px;
+      font-size: 16px;
+      color: rgba(31,31,31,0.88);
+    }
+
+    .intro p{ margin: 10px 0; }
+
+    .muted{ color: var(--muted); }
+
+    .cta-row{
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(40,40,40,0.14);
+      background: rgba(255,255,255,0.62);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      font-size: 13px;
+      color: rgba(31,31,31,0.86);
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .btn:hover{
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
+    }
+
+    .btn.primary{
+      border-color: rgba(42,111,93,0.35);
+      background: rgba(42,111,93,0.10);
+    }
+
+    .avatar-wrap{
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar{
+      width: 178px;
+      height: 178px;
       border-radius: 50%;
       object-fit: cover;
-      margin-top: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255,255,255,0.65);
+      outline: 1px solid rgba(40,40,40,0.10);
+      outline-offset: 6px;
+      background: #fff;
     }
 
-    .intro {
-      margin-top: 50px;
-      font-size: 17px;
+    /* Sections */
+    .section{
+      margin-top: 26px;
+      padding: 26px 24px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(15,15,15,0.08);
     }
 
-    .intro p {
-      margin: 12px 0;
+    .section-title{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
     }
 
-    .section {
-      margin-top: 80px;
-    }
-
-    .section-title {
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 24px;
-    }
-
-    .post {
-      padding: 18px 0;
-      border-bottom: 1px solid #e6e2dc;
-    }
-
-    .post-title {
+    .section-title h3{
+      margin: 0;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.3px;
     }
 
-    .post-date {
+    .section-title .hint{
+      font-size: 12px;
+      color: rgba(31,31,31,0.60);
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .card{
+      grid-column: span 6;
+      padding: 16px 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(40,40,40,0.10);
+      background: rgba(255,255,255,0.62);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .card:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
+    }
+
+    .card-title{
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .card-meta{
+      font-size: 12px;
+      color: rgba(31,31,31,0.55);
+      margin-bottom: 10px;
+    }
+
+    .card p{
+      margin: 0;
+      color: rgba(31,31,31,0.78);
       font-size: 14px;
-      color: #888;
-      margin-top: 4px;
     }
 
-    footer {
+    .two-col{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .quote{
+      padding: 14px 16px;
+      border-left: 3px solid rgba(42,111,93,0.45);
+      background: rgba(42,111,93,0.07);
+      border-radius: 14px;
+      color: rgba(31,31,31,0.82);
+      font-size: 14px;
+    }
+
+    footer{
       text-align: center;
-      margin-top: 100px;
-      font-size: 14px;
-      color: #999;
+      margin-top: 18px;
+      padding: 28px 10px 0;
+      font-size: 12px;
+      color: rgba(31,31,31,0.55);
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 32px;
-      }
+    /* Responsive */
+    @media (max-width: 860px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .avatar-wrap{ justify-content: flex-start; }
+      .hero h1{ font-size: 38px; }
+      .card{ grid-column: span 12; }
+      .two-col{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+    }
 
-      .avatar {
-        width: 120px;
-        height: 120px;
-      }
+    @media (max-width: 480px){
+      .container{ padding: 18px 14px 70px; }
+      .hero{ padding: 28px 18px; }
+      .section{ padding: 20px 16px; }
+      .hero h1{ font-size: 34px; }
+      .nav-links{ gap: 8px; }
     }
   </style>
 </head>
 
 <body>
+  <div class="bg" aria-hidden="true"></div>
+
   <div class="container">
 
-    <!-- Header -->
-    <header>
-      <h1>Zihua Luo</h1>
-      <h2>只开小火车 · Personal Space</h2>
+    <!-- Top Nav -->
+    <nav class="nav">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-title">只开小火车</span>
+      </div>
+      <div class="nav-links">
+        <a href="#top">Home</a>
+        <a href="#notes">Notes</a>
+        <a href="#about">About</a>
+      </div>
+    </nav>
 
-      <!-- Avatar (替换为你的照片文件名) -->
-      <img src="avatar.jpg" alt="Zihua Luo" class="avatar" />
+    <!-- Hero -->
+    <header id="top" class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Zihua Luo</h1>
+          <div class="subtitle">
+            <span class="pill"><b>只开小火车</b></span>
+            <span class="pill">Personal Space · Train in Motion</span>
+          </div>
+
+          <div class="intro">
+            <p>一个记录生活、情绪与思考的角落。</p>
+            <p class="muted">这里没有宏大叙事，只有零散的真实。</p>
+
+            <p style="margin-top:14px;">A quiet space for documenting life, emotions, and reflections.</p>
+            <p class="muted">Nothing grand — only fragments of honesty.</p>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#notes">去看随想 · Read Notes</a>
+            <a class="btn" href="#about">关于我 · About</a>
+          </div>
+        </div>
+
+        <div class="avatar-wrap">
+          <!-- Avatar: keep only on homepage -->
+          <img src="avatar.jpg" alt="Zihua Luo" class="avatar" />
+        </div>
+      </div>
     </header>
 
 
-    <!-- Intro -->
-    <section class="intro">
-      <p>一个记录生活、情绪与思考的角落。</p>
-      <p>这里没有宏大叙事，只有零散的真实。</p>
-
-      <p>A quiet space for documenting life, emotions, and reflections.</p>
-      <p>Nothing grand — only fragments of honesty.</p>
-    </section>
-
-
-    <!-- Blog Preview -->
-    <section class="section">
-      <div class="section-title">随想 · Notes</div>
-
-      <div class="post">
-        <div class="post-title">第一篇随想 · First Note</div>
-        <div class="post-date">2026 · Coming Soon</div>
+    <!-- Notes -->
+    <section id="notes" class="section">
+      <div class="section-title">
+        <h3>随想 · Notes</h3>
+        <div class="hint">（后面你发我内容，我帮你把这里换成真实文章）</div>
       </div>
 
-      <div class="post">
-        <div class="post-title">一些尚未命名的思考 · Untitled Thoughts</div>
-        <div class="post-date">Coming Soon</div>
-      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-title">第一篇随想 · First Note</div>
+          <div class="card-meta">2026 · Coming Soon</div>
+          <p>先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。</p>
+        </article>
 
+        <article class="card">
+          <div class="card-title">一些尚未命名的思考 · Untitled Thoughts</div>
+          <div class="card-meta">Coming Soon</div>
+          <p>不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。</p>
+        </article>
+
+        <article class="card">
+          <div class="card-title">读书 / 电影 / 片刻 · Reading / Film / Moments</div>
+          <div class="card-meta">Template</div>
+          <p>你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。</p>
+        </article>
+
+        <article class="card">
+          <div class="card-title">未来的某天 · Someday</div>
+          <div class="card-meta">Template</div>
+          <p>留一个空位给未来。等你想写的时候，它就在那里。</p>
+        </article>
+      </div>
     </section>
 
 
     <!-- About -->
-    <section class="section">
-      <div class="section-title">关于 · About</div>
+    <section id="about" class="section">
+      <div class="section-title">
+        <h3>关于 · About</h3>
+        <div class="hint">简单、克制、长期主义</div>
+      </div>
 
-      <p>你好，我是 Zihua Luo。</p>
-      <p>“只开小火车” 是我给自己的代号。</p>
-      <p>它更像一种状态：缓慢、专注、向前，但不喧哗。</p>
+      <div class="two-col">
+        <div>
+          <p>你好，我是 <b>Zihua Luo</b>。</p>
+          <p>“只开小火车” 是我给自己的代号。它更像一种状态：<b>缓慢、专注、向前</b>，但不喧哗。</p>
+          <p class="muted">这里不会涉及隐私，更多是一些阶段性的思考、感受与记录。</p>
+        </div>
 
-      <p>Hi, I’m Zihua Luo.</p>
-      <p>“Train in Motion” is the codename I use online.</p>
-      <p>Slow, focused, moving forward — yet quiet.</p>
+        <div>
+          <p>Hi, I’m <b>Zihua Luo</b>.</p>
+          <p>“Train in Motion” is the codename I use online — a way of moving forward <b>slowly</b>, <b>quietly</b>, and <b>with focus</b>.</p>
+          <p class="muted">This site avoids private details. It’s a collection of reflections and fragments of thought.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;" class="quote">
+        中文：慢一点也没关系，重要的是持续向前。<br>
+        English: It’s okay to go slowly — what matters is staying in motion.
+      </div>
     </section>
 
-
-    <!-- Footer -->
     <footer>
-      © 2026 Zihua Luo · Train in Motion
+      © 2026 Zihua Luo · Train in Motion · Built with calm and patience
     </footer>
 
   </div>
