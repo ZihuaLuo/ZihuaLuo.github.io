@@ -177,7 +177,7 @@
       border-radius: 50%;
       object-fit: cover;
       /* Fix head cropping: move the crop focus upward (LinkedIn-like) */
-      object-position: 50% 3%; /* tighter face focus */ /* move crop higher so full head shows */
+      object-position: 54% 3%; /* tighter face focus + nudge right to center face */ /* move crop higher so full head shows */
       border: 6px solid rgba(255,255,255,0.98);
       box-shadow: var(--shadow-soft);
       background: #fff;
@@ -592,11 +592,11 @@
         </div>
 
         <div class="intro">
-          <p>一个记录生活、情绪与思考的角落。</p>
-          <p class="muted">这里没有宏大叙事，只有零散的真实。</p>
+          <p><b>这是我的个人品牌主页</b>：一半是介绍，一半是长期更新的“私密但不隐私”的记录。</p>
+          <p class="muted">我会把一些不适合发在社交平台的感受、吐槽、分享，甚至音乐，安静地放在这里。</p>
 
-          <p style="margin-top:14px;">A quiet space for documenting life, emotions, and reflections.</p>
-          <p class="muted">Nothing grand — only fragments of honesty.</p>
+          <p style="margin-top:14px;"><b>This is my personal branding page</b> — half introduction, half a long-term archive of reflections (personal, but not private).</p>
+          <p class="muted">Thoughts, rants, small discoveries, and sometimes music — posted quietly, without the noise of social media.</p>
         </div>
 
         <div class="cta-row">
@@ -611,54 +611,86 @@
     <section id="notes" class="section reveal">
       <div class="section-title">
         <h3>随想 · Notes</h3>
+        <div class="hint">短句 / 长文 / 吐槽 / 分享 / 音乐 · 每条都可以独立成链接</div>
+      </div>
+      <div class="section-title">
+        <h3>随想 · Notes</h3>
         <div class="hint">（下一步我可以把每篇随想做成独立页面和独立链接）</div>
       </div>
 
       <div class="grid">
         <article class="card">
           <div class="card-title">第一篇随想 · First Note</div>
-          <div class="card-meta">2026 · Coming Soon</div>
-          <p>先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。</p>
+          <div class="card-meta">2026 · Template</div>
+          <p>这里会放你的第一条公开随想。可以短到一句话，也可以是一段完整的心路。</p>
           <div class="tag-row">
-            <span class="tag">Life</span><span class="tag">Reflection</span><span class="tag">中文/EN</span>
+            <span class="tag">Reflection</span><span class="tag">Branding</span><span class="tag">中文/EN</span>
           </div>
           <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
         </article>
 
         <article class="card">
-          <div class="card-title">一些尚未命名的思考 · Untitled Thoughts</div>
-          <div class="card-meta">Coming Soon</div>
-          <p>不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。</p>
+          <div class="card-title">吐槽区 · Rants (gentle)</div>
+          <div class="card-meta">Template · 可匿名情绪，但不涉及隐私</div>
+          <p>给自己一个安全出口：把情绪写清楚，然后让它过去。这里不需要“正确”，只需要真实。</p>
           <div class="tag-row">
-            <span class="tag">Slow</span><span class="tag">Quiet</span><span class="tag">Notes</span>
+            <span class="tag">Rant</span><span class="tag">Emotions</span><span class="tag">Release</span>
           </div>
           <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
         </article>
 
         <article class="card">
-          <div class="card-title">读书 / 电影 / 片刻 · Reading / Film / Moments</div>
-          <div class="card-meta">Template</div>
-          <p>你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。</p>
+          <div class="card-title">分享 · Shares</div>
+          <div class="card-meta">Template · 链接/截图/一句话</div>
+          <p>你喜欢的东西：一篇文章、一个观点、一个小工具、一次散步的瞬间，都可以放在这里。</p>
           <div class="tag-row">
-            <span class="tag">Reading</span><span class="tag">Film</span><span class="tag">Moments</span>
+            <span class="tag">Links</span><span class="tag">Ideas</span><span class="tag">Small Wins</span>
           </div>
-          <a class="mini-link" href="#notes"><span>编辑模板 · Edit</span></a>
+          <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
         </article>
 
         <article class="card">
-          <div class="card-title">未来的某天 · Someday</div>
-          <div class="card-meta">Template</div>
-          <p>留一个空位给未来。等你想写的时候，它就在那里。</p>
+          <div class="card-title">音乐角 · Music</div>
+          <div class="card-meta">Template · 支持 Spotify/Apple Music 嵌入</div>
+          <p>当你想分享一首歌，但不想发社交平台：就把它放在这里。</p>
           <div class="tag-row">
-            <span class="tag">Future</span><span class="tag">Empty Slot</span><span class="tag">Keep</span>
+            <span class="tag">Music</span><span class="tag">Mood</span><span class="tag">Playlist</span>
           </div>
-          <a class="mini-link" href="#notes"><span>编辑模板 · Edit</span></a>
+          <a class="mini-link" href="#music"><span>去音乐角 · Music</span></a>
         </article>
       </div>
     </section>
 
 
     <!-- Now -->
+    <section id="music" class="section reveal">
+      <div class="section-title">
+        <h3>音乐角 · Music Corner</h3>
+        <div class="hint">把链接/嵌入代码发我，我帮你排版成很干净的展示卡</div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="quote">
+            <b>模板：Spotify 嵌入</b><br>
+            你可以把 Spotify 的 Embed iframe 粘贴进来（我也可以替你生成）。
+          </div>
+          <!-- Example: replace src with your Spotify embed link -->
+          <iframe style="border-radius:16px; width:100%; height:152px; border:1px solid rgba(40,40,40,0.10);" 
+                  src="" 
+                  frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        <div>
+          <div class="quote">
+            <b>模板：一句话 + 一首歌</b><br>
+            今天的心情是：__________<br>
+            这首歌陪我：__________
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <section id="now" class="section reveal">
       <div class="section-title">
         <h3>现在 · Now</h3>
@@ -712,6 +744,18 @@
         English: It’s okay to go slowly — what matters is staying in motion.
       </div>
     </section>
+
+    <section class="section reveal">
+      <div class="section-title">
+        <h3>定位 · Positioning</h3>
+        <div class="hint">一句话说清楚你是谁（品牌感）</div>
+      </div>
+      <div class="quote">
+        中文模板：<b>我在 ________ 与 ________ 的交界处工作/生活</b>，关注 <b>________</b>，并持续记录 <b>________</b>。<br>
+        English template: <b>I work/live at the intersection of ________ and ________</b>, focusing on <b>________</b>, while documenting <b>________</b>.
+      </div>
+    </section>
+
 
     <section id="contact" class="section reveal">
       <div class="section-title">
