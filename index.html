@@ -19,14 +19,11 @@
       --border: rgba(40,40,40,0.10);
       --shadow: 0 16px 44px rgba(15, 15, 15, 0.10);
       --shadow-soft: 0 10px 30px rgba(15, 15, 15, 0.08);
-      --accent: #2a6f5d; /* warm green */
-      --accent-2: #b07a48; /* warm brown */
+      --accent: #2a6f5d;
+      --accent-2: #b07a48;
       --radius: 18px;
       --radius-lg: 28px;
 
-      /* LinkedIn-like header colors */
-      --cover: #6b1432;       /* deep wine */
-      --cover-stripe: #f2b600;/* warm yellow */
       --linkedin: #0A66C2;
       --instagram: #E1306C;
 
@@ -57,7 +54,6 @@
       --quote-border: rgba(42,111,93,0.45);
     }
 
-    /* Dark mode overrides */
     html[data-theme="dark"]{
       --bg: #0b1220;
       --card: rgba(255,255,255,0.06);
@@ -67,7 +63,6 @@
       --shadow: 0 18px 58px rgba(0, 0, 0, 0.45);
       --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.35);
 
-      /* Background layers (dark) */
       --bg-r1: rgba(96,165,250,0.12);
       --bg-r2: rgba(251,191,36,0.10);
       --bg-r3: rgba(34,197,94,0.08);
@@ -107,7 +102,6 @@
       overflow-x: hidden;
     }
 
-    /* --- Background: warm gradient + subtle pattern (no external image needed) --- */
     .bg{
       position: fixed;
       inset: 0;
@@ -119,7 +113,6 @@
         linear-gradient(180deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%);
     }
 
-    /* SVG dot pattern overlay */
     .bg::after{
       content:"";
       position: absolute;
@@ -227,7 +220,7 @@
     .theme-toggle:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
     .theme-toggle .hint{ font-size: 12px; color: var(--muted); }
 
-    /* Hero (LinkedIn-like cover + overlapping avatar) */
+    /* Hero */
     header.hero{
       margin-top: 26px;
       border-radius: var(--radius-lg);
@@ -240,13 +233,9 @@
     }
 
     .cover{
-      height: 120px; /* smaller, neutral header */
-      background: transparent; /* remove LinkedIn-style color block */
+      height: 120px;
+      background: transparent;
       position: relative;
-    }
-
-    .cover::after{
-      display: none; /* remove yellow stripe */
     }
 
     .hero-body{
@@ -258,7 +247,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: -40px; /* reduce overlap so head is fully visible */ /* overlap cover */
+      margin-top: -40px;
     }
 
     .avatar{
@@ -266,8 +255,7 @@
       height: 176px;
       border-radius: 50%;
       object-fit: cover;
-      /* Fix head cropping: move the crop focus upward (LinkedIn-like) */
-      object-position: 50% 3%; /* tighter face focus */ /* move crop higher so full head shows */
+      object-position: 50% 3%;
       border: 6px solid rgba(255,255,255,0.98);
       box-shadow: var(--shadow-soft);
       background: #fff;
@@ -316,19 +304,13 @@
       background: rgba(225,48,108,0.10);
     }
 
-    .li-icon{
+    .li-icon, .ig-icon{
       width: 18px;
       height: 18px;
       flex: 0 0 18px;
-      color: var(--linkedin);
     }
-
-    .ig-icon{
-      width: 18px;
-      height: 18px;
-      flex: 0 0 18px;
-      color: var(--instagram);
-    }
+    .li-icon{ color: var(--linkedin); }
+    .ig-icon{ color: var(--instagram); }
 
     .name-line{
       margin-top: 18px;
@@ -372,7 +354,6 @@
     }
     html[data-theme="dark"] .subtitle{ color: rgba(229,231,235,0.70); }
 
-    /* Bio block under name */
     .bio{
       width: 100%;
       max-width: 760px;
@@ -412,8 +393,6 @@
       background: var(--chip-bg);
       color: var(--chip-text);
     }
-
-    .pill b{ font-weight: 600; color: var(--chip-text); }
 
     .intro{
       margin-top: 18px;
@@ -468,6 +447,62 @@
       background: rgba(96,165,250,0.12);
     }
 
+    /* Quick entry buttons */
+    .quick-grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .quick{
+      grid-column: span 4;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+      transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+      overflow:hidden;
+      position:relative;
+    }
+    .quick:hover{
+      transform: translateY(-2px);
+      border-color: rgba(42,111,93,0.22);
+      box-shadow: 0 18px 46px rgba(15,15,15,0.12);
+      text-decoration:none;
+    }
+    html[data-theme="dark"] .quick:hover{
+      border-color: rgba(96,165,250,0.28);
+      box-shadow: 0 22px 70px rgba(0,0,0,0.38);
+    }
+    .quick h4{
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .quick p{
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .quick .k{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top: 10px;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--chip-border);
+      background: var(--chip-bg);
+      color: var(--chip-text);
+    }
+
     /* Sections */
     .section{
       margin-top: 26px;
@@ -480,11 +515,8 @@
       position: relative;
       overflow: hidden;
     }
-    html[data-theme="dark"] .section{
-      box-shadow: 0 18px 58px rgba(0,0,0,0.35);
-    }
+    html[data-theme="dark"] .section{ box-shadow: 0 18px 58px rgba(0,0,0,0.35); }
 
-    /* subtle top highlight line */
     .section::before{
       content:"";
       position:absolute;
@@ -601,11 +633,8 @@
       border: 1px solid var(--chip-border);
       background: rgba(42,111,93,0.08);
     }
-    html[data-theme="dark"] .mini-link span{
-      background: rgba(96,165,250,0.12);
-    }
+    html[data-theme="dark"] .mini-link span{ background: rgba(96,165,250,0.12); }
 
-    /* simple reveal animation */
     .reveal{ opacity: 0; transform: translateY(10px); transition: opacity 500ms ease, transform 500ms ease; }
     .reveal.is-visible{ opacity: 1; transform: translateY(0); }
 
@@ -665,6 +694,7 @@
       .two-col{ grid-template-columns: 1fr; }
       .brand{ min-width: unset; }
       .nav-links{ gap: 8px; }
+      .quick{ grid-column: span 12; }
     }
 
     @media (max-width: 480px){
@@ -688,11 +718,20 @@
         <span class="brand-dot" aria-hidden="true"></span>
         <span class="brand-title">只开小火车</span>
       </div>
+
       <div class="nav-links">
         <a href="#top">Home</a>
         <a href="#notes">Notes</a>
+        <a href="#essays">Essays</a>
+        <a href="#music">Music</a>
+        <a href="#library">Library</a>
         <a href="#now">Now</a>
         <a href="#about">About</a>
+
+        <!-- Optional: links to standalone pages (create later if you want) -->
+        <a href="essays.html">All Essays</a>
+        <a href="music.html">Music Page</a>
+        <a href="archive.html">Archive</a>
 
         <!-- Light/Dark Toggle -->
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
@@ -708,10 +747,8 @@
 
       <div class="hero-body">
         <div class="profile">
-          <!-- Avatar: keep only on homepage -->
           <img src="avatar.jpg" alt="Zihua Luo" class="avatar" />
 
-          <!-- Quick links under headshot (LinkedIn + Instagram) -->
           <div class="social-row" aria-label="Quick links">
             <a class="social" href="https://www.linkedin.com/in/zihualuo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <svg class="li-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -730,7 +767,6 @@
             </a>
           </div>
 
-          <!-- Name line like LinkedIn (name + designation + badge + pronouns) -->
           <div class="name-line">
             <h1>Zihua Luo, <span class="designation">FRM</span></h1>
             <span class="pronouns">He/Him</span>
@@ -741,7 +777,6 @@
             <span class="pill">Personal Space · Train in Motion</span>
           </div>
 
-          <!-- Bio (placeholder, you will send content later) -->
           <div class="bio">
             <div class="bio-title">Bio</div>
             <div class="bio-text">
@@ -761,10 +796,49 @@
         <div class="cta-row">
           <a class="btn primary" href="#notes">去看随想 · Read Notes</a>
           <a class="btn" href="#about">关于我 · About</a>
+          <a class="btn" href="#music">分享音乐 · Music</a>
+        </div>
+
+        <!-- Quick Entry -->
+        <div class="quick-grid" aria-label="Quick entry">
+          <a class="quick" href="#notes">
+            <h4>随想 Notes</h4>
+            <p>短句、片段、心情与想法。像时间线一样慢慢积累。</p>
+            <span class="k">→ Go</span>
+          </a>
+
+          <a class="quick" href="#essays">
+            <h4>随笔 Essays</h4>
+            <p>更长的文字：故事、复盘、思考、方法论。</p>
+            <span class="k">→ Go</span>
+          </a>
+
+          <a class="quick" href="#music">
+            <h4>音乐 Music</h4>
+            <p>每周一首歌 + 一句理由。把听见的东西留下来。</p>
+            <span class="k">→ Go</span>
+          </a>
+
+          <a class="quick" href="#library">
+            <h4>收藏 Library</h4>
+            <p>书、电影、播客、文章：你喜欢的东西会构成你。</p>
+            <span class="k">→ Go</span>
+          </a>
+
+          <a class="quick" href="archive.html">
+            <h4>归档 Archive</h4>
+            <p>按年份/主题整理（以后你写多了会非常有用）。</p>
+            <span class="k">↗ Open</span>
+          </a>
+
+          <a class="quick" href="about.html">
+            <h4>关于 About+</h4>
+            <p>更完整的介绍、兴趣清单、联系方法（可选）。</p>
+            <span class="k">↗ Open</span>
+          </a>
         </div>
       </div>
     </header>
-
 
     <!-- Notes -->
     <section id="notes" class="section reveal">
@@ -801,7 +875,7 @@
           <div class="tag-row">
             <span class="tag">Reading</span><span class="tag">Film</span><span class="tag">Moments</span>
           </div>
-          <a class="mini-link" href="#notes"><span>编辑模板 · Edit</span></a>
+          <a class="mini-link" href="#library"><span>去收藏区 · Library</span></a>
         </article>
 
         <article class="card">
@@ -811,11 +885,119 @@
           <div class="tag-row">
             <span class="tag">Future</span><span class="tag">Empty Slot</span><span class="tag">Keep</span>
           </div>
-          <a class="mini-link" href="#notes"><span>编辑模板 · Edit</span></a>
+          <a class="mini-link" href="archive.html"><span>归档 · Archive</span></a>
         </article>
       </div>
     </section>
 
+    <!-- Essays -->
+    <section id="essays" class="section reveal">
+      <div class="section-title">
+        <h3>随笔 · Essays</h3>
+        <div class="hint">更长的表达：故事 / 复盘 / 方法论</div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-title">随笔模板 · Essay Template</div>
+          <div class="card-meta">2026 · Draft</div>
+          <p>写一篇 600～1200 字：讲清楚“我在想什么”，就够了。</p>
+          <div class="tag-row">
+            <span class="tag">Essay</span><span class="tag">Longform</span><span class="tag">Draft</span>
+          </div>
+          <a class="mini-link" href="essays.html"><span>查看全部 · All Essays</span></a>
+        </article>
+
+        <article class="card">
+          <div class="card-title">复盘：我如何让自己持续前进</div>
+          <div class="card-meta">Coming Soon</div>
+          <p>你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。</p>
+          <div class="tag-row">
+            <span class="tag">Review</span><span class="tag">Systems</span><span class="tag">Growth</span>
+          </div>
+          <a class="mini-link" href="essays.html"><span>阅读 · Read</span></a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Music -->
+    <section id="music" class="section reveal">
+      <div class="section-title">
+        <h3>音乐 · Music</h3>
+        <div class="hint">每周一首歌 + 一句理由（很有个人气质）</div>
+      </div>
+
+      <div class="two-col">
+        <div class="quote">
+          <b>本周推荐 · Track of the Week</b><br>
+          🎧 Song: ____________<br>
+          🎼 Artist: ____________<br>
+          ✍️ Why: ______________________
+        </div>
+
+        <div class="quote">
+          <b>放链接（Spotify / Apple Music / YouTube）</b><br>
+          · Spotify: (link)<br>
+          · Apple Music: (link)<br>
+          · YouTube: (link)
+          <div style="margin-top:10px;">
+            <a class="btn" href="music.html">进入音乐页 · Open Music Page</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:14px;">
+        <article class="card">
+          <div class="card-title">Playlist · 夜里开小火车</div>
+          <div class="card-meta">Template</div>
+          <p>把 10 首歌做成一个主题播放列表，配一句话介绍。</p>
+          <div class="tag-row">
+            <span class="tag">Playlist</span><span class="tag">Mood</span><span class="tag">Weekly</span>
+          </div>
+          <a class="mini-link" href="music.html"><span>打开 · Open</span></a>
+        </article>
+
+        <article class="card">
+          <div class="card-title">音乐碎片 · Music Notes</div>
+          <div class="card-meta">Template</div>
+          <p>记录一句歌词、一段旋律带来的感受。</p>
+          <div class="tag-row">
+            <span class="tag">Lyrics</span><span class="tag">Feelings</span><span class="tag">Notes</span>
+          </div>
+          <a class="mini-link" href="music.html"><span>打开 · Open</span></a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Library -->
+    <section id="library" class="section reveal">
+      <div class="section-title">
+        <h3>收藏 · Library</h3>
+        <div class="hint">书 / 电影 / 播客 / 文章：你喜欢的东西会组成你</div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-title">📚 Books I’m Reading</div>
+          <div class="card-meta">Update anytime</div>
+          <p>《______》— 为什么在读：______</p>
+          <div class="tag-row">
+            <span class="tag">Books</span><span class="tag">Reading</span><span class="tag">Notes</span>
+          </div>
+          <a class="mini-link" href="archive.html"><span>归档 · Archive</span></a>
+        </article>
+
+        <article class="card">
+          <div class="card-title">🎬 Films / Series</div>
+          <div class="card-meta">Update anytime</div>
+          <p>本周看了：______。一句话感受：______。</p>
+          <div class="tag-row">
+            <span class="tag">Film</span><span class="tag">Series</span><span class="tag">Mood</span>
+          </div>
+          <a class="mini-link" href="archive.html"><span>归档 · Archive</span></a>
+        </article>
+      </div>
+    </section>
 
     <!-- Now -->
     <section id="now" class="section reveal">
@@ -844,7 +1026,6 @@
       </div>
     </section>
 
-
     <!-- About -->
     <section id="about" class="section reveal">
       <div class="section-title">
@@ -857,6 +1038,7 @@
           <p>你好，我是 <b>Zihua Luo</b>。</p>
           <p>“只开小火车” 是我给自己的代号。它更像一种状态：<b>缓慢、专注、向前</b>，但不喧哗。</p>
           <p class="muted">这里不会涉及隐私，更多是一些阶段性的思考、感受与记录。</p>
+          <p class="muted" style="margin-top:10px;">（可选）你也可以创建 <code>about.html</code> 做更完整的“关于我”。</p>
         </div>
 
         <div>
@@ -912,12 +1094,11 @@
         });
       }
 
-      // follow system changes only if user hasn't chosen manually
       const mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
       if (mq && !stored) mq.addEventListener("change", () => applyTheme(getSystemTheme()));
     })();
 
-    // Smooth scroll for internal anchors
+    // Smooth scroll for internal anchors (only handle #... links)
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const id = a.getAttribute('href');
