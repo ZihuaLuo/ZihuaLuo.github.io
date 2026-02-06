@@ -131,9 +131,8 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
-      padding: 24px 22px 80px; /* ✅ 不再额外补偿 topbar */
+      padding: calc(var(--topbar-h) + 24px) 22px 80px; /* 给 sticky topbar 留空间 */
     }
-
 
     /* ===== Border / Art ===== */
     .edge{
@@ -875,8 +874,7 @@
 
     @media (max-width: 860px){
       .name-line h1{ font-size: 34px; }
-      .container{ padding: 24px 14px 80px; }
-      }
+      .container{ padding-top: calc(var(--topbar-h) + 32px); padding-left: 14px; padding-right: 14px; }
       .hero-body{ padding: 0 18px 22px; }
       .section{ padding: 20px 16px; }
       .card{ grid-column: span 12; }
