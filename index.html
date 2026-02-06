@@ -49,10 +49,12 @@
       --edge-highlight: rgba(255,255,255,0.55);
       --edge-noise: 0.018;
 
-      /* Header sizing tokens */
-      --topbar-h: 64px;
-      --topbar-pad-x: 18px;
-      --topbar-gap: 12px;
+      /* ✅ Header tokens（居中圆角胶囊条） */
+      --topbar-h: 56px;
+      --topbar-top: 14px;
+      --topbar-pad-x: 14px;
+      --topbar-gap: 10px;
+      --topbar-maxw: 1120px;
     }
 
     html[data-theme="dark"]{
@@ -131,7 +133,8 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
-      padding: calc(var(--topbar-h) + 24px) 22px 80px; /* 给 sticky topbar 留空间 */
+      /* ✅ 给“居中圆角 header”留空间：topbar + top offset + 额外空隙 */
+      padding: calc(var(--topbar-h) + var(--topbar-top) + 34px) 22px 80px;
     }
 
     /* ===== Border / Art ===== */
@@ -148,8 +151,7 @@
       inset:0;
       border-radius: inherit;
       padding: 1px;
-      background:
-        linear-gradient(135deg, var(--edge-grad-1), var(--edge-grad-2), var(--edge-grad-3));
+      background: linear-gradient(135deg, var(--edge-grad-1), var(--edge-grad-2), var(--edge-grad-3));
       -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
@@ -191,57 +193,55 @@
     }
 
     /* =========================
-       ✅ Topbar v3: 不挤压版
-       - 左：品牌
-       - 中：导航（宽屏显示）
-       - 右：控件（自动换行）
-       - 窄屏：导航折叠进菜单
+       ✅ Topbar v4: 居中圆角胶囊
     ========================= */
-
     .topbar{
       position: sticky;
-      top: 0;
+      top: var(--topbar-top);
       z-index: 40;
 
       height: var(--topbar-h);
-      padding: 10px var(--topbar-pad-x);
+      width: min(var(--topbar-maxw), calc(100vw - 28px));
+      margin: var(--topbar-top) auto 0;
+
       display: flex;
       align-items: center;
       gap: var(--topbar-gap);
+      padding: 10px var(--topbar-pad-x);
 
+      border-radius: 999px;
       background: rgba(255,255,255,0.78);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 28px rgba(15,15,15,0.08);
     }
-    html[data-theme="dark"] .topbar{ background: rgba(10,18,32,0.72); }
+    html[data-theme="dark"] .topbar{
+      background: rgba(10,18,32,0.66);
+      box-shadow: 0 16px 46px rgba(0,0,0,0.42);
+    }
 
     .topbar-left{
       display:flex;
       align-items:center;
       flex: 0 0 auto;
-      min-width: 180px;
+      min-width: 0;
     }
-
     .topbar-center{
       display:flex;
       align-items:center;
       justify-content:center;
-      gap: 8px;
+      gap: 6px;
       flex: 1 1 auto;
-      min-width: 0; /* ✅ 允许收缩，不会把右侧挤爆 */
+      min-width: 0;
       overflow: hidden;
     }
-
     .topbar-right{
       display:flex;
       align-items:center;
       justify-content:flex-end;
       gap: 10px;
-      flex: 0 0 auto;
-      min-width: 340px; /* ✅ 给右侧一个“底线” */
-      flex-wrap: wrap;   /* ✅ 右侧控件可换行，永不挤成一坨 */
-      row-gap: 10px;
+      flex: 0 1 auto;
+      min-width: 0;
+      flex-wrap: nowrap;
     }
 
     .brandmark{
@@ -252,7 +252,12 @@
       letter-spacing: .2px;
       text-decoration: none !important;
       color: var(--text);
+      padding: 8px 10px;
+      border-radius: 999px;
     }
+    .brandmark:hover{ background: rgba(0,0,0,0.04); text-decoration:none; }
+    html[data-theme="dark"] .brandmark:hover{ background: rgba(255,255,255,0.06); }
+
     .brandmark-dot{
       width: 18px;
       height: 12px;
@@ -260,13 +265,13 @@
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       box-shadow: 0 10px 24px rgba(15,15,15,0.10);
     }
-    .brandmark-text{ font-size: 16px; white-space: nowrap; }
+    .brandmark-text{ font-size: 15px; white-space: nowrap; }
 
     .toplink{
-      font-size: 15px;
-      color: rgba(31,31,31,0.86);
-      padding: 6px 10px;
-      border-radius: 10px;
+      font-size: 14px;
+      color: rgba(31,31,31,0.84);
+      padding: 8px 10px;
+      border-radius: 999px;
       text-decoration: none !important;
       white-space: nowrap;
     }
@@ -278,16 +283,15 @@
       display:flex;
       align-items:center;
       gap: 8px;
-      height: 40px;
+      height: 38px;
       padding: 0 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.66);
 
-      /* ✅ 核心：搜索框能伸缩，不会挤压其他控件 */
-      flex: 1 1 240px;
-      min-width: 180px;
-      max-width: 360px;
+      flex: 1 1 200px;
+      min-width: 140px;
+      max-width: 320px;
     }
     html[data-theme="dark"] .searchwrap{ background: rgba(255,255,255,0.06); }
 
@@ -300,7 +304,7 @@
       background: transparent;
       color: var(--text);
       width: 100%;
-      font-size: 14px;
+      font-size: 13px;
       min-width: 0;
     }
     .search::placeholder{ color: rgba(31,31,31,0.50); }
@@ -311,7 +315,7 @@
       appearance: none;
       border: 0;
       cursor: pointer;
-      height: 40px;
+      height: 38px;
       border-radius: 999px;
       padding: 0 14px;
       display: inline-flex;
@@ -319,18 +323,18 @@
       gap: 8px;
       white-space: nowrap;
       user-select: none;
-      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      box-shadow: 0 10px 22px rgba(15,15,15,0.06);
       transition: transform 120ms ease, box-shadow 120ms ease;
     }
+
     .theme-toggle{
       background: var(--chip-bg);
       color: var(--chip-text);
-      padding: 8px 12px;
+      padding: 0 12px;
     }
     .theme-toggle .hint{ font-size: 12px; color: var(--muted); }
     .theme-toggle:hover,
-    .sponsor-btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
-    .theme-toggle:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
+    .sponsor-btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 30px rgba(15,15,15,0.10); }
 
     .sponsor-btn{
       background: linear-gradient(135deg, rgba(42,111,93,0.14), rgba(176,122,72,0.14));
@@ -343,47 +347,43 @@
     }
 
     .lang-select{
-      height: 40px;
+      height: 38px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--chip-bg);
       color: var(--chip-text);
-      padding: 0 12px;
+      padding: 0 10px;
       font-size: 13px;
       outline: none;
       cursor: pointer;
       white-space: nowrap;
-      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      box-shadow: 0 10px 22px rgba(15,15,15,0.06);
       flex: 0 0 auto;
     }
-    html[data-theme="dark"] .lang-select{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
     .lang-select:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
 
-    /* Hamburger (仅窄屏出现) */
     .menu-btn{
       display: none;
       appearance: none;
       border: 0;
       cursor: pointer;
-      height: 40px;
-      width: 44px;
+      height: 38px;
+      width: 42px;
       border-radius: 999px;
       background: var(--chip-bg);
       color: var(--chip-text);
-      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      box-shadow: 0 10px 22px rgba(15,15,15,0.06);
       transition: transform 120ms ease, box-shadow 120ms ease;
       align-items: center;
       justify-content: center;
       flex: 0 0 auto;
     }
-    .menu-btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
-    html[data-theme="dark"] .menu-btn{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
+    .menu-btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 30px rgba(15,15,15,0.10); }
 
-    /* Dropdown menu panel */
     .menu-panel{
       position: absolute;
-      top: calc(var(--topbar-h) + 8px);
-      right: var(--topbar-pad-x);
+      top: calc(var(--topbar-h) + 12px);
+      right: 12px;
       width: min(360px, calc(100vw - 24px));
       border-radius: 18px;
       background: var(--card);
@@ -417,27 +417,23 @@
     .menu-item:hover{ background: rgba(0,0,0,0.04); }
     html[data-theme="dark"] .menu-item:hover{ background: rgba(255,255,255,0.06); }
 
-    /* ✅ 关键断点：窄屏折叠导航 + 右侧不挤 */
     @media (max-width: 980px){
-      .topbar-center{ display: none; }  /* 中间导航隐藏 */
+      .topbar-center{ display: none; }
       .menu-btn{ display: inline-flex; }
-      .topbar-right{ min-width: 0; }    /* 让右侧不强行撑宽 */
-      .searchwrap{ max-width: none; }   /* 搜索可更宽也可更窄 */
+      .topbar-right{ gap: 8px; }
+      .searchwrap{ max-width: 260px; }
     }
 
     @media (max-width: 520px){
-      :root{ --topbar-pad-x: 12px; }
-      .topbar-left{ min-width: 0; }
-      .brandmark-text{ display: none; } /* 极窄屏只保留小标识 */
-      .sponsor-btn span{ display: none; } /* 只留 ☕ */
-      .theme-toggle .hint{ display: none; } /* 只留图标 */
-      .searchwrap{ flex-basis: 180px; min-width: 150px; }
+      .brandmark-text{ display: none; }
+      .sponsor-btn span{ display: none; }
+      .theme-toggle .hint{ display: none; }
+      .searchwrap{ flex-basis: 170px; min-width: 130px; }
       .container{ padding-left: 14px; padding-right: 14px; }
     }
 
-    /* ====== 你原本的页面内容（Hero / Cards / Sections 等）保持不变 ====== */
+    /* ====== 你原本的页面内容（Hero / Cards / Sections 等） ====== */
 
-    /* Hero */
     header.hero{
       margin-top: 0;
       border-radius: var(--radius-lg);
@@ -874,7 +870,7 @@
 
     @media (max-width: 860px){
       .name-line h1{ font-size: 34px; }
-      .container{ padding-top: calc(var(--topbar-h) + 32px); padding-left: 14px; padding-right: 14px; }
+      .container{ padding-top: calc(var(--topbar-h) + var(--topbar-top) + 34px); padding-left: 14px; padding-right: 14px; }
       .hero-body{ padding: 0 18px 22px; }
       .section{ padding: 20px 16px; }
       .card{ grid-column: span 12; }
@@ -896,8 +892,8 @@
 <body>
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- ✅ Header (Topbar v3) -->
-  <nav class="topbar" aria-label="Site header">
+  <!-- ✅ Header：居中圆角胶囊（v4） -->
+  <nav class="topbar edge grain" aria-label="Site header">
     <div class="topbar-left">
       <a class="brandmark" href="#top" aria-label="Home">
         <span class="brandmark-dot" aria-hidden="true"></span>
@@ -916,10 +912,7 @@
     </div>
 
     <div class="topbar-right">
-      <!-- 窄屏菜单按钮 -->
-      <button class="menu-btn edge" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false">
-        ☰
-      </button>
+      <button class="menu-btn edge" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false">☰</button>
 
       <select class="lang-select edge" id="langSelect" aria-label="Language selector">
         <option value="zh-CN">简体中文</option>
@@ -944,7 +937,7 @@
       </button>
     </div>
 
-    <!-- 窄屏下拉菜单（把导航收进来） -->
+    <!-- 窄屏下拉菜单 -->
     <div class="menu-panel edge grain" id="menuPanel" aria-hidden="true">
       <div class="menu-list">
         <a class="menu-item" href="#notes" data-i18n="nav.notes">Notes</a>
@@ -1376,87 +1369,87 @@
         "hero.intro3": "一个安静的地方，用来记录生活、情绪与思考。",
         "hero.intro4": "不求宏大，只保留真实的碎片。",
 
-        "cta.readNotes": "去看随想",
-        "cta.tracks": "轨道",
-        "cta.music": "分享音乐",
+        "cta.readNotes": "去看随想 · Read Notes",
+        "cta.tracks": "轨道 · Tracks",
+        "cta.music": "分享音乐 · Music",
 
         "quick.go": "→ 进入",
         "quick.open": "↗ 打开",
-        "quick.notes.title": "随想",
+        "quick.notes.title": "随想 Notes",
         "quick.notes.desc": "短句、片段、心情与想法。像时间线一样慢慢积累。",
-        "quick.essays.title": "随笔",
+        "quick.essays.title": "随笔 Essays",
         "quick.essays.desc": "更长的文字：故事、复盘、思考、方法论。",
-        "quick.music.title": "音乐",
+        "quick.music.title": "音乐 Music",
         "quick.music.desc": "每周一首歌 + 一句理由。把听见的东西留下来。",
-        "quick.library.title": "收藏",
+        "quick.library.title": "收藏 Library",
         "quick.library.desc": "书、电影、播客、文章：你喜欢的东西会构成你。",
-        "quick.archive.title": "归档",
+        "quick.archive.title": "归档 Archive",
         "quick.archive.desc": "按年份/主题整理（以后你写多了会非常有用）。",
-        "quick.tracks.title": "轨道",
+        "quick.tracks.title": "轨道 Tracks",
         "quick.tracks.desc": "你正在做的事、你要去的方向、以及联系你。",
 
-        "section.notes.title": "随想",
+        "section.notes.title": "随想 · Notes",
         "section.notes.hint": "（下一步可以把每篇随想做成独立页面 + 独立链接）",
-        "section.essays.title": "随笔",
+        "section.essays.title": "随笔 · Essays",
         "section.essays.hint": "更长的表达：故事 / 复盘 / 方法论",
-        "section.music.title": "音乐",
+        "section.music.title": "音乐 · Music",
         "section.music.hint": "每周一首歌 + 一句理由（很有个人气质）",
-        "section.library.title": "收藏",
+        "section.library.title": "收藏 · Library",
         "section.library.hint": "书 / 电影 / 播客 / 文章：你喜欢的东西会组成你",
-        "section.now.title": "现在",
+        "section.now.title": "现在 · Now",
         "section.now.hint": "一段“此刻的我”，随时可改",
-        "section.tracks.title": "轨道",
+        "section.tracks.title": "轨道 · Tracks",
         "section.tracks.hint": "正在做的事 / 想去的方向 / 联系方式",
 
-        "notes.card1.title": "第一篇随想",
-        "notes.card1.meta": "2026 · 即将上线",
+        "notes.card1.title": "第一篇随想 · First Note",
+        "notes.card1.meta": "2026 · Coming Soon",
         "notes.card1.desc": "先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。",
 
-        "notes.card2.title": "一些尚未命名的思考",
-        "notes.card2.meta": "即将上线",
+        "notes.card2.title": "一些尚未命名的思考 · Untitled Thoughts",
+        "notes.card2.meta": "Coming Soon",
         "notes.card2.desc": "不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。",
 
-        "notes.card3.title": "读书 / 电影 / 片刻",
-        "notes.card3.meta": "模板",
+        "notes.card3.title": "读书 / 电影 / 片刻 · Reading / Film / Moments",
+        "notes.card3.meta": "Template",
         "notes.card3.desc": "你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。",
 
-        "notes.card4.title": "未来的某天",
-        "notes.card4.meta": "模板",
+        "notes.card4.title": "未来的某天 · Someday",
+        "notes.card4.meta": "Template",
         "notes.card4.desc": "留一个空位给未来。等你想写的时候，它就在那里。",
 
-        "essays.card1.title": "随笔模板",
-        "essays.card1.meta": "2026 · 草稿",
+        "essays.card1.title": "随笔模板 · Essay Template",
+        "essays.card1.meta": "2026 · Draft",
         "essays.card1.desc": "写一篇 600～1200 字：讲清楚“我在想什么”，就够了。",
 
         "essays.card2.title": "复盘：我如何让自己持续前进",
-        "essays.card2.meta": "即将上线",
+        "essays.card2.meta": "Coming Soon",
         "essays.card2.desc": "你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。",
 
-        "music.week.title": "本周推荐",
-        "music.week.song": "🎧 歌曲：____________",
-        "music.week.artist": "🎼 歌手：____________",
-        "music.week.why": "✍️ 理由：______________________",
+        "music.week.title": "本周推荐 · Track of the Week",
+        "music.week.song": "🎧 Song: ____________",
+        "music.week.artist": "🎼 Artist: ____________",
+        "music.week.why": "✍️ Why: ______________________",
 
         "music.links.title": "放链接（Spotify / Apple Music / YouTube）",
-        "music.links.spotify": "· Spotify： (link)",
-        "music.links.apple": "· Apple Music： (link)",
-        "music.links.youtube": "· YouTube： (link)",
-        "music.openPage": "进入音乐页",
+        "music.links.spotify": "· Spotify: (link)",
+        "music.links.apple": "· Apple Music: (link)",
+        "music.links.youtube": "· YouTube: (link)",
+        "music.openPage": "进入音乐页 · Open Music Page",
 
-        "music.card1.title": "播放列表 · 夜里开小火车",
-        "music.card1.meta": "模板",
+        "music.card1.title": "Playlist · 夜里开小火车",
+        "music.card1.meta": "Template",
         "music.card1.desc": "把 10 首歌做成一个主题播放列表，配一句话介绍。",
 
-        "music.card2.title": "音乐碎片",
-        "music.card2.meta": "模板",
+        "music.card2.title": "音乐碎片 · Music Notes",
+        "music.card2.meta": "Template",
         "music.card2.desc": "记录一句歌词、一段旋律带来的感受。",
 
-        "library.card1.title": "📚 我在读的书",
-        "library.card1.meta": "随时更新",
+        "library.card1.title": "📚 Books I’m Reading",
+        "library.card1.meta": "Update anytime",
         "library.card1.desc": "《______》— 为什么在读：______",
 
-        "library.card2.title": "🎬 电影 / 剧集",
-        "library.card2.meta": "随时更新",
+        "library.card2.title": "🎬 Films / Series",
+        "library.card2.meta": "Update anytime",
         "library.card2.desc": "本周看了：______。一句话感受：______。",
 
         "now.cn.title": "这段可以当作你的“近况栏”",
@@ -1464,61 +1457,61 @@
         "now.cn.learning": "· 最近在学习：____________",
         "now.cn.thinking": "· 最近在思考：____________",
 
-        "now.en.title": "（英文版本也可以写在这里）",
-        "now.en.focus": "· Focus：____________",
-        "now.en.learning": "· Learning：____________",
-        "now.en.thinking": "· Thinking：____________",
+        "now.en.title": "This can be your “Now” box",
+        "now.en.focus": "· Focus: ____________",
+        "now.en.learning": "· Learning: ____________",
+        "now.en.thinking": "· Thinking: ____________",
 
-        "tracks.left.title": "在路上",
+        "tracks.left.title": "在路上 · In Motion",
         "tracks.left.desc": "把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。",
-        "tracks.left.boxTitle": "正在做",
-        "tracks.left.item1": "· 个人网站：优化写作 + 结构",
-        "tracks.left.item2": "· 随想 / 随笔：每周更新",
-        "tracks.left.item3": "· 音乐：本周推荐",
+        "tracks.left.boxTitle": "Now building",
+        "tracks.left.item1": "· Personal website: refining writing + structure",
+        "tracks.left.item2": "· Notes / Essays: weekly update",
+        "tracks.left.item3": "· Music: track of the week",
 
-        "tracks.right.title": "联系",
+        "tracks.right.title": "联系 · Connect",
         "tracks.right.desc": "你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。",
-        "tracks.right.linksTitle": "链接",
-        "tracks.right.linksDesc": "· LinkedIn / Instagram 已在头像下方<br>· 你也可以加：GitHub、简历、邮箱",
-        "tracks.right.github": "GitHub（修改）",
-        "tracks.right.resume": "简历（修改）",
-        "tracks.right.email": "邮箱（修改）",
+        "tracks.right.linksTitle": "Links",
+        "tracks.right.linksDesc": "· LinkedIn / Instagram 已在头像下方<br>· 你也可以加：GitHub、Resume、Email",
+        "tracks.right.github": "GitHub (edit)",
+        "tracks.right.resume": "Resume (edit)",
+        "tracks.right.email": "Email (edit)",
         "tracks.right.quote": "中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
 
-        "action.read": "阅读",
-        "action.open": "打开",
-        "action.archive": "归档",
-        "action.toLibrary": "去收藏区",
-        "action.allEssays": "查看全部",
+        "action.read": "阅读 · Read",
+        "action.open": "打开 · Open",
+        "action.archive": "归档 · Archive",
+        "action.toLibrary": "去收藏区 · Library",
+        "action.allEssays": "查看全部 · All Essays",
 
-        "tag.life": "生活",
-        "tag.reflection": "反思",
+        "tag.life": "Life",
+        "tag.reflection": "Reflection",
         "tag.bilingual": "中文/EN",
-        "tag.slow": "慢",
-        "tag.quiet": "安静",
-        "tag.notes": "随想",
-        "tag.reading": "阅读",
-        "tag.film": "电影",
-        "tag.moments": "片刻",
-        "tag.future": "未来",
-        "tag.empty": "空位",
-        "tag.keep": "保留",
-        "tag.essay": "随笔",
-        "tag.longform": "长文",
-        "tag.draft": "草稿",
-        "tag.review": "复盘",
-        "tag.systems": "系统",
-        "tag.growth": "成长",
-        "tag.playlist": "播放列表",
-        "tag.mood": "情绪",
-        "tag.weekly": "每周",
-        "tag.lyrics": "歌词",
-        "tag.feelings": "感受",
-        "tag.books": "书籍",
-        "tag.series": "剧集",
-        "tag.connect": "联系",
-        "tag.links": "链接",
-        "tag.public": "公开",
+        "tag.slow": "Slow",
+        "tag.quiet": "Quiet",
+        "tag.notes": "Notes",
+        "tag.reading": "Reading",
+        "tag.film": "Film",
+        "tag.moments": "Moments",
+        "tag.future": "Future",
+        "tag.empty": "Empty Slot",
+        "tag.keep": "Keep",
+        "tag.essay": "Essay",
+        "tag.longform": "Longform",
+        "tag.draft": "Draft",
+        "tag.review": "Review",
+        "tag.systems": "Systems",
+        "tag.growth": "Growth",
+        "tag.playlist": "Playlist",
+        "tag.mood": "Mood",
+        "tag.weekly": "Weekly",
+        "tag.lyrics": "Lyrics",
+        "tag.feelings": "Feelings",
+        "tag.books": "Books",
+        "tag.series": "Series",
+        "tag.connect": "Connect",
+        "tag.links": "Links",
+        "tag.public": "Public",
 
         "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience",
 
@@ -1549,7 +1542,7 @@
         "hero.intro1": "A quiet corner for recording life, emotions, and thoughts.",
         "hero.intro2": "Nothing grand — only fragments of honesty.",
         "hero.intro3": "A quiet space for documenting life, emotions, and reflections.",
-        "hero.intro4": "No grand narrative — just honest fragments.",
+        "hero.intro4": "Nothing grand — only fragments of honesty.",
 
         "cta.readNotes": "Read Notes",
         "cta.tracks": "Tracks",
@@ -1645,30 +1638,30 @@
         "now.en.thinking": "· Thinking: ____________",
 
         "tracks.left.title": "In Motion",
-        "tracks.left.desc": "Think of this as your public progress bar: what you’re building, practising, chasing.",
+        "tracks.left.desc": "Your public progress bar: what you’re building, practicing, chasing.",
         "tracks.left.boxTitle": "Now building",
         "tracks.left.item1": "· Personal website: refining writing + structure",
         "tracks.left.item2": "· Notes / Essays: weekly update",
         "tracks.left.item3": "· Music: track of the week",
 
         "tracks.right.title": "Connect",
-        "tracks.right.desc": "Swap this for: email, résumé, portfolio (a public email is enough).",
+        "tracks.right.desc": "Put your email, resume, and portfolio here (public email is enough).",
         "tracks.right.linksTitle": "Links",
-        "tracks.right.linksDesc": "· LinkedIn / Instagram are under the avatar<br>· You can add: GitHub, Résumé, Email",
+        "tracks.right.linksDesc": "· LinkedIn / Instagram are below the avatar<br>· Add GitHub, Resume, Email",
         "tracks.right.github": "GitHub (edit)",
-        "tracks.right.resume": "Résumé (edit)",
+        "tracks.right.resume": "Resume (edit)",
         "tracks.right.email": "Email (edit)",
-        "tracks.right.quote": "It’s okay to go slowly — what matters is staying in motion.",
+        "tracks.right.quote": "中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
 
         "action.read": "Read",
         "action.open": "Open",
         "action.archive": "Archive",
-        "action.toLibrary": "Go to Library",
+        "action.toLibrary": "To Library",
         "action.allEssays": "All Essays",
 
         "tag.life": "Life",
         "tag.reflection": "Reflection",
-        "tag.bilingual": "ZH/EN",
+        "tag.bilingual": "CN/EN",
         "tag.slow": "Slow",
         "tag.quiet": "Quiet",
         "tag.notes": "Notes",
@@ -1699,218 +1692,135 @@
 
         "sponsor.btn": "Sponsor",
         "sponsor.title": "Sponsor",
-        "sponsor.desc": "If this site helps you, feel free to buy me a coffee ☕",
+        "sponsor.desc": "If you find this helpful, feel free to buy me a coffee ☕",
         "sponsor.wechat": "WeChat Pay",
         "sponsor.alipay": "Alipay"
       }
     };
 
-    // ===== Theme =====
-    (function () {
-      const STORAGE_KEY = "theme";
-      const root = document.documentElement;
-      const btn = document.getElementById("themeToggle");
-      const icon = document.getElementById("themeIcon");
-      const text = document.getElementById("themeText");
+    // ===============================
+    // Theme toggle
+    // ===============================
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
 
-      function getSystemTheme() {
-        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-      }
+    function setTheme(mode){
+      document.documentElement.setAttribute('data-theme', mode);
+      const isDark = mode === 'dark';
+      themeIcon.textContent = isDark ? '☀️' : '🌙';
+      themeText.textContent = isDark ? 'Light' : 'Dark';
+      localStorage.setItem('theme', mode);
+    }
+    setTheme(localStorage.getItem('theme') || 'light');
 
-      function applyTheme(theme) {
-        root.setAttribute("data-theme", theme);
-        if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
-        if (text) text.textContent = theme === "dark" ? "Light" : "Dark";
-      }
-
-      const stored = localStorage.getItem(STORAGE_KEY);
-      const initial = stored || getSystemTheme();
-      applyTheme(initial);
-
-      if (btn) {
-        btn.addEventListener("click", () => {
-          const current = root.getAttribute("data-theme") || "light";
-          const next = current === "dark" ? "light" : "dark";
-          localStorage.setItem(STORAGE_KEY, next);
-          applyTheme(next);
-        });
-      }
-
-      const mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
-      if (mq && !stored) mq.addEventListener("change", () => applyTheme(getSystemTheme()));
-    })();
-
-    // ===== Language =====
-    (function(){
-      const STORAGE_KEY = "lang";
-      const root = document.documentElement;
-      const select = document.getElementById("langSelect");
-
-      function applyLang(lang){
-        const dict = I18N[lang] || I18N["zh-CN"];
-        root.setAttribute("data-lang", lang);
-        root.setAttribute("lang", lang);
-
-        document.querySelectorAll("[data-i18n]").forEach(el => {
-          const key = el.getAttribute("data-i18n");
-          if(!key) return;
-          const val = dict[key];
-          if(typeof val === "string"){
-            el.innerHTML = val;
-          }
-        });
-
-        const search = document.getElementById("siteSearch");
-        if(search){
-          search.placeholder = (lang === "en-CA") ? "Search" : "搜索";
-        }
-      }
-
-      const stored = localStorage.getItem(STORAGE_KEY);
-      const initial = stored || (navigator.language || "zh-CN");
-      const normalized = initial.startsWith("en") ? "en-CA" : "zh-CN";
-
-      if(select){
-        select.value = stored ? stored : normalized;
-        select.addEventListener("change", () => {
-          const lang = select.value;
-          localStorage.setItem(STORAGE_KEY, lang);
-          applyLang(lang);
-        });
-      }
-
-      applyLang(select ? select.value : "zh-CN");
-    })();
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href');
-        if (!id || id.length < 2) return;
-        const el = document.querySelector(id);
-        if (!el) return;
-        e.preventDefault();
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        // 关闭菜单（如果打开）
-        const panel = document.getElementById("menuPanel");
-        const btn = document.getElementById("menuBtn");
-        if(panel && panel.classList.contains("is-open")){
-          panel.classList.remove("is-open");
-          panel.setAttribute("aria-hidden", "true");
-          if(btn) btn.setAttribute("aria-expanded", "false");
-        }
-      });
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
     });
 
-    // Reveal
-    const els = Array.from(document.querySelectorAll('.reveal'));
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(ent => {
-        if (ent.isIntersecting) ent.target.classList.add('is-visible');
+    // ===============================
+    // i18n switch
+    // ===============================
+    const langSelect = document.getElementById('langSelect');
+
+    function applyLang(lang){
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang === 'zh-CN' ? 'zh-CN' : 'en');
+      const dict = I18N[lang] || I18N["zh-CN"];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (!key) return;
+        const val = dict[key];
+        if (val == null) return;
+        // allow <br> in a few strings
+        if (String(val).includes('<br>')) el.innerHTML = val;
+        else el.textContent = val;
+      });
+
+      // input placeholder
+      const search = document.getElementById('siteSearch');
+      if (search) search.placeholder = (lang === 'zh-CN') ? 'Search' : 'Search';
+
+      localStorage.setItem('lang', lang);
+    }
+
+    const savedLang = localStorage.getItem('lang') || 'zh-CN';
+    langSelect.value = savedLang;
+    applyLang(savedLang);
+
+    langSelect.addEventListener('change', (e) => {
+      applyLang(e.target.value);
+    });
+
+    // ===============================
+    // Mobile menu
+    // ===============================
+    const menuBtn = document.getElementById('menuBtn');
+    const menuPanel = document.getElementById('menuPanel');
+
+    function setMenu(open){
+      menuPanel.classList.toggle('is-open', open);
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMenu(!menuPanel.classList.contains('is-open'));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuPanel.contains(e.target) && e.target !== menuBtn) setMenu(false);
+    });
+
+    // ===============================
+    // Sponsor modal
+    // ===============================
+    const sponsorOpen = document.getElementById('sponsorOpen');
+    const sponsorModal = document.getElementById('sponsorModal');
+    const sponsorClose = document.getElementById('sponsorClose');
+
+    function setSponsor(open){
+      sponsorModal.classList.toggle('is-open', open);
+      sponsorModal.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    sponsorOpen.addEventListener('click', () => setSponsor(true));
+    sponsorClose.addEventListener('click', () => setSponsor(false));
+
+    sponsorModal.addEventListener('click', (e) => {
+      if (e.target && e.target.getAttribute('data-close') === '1') setSponsor(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setSponsor(false);
+    });
+
+    // ===============================
+    // Simple search: scroll to matched section
+    // ===============================
+    const siteSearch = document.getElementById('siteSearch');
+    const anchors = Array.from(document.querySelectorAll('section[id], header[id]'))
+      .map(el => ({ id: el.id, el, text: (el.innerText || '').toLowerCase() }));
+
+    siteSearch.addEventListener('input', () => {
+      const q = siteSearch.value.trim().toLowerCase();
+      if (!q) return;
+      const hit = anchors.find(a => a.text.includes(q) || a.id.includes(q));
+      if (hit) hit.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // ===============================
+    // Reveal on scroll
+    // ===============================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) en.target.classList.add('is-visible');
       });
     }, { threshold: 0.08 });
-    els.forEach(el => io.observe(el));
 
-    // ===== Search =====
-    (function(){
-      const input = document.getElementById("siteSearch");
-      if(!input) return;
-      function norm(s){ return (s || "").toLowerCase().trim(); }
-
-      input.addEventListener("keydown", (e) => {
-        if(e.key !== "Enter") return;
-        const q = norm(input.value);
-        if(!q) return;
-
-        const sections = [...document.querySelectorAll("section[id]")];
-        const section = sections.find(sec => {
-          const h = sec.querySelector(".section-title h3");
-          return h && norm(h.textContent).includes(q);
-        });
-        if(section){
-          section.scrollIntoView({ behavior: "smooth", block: "start" });
-          return;
-        }
-
-        const titles = [...document.querySelectorAll(".card-title")];
-        const hit = titles.find(t => norm(t.textContent).includes(q));
-        if(hit){
-          const card = hit.closest(".card");
-          (card || hit).scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      });
-    })();
-
-    // ✅ Hamburger menu logic
-    (function(){
-      const btn = document.getElementById("menuBtn");
-      const panel = document.getElementById("menuPanel");
-      if(!btn || !panel) return;
-
-      function open(){
-        panel.classList.add("is-open");
-        panel.setAttribute("aria-hidden", "false");
-        btn.setAttribute("aria-expanded", "true");
-      }
-      function close(){
-        panel.classList.remove("is-open");
-        panel.setAttribute("aria-hidden", "true");
-        btn.setAttribute("aria-expanded", "false");
-      }
-      function toggle(){
-        panel.classList.contains("is-open") ? close() : open();
-      }
-
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggle();
-      });
-
-      document.addEventListener("click", () => close());
-      document.addEventListener("keydown", (e) => {
-        if(e.key === "Escape") close();
-      });
-
-      // 防止点到面板内部就被 document click 关掉
-      panel.addEventListener("click", (e) => e.stopPropagation());
-    })();
-
-    // Sponsor modal
-    (function(){
-      const modal = document.getElementById("sponsorModal");
-      const openBtn = document.getElementById("sponsorOpen");
-      const closeBtn = document.getElementById("sponsorClose");
-
-      function open(){
-        if(!modal) return;
-        modal.classList.add("is-open");
-        modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-      }
-      function close(){
-        if(!modal) return;
-        modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
-      }
-
-      if(openBtn) openBtn.addEventListener("click", open);
-      if(closeBtn) closeBtn.addEventListener("click", close);
-
-      if(modal){
-        modal.addEventListener("click", (e) => {
-          const t = e.target;
-          if(t && t.getAttribute && t.getAttribute("data-close") === "1") close();
-        });
-      }
-
-      document.addEventListener("keydown", (e) => {
-        if(e.key === "Escape") close();
-      });
-    })();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
