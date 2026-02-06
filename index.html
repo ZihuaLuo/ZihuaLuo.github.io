@@ -55,6 +55,21 @@
       --topbar-pad-x: 14px;
       --topbar-gap: 10px;
       --topbar-maxw: 1120px;
+
+      /* ✅ Scroll-driven background tokens */
+      --scroll: 0; /* 0 ~ 1, set by JS */
+
+      /* Light: soft + warm */
+      --bg-top: #fbfaf7;
+      --bg-mid: #f6f3ee;
+      --bg-bot: #eef3f1;
+      /* extra tint that “comes in” when scrolling */
+      --bg-deep: #e8eef8;
+
+      /* glow strengths controlled by scroll */
+      --glow-1: rgba(42,111,93,0.14);
+      --glow-2: rgba(176,122,72,0.14);
+      --glow-3: rgba(42,111,93,0.10);
     }
 
     html[data-theme="dark"]{
@@ -87,6 +102,17 @@
       --edge-grad-3: rgba(255,255,255,0.16);
       --edge-highlight: rgba(255,255,255,0.12);
       --edge-noise: 0.022;
+
+      /* ✅ Scroll-driven background tokens (dark) */
+      --scroll: 0;
+      --bg-top: #070b13;
+      --bg-mid: #0a1220;
+      --bg-bot: #0b1220;
+      --bg-deep: #0b1630;
+
+      --glow-1: rgba(96,165,250,0.18);
+      --glow-2: rgba(251,191,36,0.12);
+      --glow-3: rgba(34,197,94,0.10);
     }
 
     *{ box-sizing: border-box; }
@@ -107,11 +133,35 @@
       position: fixed;
       inset: 0;
       z-index: -3;
+
+      /* ✅ Scroll-driven soft gradient */
       background:
-        radial-gradient(1200px 700px at 10% 10%, var(--bg-r1), transparent 55%),
-        radial-gradient(900px 600px at 90% 20%, var(--bg-r2), transparent 55%),
-        radial-gradient(900px 700px at 50% 110%, var(--bg-r3), transparent 60%),
-        linear-gradient(180deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%);
+        /* glows slowly drift downward with scroll */
+        radial-gradient(
+          1200px 700px
+          at calc(10% + var(--scroll)*8%) calc(10% + var(--scroll)*22%),
+          color-mix(in srgb, var(--glow-1) calc(100% - var(--scroll)*35%), transparent),
+          transparent 55%
+        ),
+        radial-gradient(
+          900px 600px
+          at calc(90% - var(--scroll)*6%) calc(20% + var(--scroll)*30%),
+          color-mix(in srgb, var(--glow-2) calc(100% - var(--scroll)*40%), transparent),
+          transparent 55%
+        ),
+        radial-gradient(
+          900px 700px
+          at 50% calc(110% - var(--scroll)*18%),
+          color-mix(in srgb, var(--glow-3) calc(100% - var(--scroll)*30%), transparent),
+          transparent 60%
+        ),
+        /* base gradient shifts “cooler/deeper” as you scroll */
+        linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--bg-top) calc(100% - var(--scroll)*30%), var(--bg-mid)) 0%,
+          color-mix(in srgb, var(--bg-mid) calc(100% - var(--scroll)*20%), var(--bg-bot)) 45%,
+          color-mix(in srgb, var(--bg-bot) calc(100% - var(--scroll)*30%), var(--bg-deep)) 100%
+        );
     }
 
     .bg::after{
@@ -119,7 +169,7 @@
       position: absolute;
       inset: -2px;
       z-index: -2;
-      opacity: var(--dot-opacity);
+      opacity: calc(var(--dot-opacity) * (1 - var(--scroll) * 0.35));
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none'%3E%3Ccircle cx='12' cy='18' r='1.2' fill='%232a6f5d' fill-opacity='0.16'/%3E%3Ccircle cx='64' cy='32' r='1.2' fill='%23b07a48' fill-opacity='0.14'/%3E%3Ccircle cx='94' cy='78' r='1.2' fill='%232a6f5d' fill-opacity='0.14'/%3E%3Ccircle cx='26' cy='92' r='1.2' fill='%23b07a48' fill-opacity='0.12'/%3E%3Ccircle cx='104' cy='14' r='1.2' fill='%232a6f5d' fill-opacity='0.10'/%3E%3C/g%3E%3C/svg%3E");
       background-size: 160px 160px;
@@ -1821,6 +1871,25 @@
     }, { threshold: 0.08 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ===============================
+    // Scroll-driven background gradient
+    // ===============================
+    (function(){
+      const root = document.documentElement;
+
+      function updateScrollVar(){
+        const doc = document.documentElement;
+        const scrollTop = window.scrollY || doc.scrollTop || 0;
+        const max = (doc.scrollHeight - window.innerHeight) || 1;
+        const t = Math.min(1, Math.max(0, scrollTop / max));
+        root.style.setProperty('--scroll', t.toFixed(4));
+      }
+
+      updateScrollVar();
+      window.addEventListener('scroll', updateScrollVar, { passive: true });
+      window.addEventListener('resize', updateScrollVar);
+    })();
   </script>
 </body>
 </html>
