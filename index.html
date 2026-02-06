@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light" data-lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,7 +42,6 @@
       --chip-text: rgba(31,31,31,0.86);
 
       --glass-bg: rgba(255,255,255,0.62);
-
       --quote-bg: rgba(42,111,93,0.07);
 
       /* Border art upgrade */
@@ -74,7 +73,6 @@
       --chip-text: rgba(229,231,235,0.92);
 
       --glass-bg: rgba(255,255,255,0.06);
-
       --quote-bg: rgba(96,165,250,0.10);
 
       --edge-soft: rgba(255,255,255,0.10);
@@ -127,7 +125,7 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
-      padding: 18px 22px 80px; /* slightly tighter since topbar is fixed */
+      padding: 18px 22px 80px; /* slightly tighter since topbar is sticky */
     }
 
     /* ===== Border / Art Upgrade ===== */
@@ -284,6 +282,22 @@
     .theme-toggle:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
     .theme-toggle .hint{ font-size: 12px; color: var(--muted); }
 
+    /* Language selector */
+    .lang-select{
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      padding: 0 12px;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+    }
+    html[data-theme="dark"] .lang-select{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
+    .lang-select:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
+
     /* Mobile topbar */
     @media (max-width: 860px){
       .topbar{
@@ -296,7 +310,7 @@
         gap: 10px;
       }
       .topbar-left{ grid-area:left; min-width: unset; }
-      .topbar-right{ grid-area:right; min-width: unset; }
+      .topbar-right{ grid-area:right; min-width: unset; flex-wrap: wrap; justify-content:flex-end; }
       .topbar-center{ grid-area:center; justify-content:flex-start; }
       .search{ width: 38vw; }
     }
@@ -656,6 +670,7 @@
       .avatar{ width: 156px; height: 156px; }
       .name-line h1{ font-size: 30px; }
       .pronouns{ font-size: 16px; }
+      .lang-select{ width: 100%; }
     }
   </style>
 </head>
@@ -668,20 +683,26 @@
     <div class="topbar-left">
       <a class="brandmark" href="#top" aria-label="Home">
         <span class="brandmark-dot" aria-hidden="true"></span>
-        <span class="brandmark-text">Community</span>
+        <span class="brandmark-text" data-i18n="brand.community">Community</span>
       </a>
     </div>
 
     <div class="topbar-center" role="navigation" aria-label="Primary">
-      <a class="toplink" href="#notes">Notes</a>
-      <a class="toplink" href="#essays">Essays</a>
-      <a class="toplink" href="#music">Music</a>
-      <a class="toplink" href="#library">Library</a>
-      <a class="toplink" href="#now">Now</a>
-      <a class="toplink" href="#tracks">Tracks</a>
+      <a class="toplink" href="#notes" data-i18n="nav.notes">Notes</a>
+      <a class="toplink" href="#essays" data-i18n="nav.essays">Essays</a>
+      <a class="toplink" href="#music" data-i18n="nav.music">Music</a>
+      <a class="toplink" href="#library" data-i18n="nav.library">Library</a>
+      <a class="toplink" href="#now" data-i18n="nav.now">Now</a>
+      <a class="toplink" href="#tracks" data-i18n="nav.tracks">Tracks</a>
     </div>
 
     <div class="topbar-right">
+      <select class="lang-select edge" id="langSelect" aria-label="Language selector">
+        <option value="zh-CN">简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="en-CA">English (Canada)</option>
+      </select>
+
       <div class="searchwrap">
         <svg class="searchicon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
@@ -712,7 +733,7 @@
               <svg class="li-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.4v1.56h.05c.47-.9 1.62-1.86 3.33-1.86 3.56 0 4.22 2.35 4.22 5.4v6.35zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/>
               </svg>
-              <span>LinkedIn</span>
+              <span data-i18n="social.linkedin">LinkedIn</span>
             </a>
 
             <a class="social edge" href="https://www.instagram.com/luozzihua/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -721,77 +742,80 @@
                 <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
                 <path d="M17.5 6.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/>
               </svg>
-              <span>Instagram</span>
+              <span data-i18n="social.instagram">Instagram</span>
             </a>
           </div>
 
           <div class="name-line">
-            <h1>Zihua Luo, <span class="designation">FRM</span></h1>
-            <span class="pronouns">He/Him</span>
+            <h1>
+              <span>Zihua Luo</span>, <span class="designation">FRM</span>
+            </h1>
+            <span class="pronouns" data-i18n="hero.pronouns">He/Him</span>
           </div>
 
           <div class="subtitle">
-            <span class="pill edge"><b>只开小火车</b></span>
-            <span class="pill edge">Personal Space · Train in Motion</span>
+            <span class="pill edge"><b data-i18n="hero.pill1">只开小火车</b></span>
+            <span class="pill edge" data-i18n="hero.pill2">Personal Space · Train in Motion</span>
           </div>
 
           <div class="bio edge">
-            <div class="bio-title">Bio</div>
+            <div class="bio-title" data-i18n="hero.bioTitle">Bio</div>
             <div class="bio-text">
-              <p class="muted">（把你的 Bio 发我，我会替换到这里：中英文都可以）</p>
+              <!-- 未来你要填内容：只改下面这行的 data-i18n 文案（在字典里改），或直接把这里改成 data-i18n="..." 的不同 key -->
+              <p class="muted" data-i18n="hero.bioPlaceholder">（把你的 Bio 发我，我会替换到这里：中英文都可以）</p>
             </div>
           </div>
         </div>
 
         <div class="intro">
-          <p>一个记录生活、情绪与思考的角落。</p>
-          <p class="muted">这里没有宏大叙事，只有零散的真实。</p>
+          <p data-i18n="hero.intro1">一个记录生活、情绪与思考的角落。</p>
+          <p class="muted" data-i18n="hero.intro2">这里没有宏大叙事，只有零散的真实。</p>
 
-          <p style="margin-top:14px;">A quiet space for documenting life, emotions, and reflections.</p>
-          <p class="muted">Nothing grand — only fragments of honesty.</p>
+          <p style="margin-top:14px;" data-i18n="hero.intro3">A quiet space for documenting life, emotions, and reflections.</p>
+          <p class="muted" data-i18n="hero.intro4">Nothing grand — only fragments of honesty.</p>
         </div>
 
         <div class="cta-row">
-          <a class="btn primary edge" href="#notes">去看随想 · Read Notes</a>
-          <a class="btn edge" href="#tracks">轨道 · Tracks</a>
-          <a class="btn edge" href="#music">分享音乐 · Music</a>
+          <a class="btn primary edge" href="#notes" data-i18n="cta.readNotes">去看随想 · Read Notes</a>
+          <a class="btn edge" href="#tracks" data-i18n="cta.tracks">轨道 · Tracks</a>
+          <a class="btn edge" href="#music" data-i18n="cta.music">分享音乐 · Music</a>
         </div>
 
         <div class="quick-grid" aria-label="Quick entry">
           <a class="quick edge" href="#notes">
-            <h4>随想 Notes</h4>
-            <p>短句、片段、心情与想法。像时间线一样慢慢积累。</p>
-            <span class="k edge">→ Go</span>
+            <h4 data-i18n="quick.notes.title">随想 Notes</h4>
+            <p data-i18n="quick.notes.desc">短句、片段、心情与想法。像时间线一样慢慢积累。</p>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
           <a class="quick edge" href="#essays">
-            <h4>随笔 Essays</h4>
-            <p>更长的文字：故事、复盘、思考、方法论。</p>
-            <span class="k edge">→ Go</span>
+            <h4 data-i18n="quick.essays.title">随笔 Essays</h4>
+            <p data-i18n="quick.essays.desc">更长的文字：故事、复盘、思考、方法论。</p>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
           <a class="quick edge" href="#music">
-            <h4>音乐 Music</h4>
-            <p>每周一首歌 + 一句理由。把听见的东西留下来。</p>
-            <span class="k edge">→ Go</span>
+            <h4 data-i18n="quick.music.title">音乐 Music</h4>
+            <p data-i18n="quick.music.desc">每周一首歌 + 一句理由。把听见的东西留下来。</p>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
           <a class="quick edge" href="#library">
-            <h4>收藏 Library</h4>
-            <p>书、电影、播客、文章：你喜欢的东西会构成你。</p>
-            <span class="k edge">→ Go</span>
+            <h4 data-i18n="quick.library.title">收藏 Library</h4>
+            <p data-i18n="quick.library.desc">书、电影、播客、文章：你喜欢的东西会构成你。</p>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
           <a class="quick edge" href="archive.html">
-            <h4>归档 Archive</h4>
-            <p>按年份/主题整理（以后你写多了会非常有用）。</p>
-            <span class="k edge">↗ Open</span>
+            <h4 data-i18n="quick.archive.title">归档 Archive</h4>
+            <p data-i18n="quick.archive.desc">按年份/主题整理（以后你写多了会非常有用）。</p>
+            <span class="k edge" data-i18n="quick.open">↗ Open</span>
           </a>
 
           <a class="quick edge" href="#tracks">
-            <h4>轨道 Tracks</h4>
-            <p>你正在做的事、你要去的方向、以及联系你。</p>
-            <span class="k edge">→ Go</span>
+            <h4 data-i18n="quick.tracks.title">轨道 Tracks</h4>
+            <p data-i18n="quick.tracks.desc">你正在做的事、你要去的方向、以及联系你。</p>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
         </div>
       </div>
@@ -800,49 +824,57 @@
     <!-- Notes -->
     <section id="notes" class="section reveal edge">
       <div class="section-title">
-        <h3>随想 · Notes</h3>
-        <div class="hint">（下一步可以把每篇随想做成独立页面 + 独立链接）</div>
+        <h3 data-i18n="section.notes.title">随想 · Notes</h3>
+        <div class="hint" data-i18n="section.notes.hint">（下一步可以把每篇随想做成独立页面 + 独立链接）</div>
       </div>
 
       <div class="grid">
         <article class="card edge">
-          <div class="card-title">第一篇随想 · First Note</div>
-          <div class="card-meta">2026 · Coming Soon</div>
-          <p>先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。</p>
+          <div class="card-title" data-i18n="notes.card1.title">第一篇随想 · First Note</div>
+          <div class="card-meta" data-i18n="notes.card1.meta">2026 · Coming Soon</div>
+          <p data-i18n="notes.card1.desc">先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。</p>
           <div class="tag-row">
-            <span class="tag edge">Life</span><span class="tag edge">Reflection</span><span class="tag edge">中文/EN</span>
+            <span class="tag edge" data-i18n="tag.life">Life</span>
+            <span class="tag edge" data-i18n="tag.reflection">Reflection</span>
+            <span class="tag edge" data-i18n="tag.bilingual">中文/EN</span>
           </div>
-          <a class="mini-link" href="#notes"><span class="edge">阅读 · Read</span></a>
+          <a class="mini-link" href="#notes"><span class="edge" data-i18n="action.read">阅读 · Read</span></a>
         </article>
 
         <article class="card edge">
-          <div class="card-title">一些尚未命名的思考 · Untitled Thoughts</div>
-          <div class="card-meta">Coming Soon</div>
-          <p>不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。</p>
+          <div class="card-title" data-i18n="notes.card2.title">一些尚未命名的思考 · Untitled Thoughts</div>
+          <div class="card-meta" data-i18n="notes.card2.meta">Coming Soon</div>
+          <p data-i18n="notes.card2.desc">不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。</p>
           <div class="tag-row">
-            <span class="tag edge">Slow</span><span class="tag edge">Quiet</span><span class="tag edge">Notes</span>
+            <span class="tag edge" data-i18n="tag.slow">Slow</span>
+            <span class="tag edge" data-i18n="tag.quiet">Quiet</span>
+            <span class="tag edge" data-i18n="tag.notes">Notes</span>
           </div>
-          <a class="mini-link" href="#notes"><span class="edge">阅读 · Read</span></a>
+          <a class="mini-link" href="#notes"><span class="edge" data-i18n="action.read">阅读 · Read</span></a>
         </article>
 
         <article class="card edge">
-          <div class="card-title">读书 / 电影 / 片刻 · Reading / Film / Moments</div>
-          <div class="card-meta">Template</div>
-          <p>你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。</p>
+          <div class="card-title" data-i18n="notes.card3.title">读书 / 电影 / 片刻 · Reading / Film / Moments</div>
+          <div class="card-meta" data-i18n="notes.card3.meta">Template</div>
+          <p data-i18n="notes.card3.desc">你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。</p>
           <div class="tag-row">
-            <span class="tag edge">Reading</span><span class="tag edge">Film</span><span class="tag edge">Moments</span>
+            <span class="tag edge" data-i18n="tag.reading">Reading</span>
+            <span class="tag edge" data-i18n="tag.film">Film</span>
+            <span class="tag edge" data-i18n="tag.moments">Moments</span>
           </div>
-          <a class="mini-link" href="#library"><span class="edge">去收藏区 · Library</span></a>
+          <a class="mini-link" href="#library"><span class="edge" data-i18n="action.toLibrary">去收藏区 · Library</span></a>
         </article>
 
         <article class="card edge">
-          <div class="card-title">未来的某天 · Someday</div>
-          <div class="card-meta">Template</div>
-          <p>留一个空位给未来。等你想写的时候，它就在那里。</p>
+          <div class="card-title" data-i18n="notes.card4.title">未来的某天 · Someday</div>
+          <div class="card-meta" data-i18n="notes.card4.meta">Template</div>
+          <p data-i18n="notes.card4.desc">留一个空位给未来。等你想写的时候，它就在那里。</p>
           <div class="tag-row">
-            <span class="tag edge">Future</span><span class="tag edge">Empty Slot</span><span class="tag edge">Keep</span>
+            <span class="tag edge" data-i18n="tag.future">Future</span>
+            <span class="tag edge" data-i18n="tag.empty">Empty Slot</span>
+            <span class="tag edge" data-i18n="tag.keep">Keep</span>
           </div>
-          <a class="mini-link" href="archive.html"><span class="edge">归档 · Archive</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
         </article>
       </div>
     </section>
@@ -850,29 +882,33 @@
     <!-- Essays -->
     <section id="essays" class="section reveal edge">
       <div class="section-title">
-        <h3>随笔 · Essays</h3>
-        <div class="hint">更长的表达：故事 / 复盘 / 方法论</div>
+        <h3 data-i18n="section.essays.title">随笔 · Essays</h3>
+        <div class="hint" data-i18n="section.essays.hint">更长的表达：故事 / 复盘 / 方法论</div>
       </div>
 
       <div class="grid">
         <article class="card edge">
-          <div class="card-title">随笔模板 · Essay Template</div>
-          <div class="card-meta">2026 · Draft</div>
-          <p>写一篇 600～1200 字：讲清楚“我在想什么”，就够了。</p>
+          <div class="card-title" data-i18n="essays.card1.title">随笔模板 · Essay Template</div>
+          <div class="card-meta" data-i18n="essays.card1.meta">2026 · Draft</div>
+          <p data-i18n="essays.card1.desc">写一篇 600～1200 字：讲清楚“我在想什么”，就够了。</p>
           <div class="tag-row">
-            <span class="tag edge">Essay</span><span class="tag edge">Longform</span><span class="tag edge">Draft</span>
+            <span class="tag edge" data-i18n="tag.essay">Essay</span>
+            <span class="tag edge" data-i18n="tag.longform">Longform</span>
+            <span class="tag edge" data-i18n="tag.draft">Draft</span>
           </div>
-          <a class="mini-link" href="essays.html"><span class="edge">查看全部 · All Essays</span></a>
+          <a class="mini-link" href="essays.html"><span class="edge" data-i18n="action.allEssays">查看全部 · All Essays</span></a>
         </article>
 
         <article class="card edge">
-          <div class="card-title">复盘：我如何让自己持续前进</div>
-          <div class="card-meta">Coming Soon</div>
-          <p>你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。</p>
+          <div class="card-title" data-i18n="essays.card2.title">复盘：我如何让自己持续前进</div>
+          <div class="card-meta" data-i18n="essays.card2.meta">Coming Soon</div>
+          <p data-i18n="essays.card2.desc">你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。</p>
           <div class="tag-row">
-            <span class="tag edge">Review</span><span class="tag edge">Systems</span><span class="tag edge">Growth</span>
+            <span class="tag edge" data-i18n="tag.review">Review</span>
+            <span class="tag edge" data-i18n="tag.systems">Systems</span>
+            <span class="tag edge" data-i18n="tag.growth">Growth</span>
           </div>
-          <a class="mini-link" href="essays.html"><span class="edge">阅读 · Read</span></a>
+          <a class="mini-link" href="essays.html"><span class="edge" data-i18n="action.read">阅读 · Read</span></a>
         </article>
       </div>
     </section>
@@ -880,48 +916,52 @@
     <!-- Music -->
     <section id="music" class="section reveal edge">
       <div class="section-title">
-        <h3>音乐 · Music</h3>
-        <div class="hint">每周一首歌 + 一句理由（很有个人气质）</div>
+        <h3 data-i18n="section.music.title">音乐 · Music</h3>
+        <div class="hint" data-i18n="section.music.hint">每周一首歌 + 一句理由（很有个人气质）</div>
       </div>
 
       <div class="two-col">
         <div class="quote edge">
-          <b>本周推荐 · Track of the Week</b><br>
-          🎧 Song: ____________<br>
-          🎼 Artist: ____________<br>
-          ✍️ Why: ______________________
+          <b data-i18n="music.week.title">本周推荐 · Track of the Week</b><br>
+          <span data-i18n="music.week.song">🎧 Song: ____________</span><br>
+          <span data-i18n="music.week.artist">🎼 Artist: ____________</span><br>
+          <span data-i18n="music.week.why">✍️ Why: ______________________</span>
         </div>
 
         <div class="quote edge">
-          <b>放链接（Spotify / Apple Music / YouTube）</b><br>
-          · Spotify: (link)<br>
-          · Apple Music: (link)<br>
-          · YouTube: (link)
+          <b data-i18n="music.links.title">放链接（Spotify / Apple Music / YouTube）</b><br>
+          <span data-i18n="music.links.spotify">· Spotify: (link)</span><br>
+          <span data-i18n="music.links.apple">· Apple Music: (link)</span><br>
+          <span data-i18n="music.links.youtube">· YouTube: (link)</span>
           <div style="margin-top:10px;">
-            <a class="btn edge" href="music.html">进入音乐页 · Open Music Page</a>
+            <a class="btn edge" href="music.html" data-i18n="music.openPage">进入音乐页 · Open Music Page</a>
           </div>
         </div>
       </div>
 
       <div class="grid" style="margin-top:14px;">
         <article class="card edge">
-          <div class="card-title">Playlist · 夜里开小火车</div>
-          <div class="card-meta">Template</div>
-          <p>把 10 首歌做成一个主题播放列表，配一句话介绍。</p>
+          <div class="card-title" data-i18n="music.card1.title">Playlist · 夜里开小火车</div>
+          <div class="card-meta" data-i18n="music.card1.meta">Template</div>
+          <p data-i18n="music.card1.desc">把 10 首歌做成一个主题播放列表，配一句话介绍。</p>
           <div class="tag-row">
-            <span class="tag edge">Playlist</span><span class="tag edge">Mood</span><span class="tag edge">Weekly</span>
+            <span class="tag edge" data-i18n="tag.playlist">Playlist</span>
+            <span class="tag edge" data-i18n="tag.mood">Mood</span>
+            <span class="tag edge" data-i18n="tag.weekly">Weekly</span>
           </div>
-          <a class="mini-link" href="music.html"><span class="edge">打开 · Open</span></a>
+          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开 · Open</span></a>
         </article>
 
         <article class="card edge">
-          <div class="card-title">音乐碎片 · Music Notes</div>
-          <div class="card-meta">Template</div>
-          <p>记录一句歌词、一段旋律带来的感受。</p>
+          <div class="card-title" data-i18n="music.card2.title">音乐碎片 · Music Notes</div>
+          <div class="card-meta" data-i18n="music.card2.meta">Template</div>
+          <p data-i18n="music.card2.desc">记录一句歌词、一段旋律带来的感受。</p>
           <div class="tag-row">
-            <span class="tag edge">Lyrics</span><span class="tag edge">Feelings</span><span class="tag edge">Notes</span>
+            <span class="tag edge" data-i18n="tag.lyrics">Lyrics</span>
+            <span class="tag edge" data-i18n="tag.feelings">Feelings</span>
+            <span class="tag edge" data-i18n="tag.notes">Notes</span>
           </div>
-          <a class="mini-link" href="music.html"><span class="edge">打开 · Open</span></a>
+          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开 · Open</span></a>
         </article>
       </div>
     </section>
@@ -929,29 +969,33 @@
     <!-- Library -->
     <section id="library" class="section reveal edge">
       <div class="section-title">
-        <h3>收藏 · Library</h3>
-        <div class="hint">书 / 电影 / 播客 / 文章：你喜欢的东西会组成你</div>
+        <h3 data-i18n="section.library.title">收藏 · Library</h3>
+        <div class="hint" data-i18n="section.library.hint">书 / 电影 / 播客 / 文章：你喜欢的东西会组成你</div>
       </div>
 
       <div class="grid">
         <article class="card edge">
-          <div class="card-title">📚 Books I’m Reading</div>
-          <div class="card-meta">Update anytime</div>
-          <p>《______》— 为什么在读：______</p>
+          <div class="card-title" data-i18n="library.card1.title">📚 Books I’m Reading</div>
+          <div class="card-meta" data-i18n="library.card1.meta">Update anytime</div>
+          <p data-i18n="library.card1.desc">《______》— 为什么在读：______</p>
           <div class="tag-row">
-            <span class="tag edge">Books</span><span class="tag edge">Reading</span><span class="tag edge">Notes</span>
+            <span class="tag edge" data-i18n="tag.books">Books</span>
+            <span class="tag edge" data-i18n="tag.reading">Reading</span>
+            <span class="tag edge" data-i18n="tag.notes">Notes</span>
           </div>
-          <a class="mini-link" href="archive.html"><span class="edge">归档 · Archive</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
         </article>
 
         <article class="card edge">
-          <div class="card-title">🎬 Films / Series</div>
-          <div class="card-meta">Update anytime</div>
-          <p>本周看了：______。一句话感受：______。</p>
+          <div class="card-title" data-i18n="library.card2.title">🎬 Films / Series</div>
+          <div class="card-meta" data-i18n="library.card2.meta">Update anytime</div>
+          <p data-i18n="library.card2.desc">本周看了：______。一句话感受：______。</p>
           <div class="tag-row">
-            <span class="tag edge">Film</span><span class="tag edge">Series</span><span class="tag edge">Mood</span>
+            <span class="tag edge" data-i18n="tag.film">Film</span>
+            <span class="tag edge" data-i18n="tag.series">Series</span>
+            <span class="tag edge" data-i18n="tag.mood">Mood</span>
           </div>
-          <a class="mini-link" href="archive.html"><span class="edge">归档 · Archive</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
         </article>
       </div>
     </section>
@@ -959,23 +1003,23 @@
     <!-- Now -->
     <section id="now" class="section reveal edge">
       <div class="section-title">
-        <h3>现在 · Now</h3>
-        <div class="hint">一段“此刻的我”，随时可改</div>
+        <h3 data-i18n="section.now.title">现在 · Now</h3>
+        <div class="hint" data-i18n="section.now.hint">一段“此刻的我”，随时可改</div>
       </div>
 
       <div class="two-col">
         <div class="quote edge">
-          <b>这段可以当作你的“近况栏”</b><br>
-          · 最近在专注：____________<br>
-          · 最近在学习：____________<br>
-          · 最近在思考：____________
+          <b data-i18n="now.cn.title">这段可以当作你的“近况栏”</b><br>
+          <span data-i18n="now.cn.focus">· 最近在专注：____________</span><br>
+          <span data-i18n="now.cn.learning">· 最近在学习：____________</span><br>
+          <span data-i18n="now.cn.thinking">· 最近在思考：____________</span>
         </div>
 
         <div class="quote edge">
-          <b>This can be your “Now” box</b><br>
-          · Focus: ____________<br>
-          · Learning: ____________<br>
-          · Thinking: ____________
+          <b data-i18n="now.en.title">This can be your “Now” box</b><br>
+          <span data-i18n="now.en.focus">· Focus: ____________</span><br>
+          <span data-i18n="now.en.learning">· Learning: ____________</span><br>
+          <span data-i18n="now.en.thinking">· Thinking: ____________</span>
         </div>
       </div>
     </section>
@@ -983,67 +1027,590 @@
     <!-- Tracks -->
     <section id="tracks" class="section reveal edge">
       <div class="section-title">
-        <h3>轨道 · Tracks</h3>
-        <div class="hint">正在做的事 / 想去的方向 / 联系方式</div>
+        <h3 data-i18n="section.tracks.title">轨道 · Tracks</h3>
+        <div class="hint" data-i18n="section.tracks.hint">正在做的事 / 想去的方向 / 联系方式</div>
       </div>
 
       <div class="two-col">
         <div>
-          <p><b>在路上 · In Motion</b></p>
-          <p class="muted">把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。</p>
+          <p><b data-i18n="tracks.left.title">在路上 · In Motion</b></p>
+          <p class="muted" data-i18n="tracks.left.desc">把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。</p>
 
           <div class="quote edge" style="margin-top:12px;">
-            <b>Now building</b><br>
-            · Personal website: refining writing + structure<br>
-            · Notes / Essays: weekly update<br>
-            · Music: track of the week
+            <b data-i18n="tracks.left.boxTitle">Now building</b><br>
+            <span data-i18n="tracks.left.item1">· Personal website: refining writing + structure</span><br>
+            <span data-i18n="tracks.left.item2">· Notes / Essays: weekly update</span><br>
+            <span data-i18n="tracks.left.item3">· Music: track of the week</span>
           </div>
 
           <div class="cta-row" style="justify-content:flex-start; margin-top:12px;">
-            <a class="btn primary edge" href="#notes">Notes</a>
-            <a class="btn edge" href="#essays">Essays</a>
-            <a class="btn edge" href="#music">Music</a>
+            <a class="btn primary edge" href="#notes" data-i18n="nav.notes">Notes</a>
+            <a class="btn edge" href="#essays" data-i18n="nav.essays">Essays</a>
+            <a class="btn edge" href="#music" data-i18n="nav.music">Music</a>
           </div>
         </div>
 
         <div>
-          <p><b>联系 · Connect</b></p>
-          <p class="muted">你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。</p>
+          <p><b data-i18n="tracks.right.title">联系 · Connect</b></p>
+          <p class="muted" data-i18n="tracks.right.desc">你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。</p>
 
           <article class="card edge" style="grid-column: span 12; margin-top:10px;">
-            <div class="card-title">Links</div>
-            <p class="muted" style="margin-top:6px;">
+            <div class="card-title" data-i18n="tracks.right.linksTitle">Links</div>
+            <p class="muted" style="margin-top:6px;" data-i18n="tracks.right.linksDesc">
               · LinkedIn / Instagram 已在头像下方<br>
               · 你也可以加：GitHub、Resume、Email
             </p>
             <div class="tag-row">
-              <span class="tag edge">Connect</span>
-              <span class="tag edge">Links</span>
-              <span class="tag edge">Public</span>
+              <span class="tag edge" data-i18n="tag.connect">Connect</span>
+              <span class="tag edge" data-i18n="tag.links">Links</span>
+              <span class="tag edge" data-i18n="tag.public">Public</span>
             </div>
 
             <div class="cta-row" style="justify-content:flex-start;">
-              <a class="btn edge" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub (edit)</a>
-              <a class="btn edge" href="#" target="_blank" rel="noopener noreferrer">Resume (edit)</a>
-              <a class="btn edge" href="mailto:your@email.com">Email (edit)</a>
+              <a class="btn edge" href="https://github.com/" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.github">GitHub (edit)</a>
+              <a class="btn edge" href="#" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.resume">Resume (edit)</a>
+              <a class="btn edge" href="mailto:your@email.com" data-i18n="tracks.right.email">Email (edit)</a>
             </div>
           </article>
 
           <div class="quote edge" style="margin-top:12px;">
-            中文：慢一点也没关系，重要的是持续向前。<br>
-            English: It’s okay to go slowly — what matters is staying in motion.
+            <span data-i18n="tracks.right.quote">中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.</span>
           </div>
         </div>
       </div>
     </section>
 
     <footer>
-      © 2026 Zihua Luo · Train in Motion · Built with calm and patience
+      <span data-i18n="footer">© 2026 Zihua Luo · Train in Motion · Built with calm and patience</span>
     </footer>
 
   </div>
 
   <script>
+    // ===============================
+    // i18n: zh-CN / zh-TW / en-CA
+    // How to extend later:
+    // 1) 给任何元素加 data-i18n="your.key"
+    // 2) 在下面 I18N 字典里三种语言都补上同一个 key 的文案
+    // ===============================
+    const I18N = {
+      "zh-CN": {
+        // Top / common
+        "brand.community": "Community",
+        "nav.notes": "随想",
+        "nav.essays": "随笔",
+        "nav.music": "音乐",
+        "nav.library": "收藏",
+        "nav.now": "现在",
+        "nav.tracks": "轨道",
+
+        "social.linkedin": "LinkedIn",
+        "social.instagram": "Instagram",
+
+        "hero.pronouns": "他 / He",
+        "hero.pill1": "只开小火车",
+        "hero.pill2": "个人空间 · 小火车在前进",
+        "hero.bioTitle": "简介",
+        "hero.bioPlaceholder": "（把你的 Bio 发我，我会替换到这里：中英文都可以）",
+        "hero.intro1": "一个记录生活、情绪与思考的角落。",
+        "hero.intro2": "这里没有宏大叙事，只有零散的真实。",
+        "hero.intro3": "一个安静的地方，用来记录生活、情绪与思考。",
+        "hero.intro4": "不求宏大，只保留真实的碎片。",
+
+        "cta.readNotes": "去看随想",
+        "cta.tracks": "轨道",
+        "cta.music": "分享音乐",
+
+        "quick.go": "→ 进入",
+        "quick.open": "↗ 打开",
+        "quick.notes.title": "随想",
+        "quick.notes.desc": "短句、片段、心情与想法。像时间线一样慢慢积累。",
+        "quick.essays.title": "随笔",
+        "quick.essays.desc": "更长的文字：故事、复盘、思考、方法论。",
+        "quick.music.title": "音乐",
+        "quick.music.desc": "每周一首歌 + 一句理由。把听见的东西留下来。",
+        "quick.library.title": "收藏",
+        "quick.library.desc": "书、电影、播客、文章：你喜欢的东西会构成你。",
+        "quick.archive.title": "归档",
+        "quick.archive.desc": "按年份/主题整理（以后你写多了会非常有用）。",
+        "quick.tracks.title": "轨道",
+        "quick.tracks.desc": "你正在做的事、你要去的方向、以及联系你。",
+
+        // Sections
+        "section.notes.title": "随想",
+        "section.notes.hint": "（下一步可以把每篇随想做成独立页面 + 独立链接）",
+        "section.essays.title": "随笔",
+        "section.essays.hint": "更长的表达：故事 / 复盘 / 方法论",
+        "section.music.title": "音乐",
+        "section.music.hint": "每周一首歌 + 一句理由（很有个人气质）",
+        "section.library.title": "收藏",
+        "section.library.hint": "书 / 电影 / 播客 / 文章：你喜欢的东西会组成你",
+        "section.now.title": "现在",
+        "section.now.hint": "一段“此刻的我”，随时可改",
+        "section.tracks.title": "轨道",
+        "section.tracks.hint": "正在做的事 / 想去的方向 / 联系方式",
+
+        // Notes cards
+        "notes.card1.title": "第一篇随想",
+        "notes.card1.meta": "2026 · 即将上线",
+        "notes.card1.desc": "先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。",
+
+        "notes.card2.title": "一些尚未命名的思考",
+        "notes.card2.meta": "即将上线",
+        "notes.card2.desc": "不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。",
+
+        "notes.card3.title": "读书 / 电影 / 片刻",
+        "notes.card3.meta": "模板",
+        "notes.card3.desc": "你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。",
+
+        "notes.card4.title": "未来的某天",
+        "notes.card4.meta": "模板",
+        "notes.card4.desc": "留一个空位给未来。等你想写的时候，它就在那里。",
+
+        // Essays cards
+        "essays.card1.title": "随笔模板",
+        "essays.card1.meta": "2026 · 草稿",
+        "essays.card1.desc": "写一篇 600～1200 字：讲清楚“我在想什么”，就够了。",
+
+        "essays.card2.title": "复盘：我如何让自己持续前进",
+        "essays.card2.meta": "即将上线",
+        "essays.card2.desc": "你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。",
+
+        // Music
+        "music.week.title": "本周推荐",
+        "music.week.song": "🎧 歌曲：____________",
+        "music.week.artist": "🎼 歌手：____________",
+        "music.week.why": "✍️ 理由：______________________",
+
+        "music.links.title": "放链接（Spotify / Apple Music / YouTube）",
+        "music.links.spotify": "· Spotify： (link)",
+        "music.links.apple": "· Apple Music： (link)",
+        "music.links.youtube": "· YouTube： (link)",
+        "music.openPage": "进入音乐页",
+
+        "music.card1.title": "播放列表 · 夜里开小火车",
+        "music.card1.meta": "模板",
+        "music.card1.desc": "把 10 首歌做成一个主题播放列表，配一句话介绍。",
+
+        "music.card2.title": "音乐碎片",
+        "music.card2.meta": "模板",
+        "music.card2.desc": "记录一句歌词、一段旋律带来的感受。",
+
+        // Library
+        "library.card1.title": "📚 我在读的书",
+        "library.card1.meta": "随时更新",
+        "library.card1.desc": "《______》— 为什么在读：______",
+
+        "library.card2.title": "🎬 电影 / 剧集",
+        "library.card2.meta": "随时更新",
+        "library.card2.desc": "本周看了：______。一句话感受：______。",
+
+        // Now
+        "now.cn.title": "这段可以当作你的“近况栏”",
+        "now.cn.focus": "· 最近在专注：____________",
+        "now.cn.learning": "· 最近在学习：____________",
+        "now.cn.thinking": "· 最近在思考：____________",
+
+        "now.en.title": "（英文版本也可以写在这里）",
+        "now.en.focus": "· Focus：____________",
+        "now.en.learning": "· Learning：____________",
+        "now.en.thinking": "· Thinking：____________",
+
+        // Tracks
+        "tracks.left.title": "在路上",
+        "tracks.left.desc": "把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。",
+        "tracks.left.boxTitle": "正在做",
+        "tracks.left.item1": "· 个人网站：优化写作 + 结构",
+        "tracks.left.item2": "· 随想 / 随笔：每周更新",
+        "tracks.left.item3": "· 音乐：本周推荐",
+
+        "tracks.right.title": "联系",
+        "tracks.right.desc": "你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。",
+        "tracks.right.linksTitle": "链接",
+        "tracks.right.linksDesc": "· LinkedIn / Instagram 已在头像下方<br>· 你也可以加：GitHub、简历、邮箱",
+        "tracks.right.github": "GitHub（修改）",
+        "tracks.right.resume": "简历（修改）",
+        "tracks.right.email": "邮箱（修改）",
+        "tracks.right.quote": "中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
+
+        // Actions / Tags
+        "action.read": "阅读",
+        "action.open": "打开",
+        "action.archive": "归档",
+        "action.toLibrary": "去收藏区",
+        "action.allEssays": "查看全部",
+
+        "tag.life": "生活",
+        "tag.reflection": "反思",
+        "tag.bilingual": "中文/EN",
+        "tag.slow": "慢",
+        "tag.quiet": "安静",
+        "tag.notes": "随想",
+        "tag.reading": "阅读",
+        "tag.film": "电影",
+        "tag.moments": "片刻",
+        "tag.future": "未来",
+        "tag.empty": "空位",
+        "tag.keep": "保留",
+        "tag.essay": "随笔",
+        "tag.longform": "长文",
+        "tag.draft": "草稿",
+        "tag.review": "复盘",
+        "tag.systems": "系统",
+        "tag.growth": "成长",
+        "tag.playlist": "播放列表",
+        "tag.mood": "情绪",
+        "tag.weekly": "每周",
+        "tag.lyrics": "歌词",
+        "tag.feelings": "感受",
+        "tag.books": "书籍",
+        "tag.series": "剧集",
+        "tag.connect": "联系",
+        "tag.links": "链接",
+        "tag.public": "公开",
+
+        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience"
+      },
+
+      "zh-TW": {
+        "brand.community": "Community",
+        "nav.notes": "隨想",
+        "nav.essays": "隨筆",
+        "nav.music": "音樂",
+        "nav.library": "收藏",
+        "nav.now": "現在",
+        "nav.tracks": "軌道",
+
+        "social.linkedin": "LinkedIn",
+        "social.instagram": "Instagram",
+
+        "hero.pronouns": "他 / He",
+        "hero.pill1": "只開小火車",
+        "hero.pill2": "個人空間 · 小火車在前進",
+        "hero.bioTitle": "簡介",
+        "hero.bioPlaceholder": "（把你的 Bio 發我，我會替換到這裡：中英文都可以）",
+        "hero.intro1": "一個記錄生活、情緒與思考的角落。",
+        "hero.intro2": "這裡沒有宏大敘事，只有零散的真實。",
+        "hero.intro3": "一個安靜的地方，用來記錄生活、情緒與思考。",
+        "hero.intro4": "不求宏大，只保留真實的碎片。",
+
+        "cta.readNotes": "去看隨想",
+        "cta.tracks": "軌道",
+        "cta.music": "分享音樂",
+
+        "quick.go": "→ 進入",
+        "quick.open": "↗ 打開",
+        "quick.notes.title": "隨想",
+        "quick.notes.desc": "短句、片段、心情與想法。像時間線一樣慢慢累積。",
+        "quick.essays.title": "隨筆",
+        "quick.essays.desc": "更長的文字：故事、復盤、思考、方法論。",
+        "quick.music.title": "音樂",
+        "quick.music.desc": "每週一首歌 + 一句理由。把聽見的東西留下來。",
+        "quick.library.title": "收藏",
+        "quick.library.desc": "書、電影、播客、文章：你喜歡的東西會構成你。",
+        "quick.archive.title": "歸檔",
+        "quick.archive.desc": "按年份/主題整理（以後你寫多了會非常有用）。",
+        "quick.tracks.title": "軌道",
+        "quick.tracks.desc": "你正在做的事、你要去的方向、以及聯絡你。",
+
+        "section.notes.title": "隨想",
+        "section.notes.hint": "（下一步可以把每篇隨想做成獨立頁面 + 獨立連結）",
+        "section.essays.title": "隨筆",
+        "section.essays.hint": "更長的表達：故事 / 復盤 / 方法論",
+        "section.music.title": "音樂",
+        "section.music.hint": "每週一首歌 + 一句理由（很有個人氣質）",
+        "section.library.title": "收藏",
+        "section.library.hint": "書 / 電影 / 播客 / 文章：你喜歡的東西會組成你",
+        "section.now.title": "現在",
+        "section.now.hint": "一段「此刻的我」，隨時可改",
+        "section.tracks.title": "軌道",
+        "section.tracks.hint": "正在做的事 / 想去的方向 / 聯絡方式",
+
+        "notes.card1.title": "第一篇隨想",
+        "notes.card1.meta": "2026 · 即將上線",
+        "notes.card1.desc": "先從一段短短的記錄開始。你可以很隨意，但它會慢慢變成一條時間線。",
+
+        "notes.card2.title": "一些尚未命名的思考",
+        "notes.card2.meta": "即將上線",
+        "notes.card2.desc": "不需要「作品」。把生活裡的小線頭收集起來，它們會變成你的風格。",
+
+        "notes.card3.title": "讀書 / 電影 / 片刻",
+        "notes.card3.meta": "模板",
+        "notes.card3.desc": "你也可以把這個卡片改成「最近在看什麼」，或「本週一句話」。",
+
+        "notes.card4.title": "未來的某天",
+        "notes.card4.meta": "模板",
+        "notes.card4.desc": "留一個空位給未來。等你想寫的時候，它就在那里。",
+
+        "essays.card1.title": "隨筆模板",
+        "essays.card1.meta": "2026 · 草稿",
+        "essays.card1.desc": "寫一篇 600～1200 字：講清楚「我在想什麼」，就夠了。",
+
+        "essays.card2.title": "復盤：我如何讓自己持續前進",
+        "essays.card2.meta": "即將上線",
+        "essays.card2.desc": "你可以寫：目標、阻力、策略、下一步。慢慢把「系統」搭起來。",
+
+        "music.week.title": "本週推薦",
+        "music.week.song": "🎧 歌曲：____________",
+        "music.week.artist": "🎼 歌手：____________",
+        "music.week.why": "✍️ 理由：______________________",
+
+        "music.links.title": "放連結（Spotify / Apple Music / YouTube）",
+        "music.links.spotify": "· Spotify： (link)",
+        "music.links.apple": "· Apple Music： (link)",
+        "music.links.youtube": "· YouTube： (link)",
+        "music.openPage": "進入音樂頁",
+
+        "music.card1.title": "播放清單 · 夜裡開小火車",
+        "music.card1.meta": "模板",
+        "music.card1.desc": "把 10 首歌做成一個主題播放清單，配一句話介紹。",
+
+        "music.card2.title": "音樂碎片",
+        "music.card2.meta": "模板",
+        "music.card2.desc": "記錄一句歌詞、一段旋律帶來的感受。",
+
+        "library.card1.title": "📚 我在讀的書",
+        "library.card1.meta": "隨時更新",
+        "library.card1.desc": "《______》— 為什麼在讀：______",
+
+        "library.card2.title": "🎬 電影 / 劇集",
+        "library.card2.meta": "隨時更新",
+        "library.card2.desc": "本週看了：______。一句話感受：______。",
+
+        "now.cn.title": "這段可以當作你的「近況欄」",
+        "now.cn.focus": "· 最近在專注：____________",
+        "now.cn.learning": "· 最近在學習：____________",
+        "now.cn.thinking": "· 最近在思考：____________",
+
+        "now.en.title": "（英文版本也可以寫在這裡）",
+        "now.en.focus": "· Focus：____________",
+        "now.en.learning": "· Learning：____________",
+        "now.en.thinking": "· Thinking：____________",
+
+        "tracks.left.title": "在路上",
+        "tracks.left.desc": "把這裡當成你的「公開進度條」：你正在搭建什麼、練什麼、追什麼。",
+        "tracks.left.boxTitle": "正在做",
+        "tracks.left.item1": "· 個人網站：優化寫作 + 結構",
+        "tracks.left.item2": "· 隨想 / 隨筆：每週更新",
+        "tracks.left.item3": "· 音樂：本週推薦",
+
+        "tracks.right.title": "聯絡",
+        "tracks.right.desc": "你可以把這裡改成：信箱、履歷、作品集（建議公開信箱即可）。",
+        "tracks.right.linksTitle": "連結",
+        "tracks.right.linksDesc": "· LinkedIn / Instagram 已在頭像下方<br>· 你也可以加：GitHub、履歷、信箱",
+        "tracks.right.github": "GitHub（修改）",
+        "tracks.right.resume": "履歷（修改）",
+        "tracks.right.email": "信箱（修改）",
+        "tracks.right.quote": "中文：慢一點也沒關係，重要的是持續向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
+
+        "action.read": "閱讀",
+        "action.open": "打開",
+        "action.archive": "歸檔",
+        "action.toLibrary": "去收藏區",
+        "action.allEssays": "查看全部",
+
+        "tag.life": "生活",
+        "tag.reflection": "反思",
+        "tag.bilingual": "中文/EN",
+        "tag.slow": "慢",
+        "tag.quiet": "安靜",
+        "tag.notes": "隨想",
+        "tag.reading": "閱讀",
+        "tag.film": "電影",
+        "tag.moments": "片刻",
+        "tag.future": "未來",
+        "tag.empty": "空位",
+        "tag.keep": "保留",
+        "tag.essay": "隨筆",
+        "tag.longform": "長文",
+        "tag.draft": "草稿",
+        "tag.review": "復盤",
+        "tag.systems": "系統",
+        "tag.growth": "成長",
+        "tag.playlist": "播放清單",
+        "tag.mood": "情緒",
+        "tag.weekly": "每週",
+        "tag.lyrics": "歌詞",
+        "tag.feelings": "感受",
+        "tag.books": "書籍",
+        "tag.series": "劇集",
+        "tag.connect": "聯絡",
+        "tag.links": "連結",
+        "tag.public": "公開",
+
+        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience"
+      },
+
+      "en-CA": {
+        "brand.community": "Community",
+        "nav.notes": "Notes",
+        "nav.essays": "Essays",
+        "nav.music": "Music",
+        "nav.library": "Library",
+        "nav.now": "Now",
+        "nav.tracks": "Tracks",
+
+        "social.linkedin": "LinkedIn",
+        "social.instagram": "Instagram",
+
+        "hero.pronouns": "He/Him",
+        "hero.pill1": "Train in Motion",
+        "hero.pill2": "Personal Space · Calm, honest, ongoing",
+        "hero.bioTitle": "Bio",
+        "hero.bioPlaceholder": "(Send me your bio and I’ll replace this — Chinese or English is fine.)",
+        "hero.intro1": "A quiet corner for recording life, emotions, and thoughts.",
+        "hero.intro2": "Nothing grand — only fragments of honesty.",
+        "hero.intro3": "A quiet space for documenting life, emotions, and reflections.",
+        "hero.intro4": "No grand narrative — just honest fragments.",
+
+        "cta.readNotes": "Read Notes",
+        "cta.tracks": "Tracks",
+        "cta.music": "Music",
+
+        "quick.go": "→ Go",
+        "quick.open": "↗ Open",
+        "quick.notes.title": "Notes",
+        "quick.notes.desc": "Short lines, fragments, moods, and thoughts — slowly building a timeline.",
+        "quick.essays.title": "Essays",
+        "quick.essays.desc": "Longer writing: stories, reviews, reflections, and frameworks.",
+        "quick.music.title": "Music",
+        "quick.music.desc": "One song a week + one reason. Keep what you hear.",
+        "quick.library.title": "Library",
+        "quick.library.desc": "Books, films, podcasts, articles — what you love shapes you.",
+        "quick.archive.title": "Archive",
+        "quick.archive.desc": "Organize by year/topic (you’ll thank yourself later).",
+        "quick.tracks.title": "Tracks",
+        "quick.tracks.desc": "What you’re doing, where you’re heading, and how to reach you.",
+
+        "section.notes.title": "Notes",
+        "section.notes.hint": "(Next: make each note its own page + its own link.)",
+        "section.essays.title": "Essays",
+        "section.essays.hint": "Longer form: stories / retrospectives / frameworks",
+        "section.music.title": "Music",
+        "section.music.hint": "One track a week + one sentence (very personal).",
+        "section.library.title": "Library",
+        "section.library.hint": "Books / films / podcasts / articles — what you love shapes you",
+        "section.now.title": "Now",
+        "section.now.hint": "A snapshot of you — update anytime",
+        "section.tracks.title": "Tracks",
+        "section.tracks.hint": "What you’re doing / where you’re going / how to connect",
+
+        "notes.card1.title": "First Note",
+        "notes.card1.meta": "2026 · Coming Soon",
+        "notes.card1.desc": "Start with a short entry. Keep it casual — it becomes a timeline over time.",
+
+        "notes.card2.title": "Untitled Thoughts",
+        "notes.card2.meta": "Coming Soon",
+        "notes.card2.desc": "You don’t need a ‘work’. Collect the loose threads — they become your style.",
+
+        "notes.card3.title": "Reading / Film / Moments",
+        "notes.card3.meta": "Template",
+        "notes.card3.desc": "Turn this into ‘What I’m watching’ or ‘One sentence this week’.",
+
+        "notes.card4.title": "Someday",
+        "notes.card4.meta": "Template",
+        "notes.card4.desc": "Leave an empty slot for the future. It’ll be there when you’re ready.",
+
+        "essays.card1.title": "Essay Template",
+        "essays.card1.meta": "2026 · Draft",
+        "essays.card1.desc": "Write 600–1200 words. If you can say what you’re thinking, it’s enough.",
+
+        "essays.card2.title": "Retrospective: how I keep moving",
+        "essays.card2.meta": "Coming Soon",
+        "essays.card2.desc": "Write: goals, friction, strategies, next steps. Slowly build your system.",
+
+        "music.week.title": "Track of the Week",
+        "music.week.song": "🎧 Song: ____________",
+        "music.week.artist": "🎼 Artist: ____________",
+        "music.week.why": "✍️ Why: ______________________",
+
+        "music.links.title": "Links (Spotify / Apple Music / YouTube)",
+        "music.links.spotify": "· Spotify: (link)",
+        "music.links.apple": "· Apple Music: (link)",
+        "music.links.youtube": "· YouTube: (link)",
+        "music.openPage": "Open Music Page",
+
+        "music.card1.title": "Playlist · Night Train",
+        "music.card1.meta": "Template",
+        "music.card1.desc": "Make a 10-song themed playlist with one line of context.",
+
+        "music.card2.title": "Music Notes",
+        "music.card2.meta": "Template",
+        "music.card2.desc": "Write down a lyric or how a melody made you feel.",
+
+        "library.card1.title": "📚 Books I’m Reading",
+        "library.card1.meta": "Update anytime",
+        "library.card1.desc": "“______” — Why I’m reading: ______",
+
+        "library.card2.title": "🎬 Films / Series",
+        "library.card2.meta": "Update anytime",
+        "library.card2.desc": "Watched this week: ______. One-line take: ______.",
+
+        "now.cn.title": "Chinese version (optional)",
+        "now.cn.focus": "· Focus: ____________",
+        "now.cn.learning": "· Learning: ____________",
+        "now.cn.thinking": "· Thinking: ____________",
+
+        "now.en.title": "This can be your “Now” box",
+        "now.en.focus": "· Focus: ____________",
+        "now.en.learning": "· Learning: ____________",
+        "now.en.thinking": "· Thinking: ____________",
+
+        "tracks.left.title": "In Motion",
+        "tracks.left.desc": "Think of this as your public progress bar: what you’re building, practising, chasing.",
+        "tracks.left.boxTitle": "Now building",
+        "tracks.left.item1": "· Personal website: refining writing + structure",
+        "tracks.left.item2": "· Notes / Essays: weekly update",
+        "tracks.left.item3": "· Music: track of the week",
+
+        "tracks.right.title": "Connect",
+        "tracks.right.desc": "Swap this for: email, résumé, portfolio (a public email is enough).",
+        "tracks.right.linksTitle": "Links",
+        "tracks.right.linksDesc": "· LinkedIn / Instagram are under the avatar<br>· You can add: GitHub, Résumé, Email",
+        "tracks.right.github": "GitHub (edit)",
+        "tracks.right.resume": "Résumé (edit)",
+        "tracks.right.email": "Email (edit)",
+        "tracks.right.quote": "It’s okay to go slowly — what matters is staying in motion.",
+
+        "action.read": "Read",
+        "action.open": "Open",
+        "action.archive": "Archive",
+        "action.toLibrary": "Go to Library",
+        "action.allEssays": "All Essays",
+
+        "tag.life": "Life",
+        "tag.reflection": "Reflection",
+        "tag.bilingual": "ZH/EN",
+        "tag.slow": "Slow",
+        "tag.quiet": "Quiet",
+        "tag.notes": "Notes",
+        "tag.reading": "Reading",
+        "tag.film": "Film",
+        "tag.moments": "Moments",
+        "tag.future": "Future",
+        "tag.empty": "Empty Slot",
+        "tag.keep": "Keep",
+        "tag.essay": "Essay",
+        "tag.longform": "Longform",
+        "tag.draft": "Draft",
+        "tag.review": "Review",
+        "tag.systems": "Systems",
+        "tag.growth": "Growth",
+        "tag.playlist": "Playlist",
+        "tag.mood": "Mood",
+        "tag.weekly": "Weekly",
+        "tag.lyrics": "Lyrics",
+        "tag.feelings": "Feelings",
+        "tag.books": "Books",
+        "tag.series": "Series",
+        "tag.connect": "Connect",
+        "tag.links": "Links",
+        "tag.public": "Public",
+
+        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience"
+      }
+    };
+
     // ===== Theme: system default + manual toggle + persistence =====
     (function () {
       const STORAGE_KEY = "theme";
@@ -1079,6 +1646,55 @@
 
       const mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
       if (mq && !stored) mq.addEventListener("change", () => applyTheme(getSystemTheme()));
+    })();
+
+    // ===== Language: persistence + apply i18n keys =====
+    (function(){
+      const STORAGE_KEY = "lang";
+      const root = document.documentElement;
+      const select = document.getElementById("langSelect");
+
+      function applyLang(lang){
+        const dict = I18N[lang] || I18N["zh-CN"];
+        root.setAttribute("data-lang", lang);
+        root.setAttribute("lang", lang);
+
+        // Update all elements with data-i18n
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          if(!key) return;
+          const val = dict[key];
+          if(typeof val === "string"){
+            el.innerHTML = val; // allow <br> in some strings
+          }
+        });
+
+        // Update search placeholder (nice touch)
+        const search = document.getElementById("siteSearch");
+        if(search){
+          const ph = (lang === "en-CA") ? "Search" : (lang === "zh-TW" ? "搜尋" : "搜索");
+          search.placeholder = ph;
+        }
+      }
+
+      const stored = localStorage.getItem(STORAGE_KEY);
+      const initial = stored || (navigator.language || "zh-CN");
+      // normalize only to our 3 options
+      const normalized =
+        initial.startsWith("zh-TW") || initial.startsWith("zh-HK") ? "zh-TW" :
+        initial.startsWith("en") ? "en-CA" :
+        "zh-CN";
+
+      if(select){
+        select.value = stored ? stored : normalized;
+        select.addEventListener("change", () => {
+          const lang = select.value;
+          localStorage.setItem(STORAGE_KEY, lang);
+          applyLang(lang);
+        });
+      }
+
+      applyLang(select ? select.value : "zh-CN");
     })();
 
     // Smooth scroll for internal anchors (only handle #... links)
