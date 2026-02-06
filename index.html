@@ -49,20 +49,24 @@
       --edge-highlight: rgba(255,255,255,0.55);
       --edge-noise: 0.018;
 
-      /* Header tokens */
+      /* ✅ Header tokens（居中圆角胶囊条） */
       --topbar-h: 56px;
       --topbar-top: 14px;
       --topbar-pad-x: 14px;
       --topbar-gap: 10px;
       --topbar-maxw: 1120px;
 
-      /* Scroll-driven background tokens */
-      --scroll: 0;
+      /* ✅ Scroll-driven background tokens */
+      --scroll: 0; /* 0 ~ 1, set by JS */
+
+      /* Light: soft + warm */
       --bg-top: #fbfaf7;
       --bg-mid: #f6f3ee;
       --bg-bot: #eef3f1;
+      /* extra tint that “comes in” when scrolling */
       --bg-deep: #e8eef8;
 
+      /* glow strengths controlled by scroll */
       --glow-1: rgba(42,111,93,0.14);
       --glow-2: rgba(176,122,72,0.14);
       --glow-3: rgba(42,111,93,0.10);
@@ -99,6 +103,7 @@
       --edge-highlight: rgba(255,255,255,0.12);
       --edge-noise: 0.022;
 
+      /* ✅ Scroll-driven background tokens (dark) */
       --scroll: 0;
       --bg-top: #070b13;
       --bg-mid: #0a1220;
@@ -123,12 +128,15 @@
       overflow-x: hidden;
     }
 
-    /* Background */
+    /* --- Background --- */
     .bg{
       position: fixed;
       inset: 0;
       z-index: -3;
+
+      /* ✅ Scroll-driven soft gradient */
       background:
+        /* glows slowly drift downward with scroll */
         radial-gradient(
           1200px 700px
           at calc(10% + var(--scroll)*8%) calc(10% + var(--scroll)*22%),
@@ -147,6 +155,7 @@
           color-mix(in srgb, var(--glow-3) calc(100% - var(--scroll)*30%), transparent),
           transparent 60%
         ),
+        /* base gradient shifts “cooler/deeper” as you scroll */
         linear-gradient(
           180deg,
           color-mix(in srgb, var(--bg-top) calc(100% - var(--scroll)*30%), var(--bg-mid)) 0%,
@@ -174,10 +183,11 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
+      /* ✅ 给“居中圆角 header”留空间：topbar + top offset + 额外空隙 */
       padding: calc(var(--topbar-h) + var(--topbar-top) + 34px) 22px 80px;
     }
 
-    /* Border / Art */
+    /* ===== Border / Art ===== */
     .edge{
       position: relative;
       border-radius: inherit;
@@ -232,7 +242,9 @@
       opacity: var(--edge-noise);
     }
 
-    /* Topbar */
+    /* =========================
+       ✅ Topbar v4: 居中圆角胶囊
+    ========================= */
     .topbar{
       position: sticky;
       top: var(--topbar-top);
@@ -470,7 +482,8 @@
       .container{ padding-left: 14px; padding-right: 14px; }
     }
 
-    /* Page content */
+    /* ====== 你原本的页面内容（Hero / Cards / Sections 等） ====== */
+
     header.hero{
       margin-top: 0;
       border-radius: var(--radius-lg);
@@ -923,286 +936,13 @@
       .name-line h1{ font-size: 30px; }
       .pronouns{ font-size: 16px; }
     }
-
-    /* =========================
-       To be continued (Book Modal)
-    ========================= */
-    .tbc-panel{
-      position: relative;
-      width: min(980px, 96vw);
-      border-radius: 24px;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-    }
-
-    .tbc-head{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 16px 16px 10px;
-    }
-
-    .tbc-title{
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
-
-    .tbc-body{
-      padding: 0 16px 18px;
-    }
-
-    .book{
-      position: relative;
-      border-radius: 22px;
-      overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,0.40), transparent 45%);
-      border: 1px solid var(--border);
-      box-shadow: 0 18px 60px rgba(15,15,15,0.10);
-    }
-
-    html[data-theme="dark"] .book{
-      box-shadow: 0 22px 76px rgba(0,0,0,0.40);
-    }
-
-    .book-inner{
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 360px;
-      perspective: 1400px;
-    }
-
-    .page{
-      padding: 18px 18px 16px;
-      background: rgba(255,255,255,0.66);
-      position: relative;
-    }
-
-    html[data-theme="dark"] .page{
-      background: rgba(255,255,255,0.06);
-    }
-
-    .page-left{
-      border-right: 1px solid var(--border);
-    }
-
-    .page-top{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .page-chip{
-      display:inline-flex;
-      align-items:center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--chip-bg);
-      box-shadow: inset 0 0 0 1px var(--chip-border);
-      font-size: 12px;
-      color: var(--chip-text);
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
-
-    .page-num{
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .page-title{
-      margin: 6px 0 8px;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-
-    .page-text{
-      margin: 8px 0;
-      font-size: 14px;
-      color: rgba(31,31,31,0.80);
-    }
-    html[data-theme="dark"] .page-text{
-      color: rgba(229,231,235,0.82);
-    }
-
-    .page-list{
-      margin-top: 12px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      background: var(--glass-bg);
-      border: 1px solid var(--border);
-    }
-
-    .page-li{
-      font-size: 13px;
-      color: var(--muted);
-      margin: 6px 0;
-    }
-
-    .page-footer{
-      margin-top: 14px;
-      display:flex;
-      justify-content:flex-end;
-      gap: 10px;
-    }
-
-    .tbc-card{
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 18px;
-      background: var(--glass-bg);
-      border: 1px solid var(--border);
-      box-shadow: 0 12px 32px rgba(15,15,15,0.08);
-    }
-
-    .tbc-card-title{
-      font-weight: 600;
-      margin-bottom: 10px;
-      font-size: 13px;
-      letter-spacing: .2px;
-    }
-
-    .tbc-card-row{
-      display:flex;
-      align-items:flex-start;
-      gap: 10px;
-      margin: 8px 0;
-      font-size: 13px;
-      color: rgba(31,31,31,0.78);
-    }
-
-    html[data-theme="dark"] .tbc-card-row{
-      color: rgba(229,231,235,0.78);
-    }
-
-    .tbc-card-row .dot{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      margin-top: 6px;
-      flex: 0 0 auto;
-    }
-
-    .tbc-stamp{
-      position:absolute;
-      right: 18px;
-      top: 58px;
-      font-weight: 800;
-      letter-spacing: 6px;
-      font-size: 34px;
-      opacity: 0.10;
-      transform: rotate(-8deg);
-      user-select: none;
-      pointer-events: none;
-    }
-
-    /* Flip sheet */
-    .sheet{
-      position:absolute;
-      top: 0;
-      left: 50%;
-      width: 50%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transform-origin: left center;
-      pointer-events: none;
-    }
-
-    .sheet-front, .sheet-back{
-      position:absolute;
-      inset:0;
-      backface-visibility: hidden;
-    }
-
-    .sheet-front{
-      background: rgba(255,255,255,0.82);
-      border-left: 1px solid var(--border);
-    }
-    html[data-theme="dark"] .sheet-front{
-      background: rgba(20,28,44,0.72);
-    }
-
-    .sheet-back{
-      transform: rotateY(180deg);
-      background:
-        radial-gradient(800px 400px at 70% 10%, rgba(42,111,93,0.16), transparent 55%),
-        radial-gradient(700px 500px at 20% 90%, rgba(176,122,72,0.14), transparent 55%),
-        rgba(255,255,255,0.78);
-      border-left: 1px solid var(--border);
-    }
-    html[data-theme="dark"] .sheet-back{
-      background:
-        radial-gradient(800px 400px at 70% 10%, rgba(96,165,250,0.18), transparent 55%),
-        radial-gradient(700px 500px at 20% 90%, rgba(251,191,36,0.12), transparent 55%),
-        rgba(15,20,34,0.78);
-    }
-
-    .sheet-inner{
-      height: 100%;
-      padding: 18px;
-      display:flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-    }
-
-    .sheet-title{
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: .3px;
-    }
-
-    .sheet-sub{
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .sheet-mark{
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      background: var(--glass-bg);
-      border: 1px solid var(--border);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight: 800;
-      opacity: .9;
-    }
-
-    .book.is-flipping .sheet{
-      animation: pageFlip 900ms cubic-bezier(.2,.75,.2,1) forwards;
-    }
-
-    @keyframes pageFlip{
-      0%   { transform: rotateY(0deg); }
-      100% { transform: rotateY(-180deg); }
-    }
-
-    .book.is-flipped .sheet{ display:none; }
-
-    @media (max-width: 760px){
-      .book-inner{ grid-template-columns: 1fr; }
-      .page-left{ border-right: 0; border-bottom: 1px solid var(--border); }
-      .sheet{ display:none; } /* small screen: disable 3D flip */
-    }
   </style>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- Header -->
+  <!-- ✅ Header：居中圆角胶囊（v4） -->
   <nav class="topbar edge grain" aria-label="Site header">
     <div class="topbar-left">
       <a class="brandmark" href="#top" aria-label="Home">
@@ -1211,6 +951,7 @@
       </a>
     </div>
 
+    <!-- 宽屏导航 -->
     <div class="topbar-center" role="navigation" aria-label="Primary">
       <a class="toplink" href="#notes" data-i18n="nav.notes">Notes</a>
       <a class="toplink" href="#essays" data-i18n="nav.essays">Essays</a>
@@ -1218,7 +959,6 @@
       <a class="toplink" href="#library" data-i18n="nav.library">Library</a>
       <a class="toplink" href="#now" data-i18n="nav.now">Now</a>
       <a class="toplink" href="#tracks" data-i18n="nav.tracks">Tracks</a>
-      <a class="toplink" href="#tbc" data-i18n="nav.tbc">To be continued</a>
     </div>
 
     <div class="topbar-right">
@@ -1247,6 +987,7 @@
       </button>
     </div>
 
+    <!-- 窄屏下拉菜单 -->
     <div class="menu-panel edge grain" id="menuPanel" aria-hidden="true">
       <div class="menu-list">
         <a class="menu-item" href="#notes" data-i18n="nav.notes">Notes</a>
@@ -1255,7 +996,6 @@
         <a class="menu-item" href="#library" data-i18n="nav.library">Library</a>
         <a class="menu-item" href="#now" data-i18n="nav.now">Now</a>
         <a class="menu-item" href="#tracks" data-i18n="nav.tracks">Tracks</a>
-        <a class="menu-item" href="#tbc" data-i18n="nav.tbc">To be continued</a>
       </div>
     </div>
   </nav>
@@ -1297,7 +1037,7 @@
 
           <div class="subtitle">
             <span class="pill edge"><b data-i18n="hero.pill1">只开小火车</b></span>
-            <span class="pill edge" data-i18n="hero.pill2">Personal Space · Train in Motion</span>
+            <span class="pill edge" data-i18n="hero.pill2">Personal Space · ZKXHC</span>
           </div>
 
           <div class="bio edge grain">
@@ -1320,7 +1060,6 @@
           <a class="btn primary edge" href="#notes" data-i18n="cta.readNotes">去看随想 · Read Notes</a>
           <a class="btn edge" href="#tracks" data-i18n="cta.tracks">轨道 · Tracks</a>
           <a class="btn edge" href="#music" data-i18n="cta.music">分享音乐 · Music</a>
-          <button class="btn edge" id="tbcOpen" type="button" data-i18n="cta.tbc">📖 更新中 · To be continued</button>
         </div>
 
         <div class="quick-grid" aria-label="Quick entry">
@@ -1622,23 +1361,8 @@
       </div>
     </section>
 
-    <!-- ✅ To be continued Section -->
-    <section id="tbc" class="section reveal edge grain">
-      <div class="section-title">
-        <h3 data-i18n="section.tbc.title">更新中 · To be continued</h3>
-        <div class="hint" data-i18n="section.tbc.hint">点击按钮会打开翻书效果的更新预告页</div>
-      </div>
-
-      <div class="quote edge grain">
-        <span data-i18n="section.tbc.body">📌 这里将持续更新：新的随想、随笔、音乐与轨道进展。</span>
-        <div class="cta-row" style="justify-content:flex-start; margin-top:12px;">
-          <button class="btn primary edge" type="button" id="tbcOpen2" data-i18n="section.tbc.open">📖 打开更新预告</button>
-        </div>
-      </div>
-    </section>
-
     <footer>
-      <span data-i18n="footer">© 2026 Zihua Luo · Train in Motion · Built with calm and patience</span>
+      <span data-i18n="footer">© 2026 Zihua Luo · ZKXHC · Built with calm and patience</span>
     </footer>
   </div>
 
@@ -1668,96 +1392,6 @@
     </div>
   </div>
 
-  <!-- ✅ To be continued Book Modal -->
-  <div class="modal" id="tbcModal" aria-hidden="true" role="dialog" aria-label="To be continued modal">
-    <div class="modal-backdrop" data-tbc-close="1"></div>
-
-    <div class="tbc-panel edge grain" role="document">
-      <div class="tbc-head">
-        <h3 class="tbc-title" data-i18n="tbc.title">更新预告 · To be continued</h3>
-        <button class="modal-close edge" type="button" id="tbcClose" aria-label="Close">✕</button>
-      </div>
-
-      <div class="tbc-body">
-        <div class="book" id="tbcBook" aria-label="Book">
-          <div class="book-inner" id="tbcBookInner">
-            <!-- Left page -->
-            <div class="page page-left">
-              <div class="page-top">
-                <span class="page-chip" data-i18n="tbc.page1.chip">Chapter 1</span>
-                <span class="page-num">1</span>
-              </div>
-              <h4 class="page-title" data-i18n="tbc.page1.title">正在写</h4>
-              <p class="page-text" data-i18n="tbc.page1.p1">我会把随想、随笔、音乐推荐持续写下去。</p>
-              <p class="page-text muted" data-i18n="tbc.page1.p2">这个页面会像书一样，一页页往前翻。</p>
-
-              <div class="page-list">
-                <div class="page-li" data-i18n="tbc.page1.li1">· Notes：每周更新一条</div>
-                <div class="page-li" data-i18n="tbc.page1.li2">· Essays：每月一篇长文</div>
-                <div class="page-li" data-i18n="tbc.page1.li3">· Music：每周一首歌 + 一句话</div>
-              </div>
-
-              <div class="page-footer">
-                <button class="btn primary edge" type="button" id="tbcFlipBtn" data-i18n="tbc.flip">翻到下一页</button>
-              </div>
-            </div>
-
-            <!-- Right page -->
-            <div class="page page-right">
-              <div class="page-top">
-                <span class="page-chip" data-i18n="tbc.page2.chip">Next</span>
-                <span class="page-num">2</span>
-              </div>
-
-              <div class="tbc-stamp" aria-hidden="true">TO BE</div>
-
-              <h4 class="page-title" data-i18n="tbc.page2.title">To be continued…</h4>
-              <p class="page-text" data-i18n="tbc.page2.p1">新的章节正在路上。</p>
-
-              <div class="tbc-card edge grain">
-                <div class="tbc-card-title" data-i18n="tbc.page2.cardTitle">下一次更新</div>
-                <div class="tbc-card-row">
-                  <span class="dot"></span>
-                  <span data-i18n="tbc.page2.card1">一个新的随想：关于“持续向前”</span>
-                </div>
-                <div class="tbc-card-row">
-                  <span class="dot"></span>
-                  <span data-i18n="tbc.page2.card2">一篇随笔：复盘与系统</span>
-                </div>
-                <div class="tbc-card-row">
-                  <span class="dot"></span>
-                  <span data-i18n="tbc.page2.card3">一首歌：夜里开小火车</span>
-                </div>
-              </div>
-
-              <div class="page-footer" style="justify-content:space-between;">
-                <button class="btn edge" type="button" id="tbcResetBtn" data-i18n="tbc.reset">回到第一页</button>
-                <button class="btn edge" type="button" id="tbcGoSection" data-i18n="tbc.goto">去“更新中”板块</button>
-              </div>
-            </div>
-
-            <!-- Flip sheet overlay -->
-            <div class="sheet" id="tbcSheet" aria-hidden="true">
-              <div class="sheet-front">
-                <div class="sheet-inner">
-                  <div class="sheet-mark">—</div>
-                  <div class="sheet-title" data-i18n="tbc.sheet.front">下一页</div>
-                </div>
-              </div>
-              <div class="sheet-back">
-                <div class="sheet-inner">
-                  <div class="sheet-title" data-i18n="tbc.sheet.back">To be continued…</div>
-                  <div class="sheet-sub" data-i18n="tbc.sheet.sub">Stay in motion.</div>
-                </div>
-              </div>
-            </div>
-            <!-- /sheet -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     // ===============================
     // i18n: zh-CN / en-CA
@@ -1771,7 +1405,6 @@
         "nav.library": "收藏",
         "nav.now": "现在",
         "nav.tracks": "轨道",
-        "nav.tbc": "更新中",
 
         "social.linkedin": "LinkedIn",
         "social.instagram": "Instagram",
@@ -1789,7 +1422,6 @@
         "cta.readNotes": "去看随想 · Read Notes",
         "cta.tracks": "轨道 · Tracks",
         "cta.music": "分享音乐 · Music",
-        "cta.tbc": "📖 更新中 · To be continued",
 
         "quick.go": "→ 进入",
         "quick.open": "↗ 打开",
@@ -1931,44 +1563,13 @@
         "tag.links": "Links",
         "tag.public": "Public",
 
-        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience",
+        "footer": "© 2026 Zihua Luo · ZKXHC · Built with calm and patience",
 
         "sponsor.btn": "Sponsor",
         "sponsor.title": "支持我",
         "sponsor.desc": "如果你觉得这些内容对你有帮助，欢迎请我喝杯咖啡 ☕",
         "sponsor.wechat": "微信支付",
-        "sponsor.alipay": "支付宝",
-
-        /* ✅ TBC section + modal */
-        "section.tbc.title": "更新中 · To be continued",
-        "section.tbc.hint": "点击按钮会打开翻书效果的更新预告页",
-        "section.tbc.body": "📌 这里将持续更新：新的随想、随笔、音乐与轨道进展。",
-        "section.tbc.open": "📖 打开更新预告",
-
-        "tbc.title": "更新预告 · To be continued",
-        "tbc.flip": "翻到下一页",
-        "tbc.reset": "回到第一页",
-        "tbc.goto": "去“更新中”板块",
-
-        "tbc.page1.chip": "Chapter 1",
-        "tbc.page1.title": "正在写",
-        "tbc.page1.p1": "我会把随想、随笔、音乐推荐持续写下去。",
-        "tbc.page1.p2": "这个页面会像书一样，一页页往前翻。",
-        "tbc.page1.li1": "· Notes：每周更新一条",
-        "tbc.page1.li2": "· Essays：每月一篇长文",
-        "tbc.page1.li3": "· Music：每周一首歌 + 一句话",
-
-        "tbc.page2.chip": "Next",
-        "tbc.page2.title": "To be continued…",
-        "tbc.page2.p1": "新的章节正在路上。",
-        "tbc.page2.cardTitle": "下一次更新",
-        "tbc.page2.card1": "一个新的随想：关于“持续向前”",
-        "tbc.page2.card2": "一篇随笔：复盘与系统",
-        "tbc.page2.card3": "一首歌：夜里开小火车",
-
-        "tbc.sheet.front": "下一页",
-        "tbc.sheet.back": "To be continued…",
-        "tbc.sheet.sub": "保持前进。"
+        "sponsor.alipay": "支付宝"
       },
 
       "en-CA": {
@@ -1979,13 +1580,12 @@
         "nav.library": "Library",
         "nav.now": "Now",
         "nav.tracks": "Tracks",
-        "nav.tbc": "To be continued",
 
         "social.linkedin": "LinkedIn",
         "social.instagram": "Instagram",
 
         "hero.pronouns": "He/Him",
-        "hero.pill1": "Train in Motion",
+        "hero.pill1": "ZKXHC",
         "hero.pill2": "Personal Space · Calm, honest, ongoing",
         "hero.bioTitle": "Bio",
         "hero.bioPlaceholder": "(Send me your bio and I’ll replace this — Chinese or English is fine.)",
@@ -1997,59 +1597,58 @@
         "cta.readNotes": "Read Notes",
         "cta.tracks": "Tracks",
         "cta.music": "Music",
-        "cta.tbc": "📖 To be continued",
 
         "quick.go": "→ Go",
         "quick.open": "↗ Open",
         "quick.notes.title": "Notes",
-        "quick.notes.desc": "Short lines, fragments, moods — a timeline in progress.",
+        "quick.notes.desc": "Short lines, fragments, moods, and thoughts — slowly building a timeline.",
         "quick.essays.title": "Essays",
-        "quick.essays.desc": "Longer writing: stories, reviews, thinking, systems.",
+        "quick.essays.desc": "Longer writing: stories, reviews, reflections, and frameworks.",
         "quick.music.title": "Music",
-        "quick.music.desc": "One track a week + one reason. Keep what you hear.",
+        "quick.music.desc": "One song a week + one reason. Keep what you hear.",
         "quick.library.title": "Library",
-        "quick.library.desc": "Books, films, podcasts, articles — you are what you love.",
+        "quick.library.desc": "Books, films, podcasts, articles — what you love shapes you.",
         "quick.archive.title": "Archive",
-        "quick.archive.desc": "Organize by year/topic (super useful later).",
+        "quick.archive.desc": "Organize by year/topic (you’ll thank yourself later).",
         "quick.tracks.title": "Tracks",
-        "quick.tracks.desc": "What you’re building, where you’re heading, and how to reach you.",
+        "quick.tracks.desc": "What you’re doing, where you’re heading, and how to reach you.",
 
         "section.notes.title": "Notes",
-        "section.notes.hint": "(Next step: make each note its own page + permalink)",
+        "section.notes.hint": "(Next: make each note its own page + its own link.)",
         "section.essays.title": "Essays",
-        "section.essays.hint": "Longer expression: stories / reviews / systems",
+        "section.essays.hint": "Longer form: stories / retrospectives / frameworks",
         "section.music.title": "Music",
-        "section.music.hint": "One track a week + one reason",
+        "section.music.hint": "One track a week + one sentence (very personal).",
         "section.library.title": "Library",
-        "section.library.hint": "Books / films / podcasts / articles: you are what you love",
+        "section.library.hint": "Books / films / podcasts / articles — what you love shapes you",
         "section.now.title": "Now",
-        "section.now.hint": "A snapshot of you — editable anytime",
+        "section.now.hint": "A snapshot of you — update anytime",
         "section.tracks.title": "Tracks",
-        "section.tracks.hint": "What you're doing / where you're going / how to connect",
+        "section.tracks.hint": "What you’re doing / where you’re going / how to connect",
 
         "notes.card1.title": "First Note",
         "notes.card1.meta": "2026 · Coming Soon",
-        "notes.card1.desc": "Start with a short record. Casual is fine — it becomes your timeline.",
+        "notes.card1.desc": "Start with a short entry. Keep it casual — it becomes a timeline over time.",
 
         "notes.card2.title": "Untitled Thoughts",
         "notes.card2.meta": "Coming Soon",
-        "notes.card2.desc": "No need for ‘works’. Collect tiny threads — they become your style.",
+        "notes.card2.desc": "You don’t need a ‘work’. Collect the loose threads — they become your style.",
 
         "notes.card3.title": "Reading / Film / Moments",
         "notes.card3.meta": "Template",
-        "notes.card3.desc": "You can turn this into ‘What I’m watching’ or ‘One sentence this week’.",
+        "notes.card3.desc": "Turn this into ‘What I’m watching’ or ‘One sentence this week’.",
 
         "notes.card4.title": "Someday",
         "notes.card4.meta": "Template",
-        "notes.card4.desc": "Leave an empty slot for the future. It will be there when you need it.",
+        "notes.card4.desc": "Leave an empty slot for the future. It’ll be there when you’re ready.",
 
         "essays.card1.title": "Essay Template",
         "essays.card1.meta": "2026 · Draft",
-        "essays.card1.desc": "Write 600–1200 words: clarify what you're thinking — that's enough.",
+        "essays.card1.desc": "Write 600–1200 words. If you can say what you’re thinking, it’s enough.",
 
-        "essays.card2.title": "Review: How I keep moving forward",
+        "essays.card2.title": "Retrospective: how I keep moving",
         "essays.card2.meta": "Coming Soon",
-        "essays.card2.desc": "Write goals, frictions, strategies, next step — build your system.",
+        "essays.card2.desc": "Write: goals, friction, strategies, next steps. Slowly build your system.",
 
         "music.week.title": "Track of the Week",
         "music.week.song": "🎧 Song: ____________",
@@ -2064,50 +1663,50 @@
 
         "music.card1.title": "Playlist · Night Train",
         "music.card1.meta": "Template",
-        "music.card1.desc": "Make a themed playlist of 10 tracks + one-line intro.",
+        "music.card1.desc": "Make a 10-song themed playlist with one line of context.",
 
         "music.card2.title": "Music Notes",
         "music.card2.meta": "Template",
-        "music.card2.desc": "A lyric, a melody, a feeling — save the moment.",
+        "music.card2.desc": "Write down a lyric or how a melody made you feel.",
 
         "library.card1.title": "📚 Books I’m Reading",
         "library.card1.meta": "Update anytime",
-        "library.card1.desc": "“______” — why I’m reading it: ______",
+        "library.card1.desc": "“______” — Why I’m reading: ______",
 
         "library.card2.title": "🎬 Films / Series",
         "library.card2.meta": "Update anytime",
-        "library.card2.desc": "Watched this week: ______. One sentence: ______.",
+        "library.card2.desc": "Watched this week: ______. One-line take: ______.",
 
-        "now.cn.title": "This can be your ‘Now’ box",
+        "now.cn.title": "Chinese version (optional)",
         "now.cn.focus": "· Focus: ____________",
         "now.cn.learning": "· Learning: ____________",
         "now.cn.thinking": "· Thinking: ____________",
 
-        "now.en.title": "This can be your ‘Now’ box",
+        "now.en.title": "This can be your “Now” box",
         "now.en.focus": "· Focus: ____________",
         "now.en.learning": "· Learning: ____________",
         "now.en.thinking": "· Thinking: ____________",
 
         "tracks.left.title": "In Motion",
-        "tracks.left.desc": "Use this as a public progress bar: what you're building and practicing.",
+        "tracks.left.desc": "Your public progress bar: what you’re building, practicing, chasing.",
         "tracks.left.boxTitle": "Now building",
         "tracks.left.item1": "· Personal website: refining writing + structure",
         "tracks.left.item2": "· Notes / Essays: weekly update",
         "tracks.left.item3": "· Music: track of the week",
 
         "tracks.right.title": "Connect",
-        "tracks.right.desc": "You can change this to email / resume / portfolio.",
+        "tracks.right.desc": "Put your email, resume, and portfolio here (public email is enough).",
         "tracks.right.linksTitle": "Links",
-        "tracks.right.linksDesc": "· LinkedIn / Instagram are under the avatar<br>· Add: GitHub, Resume, Email",
+        "tracks.right.linksDesc": "· LinkedIn / Instagram are below the avatar<br>· Add GitHub, Resume, Email",
         "tracks.right.github": "GitHub (edit)",
         "tracks.right.resume": "Resume (edit)",
         "tracks.right.email": "Email (edit)",
-        "tracks.right.quote": "CN: It’s okay to go slowly — keep moving forward.<br>EN: It’s okay to go slowly — what matters is staying in motion.",
+        "tracks.right.quote": "中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
 
         "action.read": "Read",
         "action.open": "Open",
         "action.archive": "Archive",
-        "action.toLibrary": "Go to Library",
+        "action.toLibrary": "To Library",
         "action.allEssays": "All Essays",
 
         "tag.life": "Life",
@@ -2139,335 +1738,158 @@
         "tag.links": "Links",
         "tag.public": "Public",
 
-        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience",
+        "footer": "© 2026 Zihua Luo · ZKXHC · Built with calm and patience",
 
         "sponsor.btn": "Sponsor",
         "sponsor.title": "Sponsor",
-        "sponsor.desc": "If this helps, feel free to buy me a coffee ☕",
+        "sponsor.desc": "If you find this helpful, feel free to buy me a coffee ☕",
         "sponsor.wechat": "WeChat Pay",
-        "sponsor.alipay": "Alipay",
-
-        "section.tbc.title": "To be continued",
-        "section.tbc.hint": "Click the button to open the book-style update preview",
-        "section.tbc.body": "📌 This section will keep updating: notes, essays, music, and progress.",
-        "section.tbc.open": "📖 Open preview",
-
-        "tbc.title": "To be continued",
-        "tbc.flip": "Flip to next page",
-        "tbc.reset": "Back to page 1",
-        "tbc.goto": "Go to ‘To be continued’ section",
-
-        "tbc.page1.chip": "Chapter 1",
-        "tbc.page1.title": "Writing in progress",
-        "tbc.page1.p1": "I’ll keep writing notes, essays, and weekly music picks.",
-        "tbc.page1.p2": "This page will move forward — one page at a time.",
-        "tbc.page1.li1": "· Notes: one update a week",
-        "tbc.page1.li2": "· Essays: one long read a month",
-        "tbc.page1.li3": "· Music: one track a week + one line",
-
-        "tbc.page2.chip": "Next",
-        "tbc.page2.title": "To be continued…",
-        "tbc.page2.p1": "New chapters are on the way.",
-        "tbc.page2.cardTitle": "Next updates",
-        "tbc.page2.card1": "A new note: staying in motion",
-        "tbc.page2.card2": "An essay: reviews & systems",
-        "tbc.page2.card3": "A track: night train",
-
-        "tbc.sheet.front": "Next page",
-        "tbc.sheet.back": "To be continued…",
-        "tbc.sheet.sub": "Stay in motion."
+        "sponsor.alipay": "Alipay"
       }
     };
 
     // ===============================
-    // Helpers
-    // ===============================
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
-    function setLang(lang){
-      document.documentElement.setAttribute("data-lang", lang);
-      const dict = I18N[lang] || I18N["zh-CN"];
-      $$("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        const val = dict[key];
-        if(val == null) return;
-        // allow <br> in i18n strings
-        if(typeof val === "string" && val.includes("<br>")){
-          el.innerHTML = val;
-        }else{
-          el.textContent = val;
-        }
-      });
-
-      // Update placeholders that aren't covered by data-i18n
-      const search = $("#siteSearch");
-      if(search){
-        search.placeholder = (lang === "zh-CN") ? "搜索" : "Search";
-      }
-    }
-
-    function setTheme(theme){
-      document.documentElement.setAttribute("data-theme", theme);
-      const icon = $("#themeIcon");
-      const text = $("#themeText");
-      if(theme === "dark"){
-        if(icon) icon.textContent = "☀️";
-        if(text) text.textContent = "Light";
-      }else{
-        if(icon) icon.textContent = "🌙";
-        if(text) text.textContent = "Dark";
-      }
-    }
-
-    function openModal(modal){
-      if(!modal) return;
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-    function closeModal(modal){
-      if(!modal) return;
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    // ===============================
-    // Init: persisted settings
-    // ===============================
-    const savedLang = localStorage.getItem("lang") || document.documentElement.getAttribute("data-lang") || "zh-CN";
-    const savedTheme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "light";
-    setLang(savedLang);
-    setTheme(savedTheme);
-    const langSelect = $("#langSelect");
-    if(langSelect) langSelect.value = savedLang;
-
-    // ===============================
-    // Scroll-driven background var
-    // ===============================
-    function updateScrollVar(){
-      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      const s = Math.min(1, Math.max(0, window.scrollY / max));
-      document.documentElement.style.setProperty("--scroll", String(s));
-    }
-    updateScrollVar();
-    window.addEventListener("scroll", updateScrollVar, { passive: true });
-    window.addEventListener("resize", updateScrollVar);
-
-    // ===============================
-    // Reveal on scroll
-    // ===============================
-    const reveals = $$(".reveal");
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting) e.target.classList.add("is-visible");
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el=>io.observe(el));
-
-    // ===============================
     // Theme toggle
     // ===============================
-    $("#themeToggle")?.addEventListener("click", ()=>{
-      const cur = document.documentElement.getAttribute("data-theme") || "light";
-      const next = (cur === "dark") ? "light" : "dark";
-      setTheme(next);
-      localStorage.setItem("theme", next);
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    function setTheme(mode){
+      document.documentElement.setAttribute('data-theme', mode);
+      const isDark = mode === 'dark';
+      themeIcon.textContent = isDark ? '☀️' : '🌙';
+      themeText.textContent = isDark ? 'Light' : 'Dark';
+      localStorage.setItem('theme', mode);
+    }
+    setTheme(localStorage.getItem('theme') || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
     });
 
     // ===============================
-    // Language select
+    // i18n switch
     // ===============================
-    $("#langSelect")?.addEventListener("change", (e)=>{
-      const lang = e.target.value;
-      setLang(lang);
-      localStorage.setItem("lang", lang);
+    const langSelect = document.getElementById('langSelect');
+
+    function applyLang(lang){
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang === 'zh-CN' ? 'zh-CN' : 'en');
+      const dict = I18N[lang] || I18N["zh-CN"];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (!key) return;
+        const val = dict[key];
+        if (val == null) return;
+        // allow <br> in a few strings
+        if (String(val).includes('<br>')) el.innerHTML = val;
+        else el.textContent = val;
+      });
+
+      // input placeholder
+      const search = document.getElementById('siteSearch');
+      if (search) search.placeholder = (lang === 'zh-CN') ? 'Search' : 'Search';
+
+      localStorage.setItem('lang', lang);
+    }
+
+    const savedLang = localStorage.getItem('lang') || 'zh-CN';
+    langSelect.value = savedLang;
+    applyLang(savedLang);
+
+    langSelect.addEventListener('change', (e) => {
+      applyLang(e.target.value);
     });
 
     // ===============================
     // Mobile menu
     // ===============================
-    const menuBtn = $("#menuBtn");
-    const menuPanel = $("#menuPanel");
-    function closeMenu(){
-      if(!menuPanel || !menuBtn) return;
-      menuPanel.classList.remove("is-open");
-      menuPanel.setAttribute("aria-hidden","true");
-      menuBtn.setAttribute("aria-expanded","false");
+    const menuBtn = document.getElementById('menuBtn');
+    const menuPanel = document.getElementById('menuPanel');
+
+    function setMenu(open){
+      menuPanel.classList.toggle('is-open', open);
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
     }
-    function toggleMenu(){
-      if(!menuPanel || !menuBtn) return;
-      const open = !menuPanel.classList.contains("is-open");
-      if(open){
-        menuPanel.classList.add("is-open");
-        menuPanel.setAttribute("aria-hidden","false");
-        menuBtn.setAttribute("aria-expanded","true");
-      }else{
-        closeMenu();
-      }
-    }
-    menuBtn?.addEventListener("click", toggleMenu);
-    document.addEventListener("click", (e)=>{
-      if(!menuPanel || !menuBtn) return;
-      if(menuPanel.contains(e.target) || menuBtn.contains(e.target)) return;
-      closeMenu();
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMenu(!menuPanel.classList.contains('is-open'));
     });
-    $$(".menu-item").forEach(a=>a.addEventListener("click", closeMenu));
+
+    document.addEventListener('click', (e) => {
+      if (!menuPanel.contains(e.target) && e.target !== menuBtn) setMenu(false);
+    });
 
     // ===============================
     // Sponsor modal
     // ===============================
-    const sponsorModal = $("#sponsorModal");
-    $("#sponsorOpen")?.addEventListener("click", ()=>openModal(sponsorModal));
-    $("#sponsorClose")?.addEventListener("click", ()=>closeModal(sponsorModal));
-    sponsorModal?.addEventListener("click", (e)=>{
-      if(e.target && e.target.getAttribute("data-close")==="1"){
-        closeModal(sponsorModal);
-      }
+    const sponsorOpen = document.getElementById('sponsorOpen');
+    const sponsorModal = document.getElementById('sponsorModal');
+    const sponsorClose = document.getElementById('sponsorClose');
+
+    function setSponsor(open){
+      sponsorModal.classList.toggle('is-open', open);
+      sponsorModal.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    sponsorOpen.addEventListener('click', () => setSponsor(true));
+    sponsorClose.addEventListener('click', () => setSponsor(false));
+
+    sponsorModal.addEventListener('click', (e) => {
+      if (e.target && e.target.getAttribute('data-close') === '1') setSponsor(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setSponsor(false);
     });
 
     // ===============================
-    // TBC modal + book flip
+    // Simple search: scroll to matched section
     // ===============================
-    const tbcModal = $("#tbcModal");
-    const tbcBook = $("#tbcBook");
+    const siteSearch = document.getElementById('siteSearch');
+    const anchors = Array.from(document.querySelectorAll('section[id], header[id]'))
+      .map(el => ({ id: el.id, el, text: (el.innerText || '').toLowerCase() }));
 
-    function openTbc(){
-      // reset state every open
-      if(tbcBook){
-        tbcBook.classList.remove("is-flipping","is-flipped");
-      }
-      openModal(tbcModal);
-    }
-    function closeTbc(){
-      closeModal(tbcModal);
-    }
-
-    $("#tbcOpen")?.addEventListener("click", openTbc);
-    $("#tbcOpen2")?.addEventListener("click", openTbc);
-    $("#tbcClose")?.addEventListener("click", closeTbc);
-    tbcModal?.addEventListener("click", (e)=>{
-      if(e.target && e.target.getAttribute("data-tbc-close")==="1"){
-        closeTbc();
-      }
-    });
-
-    $("#tbcFlipBtn")?.addEventListener("click", ()=>{
-      if(!tbcBook) return;
-      if(tbcBook.classList.contains("is-flipping") || tbcBook.classList.contains("is-flipped")) return;
-      tbcBook.classList.add("is-flipping");
-      window.setTimeout(()=>{
-        tbcBook.classList.remove("is-flipping");
-        tbcBook.classList.add("is-flipped");
-      }, 920);
-    });
-
-    $("#tbcResetBtn")?.addEventListener("click", ()=>{
-      if(!tbcBook) return;
-      tbcBook.classList.remove("is-flipping","is-flipped");
-    });
-
-    $("#tbcGoSection")?.addEventListener("click", ()=>{
-      closeTbc();
-      // give modal close a beat
-      window.setTimeout(()=>{
-        document.querySelector("#tbc")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 80);
-    });
-
-    // ESC closes any open modal + menu
-    document.addEventListener("keydown", (e)=>{
-      if(e.key !== "Escape") return;
-      closeMenu();
-      if(sponsorModal?.classList.contains("is-open")) closeModal(sponsorModal);
-      if(tbcModal?.classList.contains("is-open")) closeTbc();
+    siteSearch.addEventListener('input', () => {
+      const q = siteSearch.value.trim().toLowerCase();
+      if (!q) return;
+      const hit = anchors.find(a => a.text.includes(q) || a.id.includes(q));
+      if (hit) hit.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     // ===============================
-    // Simple search: filter cards/quick + highlight matches
+    // Reveal on scroll
     // ===============================
-    const searchInput = $("#siteSearch");
-    const searchable = [
-      ...$$(".quick"),
-      ...$$(".card"),
-      ...$$(".quote"),
-      ...$$(".section-title h3"),
-      ...$$(".intro p"),
-    ];
-
-    function normalize(s){ return (s || "").toLowerCase().trim(); }
-
-    function clearHighlights(){
-      // We only highlight by wrapping <mark>, so remove them safely
-      $$("mark").forEach(m=>{
-        const text = document.createTextNode(m.textContent);
-        m.parentNode.replaceChild(text, m);
-        m.parentNode.normalize();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) en.target.classList.add('is-visible');
       });
-    }
+    }, { threshold: 0.08 });
 
-    function highlightInElement(el, q){
-      // Avoid highlighting inside inputs/buttons/scripts
-      if(!el || !q) return;
-      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
-        acceptNode(node){
-          if(!node.nodeValue) return NodeFilter.FILTER_REJECT;
-          const p = node.parentElement;
-          if(!p) return NodeFilter.FILTER_REJECT;
-          const tag = p.tagName;
-          if(["SCRIPT","STYLE","INPUT","TEXTAREA","BUTTON","SELECT"].includes(tag)) return NodeFilter.FILTER_REJECT;
-          if(!normalize(node.nodeValue).includes(q)) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        }
-      });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      const nodes = [];
-      while(walker.nextNode()) nodes.push(walker.currentNode);
+    // ===============================
+    // Scroll-driven background gradient
+    // ===============================
+    (function(){
+      const root = document.documentElement;
 
-      nodes.forEach(node=>{
-        const text = node.nodeValue;
-        const low = text.toLowerCase();
-        const idx = low.indexOf(q);
-        if(idx === -1) return;
-
-        const before = document.createTextNode(text.slice(0, idx));
-        const mark = document.createElement("mark");
-        mark.textContent = text.slice(idx, idx + q.length);
-        mark.style.background = "rgba(251, 191, 36, 0.25)";
-        mark.style.color = "inherit";
-        mark.style.padding = "0 2px";
-        mark.style.borderRadius = "6px";
-
-        const after = document.createTextNode(text.slice(idx + q.length));
-        const parent = node.parentNode;
-        parent.replaceChild(after, node);
-        parent.insertBefore(mark, after);
-        parent.insertBefore(before, mark);
-      });
-    }
-
-    function runSearch(){
-      const q = normalize(searchInput?.value);
-      clearHighlights();
-
-      if(!q){
-        // show all
-        [...$$(".quick"), ...$$(".card"), ...$$(".quote")].forEach(el=>el.style.display = "");
-        return;
+      function updateScrollVar(){
+        const doc = document.documentElement;
+        const scrollTop = window.scrollY || doc.scrollTop || 0;
+        const max = (doc.scrollHeight - window.innerHeight) || 1;
+        const t = Math.min(1, Math.max(0, scrollTop / max));
+        root.style.setProperty('--scroll', t.toFixed(4));
       }
 
-      [...$$(".quick"), ...$$(".card"), ...$$(".quote")].forEach(el=>{
-        const t = normalize(el.textContent);
-        const ok = t.includes(q);
-        el.style.display = ok ? "" : "none";
-        if(ok) highlightInElement(el, q);
-      });
-    }
-
-    searchInput?.addEventListener("input", runSearch);
-
+      updateScrollVar();
+      window.addEventListener('scroll', updateScrollVar, { passive: true });
+      window.addEventListener('resize', updateScrollVar);
+    })();
   </script>
 </body>
 </html>
-
