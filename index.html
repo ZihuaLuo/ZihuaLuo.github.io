@@ -44,11 +44,13 @@
       --glass-bg: rgba(255,255,255,0.62);
       --quote-bg: rgba(42,111,93,0.07);
 
-      /* Border art upgrade */
-      --edge-soft: rgba(255,255,255,0.68);
-      --edge-grad-1: rgba(42,111,93,0.22);
-      --edge-grad-2: rgba(176,122,72,0.22);
-      --edge-grad-3: rgba(15,15,15,0.10);
+      /* Border art upgrade (v2) */
+      --edge-soft: rgba(255,255,255,0.70);
+      --edge-grad-1: rgba(42,111,93,0.28);
+      --edge-grad-2: rgba(176,122,72,0.26);
+      --edge-grad-3: rgba(15,15,15,0.14);
+      --edge-highlight: rgba(255,255,255,0.55);
+      --edge-noise: 0.018;
     }
 
     html[data-theme="dark"]{
@@ -75,10 +77,13 @@
       --glass-bg: rgba(255,255,255,0.06);
       --quote-bg: rgba(96,165,250,0.10);
 
-      --edge-soft: rgba(255,255,255,0.10);
-      --edge-grad-1: rgba(96,165,250,0.22);
-      --edge-grad-2: rgba(251,191,36,0.16);
-      --edge-grad-3: rgba(255,255,255,0.12);
+      /* Border art upgrade (dark) */
+      --edge-soft: rgba(255,255,255,0.12);
+      --edge-grad-1: rgba(96,165,250,0.26);
+      --edge-grad-2: rgba(251,191,36,0.18);
+      --edge-grad-3: rgba(255,255,255,0.16);
+      --edge-highlight: rgba(255,255,255,0.12);
+      --edge-noise: 0.022;
     }
 
     *{ box-sizing: border-box; }
@@ -98,7 +103,7 @@
     .bg{
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: -3;
       background:
         radial-gradient(1200px 700px at 10% 10%, var(--bg-r1), transparent 55%),
         radial-gradient(900px 600px at 90% 20%, var(--bg-r2), transparent 55%),
@@ -110,7 +115,7 @@
       content:"";
       position: absolute;
       inset: -2px;
-      z-index: -1;
+      z-index: -2;
       opacity: var(--dot-opacity);
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none'%3E%3Ccircle cx='12' cy='18' r='1.2' fill='%232a6f5d' fill-opacity='0.16'/%3E%3Ccircle cx='64' cy='32' r='1.2' fill='%23b07a48' fill-opacity='0.14'/%3E%3Ccircle cx='94' cy='78' r='1.2' fill='%232a6f5d' fill-opacity='0.14'/%3E%3Ccircle cx='26' cy='92' r='1.2' fill='%23b07a48' fill-opacity='0.12'/%3E%3Ccircle cx='104' cy='14' r='1.2' fill='%232a6f5d' fill-opacity='0.10'/%3E%3C/g%3E%3C/svg%3E");
@@ -125,14 +130,16 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
-      padding: 18px 22px 80px;
+      padding: 88px 22px 80px; /* topbar safe area */
     }
 
-    /* ===== Border / Art Upgrade ===== */
+    /* ===== Border / Art Upgrade (v2) ===== */
     .edge{
       position: relative;
+      border-radius: inherit;
       border: 1px solid transparent;
       background-clip: padding-box;
+      isolation: isolate;
     }
     .edge::before{
       content:"";
@@ -140,7 +147,8 @@
       inset:0;
       border-radius: inherit;
       padding: 1px;
-      background: linear-gradient(135deg, var(--edge-grad-1), var(--edge-grad-2), var(--edge-grad-3));
+      background:
+        linear-gradient(135deg, var(--edge-grad-1), var(--edge-grad-2), var(--edge-grad-3));
       -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
@@ -148,20 +156,46 @@
       mask-composite: exclude;
       pointer-events:none;
       opacity: 0.95;
+      z-index: 1;
     }
     .edge::after{
       content:"";
       position:absolute;
       inset: 1px;
       border-radius: inherit;
-      box-shadow: inset 0 1px 0 var(--edge-soft), inset 0 0 0 1px rgba(255,255,255,0.02);
       pointer-events:none;
-      opacity: 0.75;
+      z-index: 0;
+      background:
+        radial-gradient(120% 120% at 15% 0%, rgba(255,255,255,0.34), transparent 45%),
+        radial-gradient(120% 120% at 85% 0%, rgba(255,255,255,0.18), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,0.10), transparent 55%);
+      box-shadow:
+        inset 0 1px 0 var(--edge-highlight),
+        inset 0 0 0 1px rgba(255,255,255,0.02);
+      opacity: 0.80;
+    }
+    /* Subtle grain overlay for “premium” glass edge */
+    .grain{
+      position: relative;
+    }
+    .grain::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index: 0;
+      opacity: 1;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      border-radius: inherit;
+      transform: translateZ(0);
+      opacity: var(--edge-noise);
     }
 
     /* ===== Figma-like top bar ===== */
     .topbar{
-      height: 56px;
+      height: 64px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
@@ -169,14 +203,17 @@
 
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 40;
 
-      padding: 0 18px;
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(12px);
+      padding: 0 22px;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 6px 22px rgba(0,0,0,0.06);
     }
-    html[data-theme="dark"] .topbar{ background: rgba(10,18,32,0.65); }
+    html[data-theme="dark"] .topbar{
+      background: rgba(10,18,32,0.72);
+    }
 
     .topbar-left{ display:flex; align-items:center; min-width: 220px; }
     .topbar-center{
@@ -223,7 +260,7 @@
       text-decoration: none !important;
       white-space: nowrap;
     }
-    .toplink:hover{ background: rgba(0,0,0,0.04); }
+    .toplink:hover{ background: rgba(0,0,0,0.04); text-decoration:none; }
     html[data-theme="dark"] .toplink{ color: rgba(229,231,235,0.88); }
     html[data-theme="dark"] .toplink:hover{ background: rgba(255,255,255,0.06); }
 
@@ -231,7 +268,7 @@
       display:flex;
       align-items:center;
       gap: 8px;
-      height: 38px;
+      height: 40px;
       padding: 0 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
@@ -264,7 +301,7 @@
       background: var(--chip-bg);
       color: var(--chip-text);
       border-radius: 999px;
-      padding: 7px 10px;
+      padding: 8px 12px;
       line-height: 1;
       cursor: pointer;
       display: inline-flex;
@@ -280,9 +317,9 @@
     .theme-toggle:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
     .theme-toggle .hint{ font-size: 12px; color: var(--muted); }
 
-    /* Language selector */
+    /* Language selector (no zh-TW) */
     .lang-select{
-      height: 38px;
+      height: 40px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--chip-bg);
@@ -296,6 +333,30 @@
     html[data-theme="dark"] .lang-select{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
     .lang-select:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
 
+    /* Sponsor button */
+    .sponsor-btn{
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      height: 40px;
+      border-radius: 999px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(42,111,93,0.14), rgba(176,122,72,0.14));
+      color: rgba(31,31,31,0.90);
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+      white-space: nowrap;
+    }
+    .sponsor-btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
+    html[data-theme="dark"] .sponsor-btn{
+      color: rgba(229,231,235,0.92);
+      background: linear-gradient(135deg, rgba(96,165,250,0.16), rgba(251,191,36,0.10));
+      box-shadow: 0 12px 36px rgba(0,0,0,0.40);
+    }
+
     /* Mobile topbar */
     @media (max-width: 860px){
       .topbar{
@@ -304,26 +365,29 @@
           "left right"
           "center center";
         height: auto;
-        padding: 10px 14px;
+        padding: 12px 14px;
         gap: 10px;
       }
       .topbar-left{ grid-area:left; min-width: unset; }
       .topbar-right{ grid-area:right; min-width: unset; flex-wrap: wrap; justify-content:flex-end; }
       .topbar-center{ grid-area:center; justify-content:flex-start; }
       .search{ width: 38vw; }
+      .container{ padding-top: 96px; }
     }
 
     /* Hero */
     header.hero{
-      margin-top: 18px;
+      margin-top: 0; /* fixed overlap: container already provides space */
       border-radius: var(--radius-lg);
       background: var(--card);
       backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
       overflow: hidden;
+      position: relative;
     }
 
     .cover{ height: 110px; background: transparent; }
+
     .hero-body{ padding: 0 28px 28px; }
 
     .profile{
@@ -438,6 +502,7 @@
       border-radius: 16px;
       background: var(--glass-bg);
       box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+      position: relative;
     }
 
     .bio-title{
@@ -650,15 +715,117 @@
     }
     html[data-theme="dark"] footer{ color: rgba(229,231,235,0.55); }
 
-    /* Responsive */
+    /* Sponsor Modal */
+    .modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 80;
+    }
+    .modal.is-open{ display:flex; }
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(10, 10, 10, 0.35);
+      backdrop-filter: blur(10px);
+    }
+    html[data-theme="dark"] .modal-backdrop{ background: rgba(0,0,0,0.55); }
+
+    .modal-panel{
+      position: relative;
+      width: min(920px, 96vw);
+      border-radius: 22px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .modal-head{
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 16px 16px 10px;
+    }
+    .modal-title{
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: .2px;
+      margin: 0;
+    }
+    .modal-close{
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .modal-close:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
+
+    .modal-body{
+      padding: 0 16px 18px;
+    }
+
+    .sponsor-desc{
+      margin: 6px 0 14px;
+      font-size: 13px;
+      color: rgba(31,31,31,0.72);
+    }
+    html[data-theme="dark"] .sponsor-desc{ color: rgba(229,231,235,0.72); }
+
+    .sponsor-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .sponsor-card{
+      border-radius: 18px;
+      background: var(--glass-bg);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sponsor-card-title{
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 10px;
+      letter-spacing: .2px;
+      color: rgba(31,31,31,0.88);
+    }
+    html[data-theme="dark"] .sponsor-card-title{ color: rgba(229,231,235,0.92); }
+
+    .qr{
+      width: 100%;
+      max-width: 320px;
+      border-radius: 14px;
+      display:block;
+      margin: 0 auto;
+      box-shadow: 0 18px 54px rgba(15,15,15,0.10);
+      background: rgba(255,255,255,0.6);
+    }
+    html[data-theme="dark"] .qr{
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 22px 70px rgba(0,0,0,0.38);
+    }
+
     @media (max-width: 860px){
       .name-line h1{ font-size: 34px; }
-      .container{ padding: 14px 14px 70px; }
+      .container{ padding: 96px 14px 70px; }
       .hero-body{ padding: 0 18px 22px; }
       .section{ padding: 20px 16px; }
       .card{ grid-column: span 12; }
       .two-col{ grid-template-columns: 1fr; }
       .quick{ grid-column: span 12; }
+      .sponsor-grid{ grid-template-columns: 1fr; }
     }
 
     @media (max-width: 480px){
@@ -669,115 +836,13 @@
       .pronouns{ font-size: 16px; }
       .lang-select{ width: 100%; }
     }
-
-    /* ===== Sponsor modal ===== */
-    .sponsor-btn{
-      height: 38px;
-      padding: 0 12px;
-      font-size: 13px;
-      border-radius: 999px;
-      background: var(--chip-bg);
-      color: var(--chip-text);
-      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
-    }
-
-    .modal{
-      position: fixed;
-      inset: 0;
-      z-index: 80;
-      display: none;
-    }
-    .modal.is-open{ display: block; }
-
-    .modal-backdrop{
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.35);
-      backdrop-filter: blur(3px);
-    }
-
-    .modal-panel{
-      position: relative;
-      width: min(720px, calc(100vw - 28px));
-      margin: 90px auto 0;
-      border-radius: 22px;
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .modal-head{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .modal-title{
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-
-    .modal-close{
-      padding: 8px 10px;
-      border-radius: 999px;
-    }
-
-    .modal-body{
-      padding: 16px 16px 18px;
-    }
-
-    .sponsor-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 12px;
-    }
-
-    .sponsor-card{
-      border-radius: 18px;
-      background: var(--glass-bg);
-      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
-      padding: 14px;
-    }
-
-    .sponsor-card-title{
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .qr{
-      width: 100%;
-      max-width: 260px;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.12);
-    }
-
-    .sponsor-links{
-      margin-top: 14px;
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 680px){
-      .modal-panel{ margin-top: 72px; }
-      .sponsor-grid{ grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- Figma-like Header -->
+  <!-- Header -->
   <nav class="topbar" aria-label="Site header">
     <div class="topbar-left">
       <a class="brandmark" href="#top" aria-label="Home">
@@ -801,15 +866,17 @@
         <option value="en-CA">English (Canada)</option>
       </select>
 
-      <div class="searchwrap">
+      <div class="searchwrap edge">
         <svg class="searchicon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
           <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <input id="siteSearch" class="search" type="search" placeholder="搜索" autocomplete="off" />
+        <input id="siteSearch" class="search" type="search" placeholder="Search" autocomplete="off" />
       </div>
 
-      <button class="btn edge sponsor-btn" id="sponsorBtn" type="button" data-i18n="nav.sponsor">打赏</button>
+      <button class="sponsor-btn edge" id="sponsorOpen" type="button" aria-label="Sponsor">
+        ☕ <span data-i18n="sponsor.btn">Sponsor</span>
+      </button>
 
       <button class="theme-toggle edge" id="themeToggle" type="button" aria-label="Toggle theme">
         <span id="themeIcon" aria-hidden="true">🌙</span>
@@ -821,7 +888,7 @@
   <div class="container">
 
     <!-- Hero -->
-    <header id="top" class="hero edge">
+    <header id="top" class="hero edge grain">
       <div class="cover" aria-hidden="true"></div>
 
       <div class="hero-body">
@@ -850,7 +917,7 @@
             <h1>
               <span>Zihua Luo</span>, <span class="designation">FRM</span>
             </h1>
-            <span class="pronouns" data-i18n="hero.pronouns">他 / He</span>
+            <span class="pronouns" data-i18n="hero.pronouns">He/Him</span>
           </div>
 
           <div class="subtitle">
@@ -858,8 +925,8 @@
             <span class="pill edge" data-i18n="hero.pill2">Personal Space · Train in Motion</span>
           </div>
 
-          <div class="bio edge">
-            <div class="bio-title" data-i18n="hero.bioTitle">简介</div>
+          <div class="bio edge grain">
+            <div class="bio-title" data-i18n="hero.bioTitle">Bio</div>
             <div class="bio-text">
               <p class="muted" data-i18n="hero.bioPlaceholder">（把你的 Bio 发我，我会替换到这里：中英文都可以）</p>
             </div>
@@ -875,246 +942,246 @@
         </div>
 
         <div class="cta-row">
-          <a class="btn primary edge" href="#notes" data-i18n="cta.readNotes">去看随想</a>
-          <a class="btn edge" href="#tracks" data-i18n="cta.tracks">轨道</a>
-          <a class="btn edge" href="#music" data-i18n="cta.music">分享音乐</a>
+          <a class="btn primary edge" href="#notes" data-i18n="cta.readNotes">去看随想 · Read Notes</a>
+          <a class="btn edge" href="#tracks" data-i18n="cta.tracks">轨道 · Tracks</a>
+          <a class="btn edge" href="#music" data-i18n="cta.music">分享音乐 · Music</a>
         </div>
 
         <div class="quick-grid" aria-label="Quick entry">
-          <a class="quick edge" href="#notes">
-            <h4 data-i18n="quick.notes.title">随想</h4>
+          <a class="quick edge grain" href="#notes">
+            <h4 data-i18n="quick.notes.title">随想 Notes</h4>
             <p data-i18n="quick.notes.desc">短句、片段、心情与想法。像时间线一样慢慢积累。</p>
-            <span class="k edge" data-i18n="quick.go">→ 进入</span>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
-          <a class="quick edge" href="#essays">
-            <h4 data-i18n="quick.essays.title">随笔</h4>
+          <a class="quick edge grain" href="#essays">
+            <h4 data-i18n="quick.essays.title">随笔 Essays</h4>
             <p data-i18n="quick.essays.desc">更长的文字：故事、复盘、思考、方法论。</p>
-            <span class="k edge" data-i18n="quick.go">→ 进入</span>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
-          <a class="quick edge" href="#music">
-            <h4 data-i18n="quick.music.title">音乐</h4>
+          <a class="quick edge grain" href="#music">
+            <h4 data-i18n="quick.music.title">音乐 Music</h4>
             <p data-i18n="quick.music.desc">每周一首歌 + 一句理由。把听见的东西留下来。</p>
-            <span class="k edge" data-i18n="quick.go">→ 进入</span>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
-          <a class="quick edge" href="#library">
-            <h4 data-i18n="quick.library.title">收藏</h4>
+          <a class="quick edge grain" href="#library">
+            <h4 data-i18n="quick.library.title">收藏 Library</h4>
             <p data-i18n="quick.library.desc">书、电影、播客、文章：你喜欢的东西会构成你。</p>
-            <span class="k edge" data-i18n="quick.go">→ 进入</span>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
 
-          <a class="quick edge" href="archive.html">
-            <h4 data-i18n="quick.archive.title">归档</h4>
+          <a class="quick edge grain" href="archive.html">
+            <h4 data-i18n="quick.archive.title">归档 Archive</h4>
             <p data-i18n="quick.archive.desc">按年份/主题整理（以后你写多了会非常有用）。</p>
-            <span class="k edge" data-i18n="quick.open">↗ 打开</span>
+            <span class="k edge" data-i18n="quick.open">↗ Open</span>
           </a>
 
-          <a class="quick edge" href="#tracks">
-            <h4 data-i18n="quick.tracks.title">轨道</h4>
+          <a class="quick edge grain" href="#tracks">
+            <h4 data-i18n="quick.tracks.title">轨道 Tracks</h4>
             <p data-i18n="quick.tracks.desc">你正在做的事、你要去的方向、以及联系你。</p>
-            <span class="k edge" data-i18n="quick.go">→ 进入</span>
+            <span class="k edge" data-i18n="quick.go">→ Go</span>
           </a>
         </div>
       </div>
     </header>
 
     <!-- Notes -->
-    <section id="notes" class="section reveal edge">
+    <section id="notes" class="section reveal edge grain">
       <div class="section-title">
-        <h3 data-i18n="section.notes.title">随想</h3>
+        <h3 data-i18n="section.notes.title">随想 · Notes</h3>
         <div class="hint" data-i18n="section.notes.hint">（下一步可以把每篇随想做成独立页面 + 独立链接）</div>
       </div>
 
       <div class="grid">
-        <article class="card edge">
-          <div class="card-title" data-i18n="notes.card1.title">第一篇随想</div>
-          <div class="card-meta" data-i18n="notes.card1.meta">2026 · 即将上线</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="notes.card1.title">第一篇随想 · First Note</div>
+          <div class="card-meta" data-i18n="notes.card1.meta">2026 · Coming Soon</div>
           <p data-i18n="notes.card1.desc">先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.life">生活</span>
-            <span class="tag edge" data-i18n="tag.reflection">反思</span>
+            <span class="tag edge" data-i18n="tag.life">Life</span>
+            <span class="tag edge" data-i18n="tag.reflection">Reflection</span>
             <span class="tag edge" data-i18n="tag.bilingual">中文/EN</span>
           </div>
-          <a class="mini-link" href="#notes"><span class="edge" data-i18n="action.read">阅读</span></a>
+          <a class="mini-link" href="#notes"><span class="edge" data-i18n="action.read">阅读 · Read</span></a>
         </article>
 
-        <article class="card edge">
-          <div class="card-title" data-i18n="notes.card2.title">一些尚未命名的思考</div>
-          <div class="card-meta" data-i18n="notes.card2.meta">即将上线</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="notes.card2.title">一些尚未命名的思考 · Untitled Thoughts</div>
+          <div class="card-meta" data-i18n="notes.card2.meta">Coming Soon</div>
           <p data-i18n="notes.card2.desc">不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.slow">慢</span>
-            <span class="tag edge" data-i18n="tag.quiet">安静</span>
-            <span class="tag edge" data-i18n="tag.notes">随想</span>
+            <span class="tag edge" data-i18n="tag.slow">Slow</span>
+            <span class="tag edge" data-i18n="tag.quiet">Quiet</span>
+            <span class="tag edge" data-i18n="tag.notes">Notes</span>
           </div>
-          <a class="mini-link" href="#notes"><span class="edge" data-i18n="action.read">阅读</span></a>
+          <a class="mini-link" href="#notes"><span class="edge" data-i18n="action.read">阅读 · Read</span></a>
         </article>
 
-        <article class="card edge">
-          <div class="card-title" data-i18n="notes.card3.title">读书 / 电影 / 片刻</div>
-          <div class="card-meta" data-i18n="notes.card3.meta">模板</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="notes.card3.title">读书 / 电影 / 片刻 · Reading / Film / Moments</div>
+          <div class="card-meta" data-i18n="notes.card3.meta">Template</div>
           <p data-i18n="notes.card3.desc">你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.reading">阅读</span>
-            <span class="tag edge" data-i18n="tag.film">电影</span>
-            <span class="tag edge" data-i18n="tag.moments">片刻</span>
+            <span class="tag edge" data-i18n="tag.reading">Reading</span>
+            <span class="tag edge" data-i18n="tag.film">Film</span>
+            <span class="tag edge" data-i18n="tag.moments">Moments</span>
           </div>
-          <a class="mini-link" href="#library"><span class="edge" data-i18n="action.toLibrary">去收藏区</span></a>
+          <a class="mini-link" href="#library"><span class="edge" data-i18n="action.toLibrary">去收藏区 · Library</span></a>
         </article>
 
-        <article class="card edge">
-          <div class="card-title" data-i18n="notes.card4.title">未来的某天</div>
-          <div class="card-meta" data-i18n="notes.card4.meta">模板</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="notes.card4.title">未来的某天 · Someday</div>
+          <div class="card-meta" data-i18n="notes.card4.meta">Template</div>
           <p data-i18n="notes.card4.desc">留一个空位给未来。等你想写的时候，它就在那里。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.future">未来</span>
-            <span class="tag edge" data-i18n="tag.empty">空位</span>
-            <span class="tag edge" data-i18n="tag.keep">保留</span>
+            <span class="tag edge" data-i18n="tag.future">Future</span>
+            <span class="tag edge" data-i18n="tag.empty">Empty Slot</span>
+            <span class="tag edge" data-i18n="tag.keep">Keep</span>
           </div>
-          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
         </article>
       </div>
     </section>
 
     <!-- Essays -->
-    <section id="essays" class="section reveal edge">
+    <section id="essays" class="section reveal edge grain">
       <div class="section-title">
-        <h3 data-i18n="section.essays.title">随笔</h3>
+        <h3 data-i18n="section.essays.title">随笔 · Essays</h3>
         <div class="hint" data-i18n="section.essays.hint">更长的表达：故事 / 复盘 / 方法论</div>
       </div>
 
       <div class="grid">
-        <article class="card edge">
-          <div class="card-title" data-i18n="essays.card1.title">随笔模板</div>
-          <div class="card-meta" data-i18n="essays.card1.meta">2026 · 草稿</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="essays.card1.title">随笔模板 · Essay Template</div>
+          <div class="card-meta" data-i18n="essays.card1.meta">2026 · Draft</div>
           <p data-i18n="essays.card1.desc">写一篇 600～1200 字：讲清楚“我在想什么”，就够了。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.essay">随笔</span>
-            <span class="tag edge" data-i18n="tag.longform">长文</span>
-            <span class="tag edge" data-i18n="tag.draft">草稿</span>
+            <span class="tag edge" data-i18n="tag.essay">Essay</span>
+            <span class="tag edge" data-i18n="tag.longform">Longform</span>
+            <span class="tag edge" data-i18n="tag.draft">Draft</span>
           </div>
-          <a class="mini-link" href="essays.html"><span class="edge" data-i18n="action.allEssays">查看全部</span></a>
+          <a class="mini-link" href="essays.html"><span class="edge" data-i18n="action.allEssays">查看全部 · All Essays</span></a>
         </article>
 
-        <article class="card edge">
+        <article class="card edge grain">
           <div class="card-title" data-i18n="essays.card2.title">复盘：我如何让自己持续前进</div>
-          <div class="card-meta" data-i18n="essays.card2.meta">即将上线</div>
+          <div class="card-meta" data-i18n="essays.card2.meta">Coming Soon</div>
           <p data-i18n="essays.card2.desc">你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.review">复盘</span>
-            <span class="tag edge" data-i18n="tag.systems">系统</span>
-            <span class="tag edge" data-i18n="tag.growth">成长</span>
+            <span class="tag edge" data-i18n="tag.review">Review</span>
+            <span class="tag edge" data-i18n="tag.systems">Systems</span>
+            <span class="tag edge" data-i18n="tag.growth">Growth</span>
           </div>
-          <a class="mini-link" href="essays.html"><span class="edge" data-i18n="action.read">阅读</span></a>
+          <a class="mini-link" href="essays.html"><span class="edge" data-i18n="action.read">阅读 · Read</span></a>
         </article>
       </div>
     </section>
 
     <!-- Music -->
-    <section id="music" class="section reveal edge">
+    <section id="music" class="section reveal edge grain">
       <div class="section-title">
-        <h3 data-i18n="section.music.title">音乐</h3>
+        <h3 data-i18n="section.music.title">音乐 · Music</h3>
         <div class="hint" data-i18n="section.music.hint">每周一首歌 + 一句理由（很有个人气质）</div>
       </div>
 
       <div class="two-col">
-        <div class="quote edge">
-          <b data-i18n="music.week.title">本周推荐</b><br>
-          <span data-i18n="music.week.song">🎧 歌曲：____________</span><br>
-          <span data-i18n="music.week.artist">🎼 歌手：____________</span><br>
-          <span data-i18n="music.week.why">✍️ 理由：______________________</span>
+        <div class="quote edge grain">
+          <b data-i18n="music.week.title">本周推荐 · Track of the Week</b><br>
+          <span data-i18n="music.week.song">🎧 Song: ____________</span><br>
+          <span data-i18n="music.week.artist">🎼 Artist: ____________</span><br>
+          <span data-i18n="music.week.why">✍️ Why: ______________________</span>
         </div>
 
-        <div class="quote edge">
+        <div class="quote edge grain">
           <b data-i18n="music.links.title">放链接（Spotify / Apple Music / YouTube）</b><br>
-          <span data-i18n="music.links.spotify">· Spotify： (link)</span><br>
-          <span data-i18n="music.links.apple">· Apple Music： (link)</span><br>
-          <span data-i18n="music.links.youtube">· YouTube： (link)</span>
+          <span data-i18n="music.links.spotify">· Spotify: (link)</span><br>
+          <span data-i18n="music.links.apple">· Apple Music: (link)</span><br>
+          <span data-i18n="music.links.youtube">· YouTube: (link)</span>
           <div style="margin-top:10px;">
-            <a class="btn edge" href="music.html" data-i18n="music.openPage">进入音乐页</a>
+            <a class="btn edge" href="music.html" data-i18n="music.openPage">进入音乐页 · Open Music Page</a>
           </div>
         </div>
       </div>
 
       <div class="grid" style="margin-top:14px;">
-        <article class="card edge">
-          <div class="card-title" data-i18n="music.card1.title">播放列表 · 夜里开小火车</div>
-          <div class="card-meta" data-i18n="music.card1.meta">模板</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="music.card1.title">Playlist · 夜里开小火车</div>
+          <div class="card-meta" data-i18n="music.card1.meta">Template</div>
           <p data-i18n="music.card1.desc">把 10 首歌做成一个主题播放列表，配一句话介绍。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.playlist">播放列表</span>
-            <span class="tag edge" data-i18n="tag.mood">情绪</span>
-            <span class="tag edge" data-i18n="tag.weekly">每周</span>
+            <span class="tag edge" data-i18n="tag.playlist">Playlist</span>
+            <span class="tag edge" data-i18n="tag.mood">Mood</span>
+            <span class="tag edge" data-i18n="tag.weekly">Weekly</span>
           </div>
-          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开</span></a>
+          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开 · Open</span></a>
         </article>
 
-        <article class="card edge">
-          <div class="card-title" data-i18n="music.card2.title">音乐碎片</div>
-          <div class="card-meta" data-i18n="music.card2.meta">模板</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="music.card2.title">音乐碎片 · Music Notes</div>
+          <div class="card-meta" data-i18n="music.card2.meta">Template</div>
           <p data-i18n="music.card2.desc">记录一句歌词、一段旋律带来的感受。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.lyrics">歌词</span>
-            <span class="tag edge" data-i18n="tag.feelings">感受</span>
-            <span class="tag edge" data-i18n="tag.notes">随想</span>
+            <span class="tag edge" data-i18n="tag.lyrics">Lyrics</span>
+            <span class="tag edge" data-i18n="tag.feelings">Feelings</span>
+            <span class="tag edge" data-i18n="tag.notes">Notes</span>
           </div>
-          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开</span></a>
+          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开 · Open</span></a>
         </article>
       </div>
     </section>
 
     <!-- Library -->
-    <section id="library" class="section reveal edge">
+    <section id="library" class="section reveal edge grain">
       <div class="section-title">
-        <h3 data-i18n="section.library.title">收藏</h3>
+        <h3 data-i18n="section.library.title">收藏 · Library</h3>
         <div class="hint" data-i18n="section.library.hint">书 / 电影 / 播客 / 文章：你喜欢的东西会组成你</div>
       </div>
 
       <div class="grid">
-        <article class="card edge">
-          <div class="card-title" data-i18n="library.card1.title">📚 我在读的书</div>
-          <div class="card-meta" data-i18n="library.card1.meta">随时更新</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="library.card1.title">📚 Books I’m Reading</div>
+          <div class="card-meta" data-i18n="library.card1.meta">Update anytime</div>
           <p data-i18n="library.card1.desc">《______》— 为什么在读：______</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.books">书籍</span>
-            <span class="tag edge" data-i18n="tag.reading">阅读</span>
-            <span class="tag edge" data-i18n="tag.notes">随想</span>
+            <span class="tag edge" data-i18n="tag.books">Books</span>
+            <span class="tag edge" data-i18n="tag.reading">Reading</span>
+            <span class="tag edge" data-i18n="tag.notes">Notes</span>
           </div>
-          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
         </article>
 
-        <article class="card edge">
-          <div class="card-title" data-i18n="library.card2.title">🎬 电影 / 剧集</div>
-          <div class="card-meta" data-i18n="library.card2.meta">随时更新</div>
+        <article class="card edge grain">
+          <div class="card-title" data-i18n="library.card2.title">🎬 Films / Series</div>
+          <div class="card-meta" data-i18n="library.card2.meta">Update anytime</div>
           <p data-i18n="library.card2.desc">本周看了：______。一句话感受：______。</p>
           <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.film">电影</span>
-            <span class="tag edge" data-i18n="tag.series">剧集</span>
-            <span class="tag edge" data-i18n="tag.mood">情绪</span>
+            <span class="tag edge" data-i18n="tag.film">Film</span>
+            <span class="tag edge" data-i18n="tag.series">Series</span>
+            <span class="tag edge" data-i18n="tag.mood">Mood</span>
           </div>
-          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
         </article>
       </div>
     </section>
 
     <!-- Now -->
-    <section id="now" class="section reveal edge">
+    <section id="now" class="section reveal edge grain">
       <div class="section-title">
-        <h3 data-i18n="section.now.title">现在</h3>
+        <h3 data-i18n="section.now.title">现在 · Now</h3>
         <div class="hint" data-i18n="section.now.hint">一段“此刻的我”，随时可改</div>
       </div>
 
       <div class="two-col">
-        <div class="quote edge">
+        <div class="quote edge grain">
           <b data-i18n="now.cn.title">这段可以当作你的“近况栏”</b><br>
           <span data-i18n="now.cn.focus">· 最近在专注：____________</span><br>
           <span data-i18n="now.cn.learning">· 最近在学习：____________</span><br>
           <span data-i18n="now.cn.thinking">· 最近在思考：____________</span>
         </div>
 
-        <div class="quote edge">
+        <div class="quote edge grain">
           <b data-i18n="now.en.title">This can be your “Now” box</b><br>
           <span data-i18n="now.en.focus">· Focus: ____________</span><br>
           <span data-i18n="now.en.learning">· Learning: ____________</span><br>
@@ -1124,55 +1191,55 @@
     </section>
 
     <!-- Tracks -->
-    <section id="tracks" class="section reveal edge">
+    <section id="tracks" class="section reveal edge grain">
       <div class="section-title">
-        <h3 data-i18n="section.tracks.title">轨道</h3>
+        <h3 data-i18n="section.tracks.title">轨道 · Tracks</h3>
         <div class="hint" data-i18n="section.tracks.hint">正在做的事 / 想去的方向 / 联系方式</div>
       </div>
 
       <div class="two-col">
         <div>
-          <p><b data-i18n="tracks.left.title">在路上</b></p>
+          <p><b data-i18n="tracks.left.title">在路上 · In Motion</b></p>
           <p class="muted" data-i18n="tracks.left.desc">把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。</p>
 
-          <div class="quote edge" style="margin-top:12px;">
-            <b data-i18n="tracks.left.boxTitle">正在做</b><br>
-            <span data-i18n="tracks.left.item1">· 个人网站：优化写作 + 结构</span><br>
-            <span data-i18n="tracks.left.item2">· 随想 / 随笔：每周更新</span><br>
-            <span data-i18n="tracks.left.item3">· 音乐：本周推荐</span>
+          <div class="quote edge grain" style="margin-top:12px;">
+            <b data-i18n="tracks.left.boxTitle">Now building</b><br>
+            <span data-i18n="tracks.left.item1">· Personal website: refining writing + structure</span><br>
+            <span data-i18n="tracks.left.item2">· Notes / Essays: weekly update</span><br>
+            <span data-i18n="tracks.left.item3">· Music: track of the week</span>
           </div>
 
           <div class="cta-row" style="justify-content:flex-start; margin-top:12px;">
-            <a class="btn primary edge" href="#notes" data-i18n="nav.notes">随想</a>
-            <a class="btn edge" href="#essays" data-i18n="nav.essays">随笔</a>
-            <a class="btn edge" href="#music" data-i18n="nav.music">音乐</a>
+            <a class="btn primary edge" href="#notes" data-i18n="nav.notes">Notes</a>
+            <a class="btn edge" href="#essays" data-i18n="nav.essays">Essays</a>
+            <a class="btn edge" href="#music" data-i18n="nav.music">Music</a>
           </div>
         </div>
 
         <div>
-          <p><b data-i18n="tracks.right.title">联系</b></p>
+          <p><b data-i18n="tracks.right.title">联系 · Connect</b></p>
           <p class="muted" data-i18n="tracks.right.desc">你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。</p>
 
-          <article class="card edge" style="grid-column: span 12; margin-top:10px;">
-            <div class="card-title" data-i18n="tracks.right.linksTitle">链接</div>
+          <article class="card edge grain" style="grid-column: span 12; margin-top:10px;">
+            <div class="card-title" data-i18n="tracks.right.linksTitle">Links</div>
             <p class="muted" style="margin-top:6px;" data-i18n="tracks.right.linksDesc">
               · LinkedIn / Instagram 已在头像下方<br>
-              · 你也可以加：GitHub、简历、邮箱
+              · 你也可以加：GitHub、Resume、Email
             </p>
             <div class="tag-row">
-              <span class="tag edge" data-i18n="tag.connect">联系</span>
-              <span class="tag edge" data-i18n="tag.links">链接</span>
-              <span class="tag edge" data-i18n="tag.public">公开</span>
+              <span class="tag edge" data-i18n="tag.connect">Connect</span>
+              <span class="tag edge" data-i18n="tag.links">Links</span>
+              <span class="tag edge" data-i18n="tag.public">Public</span>
             </div>
 
             <div class="cta-row" style="justify-content:flex-start;">
-              <a class="btn edge" href="https://github.com/" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.github">GitHub（修改）</a>
-              <a class="btn edge" href="#" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.resume">简历（修改）</a>
-              <a class="btn edge" href="mailto:your@email.com" data-i18n="tracks.right.email">邮箱（修改）</a>
+              <a class="btn edge" href="https://github.com/" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.github">GitHub (edit)</a>
+              <a class="btn edge" href="#" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.resume">Resume (edit)</a>
+              <a class="btn edge" href="mailto:your@email.com" data-i18n="tracks.right.email">Email (edit)</a>
             </div>
           </article>
 
-          <div class="quote edge" style="margin-top:12px;">
+          <div class="quote edge grain" style="margin-top:12px;">
             <span data-i18n="tracks.right.quote">中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.</span>
           </div>
         </div>
@@ -1185,36 +1252,27 @@
 
   </div>
 
-  <!-- Sponsor Modal -->
-  <div class="modal" id="sponsorModal" aria-hidden="true">
-    <div class="modal-backdrop" data-close="true"></div>
-
-    <div class="modal-panel edge" role="dialog" aria-modal="true" aria-label="Sponsor dialog">
+  <!-- Sponsor Modal (方案A：使用 sponsor.wechat.jpg / sponsor.alipay.jpg) -->
+  <div class="modal" id="sponsorModal" aria-hidden="true" role="dialog" aria-label="Sponsor modal">
+    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-panel edge grain" role="document">
       <div class="modal-head">
-        <div class="modal-title" data-i18n="sponsor.title">Sponsor / 打赏</div>
-        <button class="modal-close btn edge" type="button" id="sponsorClose" aria-label="Close">✕</button>
+        <h3 class="modal-title" data-i18n="sponsor.title">Sponsor</h3>
+        <button class="modal-close edge" type="button" id="sponsorClose" aria-label="Close">✕</button>
       </div>
-
       <div class="modal-body">
-        <p class="muted" data-i18n="sponsor.desc">如果你觉得这些内容对你有帮助，欢迎请我喝杯咖啡 ☕️</p>
+        <p class="sponsor-desc" data-i18n="sponsor.desc">如果你觉得这些内容对你有帮助，欢迎请我喝杯咖啡 ☕</p>
 
         <div class="sponsor-grid">
-          <div class="sponsor-card edge">
+          <div class="sponsor-card edge grain">
             <div class="sponsor-card-title" data-i18n="sponsor.wechat">微信支付</div>
-            <!-- 把 wechat-qr.png 换成你的二维码图片路径 -->
-            <img class="qr" src="sponsor.wechat.jpg" alt="WeChat Pay QR" /> 
+            <img class="qr" src="sponsor.wechat.jpg" alt="WeChat Pay QR" />
           </div>
 
-          <div class="sponsor-card edge">
+          <div class="sponsor-card edge grain">
             <div class="sponsor-card-title" data-i18n="sponsor.alipay">支付宝</div>
-            <!-- 把 alipay-qr.png 换成你的二维码图片路径 -->
             <img class="qr" src="sponsor.alipay.jpg" alt="Alipay QR" />
           </div>
-        </div>
-
-        <div class="sponsor-links">
-          <!-- 把 href 换成你的赞助链接（爱发电/BuyMeACoffee/Patreon 等） -->
-          <a class="btn edge" href="#" target="_blank" rel="noopener noreferrer" data-i18n="sponsor.link1">也可以用链接支持</a>
         </div>
       </div>
     </div>
@@ -1222,14 +1280,10 @@
 
   <script>
     // ===============================
-    // i18n: zh-CN / en-CA (Removed zh-TW)
-    // How to extend later:
-    // 1) 给任何元素加 data-i18n="your.key"
-    // 2) 在下面 I18N 字典里补上同一个 key 的文案
+    // i18n: zh-CN / en-CA (已移除繁体)
     // ===============================
     const I18N = {
       "zh-CN": {
-        // Top / common
         "brand.community": "Community",
         "nav.notes": "随想",
         "nav.essays": "随笔",
@@ -1237,7 +1291,6 @@
         "nav.library": "收藏",
         "nav.now": "现在",
         "nav.tracks": "轨道",
-        "nav.sponsor": "打赏",
 
         "social.linkedin": "LinkedIn",
         "social.instagram": "Instagram",
@@ -1271,7 +1324,6 @@
         "quick.tracks.title": "轨道",
         "quick.tracks.desc": "你正在做的事、你要去的方向、以及联系你。",
 
-        // Sections
         "section.notes.title": "随想",
         "section.notes.hint": "（下一步可以把每篇随想做成独立页面 + 独立链接）",
         "section.essays.title": "随笔",
@@ -1285,7 +1337,6 @@
         "section.tracks.title": "轨道",
         "section.tracks.hint": "正在做的事 / 想去的方向 / 联系方式",
 
-        // Notes cards
         "notes.card1.title": "第一篇随想",
         "notes.card1.meta": "2026 · 即将上线",
         "notes.card1.desc": "先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。",
@@ -1302,7 +1353,6 @@
         "notes.card4.meta": "模板",
         "notes.card4.desc": "留一个空位给未来。等你想写的时候，它就在那里。",
 
-        // Essays cards
         "essays.card1.title": "随笔模板",
         "essays.card1.meta": "2026 · 草稿",
         "essays.card1.desc": "写一篇 600～1200 字：讲清楚“我在想什么”，就够了。",
@@ -1311,7 +1361,6 @@
         "essays.card2.meta": "即将上线",
         "essays.card2.desc": "你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。",
 
-        // Music
         "music.week.title": "本周推荐",
         "music.week.song": "🎧 歌曲：____________",
         "music.week.artist": "🎼 歌手：____________",
@@ -1331,7 +1380,6 @@
         "music.card2.meta": "模板",
         "music.card2.desc": "记录一句歌词、一段旋律带来的感受。",
 
-        // Library
         "library.card1.title": "📚 我在读的书",
         "library.card1.meta": "随时更新",
         "library.card1.desc": "《______》— 为什么在读：______",
@@ -1340,18 +1388,16 @@
         "library.card2.meta": "随时更新",
         "library.card2.desc": "本周看了：______。一句话感受：______。",
 
-        // Now
         "now.cn.title": "这段可以当作你的“近况栏”",
         "now.cn.focus": "· 最近在专注：____________",
         "now.cn.learning": "· 最近在学习：____________",
         "now.cn.thinking": "· 最近在思考：____________",
 
-        "now.en.title": "This can be your “Now” box",
-        "now.en.focus": "· Focus: ____________",
-        "now.en.learning": "· Learning: ____________",
-        "now.en.thinking": "· Thinking: ____________",
+        "now.en.title": "（英文版本也可以写在这里）",
+        "now.en.focus": "· Focus：____________",
+        "now.en.learning": "· Learning：____________",
+        "now.en.thinking": "· Thinking：____________",
 
-        // Tracks
         "tracks.left.title": "在路上",
         "tracks.left.desc": "把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。",
         "tracks.left.boxTitle": "正在做",
@@ -1368,7 +1414,6 @@
         "tracks.right.email": "邮箱（修改）",
         "tracks.right.quote": "中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
 
-        // Actions / Tags
         "action.read": "阅读",
         "action.open": "打开",
         "action.archive": "归档",
@@ -1406,12 +1451,11 @@
 
         "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience",
 
-        // Sponsor modal
-        "sponsor.title": "Sponsor / 打赏",
-        "sponsor.desc": "如果你觉得这些内容对你有帮助，欢迎请我喝杯咖啡 ☕️",
+        "sponsor.btn": "Sponsor",
+        "sponsor.title": "支持我",
+        "sponsor.desc": "如果你觉得这些内容对你有帮助，欢迎请我喝杯咖啡 ☕",
         "sponsor.wechat": "微信支付",
-        "sponsor.alipay": "支付宝",
-        "sponsor.link1": "也可以用链接支持"
+        "sponsor.alipay": "支付宝"
       },
 
       "en-CA": {
@@ -1422,7 +1466,6 @@
         "nav.library": "Library",
         "nav.now": "Now",
         "nav.tracks": "Tracks",
-        "nav.sponsor": "Sponsor",
 
         "social.linkedin": "LinkedIn",
         "social.instagram": "Instagram",
@@ -1583,12 +1626,11 @@
 
         "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience",
 
-        // Sponsor modal
+        "sponsor.btn": "Sponsor",
         "sponsor.title": "Sponsor",
-        "sponsor.desc": "If this site helps you, feel free to buy me a coffee ☕️",
+        "sponsor.desc": "If this site helps you, feel free to buy me a coffee ☕",
         "sponsor.wechat": "WeChat Pay",
-        "sponsor.alipay": "Alipay",
-        "sponsor.link1": "Support via a link"
+        "sponsor.alipay": "Alipay"
       }
     };
 
@@ -1629,7 +1671,7 @@
       if (mq && !stored) mq.addEventListener("change", () => applyTheme(getSystemTheme()));
     })();
 
-    // ===== Language: persistence + apply i18n keys (Removed zh-TW) =====
+    // ===== Language: persistence + apply i18n keys =====
     (function(){
       const STORAGE_KEY = "lang";
       const root = document.documentElement;
@@ -1645,7 +1687,7 @@
           if(!key) return;
           const val = dict[key];
           if(typeof val === "string"){
-            el.innerHTML = val;
+            el.innerHTML = val; // allow <br>
           }
         });
 
@@ -1657,8 +1699,6 @@
 
       const stored = localStorage.getItem(STORAGE_KEY);
       const initial = stored || (navigator.language || "zh-CN");
-
-      // normalize only to our 2 options
       const normalized = initial.startsWith("en") ? "en-CA" : "zh-CN";
 
       if(select){
@@ -1673,7 +1713,7 @@
       applyLang(select ? select.value : "zh-CN");
     })();
 
-    // Smooth scroll for internal anchors (only handle #... links)
+    // Smooth scroll for internal anchors
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const id = a.getAttribute('href');
@@ -1694,7 +1734,7 @@
     }, { threshold: 0.08 });
     els.forEach(el => io.observe(el));
 
-    // ===== Simple site search: Enter to jump to first match (sections + card titles) =====
+    // ===== Simple site search: Enter to jump to first match =====
     (function(){
       const input = document.getElementById("siteSearch");
       if(!input) return;
@@ -1706,7 +1746,6 @@
         const q = norm(input.value);
         if(!q) return;
 
-        // 1) Match section heading first
         const sections = [...document.querySelectorAll("section[id]")];
         const section = sections.find(sec => {
           const h = sec.querySelector(".section-title h3");
@@ -1717,7 +1756,6 @@
           return;
         }
 
-        // 2) Match card title
         const titles = [...document.querySelectorAll(".card-title")];
         const hit = titles.find(t => norm(t.textContent).includes(q));
         if(hit){
@@ -1727,36 +1765,37 @@
       });
     })();
 
-    // ===== Sponsor modal: open / close =====
+    // ===== Sponsor modal =====
     (function(){
-      const btn = document.getElementById("sponsorBtn");
       const modal = document.getElementById("sponsorModal");
+      const openBtn = document.getElementById("sponsorOpen");
       const closeBtn = document.getElementById("sponsorClose");
 
-      if(!btn || !modal) return;
-
       function open(){
+        if(!modal) return;
         modal.classList.add("is-open");
         modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
       }
-
       function close(){
+        if(!modal) return;
         modal.classList.remove("is-open");
         modal.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
       }
 
-      btn.addEventListener("click", open);
+      if(openBtn) openBtn.addEventListener("click", open);
       if(closeBtn) closeBtn.addEventListener("click", close);
 
-      modal.addEventListener("click", (e) => {
-        const t = e.target;
-        if(t && t.getAttribute && t.getAttribute("data-close") === "true") close();
-      });
+      if(modal){
+        modal.addEventListener("click", (e) => {
+          const t = e.target;
+          if(t && t.getAttribute && t.getAttribute("data-close") === "1") close();
+        });
+      }
 
       document.addEventListener("keydown", (e) => {
-        if(e.key === "Escape" && modal.classList.contains("is-open")) close();
+        if(e.key === "Escape") close();
       });
     })();
   </script>
