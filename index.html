@@ -37,28 +37,19 @@
       --dot-opacity: 0.45;
 
       /* UI tokens */
-      --nav-bg: rgba(255,255,255,0.55);
-      --nav-shadow: 0 10px 30px rgba(15,15,15,0.06);
       --chip-bg: rgba(255,255,255,0.55);
       --chip-border: rgba(40,40,40,0.12);
       --chip-text: rgba(31,31,31,0.86);
 
-      --link-text: rgba(31,31,31,0.78);
-      --link-hover-bg: rgba(42,111,93,0.10);
-      --link-hover-text: rgba(31,31,31,0.92);
-
       --glass-bg: rgba(255,255,255,0.62);
-      --glass-border: rgba(40,40,40,0.10);
 
       --quote-bg: rgba(42,111,93,0.07);
-      --quote-border: rgba(42,111,93,0.45);
 
       /* Border art upgrade */
       --edge-soft: rgba(255,255,255,0.68);
       --edge-grad-1: rgba(42,111,93,0.22);
       --edge-grad-2: rgba(176,122,72,0.22);
       --edge-grad-3: rgba(15,15,15,0.10);
-      --edge-inset: rgba(15,15,15,0.06);
     }
 
     html[data-theme="dark"]{
@@ -78,29 +69,18 @@
       --bg-grad-3: #0b1220;
       --dot-opacity: 0.22;
 
-      --nav-bg: rgba(255,255,255,0.06);
-      --nav-shadow: 0 12px 40px rgba(0,0,0,0.40);
-
       --chip-bg: rgba(255,255,255,0.06);
       --chip-border: rgba(255,255,255,0.10);
       --chip-text: rgba(229,231,235,0.92);
 
-      --link-text: rgba(229,231,235,0.86);
-      --link-hover-bg: rgba(96,165,250,0.12);
-      --link-hover-text: rgba(229,231,235,0.95);
-
       --glass-bg: rgba(255,255,255,0.06);
-      --glass-border: rgba(255,255,255,0.10);
 
       --quote-bg: rgba(96,165,250,0.10);
-      --quote-border: rgba(96,165,250,0.45);
 
-      /* Border art upgrade (dark) */
       --edge-soft: rgba(255,255,255,0.10);
       --edge-grad-1: rgba(96,165,250,0.22);
       --edge-grad-2: rgba(251,191,36,0.16);
       --edge-grad-3: rgba(255,255,255,0.12);
-      --edge-inset: rgba(0,0,0,0.30);
     }
 
     *{ box-sizing: border-box; }
@@ -147,18 +127,16 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
-      padding: 28px 22px 80px;
+      padding: 18px 22px 80px; /* slightly tighter since topbar is fixed */
     }
 
-    /* ===== Border / Art Upgrade (applies to most components) ===== */
-    .nav, header.hero, .section, .card, .bio, .social, .btn, .quick, .quote{
+    /* ===== Border / Art Upgrade ===== */
+    .edge{
       position: relative;
-      border: 1px solid transparent; /* fallback replaced by fancy edge */
+      border: 1px solid transparent;
       background-clip: padding-box;
     }
-
-    /* gradient edge */
-    .nav::before, header.hero::before, .section::before, .card::before, .bio::before, .social::before, .btn::before, .quick::before, .quote::before{
+    .edge::before{
       content:"";
       position:absolute;
       inset:0;
@@ -173,9 +151,7 @@
       pointer-events:none;
       opacity: 0.95;
     }
-
-    /* soft inner rim */
-    .nav::after, header.hero::after, .section::after, .card::after, .bio::after, .social::after, .btn::after, .quick::after, .quote::after{
+    .edge::after{
       content:"";
       position:absolute;
       inset: 1px;
@@ -185,63 +161,105 @@
       opacity: 0.75;
     }
 
-    /* Top nav */
-    .nav{
-      display: flex;
+    /* ===== Figma-like top bar ===== */
+    .topbar{
+      height: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       gap: 14px;
-      padding: 14px 16px;
-      border-radius: 999px;
-      background: var(--nav-bg);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--nav-shadow);
+
       position: sticky;
-      top: 16px;
-      z-index: 10;
+      top: 0;
+      z-index: 30;
+
+      padding: 0 18px;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    html[data-theme="dark"] .topbar{
+      background: rgba(10,18,32,0.65);
     }
 
-    .brand{
-      display: flex;
-      align-items: center;
+    .topbar-left{ display:flex; align-items:center; min-width: 220px; }
+    .topbar-center{
+      display:flex;
+      gap: 18px;
+      align-items:center;
+      justify-content:center;
+      overflow:auto;
+      scrollbar-width: none;
+    }
+    .topbar-center::-webkit-scrollbar{ display:none; }
+
+    .topbar-right{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
       gap: 10px;
-      min-width: 180px;
+      min-width: 260px;
     }
 
-    .brand-dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 6px 14px rgba(42,111,93,0.25);
-    }
-
-    .brand-title{
+    .brandmark{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
       font-weight: 600;
-      letter-spacing: 0.3px;
+      letter-spacing: .2px;
+      text-decoration: none !important;
+      color: var(--text);
+    }
+    .brandmark-dot{
+      width: 18px;
+      height: 12px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 24px rgba(15,15,15,0.10);
+    }
+    .brandmark-text{ font-size: 16px; }
+
+    .toplink{
+      font-size: 15px;
+      color: rgba(31,31,31,0.86);
+      padding: 6px 10px;
+      border-radius: 10px;
+      text-decoration: none !important;
+      white-space: nowrap;
+    }
+    .toplink:hover{ background: rgba(0,0,0,0.04); }
+    html[data-theme="dark"] .toplink{ color: rgba(229,231,235,0.88); }
+    html[data-theme="dark"] .toplink:hover{ background: rgba(255,255,255,0.06); }
+
+    .searchwrap{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.66);
+    }
+    html[data-theme="dark"] .searchwrap{ background: rgba(255,255,255,0.06); }
+
+    .searchicon{
+      width: 18px;
+      height: 18px;
+      color: rgba(31,31,31,0.55);
+    }
+    html[data-theme="dark"] .searchicon{ color: rgba(229,231,235,0.55); }
+
+    .search{
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      width: min(320px, 28vw);
       font-size: 14px;
     }
-
-    .nav-links{
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav-links a{
-      font-size: 13px;
-      color: var(--link-text);
-      padding: 6px 10px;
-      border-radius: 999px;
-    }
-
-    .nav-links a:hover{
-      text-decoration: none;
-      background: var(--link-hover-bg);
-      color: var(--link-hover-text);
-    }
+    .search::placeholder{ color: rgba(31,31,31,0.50); }
+    html[data-theme="dark"] .search::placeholder{ color: rgba(229,231,235,0.45); }
 
     /* Theme toggle button */
     .theme-toggle{
@@ -256,22 +274,36 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
       transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
       user-select: none;
       white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
     }
     html[data-theme="dark"] .theme-toggle{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
-    .theme-toggle:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
-    }
+    .theme-toggle:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
     .theme-toggle:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
     .theme-toggle .hint{ font-size: 12px; color: var(--muted); }
 
+    /* Mobile topbar */
+    @media (max-width: 860px){
+      .topbar{
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "left right"
+          "center center";
+        height: auto;
+        padding: 10px 14px;
+        gap: 10px;
+      }
+      .topbar-left{ grid-area:left; min-width: unset; }
+      .topbar-right{ grid-area:right; min-width: unset; }
+      .topbar-center{ grid-area:center; justify-content:flex-start; }
+      .search{ width: 38vw; }
+    }
+
     /* Hero */
     header.hero{
-      margin-top: 26px;
+      margin-top: 18px;
       border-radius: var(--radius-lg);
       background: var(--card);
       backdrop-filter: blur(10px);
@@ -279,22 +311,16 @@
       overflow: hidden;
     }
 
-    .cover{
-      height: 120px;
-      background: transparent;
-      position: relative;
-    }
+    .cover{ height: 110px; background: transparent; }
 
-    .hero-body{
-      padding: 0 28px 28px;
-    }
+    .hero-body{ padding: 0 28px 28px; }
 
     .profile{
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: -40px;
+      margin-top: -38px;
     }
 
     .avatar{
@@ -343,11 +369,7 @@
     a.social[aria-label="LinkedIn"]:hover{ background: rgba(10,102,194,0.10); }
     a.social[aria-label="Instagram"]:hover{ background: rgba(225,48,108,0.10); }
 
-    .li-icon, .ig-icon{
-      width: 18px;
-      height: 18px;
-      flex: 0 0 18px;
-    }
+    .li-icon, .ig-icon{ width: 18px; height: 18px; flex: 0 0 18px; }
     .li-icon{ color: var(--linkedin); }
     .ig-icon{ color: var(--instagram); }
 
@@ -368,17 +390,10 @@
       font-weight: 600;
     }
 
-    .designation{
-      font-weight: 600;
-      color: rgba(31,31,31,0.86);
-    }
+    .designation{ font-weight: 600; color: rgba(31,31,31,0.86); }
     html[data-theme="dark"] .designation{ color: rgba(229,231,235,0.92); }
 
-    .pronouns{
-      font-size: 18px;
-      color: rgba(31,31,31,0.68);
-      font-weight: 500;
-    }
+    .pronouns{ font-size: 18px; color: rgba(31,31,31,0.68); font-weight: 500; }
     html[data-theme="dark"] .pronouns{ color: rgba(229,231,235,0.68); }
 
     .subtitle{
@@ -461,27 +476,17 @@
       border-radius: 999px;
       border: 0;
       background: var(--glass-bg);
-      backdrop-filter: blur(10px);
       box-shadow: 0 10px 24px rgba(15,15,15,0.06);
       font-size: 13px;
       color: var(--chip-text);
       cursor: pointer;
       transition: transform 120ms ease, box-shadow 120ms ease;
     }
-    .btn:hover{
-      text-decoration: none;
-      transform: translateY(-1px);
-      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
-    }
+    .btn:hover{ text-decoration: none; transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
+    .btn.primary{ background: rgba(42,111,93,0.10); }
+    html[data-theme="dark"] .btn.primary{ background: rgba(96,165,250,0.12); }
 
-    .btn.primary{
-      background: rgba(42,111,93,0.10);
-    }
-    html[data-theme="dark"] .btn.primary{
-      background: rgba(96,165,250,0.12);
-    }
-
-    /* Quick entry buttons */
+    /* Quick entry */
     .quick-grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
@@ -506,21 +511,9 @@
       box-shadow: 0 18px 46px rgba(15,15,15,0.12);
       text-decoration:none;
     }
-    html[data-theme="dark"] .quick:hover{
-      box-shadow: 0 22px 70px rgba(0,0,0,0.38);
-    }
-    .quick h4{
-      margin: 0 0 6px;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
-    .quick p{
-      margin: 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
+    html[data-theme="dark"] .quick:hover{ box-shadow: 0 22px 70px rgba(0,0,0,0.38); }
+    .quick h4{ margin: 0 0 6px; font-size: 15px; font-weight: 600; letter-spacing: .2px; }
+    .quick p{ margin: 0; font-size: 13px; color: var(--muted); line-height: 1.6; }
     .quick .k{
       display:inline-flex;
       align-items:center;
@@ -554,14 +547,12 @@
       gap: 14px;
       margin-bottom: 14px;
     }
-
     .section-title h3{
       margin: 0;
       font-size: 18px;
       font-weight: 600;
       letter-spacing: 0.3px;
     }
-
     .section-title .hint{
       font-size: 12px;
       color: rgba(31,31,31,0.60);
@@ -584,21 +575,10 @@
       overflow: hidden;
       position: relative;
     }
+    .card:hover{ transform: translateY(-2px); box-shadow: 0 18px 46px rgba(15,15,15,0.12); }
+    html[data-theme="dark"] .card:hover{ box-shadow: 0 22px 70px rgba(0,0,0,0.38); }
 
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 18px 46px rgba(15,15,15,0.12);
-    }
-    html[data-theme="dark"] .card:hover{
-      box-shadow: 0 22px 70px rgba(0,0,0,0.38);
-    }
-
-    .tag-row{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
+    .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px; }
 
     .tag{
       font-size: 12px;
@@ -619,9 +599,7 @@
       color: rgba(31,31,31,0.86);
     }
     html[data-theme="dark"] .mini-link{ color: rgba(229,231,235,0.88); }
-
     .mini-link:hover{ text-decoration: none; }
-
     .mini-link span{
       padding: 6px 10px;
       border-radius: 999px;
@@ -633,32 +611,14 @@
     .reveal{ opacity: 0; transform: translateY(10px); transition: opacity 500ms ease, transform 500ms ease; }
     .reveal.is-visible{ opacity: 1; transform: translateY(0); }
 
-    .card-title{
-      font-size: 16px;
-      font-weight: 600;
-      margin: 0 0 6px;
-      letter-spacing: 0.2px;
-    }
-
-    .card-meta{
-      font-size: 12px;
-      color: rgba(31,31,31,0.55);
-      margin-bottom: 10px;
-    }
+    .card-title{ font-size: 16px; font-weight: 600; margin: 0 0 6px; letter-spacing: 0.2px; }
+    .card-meta{ font-size: 12px; color: rgba(31,31,31,0.55); margin-bottom: 10px; }
     html[data-theme="dark"] .card-meta{ color: rgba(229,231,235,0.55); }
 
-    .card p{
-      margin: 0;
-      color: rgba(31,31,31,0.78);
-      font-size: 14px;
-    }
+    .card p{ margin: 0; color: rgba(31,31,31,0.78); font-size: 14px; }
     html[data-theme="dark"] .card p{ color: rgba(229,231,235,0.78); }
 
-    .two-col{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+    .two-col{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
     .quote{
       padding: 14px 16px;
@@ -682,18 +642,16 @@
     /* Responsive */
     @media (max-width: 860px){
       .name-line h1{ font-size: 34px; }
-      .container{ padding: 18px 14px 70px; }
+      .container{ padding: 14px 14px 70px; }
       .hero-body{ padding: 0 18px 22px; }
       .section{ padding: 20px 16px; }
       .card{ grid-column: span 12; }
       .two-col{ grid-template-columns: 1fr; }
-      .brand{ min-width: unset; }
-      .nav-links{ gap: 8px; }
       .quick{ grid-column: span 12; }
     }
 
     @media (max-width: 480px){
-      .cover{ height: 130px; }
+      .cover{ height: 120px; }
       .profile{ margin-top: -70px; }
       .avatar{ width: 156px; height: 156px; }
       .name-line h1{ font-size: 30px; }
@@ -705,39 +663,44 @@
 <body>
   <div class="bg" aria-hidden="true"></div>
 
+  <!-- Figma-like Header -->
+  <nav class="topbar" aria-label="Site header">
+    <div class="topbar-left">
+      <a class="brandmark" href="#top" aria-label="Home">
+        <span class="brandmark-dot" aria-hidden="true"></span>
+        <span class="brandmark-text">Community</span>
+      </a>
+    </div>
+
+    <div class="topbar-center" role="navigation" aria-label="Primary">
+      <a class="toplink" href="#notes">Notes</a>
+      <a class="toplink" href="#essays">Essays</a>
+      <a class="toplink" href="#music">Music</a>
+      <a class="toplink" href="#library">Library</a>
+      <a class="toplink" href="#now">Now</a>
+      <a class="toplink" href="#tracks">Tracks</a>
+    </div>
+
+    <div class="topbar-right">
+      <div class="searchwrap">
+        <svg class="searchicon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="siteSearch" class="search" type="search" placeholder="Search" autocomplete="off" />
+      </div>
+
+      <button class="theme-toggle edge" id="themeToggle" type="button" aria-label="Toggle theme">
+        <span id="themeIcon" aria-hidden="true">🌙</span>
+        <span class="hint" id="themeText">Dark</span>
+      </button>
+    </div>
+  </nav>
+
   <div class="container">
 
-    <!-- Top Nav -->
-    <nav class="nav">
-      <div class="brand">
-        <span class="brand-dot" aria-hidden="true"></span>
-        <span class="brand-title">只开小火车</span>
-      </div>
-
-      <div class="nav-links">
-        <a href="#top">Home</a>
-        <a href="#notes">Notes</a>
-        <a href="#essays">Essays</a>
-        <a href="#music">Music</a>
-        <a href="#library">Library</a>
-        <a href="#now">Now</a>
-        <a href="#tracks">Tracks</a>
-
-        <!-- Optional: standalone pages (create later if you want) -->
-        <a href="essays.html">All Essays</a>
-        <a href="music.html">Music Page</a>
-        <a href="archive.html">Archive</a>
-
-        <!-- Light/Dark Toggle -->
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
-          <span id="themeIcon" aria-hidden="true">🌙</span>
-          <span class="hint" id="themeText">Dark</span>
-        </button>
-      </div>
-    </nav>
-
     <!-- Hero -->
-    <header id="top" class="hero">
+    <header id="top" class="hero edge">
       <div class="cover" aria-hidden="true"></div>
 
       <div class="hero-body">
@@ -745,14 +708,14 @@
           <img src="avatar.jpg" alt="Zihua Luo" class="avatar" />
 
           <div class="social-row" aria-label="Quick links">
-            <a class="social" href="https://www.linkedin.com/in/zihualuo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a class="social edge" href="https://www.linkedin.com/in/zihualuo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <svg class="li-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.4v1.56h.05c.47-.9 1.62-1.86 3.33-1.86 3.56 0 4.22 2.35 4.22 5.4v6.35zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/>
               </svg>
               <span>LinkedIn</span>
             </a>
 
-            <a class="social" href="https://www.instagram.com/luozzihua/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a class="social edge" href="https://www.instagram.com/luozzihua/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg class="ig-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9z"/>
                 <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
@@ -768,11 +731,11 @@
           </div>
 
           <div class="subtitle">
-            <span class="pill"><b>只开小火车</b></span>
-            <span class="pill">Personal Space · Train in Motion</span>
+            <span class="pill edge"><b>只开小火车</b></span>
+            <span class="pill edge">Personal Space · Train in Motion</span>
           </div>
 
-          <div class="bio">
+          <div class="bio edge">
             <div class="bio-title">Bio</div>
             <div class="bio-text">
               <p class="muted">（把你的 Bio 发我，我会替换到这里：中英文都可以）</p>
@@ -789,240 +752,236 @@
         </div>
 
         <div class="cta-row">
-          <a class="btn primary" href="#notes">去看随想 · Read Notes</a>
-          <a class="btn" href="#tracks">轨道 · Tracks</a>
-          <a class="btn" href="#music">分享音乐 · Music</a>
+          <a class="btn primary edge" href="#notes">去看随想 · Read Notes</a>
+          <a class="btn edge" href="#tracks">轨道 · Tracks</a>
+          <a class="btn edge" href="#music">分享音乐 · Music</a>
         </div>
 
-        <!-- Quick Entry -->
         <div class="quick-grid" aria-label="Quick entry">
-          <a class="quick" href="#notes">
+          <a class="quick edge" href="#notes">
             <h4>随想 Notes</h4>
             <p>短句、片段、心情与想法。像时间线一样慢慢积累。</p>
-            <span class="k">→ Go</span>
+            <span class="k edge">→ Go</span>
           </a>
 
-          <a class="quick" href="#essays">
+          <a class="quick edge" href="#essays">
             <h4>随笔 Essays</h4>
             <p>更长的文字：故事、复盘、思考、方法论。</p>
-            <span class="k">→ Go</span>
+            <span class="k edge">→ Go</span>
           </a>
 
-          <a class="quick" href="#music">
+          <a class="quick edge" href="#music">
             <h4>音乐 Music</h4>
             <p>每周一首歌 + 一句理由。把听见的东西留下来。</p>
-            <span class="k">→ Go</span>
+            <span class="k edge">→ Go</span>
           </a>
 
-          <a class="quick" href="#library">
+          <a class="quick edge" href="#library">
             <h4>收藏 Library</h4>
             <p>书、电影、播客、文章：你喜欢的东西会构成你。</p>
-            <span class="k">→ Go</span>
+            <span class="k edge">→ Go</span>
           </a>
 
-          <a class="quick" href="archive.html">
+          <a class="quick edge" href="archive.html">
             <h4>归档 Archive</h4>
             <p>按年份/主题整理（以后你写多了会非常有用）。</p>
-            <span class="k">↗ Open</span>
+            <span class="k edge">↗ Open</span>
           </a>
 
-          <a class="quick" href="#tracks">
+          <a class="quick edge" href="#tracks">
             <h4>轨道 Tracks</h4>
             <p>你正在做的事、你要去的方向、以及联系你。</p>
-            <span class="k">→ Go</span>
+            <span class="k edge">→ Go</span>
           </a>
         </div>
       </div>
     </header>
 
     <!-- Notes -->
-    <section id="notes" class="section reveal">
+    <section id="notes" class="section reveal edge">
       <div class="section-title">
         <h3>随想 · Notes</h3>
-        <div class="hint">（下一步我可以把每篇随想做成独立页面和独立链接）</div>
+        <div class="hint">（下一步可以把每篇随想做成独立页面 + 独立链接）</div>
       </div>
 
       <div class="grid">
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">第一篇随想 · First Note</div>
           <div class="card-meta">2026 · Coming Soon</div>
           <p>先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。</p>
           <div class="tag-row">
-            <span class="tag">Life</span><span class="tag">Reflection</span><span class="tag">中文/EN</span>
+            <span class="tag edge">Life</span><span class="tag edge">Reflection</span><span class="tag edge">中文/EN</span>
           </div>
-          <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
+          <a class="mini-link" href="#notes"><span class="edge">阅读 · Read</span></a>
         </article>
 
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">一些尚未命名的思考 · Untitled Thoughts</div>
           <div class="card-meta">Coming Soon</div>
           <p>不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。</p>
           <div class="tag-row">
-            <span class="tag">Slow</span><span class="tag">Quiet</span><span class="tag">Notes</span>
+            <span class="tag edge">Slow</span><span class="tag edge">Quiet</span><span class="tag edge">Notes</span>
           </div>
-          <a class="mini-link" href="#notes"><span>阅读 · Read</span></a>
+          <a class="mini-link" href="#notes"><span class="edge">阅读 · Read</span></a>
         </article>
 
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">读书 / 电影 / 片刻 · Reading / Film / Moments</div>
           <div class="card-meta">Template</div>
           <p>你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。</p>
           <div class="tag-row">
-            <span class="tag">Reading</span><span class="tag">Film</span><span class="tag">Moments</span>
+            <span class="tag edge">Reading</span><span class="tag edge">Film</span><span class="tag edge">Moments</span>
           </div>
-          <a class="mini-link" href="#library"><span>去收藏区 · Library</span></a>
+          <a class="mini-link" href="#library"><span class="edge">去收藏区 · Library</span></a>
         </article>
 
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">未来的某天 · Someday</div>
           <div class="card-meta">Template</div>
           <p>留一个空位给未来。等你想写的时候，它就在那里。</p>
           <div class="tag-row">
-            <span class="tag">Future</span><span class="tag">Empty Slot</span><span class="tag">Keep</span>
+            <span class="tag edge">Future</span><span class="tag edge">Empty Slot</span><span class="tag edge">Keep</span>
           </div>
-          <a class="mini-link" href="archive.html"><span>归档 · Archive</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge">归档 · Archive</span></a>
         </article>
       </div>
     </section>
 
     <!-- Essays -->
-    <section id="essays" class="section reveal">
+    <section id="essays" class="section reveal edge">
       <div class="section-title">
         <h3>随笔 · Essays</h3>
         <div class="hint">更长的表达：故事 / 复盘 / 方法论</div>
       </div>
 
       <div class="grid">
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">随笔模板 · Essay Template</div>
           <div class="card-meta">2026 · Draft</div>
           <p>写一篇 600～1200 字：讲清楚“我在想什么”，就够了。</p>
           <div class="tag-row">
-            <span class="tag">Essay</span><span class="tag">Longform</span><span class="tag">Draft</span>
+            <span class="tag edge">Essay</span><span class="tag edge">Longform</span><span class="tag edge">Draft</span>
           </div>
-          <a class="mini-link" href="essays.html"><span>查看全部 · All Essays</span></a>
+          <a class="mini-link" href="essays.html"><span class="edge">查看全部 · All Essays</span></a>
         </article>
 
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">复盘：我如何让自己持续前进</div>
           <div class="card-meta">Coming Soon</div>
           <p>你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。</p>
           <div class="tag-row">
-            <span class="tag">Review</span><span class="tag">Systems</span><span class="tag">Growth</span>
+            <span class="tag edge">Review</span><span class="tag edge">Systems</span><span class="tag edge">Growth</span>
           </div>
-          <a class="mini-link" href="essays.html"><span>阅读 · Read</span></a>
+          <a class="mini-link" href="essays.html"><span class="edge">阅读 · Read</span></a>
         </article>
       </div>
     </section>
 
     <!-- Music -->
-    <section id="music" class="section reveal">
+    <section id="music" class="section reveal edge">
       <div class="section-title">
         <h3>音乐 · Music</h3>
         <div class="hint">每周一首歌 + 一句理由（很有个人气质）</div>
       </div>
 
       <div class="two-col">
-        <div class="quote">
+        <div class="quote edge">
           <b>本周推荐 · Track of the Week</b><br>
           🎧 Song: ____________<br>
           🎼 Artist: ____________<br>
           ✍️ Why: ______________________
         </div>
 
-        <div class="quote">
+        <div class="quote edge">
           <b>放链接（Spotify / Apple Music / YouTube）</b><br>
           · Spotify: (link)<br>
           · Apple Music: (link)<br>
           · YouTube: (link)
           <div style="margin-top:10px;">
-            <a class="btn" href="music.html">进入音乐页 · Open Music Page</a>
+            <a class="btn edge" href="music.html">进入音乐页 · Open Music Page</a>
           </div>
         </div>
       </div>
 
       <div class="grid" style="margin-top:14px;">
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">Playlist · 夜里开小火车</div>
           <div class="card-meta">Template</div>
           <p>把 10 首歌做成一个主题播放列表，配一句话介绍。</p>
           <div class="tag-row">
-            <span class="tag">Playlist</span><span class="tag">Mood</span><span class="tag">Weekly</span>
+            <span class="tag edge">Playlist</span><span class="tag edge">Mood</span><span class="tag edge">Weekly</span>
           </div>
-          <a class="mini-link" href="music.html"><span>打开 · Open</span></a>
+          <a class="mini-link" href="music.html"><span class="edge">打开 · Open</span></a>
         </article>
 
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">音乐碎片 · Music Notes</div>
           <div class="card-meta">Template</div>
           <p>记录一句歌词、一段旋律带来的感受。</p>
           <div class="tag-row">
-            <span class="tag">Lyrics</span><span class="tag">Feelings</span><span class="tag">Notes</span>
+            <span class="tag edge">Lyrics</span><span class="tag edge">Feelings</span><span class="tag edge">Notes</span>
           </div>
-          <a class="mini-link" href="music.html"><span>打开 · Open</span></a>
+          <a class="mini-link" href="music.html"><span class="edge">打开 · Open</span></a>
         </article>
       </div>
     </section>
 
     <!-- Library -->
-    <section id="library" class="section reveal">
+    <section id="library" class="section reveal edge">
       <div class="section-title">
         <h3>收藏 · Library</h3>
         <div class="hint">书 / 电影 / 播客 / 文章：你喜欢的东西会组成你</div>
       </div>
 
       <div class="grid">
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">📚 Books I’m Reading</div>
           <div class="card-meta">Update anytime</div>
           <p>《______》— 为什么在读：______</p>
           <div class="tag-row">
-            <span class="tag">Books</span><span class="tag">Reading</span><span class="tag">Notes</span>
+            <span class="tag edge">Books</span><span class="tag edge">Reading</span><span class="tag edge">Notes</span>
           </div>
-          <a class="mini-link" href="archive.html"><span>归档 · Archive</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge">归档 · Archive</span></a>
         </article>
 
-        <article class="card">
+        <article class="card edge">
           <div class="card-title">🎬 Films / Series</div>
           <div class="card-meta">Update anytime</div>
           <p>本周看了：______。一句话感受：______。</p>
           <div class="tag-row">
-            <span class="tag">Film</span><span class="tag">Series</span><span class="tag">Mood</span>
+            <span class="tag edge">Film</span><span class="tag edge">Series</span><span class="tag edge">Mood</span>
           </div>
-          <a class="mini-link" href="archive.html"><span>归档 · Archive</span></a>
+          <a class="mini-link" href="archive.html"><span class="edge">归档 · Archive</span></a>
         </article>
       </div>
     </section>
 
     <!-- Now -->
-    <section id="now" class="section reveal">
+    <section id="now" class="section reveal edge">
       <div class="section-title">
         <h3>现在 · Now</h3>
         <div class="hint">一段“此刻的我”，随时可改</div>
       </div>
 
       <div class="two-col">
-        <div>
-          <div class="quote">
-            <b>这段可以当作你的“近况栏”</b><br>
-            · 最近在专注：____________<br>
-            · 最近在学习：____________<br>
-            · 最近在思考：____________
-          </div>
+        <div class="quote edge">
+          <b>这段可以当作你的“近况栏”</b><br>
+          · 最近在专注：____________<br>
+          · 最近在学习：____________<br>
+          · 最近在思考：____________
         </div>
-        <div>
-          <div class="quote">
-            <b>This can be your “Now” box</b><br>
-            · Focus: ____________<br>
-            · Learning: ____________<br>
-            · Thinking: ____________
-          </div>
+
+        <div class="quote edge">
+          <b>This can be your “Now” box</b><br>
+          · Focus: ____________<br>
+          · Learning: ____________<br>
+          · Thinking: ____________
         </div>
       </div>
     </section>
 
-    <!-- Tracks (replaces About) -->
-    <section id="tracks" class="section reveal">
+    <!-- Tracks -->
+    <section id="tracks" class="section reveal edge">
       <div class="section-title">
         <h3>轨道 · Tracks</h3>
         <div class="hint">正在做的事 / 想去的方向 / 联系方式</div>
@@ -1033,7 +992,7 @@
           <p><b>在路上 · In Motion</b></p>
           <p class="muted">把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。</p>
 
-          <div class="quote" style="margin-top:12px;">
+          <div class="quote edge" style="margin-top:12px;">
             <b>Now building</b><br>
             · Personal website: refining writing + structure<br>
             · Notes / Essays: weekly update<br>
@@ -1041,38 +1000,36 @@
           </div>
 
           <div class="cta-row" style="justify-content:flex-start; margin-top:12px;">
-            <a class="btn primary" href="#notes">Notes</a>
-            <a class="btn" href="#essays">Essays</a>
-            <a class="btn" href="#music">Music</a>
+            <a class="btn primary edge" href="#notes">Notes</a>
+            <a class="btn edge" href="#essays">Essays</a>
+            <a class="btn edge" href="#music">Music</a>
           </div>
         </div>
 
         <div>
           <p><b>联系 · Connect</b></p>
-          <p class="muted">你可以把这里改成：邮箱、简历、作品集、微信等（建议公开邮箱即可）。</p>
+          <p class="muted">你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。</p>
 
-          <div class="grid" style="margin-top:10px;">
-            <article class="card" style="grid-column: span 12;">
-              <div class="card-title">Links</div>
-              <p class="muted" style="margin-top:6px;">
-                · LinkedIn / Instagram 已在头像下方<br>
-                · 你也可以加：GitHub、Resume、Email
-              </p>
-              <div class="tag-row">
-                <span class="tag">Connect</span>
-                <span class="tag">Links</span>
-                <span class="tag">Public</span>
-              </div>
+          <article class="card edge" style="grid-column: span 12; margin-top:10px;">
+            <div class="card-title">Links</div>
+            <p class="muted" style="margin-top:6px;">
+              · LinkedIn / Instagram 已在头像下方<br>
+              · 你也可以加：GitHub、Resume、Email
+            </p>
+            <div class="tag-row">
+              <span class="tag edge">Connect</span>
+              <span class="tag edge">Links</span>
+              <span class="tag edge">Public</span>
+            </div>
 
-              <div class="cta-row" style="justify-content:flex-start;">
-                <a class="btn" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub (edit)</a>
-                <a class="btn" href="#" target="_blank" rel="noopener noreferrer">Resume (edit)</a>
-                <a class="btn" href="mailto:your@email.com">Email (edit)</a>
-              </div>
-            </article>
-          </div>
+            <div class="cta-row" style="justify-content:flex-start;">
+              <a class="btn edge" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub (edit)</a>
+              <a class="btn edge" href="#" target="_blank" rel="noopener noreferrer">Resume (edit)</a>
+              <a class="btn edge" href="mailto:your@email.com">Email (edit)</a>
+            </div>
+          </article>
 
-          <div class="quote" style="margin-top:12px;">
+          <div class="quote edge" style="margin-top:12px;">
             中文：慢一点也没关系，重要的是持续向前。<br>
             English: It’s okay to go slowly — what matters is staying in motion.
           </div>
@@ -1143,8 +1100,40 @@
         if (ent.isIntersecting) ent.target.classList.add('is-visible');
       });
     }, { threshold: 0.08 });
-
     els.forEach(el => io.observe(el));
+
+    // ===== Simple site search: Enter to jump to first match (sections + card titles) =====
+    (function(){
+      const input = document.getElementById("siteSearch");
+      if(!input) return;
+
+      function norm(s){ return (s || "").toLowerCase().trim(); }
+
+      input.addEventListener("keydown", (e) => {
+        if(e.key !== "Enter") return;
+        const q = norm(input.value);
+        if(!q) return;
+
+        // 1) Match section heading first
+        const sections = [...document.querySelectorAll("section[id]")];
+        const section = sections.find(sec => {
+          const h = sec.querySelector(".section-title h3");
+          return h && norm(h.textContent).includes(q);
+        });
+        if(section){
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+
+        // 2) Match card title
+        const titles = [...document.querySelectorAll(".card-title")];
+        const hit = titles.find(t => norm(t.textContent).includes(q));
+        if(hit){
+          const card = hit.closest(".card");
+          (card || hit).scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    })();
   </script>
 </body>
 </html>
