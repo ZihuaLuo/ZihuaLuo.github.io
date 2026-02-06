@@ -60,11 +60,10 @@
       --scroll: 0; /* 0 ~ 1, set by JS */
 
       /* Light: soft + warm */
-      --bg-top: #fbfaf7;
-      --bg-mid: #f6f3ee;
-      --bg-bot: #eef3f1;
-      /* extra tint that “comes in” when scrolling */
-      --bg-deep: #e8eef8;
+      --bg-top:  #fbfaf7;  /* 奶白 */
+      --bg-mid:  #f5f2ec;  /* 浅暖灰 */
+      --bg-bot:  #eef4f1;  /* 很淡的绿灰 */
+      --bg-deep: #e9eef7;  /* 很淡的蓝灰 */
 
       /* glow strengths controlled by scroll */
       --glow-1: rgba(42,111,93,0.14);
@@ -129,43 +128,22 @@
     }
 
     /* --- Background --- */
-    .bg{
-      position: fixed;
-      inset: 0;
-      z-index: -3;
+.bg{
+  position: fixed;
+  inset: 0;
+  z-index: -3;
 
-      /* ✅ Scroll-driven soft gradient */
-      background:
-        /* glows slowly drift downward with scroll */
-        radial-gradient(
-          1200px 700px
-          at calc(10% + var(--scroll)*8%) calc(10% + var(--scroll)*22%),
-          color-mix(in srgb, var(--glow-1) calc(100% - var(--scroll)*35%), transparent),
-          transparent 55%
-        ),
-        radial-gradient(
-          900px 600px
-          at calc(90% - var(--scroll)*6%) calc(20% + var(--scroll)*30%),
-          color-mix(in srgb, var(--glow-2) calc(100% - var(--scroll)*40%), transparent),
-          transparent 55%
-        ),
-        radial-gradient(
-          900px 700px
-          at 50% calc(110% - var(--scroll)*18%),
-          color-mix(in srgb, var(--glow-3) calc(100% - var(--scroll)*30%), transparent),
-          transparent 60%
-        ),
-        /* base gradient shifts “cooler/deeper” as you scroll */
-        linear-gradient(
-          180deg,
-          color-mix(in srgb, var(--bg-top) calc(100% - var(--scroll)*30%), var(--bg-mid)) 0%,
-          color-mix(in srgb, var(--bg-mid) calc(100% - var(--scroll)*20%), var(--bg-bot)) 45%,
-          color-mix(in srgb, var(--bg-bot) calc(100% - var(--scroll)*30%), var(--bg-deep)) 100%
-        );
-    }
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--bg-top) calc(100% - var(--scroll)*30%), var(--bg-mid)) 0%,
+      color-mix(in srgb, var(--bg-mid) calc(100% - var(--scroll)*20%), var(--bg-bot)) 45%,
+      color-mix(in srgb, var(--bg-bot) calc(100% - var(--scroll)*30%), var(--bg-deep)) 100%
+    );
+}
 
     .bg::after{
-      content:"";
+      content:"none";
       position: absolute;
       inset: -2px;
       z-index: -2;
@@ -1876,20 +1854,40 @@
     // Scroll-driven background gradient
     // ===============================
     (function(){
-      const root = document.documentElement;
+  const root = document.documentElement;
+  let current = 0;
+  let target = 0;
+  let ticking = false;
 
-      function updateScrollVar(){
-        const doc = document.documentElement;
-        const scrollTop = window.scrollY || doc.scrollTop || 0;
-        const max = (doc.scrollHeight - window.innerHeight) || 1;
-        const t = Math.min(1, Math.max(0, scrollTop / max));
-        root.style.setProperty('--scroll', t.toFixed(4));
-      }
+  function calcTarget(){
+    const doc = document.documentElement;
+    const scrollTop = window.scrollY || doc.scrollTop || 0;
+    const max = (doc.scrollHeight - window.innerHeight) || 1;
+    target = Math.min(1, Math.max(0, scrollTop / max));
+  }
 
-      updateScrollVar();
-      window.addEventListener('scroll', updateScrollVar, { passive: true });
-      window.addEventListener('resize', updateScrollVar);
-    })();
-  </script>
-</body>
-</html>
+  function tick(){
+    // 缓动：数值越小越“丝滑”
+    current += (target - current) * 0.08;
+    root.style.setProperty('--scroll', current.toFixed(4));
+
+    if (Math.abs(target - current) > 0.0005){
+      requestAnimationFrame(tick);
+    }else{
+      ticking = false;
+    }
+  }
+
+  function onScroll(){
+    calcTarget();
+    if (!ticking){
+      ticking = true;
+      requestAnimationFrame(tick);
+    }
+  }
+
+  calcTarget();
+  root.style.setProperty('--scroll', target.toFixed(4));
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();
