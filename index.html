@@ -49,6 +49,10 @@
       --edge-grad-1: rgba(42,111,93,0.22);
       --edge-grad-2: rgba(176,122,72,0.22);
       --edge-grad-3: rgba(15,15,15,0.10);
+
+      /* Sponsor */
+      --sponsor: #f59e0b;
+      --sponsor-2: #f97316;
     }
 
     html[data-theme="dark"]{
@@ -125,7 +129,7 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
-      padding: 18px 22px 80px; /* slightly tighter since topbar is sticky */
+      padding: 18px 22px 80px;
     }
 
     /* ===== Border / Art Upgrade ===== */
@@ -191,12 +195,14 @@
     }
     .topbar-center::-webkit-scrollbar{ display:none; }
 
+    /* ✅关键：允许右侧区域收缩，避免 Mac Chrome 下重叠 */
     .topbar-right{
       display:flex;
       align-items:center;
       justify-content:flex-end;
       gap: 10px;
-      min-width: 260px;
+      min-width: 0;          /* allow shrink */
+      flex-wrap: nowrap;     /* keep in one line; change to wrap if you prefer */
     }
 
     .brandmark{
@@ -229,6 +235,7 @@
     html[data-theme="dark"] .toplink{ color: rgba(229,231,235,0.88); }
     html[data-theme="dark"] .toplink:hover{ background: rgba(255,255,255,0.06); }
 
+    /* ===== Search (flex-grow) ===== */
     .searchwrap{
       display:flex;
       align-items:center;
@@ -238,6 +245,9 @@
       border-radius: 999px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.66);
+
+      flex: 1 1 320px;   /* ✅ grows & shrinks */
+      min-width: 180px;  /* ✅ prevent too small */
     }
     html[data-theme="dark"] .searchwrap{ background: rgba(255,255,255,0.06); }
 
@@ -245,6 +255,7 @@
       width: 18px;
       height: 18px;
       color: rgba(31,31,31,0.55);
+      flex: 0 0 auto;
     }
     html[data-theme="dark"] .searchicon{ color: rgba(229,231,235,0.55); }
 
@@ -253,7 +264,8 @@
       outline: none;
       background: transparent;
       color: var(--text);
-      width: min(320px, 28vw);
+      width: 100%;
+      min-width: 0;       /* ✅ important */
       font-size: 14px;
     }
     .search::placeholder{ color: rgba(31,31,31,0.50); }
@@ -276,27 +288,110 @@
       user-select: none;
       white-space: nowrap;
       box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      flex: 0 0 auto;
     }
     html[data-theme="dark"] .theme-toggle{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
     .theme-toggle:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
     .theme-toggle:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
     .theme-toggle .hint{ font-size: 12px; color: var(--muted); }
 
-    /* Language selector */
-    .lang-select{
+    /* ===== Language selector (artistic + stable) ===== */
+    .langwrap{
+      position: relative;
       height: 38px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--chip-bg);
-      color: var(--chip-text);
-      padding: 0 12px;
-      font-size: 13px;
-      outline: none;
-      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
       box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      background: var(--chip-bg);
     }
-    html[data-theme="dark"] .lang-select{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
-    .lang-select:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
+    html[data-theme="dark"] .langwrap{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
+
+    .lang-select{
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      height: 38px;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--chip-text);
+      padding: 0 36px 0 12px;
+      font-size: 13px;
+      cursor: pointer;
+
+      width: 170px;       /* ✅ cap width */
+      max-width: 170px;
+      min-width: 140px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lang-select:focus{ outline: none; }
+
+    .lang-caret{
+      position: absolute;
+      right: 12px;
+      font-size: 12px;
+      color: rgba(31,31,31,0.55);
+      pointer-events: none;
+    }
+    html[data-theme="dark"] .lang-caret{ color: rgba(229,231,235,0.55); }
+
+    .langwrap:focus-within{
+      outline: 2px solid rgba(96,165,250,.55);
+      outline-offset: 2px;
+    }
+
+    /* ===== Sponsor button ===== */
+    .sponsor{
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(245,158,11,0.22), rgba(249,115,22,0.18));
+      color: var(--chip-text);
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+      user-select: none;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .sponsor:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
+      text-decoration: none;
+    }
+    .sponsor:focus{
+      outline: 2px solid rgba(245,158,11,.55);
+      outline-offset: 2px;
+    }
+    .sponsor .coin{
+      width: 18px;
+      height: 18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.55);
+      box-shadow: inset 0 0 0 1px rgba(40,40,40,0.12);
+      font-size: 12px;
+    }
+    html[data-theme="dark"] .sponsor .coin{
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+    }
+    html[data-theme="dark"] .sponsor{
+      box-shadow: 0 12px 36px rgba(0,0,0,0.40);
+      background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(249,115,22,0.14));
+    }
 
     /* Mobile topbar */
     @media (max-width: 860px){
@@ -312,7 +407,9 @@
       .topbar-left{ grid-area:left; min-width: unset; }
       .topbar-right{ grid-area:right; min-width: unset; flex-wrap: wrap; justify-content:flex-end; }
       .topbar-center{ grid-area:center; justify-content:flex-start; }
-      .search{ width: 38vw; }
+      .lang-select{ width: 100%; max-width: 100%; min-width: 0; }
+      .langwrap{ width: 100%; }
+      .searchwrap{ flex: 1 1 100%; min-width: 0; }
     }
 
     /* Hero */
@@ -670,7 +767,146 @@
       .avatar{ width: 156px; height: 156px; }
       .name-line h1{ font-size: 30px; }
       .pronouns{ font-size: 16px; }
-      .lang-select{ width: 100%; }
+    }
+
+    /* ===== Sponsor modal ===== */
+    .modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      z-index: 999;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+    }
+    .modal.open{ display: flex; }
+
+    .modal-card{
+      width: min(520px, 96vw);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }
+    html[data-theme="dark"] .modal-card{
+      background: rgba(10,18,32,0.78);
+      box-shadow: 0 26px 90px rgba(0,0,0,0.55);
+    }
+
+    .modal-head{
+      padding: 16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .modal-title .badge{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(245,158,11,0.25), rgba(249,115,22,0.22));
+      box-shadow: inset 0 0 0 1px rgba(40,40,40,0.10);
+    }
+    html[data-theme="dark"] .modal-title .badge{
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+    }
+
+    .modal-close{
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: var(--text);
+    }
+    .modal-close:hover{ background: rgba(0,0,0,0.06); }
+    html[data-theme="dark"] .modal-close:hover{ background: rgba(255,255,255,0.06); }
+
+    .modal-body{
+      padding: 16px 18px 18px;
+    }
+    .modal-body p{
+      margin: 0 0 10px;
+      color: rgba(31,31,31,0.82);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    html[data-theme="dark"] .modal-body p{ color: rgba(229,231,235,0.82); }
+
+    .sponsor-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .paycard{
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.62);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.08);
+    }
+    html[data-theme="dark"] .paycard{
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.40);
+    }
+    .paycard b{ display:block; margin-bottom: 8px; }
+    .paycard .hint{ font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .qr{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.05),
+        rgba(0,0,0,0.05) 10px,
+        rgba(0,0,0,0.02) 10px,
+        rgba(0,0,0,0.02) 20px
+      );
+      box-shadow: inset 0 0 0 1px var(--border);
+      color: rgba(31,31,31,0.65);
+      font-size: 12px;
+      text-align: center;
+      padding: 12px;
+    }
+    html[data-theme="dark"] .qr{
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.06) 10px,
+        rgba(255,255,255,0.03) 10px,
+        rgba(255,255,255,0.03) 20px
+      );
+      color: rgba(229,231,235,0.65);
+    }
+
+    .modal-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      justify-content:flex-end;
+    }
+    .ghost{
+      background: transparent;
+      box-shadow: inset 0 0 0 1px var(--border);
     }
   </style>
 </head>
@@ -697,11 +933,15 @@
     </div>
 
     <div class="topbar-right">
-      <select class="lang-select edge" id="langSelect" aria-label="Language selector">
-        <option value="zh-CN">简体中文</option>
-        <option value="zh-TW">繁體中文</option>
-        <option value="en-CA">English (Canada)</option>
-      </select>
+      <!-- ✅ Stable language selector (wrapper draws border) -->
+      <div class="langwrap edge" aria-label="Language selector">
+        <select class="lang-select" id="langSelect">
+          <option value="zh-CN">简体中文</option>
+          <option value="zh-TW">繁體中文</option>
+          <option value="en-CA">English (Canada)</option>
+        </select>
+        <span class="lang-caret" aria-hidden="true">▾</span>
+      </div>
 
       <div class="searchwrap">
         <svg class="searchicon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -711,12 +951,1054 @@
         <input id="siteSearch" class="search" type="search" placeholder="Search" autocomplete="off" />
       </div>
 
+      <!-- Sponsor button -->
+      <button class="sponsor edge" id="sponsorBtn" type="button">
+        <span class="coin" aria-hidden="true">☕</span>
+        <span data-i18n="sponsor.btn">赞助</span>
+      </button>
+
       <button class="theme-toggle edge" id="themeToggle" type="button" aria-label="Toggle theme">
         <span id="themeIcon" aria-hidden="true">🌙</span>
         <span class="hint" id="themeText">Dark</span>
       </button>
     </div>
   </nav>
+
+  <!-- Sponsor Modal -->
+  <div class="modal" id="sponsorModal" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
+    <div class="modal-card edge">
+      <div class="modal-head">
+        <div class="modal-title" id="sponsorTitle">
+          <span class="badge" aria-hidden="true">☕</span>
+          <span data-i18n="sponsor.title">Sponsor / 打赏</span>
+        </div>
+        <button class="modal-close" id="sponsorClose" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p data-i18n="sponsor.desc">
+          谢谢你愿意支持我。如果你喜欢这里的内容，可以请我喝杯咖啡 ☕
+        </p>
+
+        <div class="sponsor-grid">
+          <div class="paycard edge">
+            <b data-i18n="sponsor.wechat">WeChat Pay（放二维码）</b>
+            <div class="qr">QR Placeholder<br>Replace with your image</div>
+            <div class="hint" data-i18n="sponsor.hint1">把二维码图片替换进来即可。</div>
+          </div>
+
+          <div class="paycard edge">
+            <b data-i18n="sponsor.alipay">Alipay（放二维码）</b>
+            <div class="qr">QR Placeholder<br>Replace with your image</div>
+            <div class="hint" data-i18n="sponsor.hint2">也可以放 PayPal / Stripe 链接。</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn ghost edge" id="copySponsorLink" type="button" data-i18n="sponsor.copy">复制赞助链接</button>
+          <button class="ी<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zihua Luo · 只开小火车</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f7f5f2;
+      --card: rgba(255,255,255,0.72);
+      --text: #1f1f1f;
+      --muted: #6b6b6b;
+      --border: rgba(40,40,40,0.10);
+      --shadow: 0 16px 44px rgba(15, 15, 15, 0.10);
+      --shadow-soft: 0 10px 30px rgba(15, 15, 15, 0.08);
+      --accent: #2a6f5d;
+      --accent-2: #b07a48;
+      --radius: 18px;
+      --radius-lg: 28px;
+
+      --linkedin: #0A66C2;
+      --instagram: #E1306C;
+
+      /* Background layers (light) */
+      --bg-r1: rgba(42,111,93,0.14);
+      --bg-r2: rgba(176,122,72,0.14);
+      --bg-r3: rgba(42,111,93,0.10);
+      --bg-grad-1: #fbfaf7;
+      --bg-grad-2: #f6f3ee;
+      --bg-grad-3: #f7f5f2;
+      --dot-opacity: 0.45;
+
+      /* UI tokens */
+      --chip-bg: rgba(255,255,255,0.55);
+      --chip-border: rgba(40,40,40,0.12);
+      --chip-text: rgba(31,31,31,0.86);
+
+      --glass-bg: rgba(255,255,255,0.62);
+      --quote-bg: rgba(42,111,93,0.07);
+
+      /* Border art upgrade */
+      --edge-soft: rgba(255,255,255,0.68);
+      --edge-grad-1: rgba(42,111,93,0.22);
+      --edge-grad-2: rgba(176,122,72,0.22);
+      --edge-grad-3: rgba(15,15,15,0.10);
+
+      /* Sponsor */
+      --sponsor: #f59e0b;
+      --sponsor-2: #f97316;
+    }
+
+    html[data-theme="dark"]{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,0.06);
+      --text: #e5e7eb;
+      --muted: #a1a1aa;
+      --border: rgba(255,255,255,0.10);
+      --shadow: 0 18px 58px rgba(0, 0, 0, 0.45);
+      --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.35);
+
+      --bg-r1: rgba(96,165,250,0.12);
+      --bg-r2: rgba(251,191,36,0.10);
+      --bg-r3: rgba(34,197,94,0.08);
+      --bg-grad-1: #070b13;
+      --bg-grad-2: #0a1220;
+      --bg-grad-3: #0b1220;
+      --dot-opacity: 0.22;
+
+      --chip-bg: rgba(255,255,255,0.06);
+      --chip-border: rgba(255,255,255,0.10);
+      --chip-text: rgba(229,231,235,0.92);
+
+      --glass-bg: rgba(255,255,255,0.06);
+      --quote-bg: rgba(96,165,250,0.10);
+
+      --edge-soft: rgba(255,255,255,0.10);
+      --edge-grad-1: rgba(96,165,250,0.22);
+      --edge-grad-2: rgba(251,191,36,0.16);
+      --edge-grad-3: rgba(255,255,255,0.12);
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin: 0;
+      font-family: "Inter", "PingFang SC", "Noto Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* --- Background --- */
+    .bg{
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(1200px 700px at 10% 10%, var(--bg-r1), transparent 55%),
+        radial-gradient(900px 600px at 90% 20%, var(--bg-r2), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, var(--bg-r3), transparent 60%),
+        linear-gradient(180deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%);
+    }
+
+    .bg::after{
+      content:"";
+      position: absolute;
+      inset: -2px;
+      z-index: -1;
+      opacity: var(--dot-opacity);
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none'%3E%3Ccircle cx='12' cy='18' r='1.2' fill='%232a6f5d' fill-opacity='0.16'/%3E%3Ccircle cx='64' cy='32' r='1.2' fill='%23b07a48' fill-opacity='0.14'/%3E%3Ccircle cx='94' cy='78' r='1.2' fill='%232a6f5d' fill-opacity='0.14'/%3E%3Ccircle cx='26' cy='92' r='1.2' fill='%23b07a48' fill-opacity='0.12'/%3E%3Ccircle cx='104' cy='14' r='1.2' fill='%232a6f5d' fill-opacity='0.10'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      filter: blur(0.2px);
+      pointer-events: none;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 4px; }
+
+    .container{
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 18px 22px 80px;
+    }
+
+    /* ===== Border / Art Upgrade ===== */
+    .edge{
+      position: relative;
+      border: 1px solid transparent;
+      background-clip: padding-box;
+    }
+    .edge::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--edge-grad-1), var(--edge-grad-2), var(--edge-grad-3));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events:none;
+      opacity: 0.95;
+    }
+    .edge::after{
+      content:"";
+      position:absolute;
+      inset: 1px;
+      border-radius: inherit;
+      box-shadow: inset 0 1px 0 var(--edge-soft), inset 0 0 0 1px rgba(255,255,255,0.02);
+      pointer-events:none;
+      opacity: 0.75;
+    }
+
+    /* ===== Figma-like top bar ===== */
+    .topbar{
+      height: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 14px;
+
+      position: sticky;
+      top: 0;
+      z-index: 30;
+
+      padding: 0 18px;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    html[data-theme="dark"] .topbar{
+      background: rgba(10,18,32,0.65);
+    }
+
+    .topbar-left{ display:flex; align-items:center; min-width: 220px; }
+    .topbar-center{
+      display:flex;
+      gap: 18px;
+      align-items:center;
+      justify-content:center;
+      overflow:auto;
+      scrollbar-width: none;
+    }
+    .topbar-center::-webkit-scrollbar{ display:none; }
+
+    /* ✅关键：允许右侧区域收缩，避免 Mac Chrome 下重叠 */
+    .topbar-right{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap: 10px;
+      min-width: 0;
+      flex-wrap: nowrap;
+    }
+
+    .brandmark{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: .2px;
+      text-decoration: none !important;
+      color: var(--text);
+    }
+    .brandmark-dot{
+      width: 18px;
+      height: 12px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 24px rgba(15,15,15,0.10);
+    }
+    .brandmark-text{ font-size: 16px; }
+
+    .toplink{
+      font-size: 15px;
+      color: rgba(31,31,31,0.86);
+      padding: 6px 10px;
+      border-radius: 10px;
+      text-decoration: none !important;
+      white-space: nowrap;
+    }
+    .toplink:hover{ background: rgba(0,0,0,0.04); }
+    html[data-theme="dark"] .toplink{ color: rgba(229,231,235,0.88); }
+    html[data-theme="dark"] .toplink:hover{ background: rgba(255,255,255,0.06); }
+
+    /* ===== Search (flex-grow) ===== */
+    .searchwrap{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.66);
+
+      flex: 1 1 320px;
+      min-width: 180px;
+    }
+    html[data-theme="dark"] .searchwrap{ background: rgba(255,255,255,0.06); }
+
+    .searchicon{
+      width: 18px;
+      height: 18px;
+      color: rgba(31,31,31,0.55);
+      flex: 0 0 auto;
+    }
+    html[data-theme="dark"] .searchicon{ color: rgba(229,231,235,0.55); }
+
+    .search{
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      width: 100%;
+      min-width: 0;
+      font-size: 14px;
+    }
+    .search::placeholder{ color: rgba(31,31,31,0.50); }
+    html[data-theme="dark"] .search::placeholder{ color: rgba(229,231,235,0.45); }
+
+    /* Theme toggle button */
+    .theme-toggle{
+      appearance: none;
+      border: 0;
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      border-radius: 999px;
+      padding: 7px 10px;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+      user-select: none;
+      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      flex: 0 0 auto;
+    }
+    html[data-theme="dark"] .theme-toggle{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
+    .theme-toggle:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
+    .theme-toggle:focus{ outline: 2px solid rgba(96,165,250,.55); outline-offset: 2px; }
+    .theme-toggle .hint{ font-size: 12px; color: var(--muted); }
+
+    /* ===== Language selector (artistic + stable) ===== */
+    .langwrap{
+      position: relative;
+      height: 38px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      background: var(--chip-bg);
+    }
+    html[data-theme="dark"] .langwrap{ box-shadow: 0 12px 36px rgba(0,0,0,0.40); }
+
+    .lang-select{
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      height: 38px;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--chip-text);
+      padding: 0 36px 0 12px;
+      font-size: 13px;
+      cursor: pointer;
+
+      width: 170px;
+      max-width: 170px;
+      min-width: 140px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .lang-caret{
+      position: absolute;
+      right: 12px;
+      font-size: 12px;
+      color: rgba(31,31,31,0.55);
+      pointer-events: none;
+    }
+    html[data-theme="dark"] .lang-caret{ color: rgba(229,231,235,0.55); }
+
+    .langwrap:focus-within{
+      outline: 2px solid rgba(96,165,250,.55);
+      outline-offset: 2px;
+    }
+
+    /* ===== Sponsor button ===== */
+    .sponsor{
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(245,158,11,0.22), rgba(249,115,22,0.18));
+      color: var(--chip-text);
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+      user-select: none;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .sponsor:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
+      text-decoration: none;
+    }
+    .sponsor:focus{
+      outline: 2px solid rgba(245,158,11,.55);
+      outline-offset: 2px;
+    }
+    .sponsor .coin{
+      width: 18px;
+      height: 18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.55);
+      box-shadow: inset 0 0 0 1px rgba(40,40,40,0.12);
+      font-size: 12px;
+    }
+    html[data-theme="dark"] .sponsor .coin{
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+    }
+    html[data-theme="dark"] .sponsor{
+      box-shadow: 0 12px 36px rgba(0,0,0,0.40);
+      background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(249,115,22,0.14));
+    }
+
+    /* Mobile topbar */
+    @media (max-width: 860px){
+      .topbar{
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "left right"
+          "center center";
+        height: auto;
+        padding: 10px 14px;
+        gap: 10px;
+      }
+      .topbar-left{ grid-area:left; min-width: unset; }
+      .topbar-right{ grid-area:right; min-width: unset; flex-wrap: wrap; justify-content:flex-end; }
+      .topbar-center{ grid-area:center; justify-content:flex-start; }
+
+      .langwrap{ width: 100%; }
+      .lang-select{ width: 100%; max-width: 100%; min-width: 0; }
+      .searchwrap{ flex: 1 1 100%; min-width: 0; }
+    }
+
+    /* Hero */
+    header.hero{
+      margin-top: 18px;
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .cover{ height: 110px; background: transparent; }
+
+    .hero-body{ padding: 0 28px 28px; }
+
+    .profile{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: -38px;
+    }
+
+    .avatar{
+      width: 176px;
+      height: 176px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: 50% 3%;
+      border: 6px solid rgba(255,255,255,0.98);
+      box-shadow: var(--shadow-soft);
+      background: #fff;
+    }
+    html[data-theme="dark"] .avatar{
+      border-color: rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .social-row{
+      margin-top: 10px;
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      font-size: 13px;
+      color: var(--chip-text);
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .social:hover{
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(15,15,15,0.10);
+    }
+
+    a.social[aria-label="LinkedIn"]:hover{ background: rgba(10,102,194,0.10); }
+    a.social[aria-label="Instagram"]:hover{ background: rgba(225,48,108,0.10); }
+
+    .li-icon, .ig-icon{ width: 18px; height: 18px; flex: 0 0 18px; }
+    .li-icon{ color: var(--linkedin); }
+    .ig-icon{ color: var(--instagram); }
+
+    .name-line{
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .name-line h1{
+      margin: 0;
+      font-size: 40px;
+      letter-spacing: 0.4px;
+      line-height: 1.12;
+      font-weight: 600;
+    }
+
+    .designation{ font-weight: 600; color: rgba(31,31,31,0.86); }
+    html[data-theme="dark"] .designation{ color: rgba(229,231,235,0.92); }
+
+    .pronouns{ font-size: 18px; color: rgba(31,31,31,0.68); font-weight: 500; }
+    html[data-theme="dark"] .pronouns{ color: rgba(229,231,235,0.68); }
+
+    .subtitle{
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      color: rgba(31,31,31,0.72);
+      font-size: 14px;
+    }
+    html[data-theme="dark"] .subtitle{ color: rgba(229,231,235,0.70); }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      box-shadow: inset 0 0 0 1px var(--chip-border);
+    }
+
+    .bio{
+      width: 100%;
+      max-width: 760px;
+      margin-top: 14px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: var(--glass-bg);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+    }
+
+    .bio-title{
+      font-size: 12px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(31,31,31,0.55);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    html[data-theme="dark"] .bio-title{ color: rgba(229,231,235,0.55); }
+
+    .bio-text p{
+      margin: 6px 0;
+      color: rgba(31,31,31,0.82);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    html[data-theme="dark"] .bio-text p{ color: rgba(229,231,235,0.82); }
+
+    .intro{
+      margin-top: 18px;
+      font-size: 16px;
+      color: rgba(31,31,31,0.88);
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    html[data-theme="dark"] .intro{ color: rgba(229,231,235,0.88); }
+    .intro p{ margin: 10px 0; }
+    .muted{ color: var(--muted); }
+
+    .cta-row{
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--glass-bg);
+      box-shadow: 0 10px 24px rgba(15,15,15,0.06);
+      font-size: 13px;
+      color: var(--chip-text);
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .btn:hover{ text-decoration: none; transform: translateY(-1px); box-shadow: 0 14px 34px rgba(15,15,15,0.10); }
+    .btn.primary{ background: rgba(42,111,93,0.10); }
+    html[data-theme="dark"] .btn.primary{ background: rgba(96,165,250,0.12); }
+
+    /* Quick entry */
+    .quick-grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .quick{
+      grid-column: span 4;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: var(--glass-bg);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+      transition: transform 140ms ease, box-shadow 140ms ease;
+      overflow:hidden;
+      position:relative;
+    }
+    .quick:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 46px rgba(15,15,15,0.12);
+      text-decoration:none;
+    }
+    html[data-theme="dark"] .quick:hover{ box-shadow: 0 22px 70px rgba(0,0,0,0.38); }
+    .quick h4{ margin: 0 0 6px; font-size: 15px; font-weight: 600; letter-spacing: .2px; }
+    .quick p{ margin: 0; font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .quick .k{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top: 10px;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      box-shadow: inset 0 0 0 1px var(--chip-border);
+    }
+
+    /* Sections */
+    .section{
+      margin-top: 26px;
+      padding: 26px 24px;
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(15,15,15,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    html[data-theme="dark"] .section{ box-shadow: 0 18px 58px rgba(0,0,0,0.35); }
+
+    .section-title{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .section-title h3{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .section-title .hint{
+      font-size: 12px;
+      color: rgba(31,31,31,0.60);
+    }
+    html[data-theme="dark"] .section-title .hint{ color: rgba(229,231,235,0.60); }
+
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .card{
+      grid-column: span 6;
+      padding: 16px 16px;
+      border-radius: var(--radius);
+      background: var(--glass-bg);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+      transition: transform 140ms ease, box-shadow 140ms ease;
+      overflow: hidden;
+      position: relative;
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow: 0 18px 46px rgba(15,15,15,0.12); }
+    html[data-theme="dark"] .card:hover{ box-shadow: 0 22px 70px rgba(0,0,0,0.38); }
+
+    .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px; }
+
+    .tag{
+      font-size: 12px;
+      color: rgba(31,31,31,0.68);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      box-shadow: inset 0 0 0 1px var(--chip-border);
+    }
+    html[data-theme="dark"] .tag{ color: rgba(229,231,235,0.70); }
+
+    .mini-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: rgba(31,31,31,0.86);
+    }
+    html[data-theme="dark"] .mini-link{ color: rgba(229,231,235,0.88); }
+    .mini-link:hover{ text-decoration: none; }
+    .mini-link span{
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(42,111,93,0.08);
+      box-shadow: inset 0 0 0 1px var(--chip-border);
+    }
+    html[data-theme="dark"] .mini-link span{ background: rgba(96,165,250,0.12); }
+
+    .reveal{ opacity: 0; transform: translateY(10px); transition: opacity 500ms ease, transform 500ms ease; }
+    .reveal.is-visible{ opacity: 1; transform: translateY(0); }
+
+    .card-title{ font-size: 16px; font-weight: 600; margin: 0 0 6px; letter-spacing: 0.2px; }
+    .card-meta{ font-size: 12px; color: rgba(31,31,31,0.55); margin-bottom: 10px; }
+    html[data-theme="dark"] .card-meta{ color: rgba(229,231,235,0.55); }
+
+    .card p{ margin: 0; color: rgba(31,31,31,0.78); font-size: 14px; }
+    html[data-theme="dark"] .card p{ color: rgba(229,231,235,0.78); }
+
+    .two-col{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .quote{
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--quote-bg);
+      color: rgba(31,31,31,0.82);
+      font-size: 14px;
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+    }
+    html[data-theme="dark"] .quote{ color: rgba(229,231,235,0.82); }
+
+    footer{
+      text-align: center;
+      margin-top: 18px;
+      padding: 28px 10px 0;
+      font-size: 12px;
+      color: rgba(31,31,31,0.55);
+    }
+    html[data-theme="dark"] footer{ color: rgba(229,231,235,0.55); }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .name-line h1{ font-size: 34px; }
+      .container{ padding: 14px 14px 70px; }
+      .hero-body{ padding: 0 18px 22px; }
+      .section{ padding: 20px 16px; }
+      .card{ grid-column: span 12; }
+      .two-col{ grid-template-columns: 1fr; }
+      .quick{ grid-column: span 12; }
+    }
+
+    @media (max-width: 480px){
+      .cover{ height: 120px; }
+      .profile{ margin-top: -70px; }
+      .avatar{ width: 156px; height: 156px; }
+      .name-line h1{ font-size: 30px; }
+      .pronouns{ font-size: 16px; }
+    }
+
+    /* ===== Sponsor modal ===== */
+    .modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      z-index: 999;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+    }
+    .modal.open{ display: flex; }
+
+    .modal-card{
+      width: min(520px, 96vw);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }
+    html[data-theme="dark"] .modal-card{
+      background: rgba(10,18,32,0.78);
+      box-shadow: 0 26px 90px rgba(0,0,0,0.55);
+    }
+
+    .modal-head{
+      padding: 16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .modal-title .badge{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(245,158,11,0.25), rgba(249,115,22,0.22));
+      box-shadow: inset 0 0 0 1px rgba(40,40,40,0.10);
+    }
+    html[data-theme="dark"] .modal-title .badge{
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+    }
+
+    .modal-close{
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: var(--text);
+    }
+    .modal-close:hover{ background: rgba(0,0,0,0.06); }
+    html[data-theme="dark"] .modal-close:hover{ background: rgba(255,255,255,0.06); }
+
+    .modal-body{
+      padding: 16px 18px 18px;
+    }
+    .modal-body p{
+      margin: 0 0 10px;
+      color: rgba(31,31,31,0.82);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    html[data-theme="dark"] .modal-body p{ color: rgba(229,231,235,0.82); }
+
+    .sponsor-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .paycard{
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.62);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.08);
+    }
+    html[data-theme="dark"] .paycard{
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.40);
+    }
+    .paycard b{ display:block; margin-bottom: 8px; }
+    .paycard .hint{ font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .qr{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.05),
+        rgba(0,0,0,0.05) 10px,
+        rgba(0,0,0,0.02) 10px,
+        rgba(0,0,0,0.02) 20px
+      );
+      box-shadow: inset 0 0 0 1px var(--border);
+      color: rgba(31,31,31,0.65);
+      font-size: 12px;
+      text-align: center;
+      padding: 12px;
+    }
+    html[data-theme="dark"] .qr{
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.06) 10px,
+        rgba(255,255,255,0.03) 10px,
+        rgba(255,255,255,0.03) 20px
+      );
+      color: rgba(229,231,235,0.65);
+    }
+
+    .modal-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      justify-content:flex-end;
+    }
+    .ghost{
+      background: transparent;
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <!-- Figma-like Header -->
+  <nav class="topbar" aria-label="Site header">
+    <div class="topbar-left">
+      <a class="brandmark" href="#top" aria-label="Home">
+        <span class="brandmark-dot" aria-hidden="true"></span>
+        <span class="brandmark-text" data-i18n="brand.community">Community</span>
+      </a>
+    </div>
+
+    <div class="topbar-center" role="navigation" aria-label="Primary">
+      <a class="toplink" href="#notes" data-i18n="nav.notes">Notes</a>
+      <a class="toplink" href="#essays" data-i18n="nav.essays">Essays</a>
+      <a class="toplink" href="#music" data-i18n="nav.music">Music</a>
+      <a class="toplink" href="#library" data-i18n="nav.library">Library</a>
+      <a class="toplink" href="#now" data-i18n="nav.now">Now</a>
+      <a class="toplink" href="#tracks" data-i18n="nav.tracks">Tracks</a>
+    </div>
+
+    <div class="topbar-right">
+      <!-- ✅ Stable language selector (wrapper draws border) -->
+      <div class="langwrap edge" aria-label="Language selector">
+        <select class="lang-select" id="langSelect">
+          <option value="zh-CN">简体中文</option>
+          <option value="zh-TW">繁體中文</option>
+          <option value="en-CA">English (Canada)</option>
+        </select>
+        <span class="lang-caret" aria-hidden="true">▾</span>
+      </div>
+
+      <div class="searchwrap">
+        <svg class="searchicon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="siteSearch" class="search" type="search" placeholder="Search" autocomplete="off" />
+      </div>
+
+      <!-- Sponsor button -->
+      <button class="sponsor edge" id="sponsorBtn" type="button">
+        <span class="coin" aria-hidden="true">☕</span>
+        <span data-i18n="sponsor.btn">赞助</span>
+      </button>
+
+      <button class="theme-toggle edge" id="themeToggle" type="button" aria-label="Toggle theme">
+        <span id="themeIcon" aria-hidden="true">🌙</span>
+        <span class="hint" id="themeText">Dark</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Sponsor Modal -->
+  <div class="modal" id="sponsorModal" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
+    <div class="modal-card edge">
+      <div class="modal-head">
+        <div class="modal-title" id="sponsorTitle">
+          <span class="badge" aria-hidden="true">☕</span>
+          <span data-i18n="sponsor.title">Sponsor / 打赏</span>
+        </div>
+        <button class="modal-close" id="sponsorClose" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p data-i18n="sponsor.desc">
+          谢谢你愿意支持我。如果你喜欢这里的内容，可以请我喝杯咖啡 ☕
+        </p>
+
+        <div class="sponsor-grid">
+          <div class="paycard edge">
+            <b data-i18n="sponsor.wechat">WeChat Pay（放二维码）</b>
+            <div class="qr">QR Placeholder<br>Replace with your image</div>
+            <div class="hint" data-i18n="sponsor.hint1">把二维码图片替换进来即可。</div>
+          </div>
+
+          <div class="paycard edge">
+            <b data-i18n="sponsor.alipay">Alipay（放二维码）</b>
+            <div class="qr">QR Placeholder<br>Replace with your image</div>
+            <div class="hint" data-i18n="sponsor.hint2">也可以放 PayPal / Stripe 链接。</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn ghost edge" id="copySponsorLink" type="button" data-i18n="sponsor.copy">复制赞助链接</button>
+          <button class="btn primary edge" id="closeSponsor2" type="button" data-i18n="sponsor.close">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
 
@@ -761,7 +2043,6 @@
           <div class="bio edge">
             <div class="bio-title" data-i18n="hero.bioTitle">Bio</div>
             <div class="bio-text">
-              <!-- 未来你要填内容：只改下面这行的 data-i18n 文案（在字典里改），或直接把这里改成 data-i18n="..." 的不同 key -->
               <p class="muted" data-i18n="hero.bioPlaceholder">（把你的 Bio 发我，我会替换到这里：中英文都可以）</p>
             </div>
           </div>
@@ -939,817 +2220,4 @@
         </div>
       </div>
 
-      <div class="grid" style="margin-top:14px;">
-        <article class="card edge">
-          <div class="card-title" data-i18n="music.card1.title">Playlist · 夜里开小火车</div>
-          <div class="card-meta" data-i18n="music.card1.meta">Template</div>
-          <p data-i18n="music.card1.desc">把 10 首歌做成一个主题播放列表，配一句话介绍。</p>
-          <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.playlist">Playlist</span>
-            <span class="tag edge" data-i18n="tag.mood">Mood</span>
-            <span class="tag edge" data-i18n="tag.weekly">Weekly</span>
-          </div>
-          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开 · Open</span></a>
-        </article>
-
-        <article class="card edge">
-          <div class="card-title" data-i18n="music.card2.title">音乐碎片 · Music Notes</div>
-          <div class="card-meta" data-i18n="music.card2.meta">Template</div>
-          <p data-i18n="music.card2.desc">记录一句歌词、一段旋律带来的感受。</p>
-          <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.lyrics">Lyrics</span>
-            <span class="tag edge" data-i18n="tag.feelings">Feelings</span>
-            <span class="tag edge" data-i18n="tag.notes">Notes</span>
-          </div>
-          <a class="mini-link" href="music.html"><span class="edge" data-i18n="action.open">打开 · Open</span></a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Library -->
-    <section id="library" class="section reveal edge">
-      <div class="section-title">
-        <h3 data-i18n="section.library.title">收藏 · Library</h3>
-        <div class="hint" data-i18n="section.library.hint">书 / 电影 / 播客 / 文章：你喜欢的东西会组成你</div>
-      </div>
-
-      <div class="grid">
-        <article class="card edge">
-          <div class="card-title" data-i18n="library.card1.title">📚 Books I’m Reading</div>
-          <div class="card-meta" data-i18n="library.card1.meta">Update anytime</div>
-          <p data-i18n="library.card1.desc">《______》— 为什么在读：______</p>
-          <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.books">Books</span>
-            <span class="tag edge" data-i18n="tag.reading">Reading</span>
-            <span class="tag edge" data-i18n="tag.notes">Notes</span>
-          </div>
-          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
-        </article>
-
-        <article class="card edge">
-          <div class="card-title" data-i18n="library.card2.title">🎬 Films / Series</div>
-          <div class="card-meta" data-i18n="library.card2.meta">Update anytime</div>
-          <p data-i18n="library.card2.desc">本周看了：______。一句话感受：______。</p>
-          <div class="tag-row">
-            <span class="tag edge" data-i18n="tag.film">Film</span>
-            <span class="tag edge" data-i18n="tag.series">Series</span>
-            <span class="tag edge" data-i18n="tag.mood">Mood</span>
-          </div>
-          <a class="mini-link" href="archive.html"><span class="edge" data-i18n="action.archive">归档 · Archive</span></a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Now -->
-    <section id="now" class="section reveal edge">
-      <div class="section-title">
-        <h3 data-i18n="section.now.title">现在 · Now</h3>
-        <div class="hint" data-i18n="section.now.hint">一段“此刻的我”，随时可改</div>
-      </div>
-
-      <div class="two-col">
-        <div class="quote edge">
-          <b data-i18n="now.cn.title">这段可以当作你的“近况栏”</b><br>
-          <span data-i18n="now.cn.focus">· 最近在专注：____________</span><br>
-          <span data-i18n="now.cn.learning">· 最近在学习：____________</span><br>
-          <span data-i18n="now.cn.thinking">· 最近在思考：____________</span>
-        </div>
-
-        <div class="quote edge">
-          <b data-i18n="now.en.title">This can be your “Now” box</b><br>
-          <span data-i18n="now.en.focus">· Focus: ____________</span><br>
-          <span data-i18n="now.en.learning">· Learning: ____________</span><br>
-          <span data-i18n="now.en.thinking">· Thinking: ____________</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tracks -->
-    <section id="tracks" class="section reveal edge">
-      <div class="section-title">
-        <h3 data-i18n="section.tracks.title">轨道 · Tracks</h3>
-        <div class="hint" data-i18n="section.tracks.hint">正在做的事 / 想去的方向 / 联系方式</div>
-      </div>
-
-      <div class="two-col">
-        <div>
-          <p><b data-i18n="tracks.left.title">在路上 · In Motion</b></p>
-          <p class="muted" data-i18n="tracks.left.desc">把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。</p>
-
-          <div class="quote edge" style="margin-top:12px;">
-            <b data-i18n="tracks.left.boxTitle">Now building</b><br>
-            <span data-i18n="tracks.left.item1">· Personal website: refining writing + structure</span><br>
-            <span data-i18n="tracks.left.item2">· Notes / Essays: weekly update</span><br>
-            <span data-i18n="tracks.left.item3">· Music: track of the week</span>
-          </div>
-
-          <div class="cta-row" style="justify-content:flex-start; margin-top:12px;">
-            <a class="btn primary edge" href="#notes" data-i18n="nav.notes">Notes</a>
-            <a class="btn edge" href="#essays" data-i18n="nav.essays">Essays</a>
-            <a class="btn edge" href="#music" data-i18n="nav.music">Music</a>
-          </div>
-        </div>
-
-        <div>
-          <p><b data-i18n="tracks.right.title">联系 · Connect</b></p>
-          <p class="muted" data-i18n="tracks.right.desc">你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。</p>
-
-          <article class="card edge" style="grid-column: span 12; margin-top:10px;">
-            <div class="card-title" data-i18n="tracks.right.linksTitle">Links</div>
-            <p class="muted" style="margin-top:6px;" data-i18n="tracks.right.linksDesc">
-              · LinkedIn / Instagram 已在头像下方<br>
-              · 你也可以加：GitHub、Resume、Email
-            </p>
-            <div class="tag-row">
-              <span class="tag edge" data-i18n="tag.connect">Connect</span>
-              <span class="tag edge" data-i18n="tag.links">Links</span>
-              <span class="tag edge" data-i18n="tag.public">Public</span>
-            </div>
-
-            <div class="cta-row" style="justify-content:flex-start;">
-              <a class="btn edge" href="https://github.com/" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.github">GitHub (edit)</a>
-              <a class="btn edge" href="#" target="_blank" rel="noopener noreferrer" data-i18n="tracks.right.resume">Resume (edit)</a>
-              <a class="btn edge" href="mailto:your@email.com" data-i18n="tracks.right.email">Email (edit)</a>
-            </div>
-          </article>
-
-          <div class="quote edge" style="margin-top:12px;">
-            <span data-i18n="tracks.right.quote">中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <span data-i18n="footer">© 2026 Zihua Luo · Train in Motion · Built with calm and patience</span>
-    </footer>
-
-  </div>
-
-  <script>
-    // ===============================
-    // i18n: zh-CN / zh-TW / en-CA
-    // How to extend later:
-    // 1) 给任何元素加 data-i18n="your.key"
-    // 2) 在下面 I18N 字典里三种语言都补上同一个 key 的文案
-    // ===============================
-    const I18N = {
-      "zh-CN": {
-        // Top / common
-        "brand.community": "Community",
-        "nav.notes": "随想",
-        "nav.essays": "随笔",
-        "nav.music": "音乐",
-        "nav.library": "收藏",
-        "nav.now": "现在",
-        "nav.tracks": "轨道",
-
-        "social.linkedin": "LinkedIn",
-        "social.instagram": "Instagram",
-
-        "hero.pronouns": "他 / He",
-        "hero.pill1": "只开小火车",
-        "hero.pill2": "个人空间 · 小火车在前进",
-        "hero.bioTitle": "简介",
-        "hero.bioPlaceholder": "（把你的 Bio 发我，我会替换到这里：中英文都可以）",
-        "hero.intro1": "一个记录生活、情绪与思考的角落。",
-        "hero.intro2": "这里没有宏大叙事，只有零散的真实。",
-        "hero.intro3": "一个安静的地方，用来记录生活、情绪与思考。",
-        "hero.intro4": "不求宏大，只保留真实的碎片。",
-
-        "cta.readNotes": "去看随想",
-        "cta.tracks": "轨道",
-        "cta.music": "分享音乐",
-
-        "quick.go": "→ 进入",
-        "quick.open": "↗ 打开",
-        "quick.notes.title": "随想",
-        "quick.notes.desc": "短句、片段、心情与想法。像时间线一样慢慢积累。",
-        "quick.essays.title": "随笔",
-        "quick.essays.desc": "更长的文字：故事、复盘、思考、方法论。",
-        "quick.music.title": "音乐",
-        "quick.music.desc": "每周一首歌 + 一句理由。把听见的东西留下来。",
-        "quick.library.title": "收藏",
-        "quick.library.desc": "书、电影、播客、文章：你喜欢的东西会构成你。",
-        "quick.archive.title": "归档",
-        "quick.archive.desc": "按年份/主题整理（以后你写多了会非常有用）。",
-        "quick.tracks.title": "轨道",
-        "quick.tracks.desc": "你正在做的事、你要去的方向、以及联系你。",
-
-        // Sections
-        "section.notes.title": "随想",
-        "section.notes.hint": "（下一步可以把每篇随想做成独立页面 + 独立链接）",
-        "section.essays.title": "随笔",
-        "section.essays.hint": "更长的表达：故事 / 复盘 / 方法论",
-        "section.music.title": "音乐",
-        "section.music.hint": "每周一首歌 + 一句理由（很有个人气质）",
-        "section.library.title": "收藏",
-        "section.library.hint": "书 / 电影 / 播客 / 文章：你喜欢的东西会组成你",
-        "section.now.title": "现在",
-        "section.now.hint": "一段“此刻的我”，随时可改",
-        "section.tracks.title": "轨道",
-        "section.tracks.hint": "正在做的事 / 想去的方向 / 联系方式",
-
-        // Notes cards
-        "notes.card1.title": "第一篇随想",
-        "notes.card1.meta": "2026 · 即将上线",
-        "notes.card1.desc": "先从一段短短的记录开始。你可以很随意，但它会慢慢变成一条时间线。",
-
-        "notes.card2.title": "一些尚未命名的思考",
-        "notes.card2.meta": "即将上线",
-        "notes.card2.desc": "不需要“作品”。把生活里的小线头收集起来，它们会变成你的风格。",
-
-        "notes.card3.title": "读书 / 电影 / 片刻",
-        "notes.card3.meta": "模板",
-        "notes.card3.desc": "你也可以把这个卡片改成“最近在看什么”，或者“本周一句话”。",
-
-        "notes.card4.title": "未来的某天",
-        "notes.card4.meta": "模板",
-        "notes.card4.desc": "留一个空位给未来。等你想写的时候，它就在那里。",
-
-        // Essays cards
-        "essays.card1.title": "随笔模板",
-        "essays.card1.meta": "2026 · 草稿",
-        "essays.card1.desc": "写一篇 600～1200 字：讲清楚“我在想什么”，就够了。",
-
-        "essays.card2.title": "复盘：我如何让自己持续前进",
-        "essays.card2.meta": "即将上线",
-        "essays.card2.desc": "你可以写：目标、阻力、策略、下一步。慢慢把“系统”搭起来。",
-
-        // Music
-        "music.week.title": "本周推荐",
-        "music.week.song": "🎧 歌曲：____________",
-        "music.week.artist": "🎼 歌手：____________",
-        "music.week.why": "✍️ 理由：______________________",
-
-        "music.links.title": "放链接（Spotify / Apple Music / YouTube）",
-        "music.links.spotify": "· Spotify： (link)",
-        "music.links.apple": "· Apple Music： (link)",
-        "music.links.youtube": "· YouTube： (link)",
-        "music.openPage": "进入音乐页",
-
-        "music.card1.title": "播放列表 · 夜里开小火车",
-        "music.card1.meta": "模板",
-        "music.card1.desc": "把 10 首歌做成一个主题播放列表，配一句话介绍。",
-
-        "music.card2.title": "音乐碎片",
-        "music.card2.meta": "模板",
-        "music.card2.desc": "记录一句歌词、一段旋律带来的感受。",
-
-        // Library
-        "library.card1.title": "📚 我在读的书",
-        "library.card1.meta": "随时更新",
-        "library.card1.desc": "《______》— 为什么在读：______",
-
-        "library.card2.title": "🎬 电影 / 剧集",
-        "library.card2.meta": "随时更新",
-        "library.card2.desc": "本周看了：______。一句话感受：______。",
-
-        // Now
-        "now.cn.title": "这段可以当作你的“近况栏”",
-        "now.cn.focus": "· 最近在专注：____________",
-        "now.cn.learning": "· 最近在学习：____________",
-        "now.cn.thinking": "· 最近在思考：____________",
-
-        "now.en.title": "（英文版本也可以写在这里）",
-        "now.en.focus": "· Focus：____________",
-        "now.en.learning": "· Learning：____________",
-        "now.en.thinking": "· Thinking：____________",
-
-        // Tracks
-        "tracks.left.title": "在路上",
-        "tracks.left.desc": "把这里当成你的“公开进度条”：你正在搭建什么、练什么、追什么。",
-        "tracks.left.boxTitle": "正在做",
-        "tracks.left.item1": "· 个人网站：优化写作 + 结构",
-        "tracks.left.item2": "· 随想 / 随笔：每周更新",
-        "tracks.left.item3": "· 音乐：本周推荐",
-
-        "tracks.right.title": "联系",
-        "tracks.right.desc": "你可以把这里改成：邮箱、简历、作品集（建议公开邮箱即可）。",
-        "tracks.right.linksTitle": "链接",
-        "tracks.right.linksDesc": "· LinkedIn / Instagram 已在头像下方<br>· 你也可以加：GitHub、简历、邮箱",
-        "tracks.right.github": "GitHub（修改）",
-        "tracks.right.resume": "简历（修改）",
-        "tracks.right.email": "邮箱（修改）",
-        "tracks.right.quote": "中文：慢一点也没关系，重要的是持续向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
-
-        // Actions / Tags
-        "action.read": "阅读",
-        "action.open": "打开",
-        "action.archive": "归档",
-        "action.toLibrary": "去收藏区",
-        "action.allEssays": "查看全部",
-
-        "tag.life": "生活",
-        "tag.reflection": "反思",
-        "tag.bilingual": "中文/EN",
-        "tag.slow": "慢",
-        "tag.quiet": "安静",
-        "tag.notes": "随想",
-        "tag.reading": "阅读",
-        "tag.film": "电影",
-        "tag.moments": "片刻",
-        "tag.future": "未来",
-        "tag.empty": "空位",
-        "tag.keep": "保留",
-        "tag.essay": "随笔",
-        "tag.longform": "长文",
-        "tag.draft": "草稿",
-        "tag.review": "复盘",
-        "tag.systems": "系统",
-        "tag.growth": "成长",
-        "tag.playlist": "播放列表",
-        "tag.mood": "情绪",
-        "tag.weekly": "每周",
-        "tag.lyrics": "歌词",
-        "tag.feelings": "感受",
-        "tag.books": "书籍",
-        "tag.series": "剧集",
-        "tag.connect": "联系",
-        "tag.links": "链接",
-        "tag.public": "公开",
-
-        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience"
-      },
-
-      "zh-TW": {
-        "brand.community": "Community",
-        "nav.notes": "隨想",
-        "nav.essays": "隨筆",
-        "nav.music": "音樂",
-        "nav.library": "收藏",
-        "nav.now": "現在",
-        "nav.tracks": "軌道",
-
-        "social.linkedin": "LinkedIn",
-        "social.instagram": "Instagram",
-
-        "hero.pronouns": "他 / He",
-        "hero.pill1": "只開小火車",
-        "hero.pill2": "個人空間 · 小火車在前進",
-        "hero.bioTitle": "簡介",
-        "hero.bioPlaceholder": "（把你的 Bio 發我，我會替換到這裡：中英文都可以）",
-        "hero.intro1": "一個記錄生活、情緒與思考的角落。",
-        "hero.intro2": "這裡沒有宏大敘事，只有零散的真實。",
-        "hero.intro3": "一個安靜的地方，用來記錄生活、情緒與思考。",
-        "hero.intro4": "不求宏大，只保留真實的碎片。",
-
-        "cta.readNotes": "去看隨想",
-        "cta.tracks": "軌道",
-        "cta.music": "分享音樂",
-
-        "quick.go": "→ 進入",
-        "quick.open": "↗ 打開",
-        "quick.notes.title": "隨想",
-        "quick.notes.desc": "短句、片段、心情與想法。像時間線一樣慢慢累積。",
-        "quick.essays.title": "隨筆",
-        "quick.essays.desc": "更長的文字：故事、復盤、思考、方法論。",
-        "quick.music.title": "音樂",
-        "quick.music.desc": "每週一首歌 + 一句理由。把聽見的東西留下來。",
-        "quick.library.title": "收藏",
-        "quick.library.desc": "書、電影、播客、文章：你喜歡的東西會構成你。",
-        "quick.archive.title": "歸檔",
-        "quick.archive.desc": "按年份/主題整理（以後你寫多了會非常有用）。",
-        "quick.tracks.title": "軌道",
-        "quick.tracks.desc": "你正在做的事、你要去的方向、以及聯絡你。",
-
-        "section.notes.title": "隨想",
-        "section.notes.hint": "（下一步可以把每篇隨想做成獨立頁面 + 獨立連結）",
-        "section.essays.title": "隨筆",
-        "section.essays.hint": "更長的表達：故事 / 復盤 / 方法論",
-        "section.music.title": "音樂",
-        "section.music.hint": "每週一首歌 + 一句理由（很有個人氣質）",
-        "section.library.title": "收藏",
-        "section.library.hint": "書 / 電影 / 播客 / 文章：你喜歡的東西會組成你",
-        "section.now.title": "現在",
-        "section.now.hint": "一段「此刻的我」，隨時可改",
-        "section.tracks.title": "軌道",
-        "section.tracks.hint": "正在做的事 / 想去的方向 / 聯絡方式",
-
-        "notes.card1.title": "第一篇隨想",
-        "notes.card1.meta": "2026 · 即將上線",
-        "notes.card1.desc": "先從一段短短的記錄開始。你可以很隨意，但它會慢慢變成一條時間線。",
-
-        "notes.card2.title": "一些尚未命名的思考",
-        "notes.card2.meta": "即將上線",
-        "notes.card2.desc": "不需要「作品」。把生活裡的小線頭收集起來，它們會變成你的風格。",
-
-        "notes.card3.title": "讀書 / 電影 / 片刻",
-        "notes.card3.meta": "模板",
-        "notes.card3.desc": "你也可以把這個卡片改成「最近在看什麼」，或「本週一句話」。",
-
-        "notes.card4.title": "未來的某天",
-        "notes.card4.meta": "模板",
-        "notes.card4.desc": "留一個空位給未來。等你想寫的時候，它就在那里。",
-
-        "essays.card1.title": "隨筆模板",
-        "essays.card1.meta": "2026 · 草稿",
-        "essays.card1.desc": "寫一篇 600～1200 字：講清楚「我在想什麼」，就夠了。",
-
-        "essays.card2.title": "復盤：我如何讓自己持續前進",
-        "essays.card2.meta": "即將上線",
-        "essays.card2.desc": "你可以寫：目標、阻力、策略、下一步。慢慢把「系統」搭起來。",
-
-        "music.week.title": "本週推薦",
-        "music.week.song": "🎧 歌曲：____________",
-        "music.week.artist": "🎼 歌手：____________",
-        "music.week.why": "✍️ 理由：______________________",
-
-        "music.links.title": "放連結（Spotify / Apple Music / YouTube）",
-        "music.links.spotify": "· Spotify： (link)",
-        "music.links.apple": "· Apple Music： (link)",
-        "music.links.youtube": "· YouTube： (link)",
-        "music.openPage": "進入音樂頁",
-
-        "music.card1.title": "播放清單 · 夜裡開小火車",
-        "music.card1.meta": "模板",
-        "music.card1.desc": "把 10 首歌做成一個主題播放清單，配一句話介紹。",
-
-        "music.card2.title": "音樂碎片",
-        "music.card2.meta": "模板",
-        "music.card2.desc": "記錄一句歌詞、一段旋律帶來的感受。",
-
-        "library.card1.title": "📚 我在讀的書",
-        "library.card1.meta": "隨時更新",
-        "library.card1.desc": "《______》— 為什麼在讀：______",
-
-        "library.card2.title": "🎬 電影 / 劇集",
-        "library.card2.meta": "隨時更新",
-        "library.card2.desc": "本週看了：______。一句話感受：______。",
-
-        "now.cn.title": "這段可以當作你的「近況欄」",
-        "now.cn.focus": "· 最近在專注：____________",
-        "now.cn.learning": "· 最近在學習：____________",
-        "now.cn.thinking": "· 最近在思考：____________",
-
-        "now.en.title": "（英文版本也可以寫在這裡）",
-        "now.en.focus": "· Focus：____________",
-        "now.en.learning": "· Learning：____________",
-        "now.en.thinking": "· Thinking：____________",
-
-        "tracks.left.title": "在路上",
-        "tracks.left.desc": "把這裡當成你的「公開進度條」：你正在搭建什麼、練什麼、追什麼。",
-        "tracks.left.boxTitle": "正在做",
-        "tracks.left.item1": "· 個人網站：優化寫作 + 結構",
-        "tracks.left.item2": "· 隨想 / 隨筆：每週更新",
-        "tracks.left.item3": "· 音樂：本週推薦",
-
-        "tracks.right.title": "聯絡",
-        "tracks.right.desc": "你可以把這裡改成：信箱、履歷、作品集（建議公開信箱即可）。",
-        "tracks.right.linksTitle": "連結",
-        "tracks.right.linksDesc": "· LinkedIn / Instagram 已在頭像下方<br>· 你也可以加：GitHub、履歷、信箱",
-        "tracks.right.github": "GitHub（修改）",
-        "tracks.right.resume": "履歷（修改）",
-        "tracks.right.email": "信箱（修改）",
-        "tracks.right.quote": "中文：慢一點也沒關係，重要的是持續向前。<br>English: It’s okay to go slowly — what matters is staying in motion.",
-
-        "action.read": "閱讀",
-        "action.open": "打開",
-        "action.archive": "歸檔",
-        "action.toLibrary": "去收藏區",
-        "action.allEssays": "查看全部",
-
-        "tag.life": "生活",
-        "tag.reflection": "反思",
-        "tag.bilingual": "中文/EN",
-        "tag.slow": "慢",
-        "tag.quiet": "安靜",
-        "tag.notes": "隨想",
-        "tag.reading": "閱讀",
-        "tag.film": "電影",
-        "tag.moments": "片刻",
-        "tag.future": "未來",
-        "tag.empty": "空位",
-        "tag.keep": "保留",
-        "tag.essay": "隨筆",
-        "tag.longform": "長文",
-        "tag.draft": "草稿",
-        "tag.review": "復盤",
-        "tag.systems": "系統",
-        "tag.growth": "成長",
-        "tag.playlist": "播放清單",
-        "tag.mood": "情緒",
-        "tag.weekly": "每週",
-        "tag.lyrics": "歌詞",
-        "tag.feelings": "感受",
-        "tag.books": "書籍",
-        "tag.series": "劇集",
-        "tag.connect": "聯絡",
-        "tag.links": "連結",
-        "tag.public": "公開",
-
-        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience"
-      },
-
-      "en-CA": {
-        "brand.community": "Community",
-        "nav.notes": "Notes",
-        "nav.essays": "Essays",
-        "nav.music": "Music",
-        "nav.library": "Library",
-        "nav.now": "Now",
-        "nav.tracks": "Tracks",
-
-        "social.linkedin": "LinkedIn",
-        "social.instagram": "Instagram",
-
-        "hero.pronouns": "He/Him",
-        "hero.pill1": "Train in Motion",
-        "hero.pill2": "Personal Space · Calm, honest, ongoing",
-        "hero.bioTitle": "Bio",
-        "hero.bioPlaceholder": "(Send me your bio and I’ll replace this — Chinese or English is fine.)",
-        "hero.intro1": "A quiet corner for recording life, emotions, and thoughts.",
-        "hero.intro2": "Nothing grand — only fragments of honesty.",
-        "hero.intro3": "A quiet space for documenting life, emotions, and reflections.",
-        "hero.intro4": "No grand narrative — just honest fragments.",
-
-        "cta.readNotes": "Read Notes",
-        "cta.tracks": "Tracks",
-        "cta.music": "Music",
-
-        "quick.go": "→ Go",
-        "quick.open": "↗ Open",
-        "quick.notes.title": "Notes",
-        "quick.notes.desc": "Short lines, fragments, moods, and thoughts — slowly building a timeline.",
-        "quick.essays.title": "Essays",
-        "quick.essays.desc": "Longer writing: stories, reviews, reflections, and frameworks.",
-        "quick.music.title": "Music",
-        "quick.music.desc": "One song a week + one reason. Keep what you hear.",
-        "quick.library.title": "Library",
-        "quick.library.desc": "Books, films, podcasts, articles — what you love shapes you.",
-        "quick.archive.title": "Archive",
-        "quick.archive.desc": "Organize by year/topic (you’ll thank yourself later).",
-        "quick.tracks.title": "Tracks",
-        "quick.tracks.desc": "What you’re doing, where you’re heading, and how to reach you.",
-
-        "section.notes.title": "Notes",
-        "section.notes.hint": "(Next: make each note its own page + its own link.)",
-        "section.essays.title": "Essays",
-        "section.essays.hint": "Longer form: stories / retrospectives / frameworks",
-        "section.music.title": "Music",
-        "section.music.hint": "One track a week + one sentence (very personal).",
-        "section.library.title": "Library",
-        "section.library.hint": "Books / films / podcasts / articles — what you love shapes you",
-        "section.now.title": "Now",
-        "section.now.hint": "A snapshot of you — update anytime",
-        "section.tracks.title": "Tracks",
-        "section.tracks.hint": "What you’re doing / where you’re going / how to connect",
-
-        "notes.card1.title": "First Note",
-        "notes.card1.meta": "2026 · Coming Soon",
-        "notes.card1.desc": "Start with a short entry. Keep it casual — it becomes a timeline over time.",
-
-        "notes.card2.title": "Untitled Thoughts",
-        "notes.card2.meta": "Coming Soon",
-        "notes.card2.desc": "You don’t need a ‘work’. Collect the loose threads — they become your style.",
-
-        "notes.card3.title": "Reading / Film / Moments",
-        "notes.card3.meta": "Template",
-        "notes.card3.desc": "Turn this into ‘What I’m watching’ or ‘One sentence this week’.",
-
-        "notes.card4.title": "Someday",
-        "notes.card4.meta": "Template",
-        "notes.card4.desc": "Leave an empty slot for the future. It’ll be there when you’re ready.",
-
-        "essays.card1.title": "Essay Template",
-        "essays.card1.meta": "2026 · Draft",
-        "essays.card1.desc": "Write 600–1200 words. If you can say what you’re thinking, it’s enough.",
-
-        "essays.card2.title": "Retrospective: how I keep moving",
-        "essays.card2.meta": "Coming Soon",
-        "essays.card2.desc": "Write: goals, friction, strategies, next steps. Slowly build your system.",
-
-        "music.week.title": "Track of the Week",
-        "music.week.song": "🎧 Song: ____________",
-        "music.week.artist": "🎼 Artist: ____________",
-        "music.week.why": "✍️ Why: ______________________",
-
-        "music.links.title": "Links (Spotify / Apple Music / YouTube)",
-        "music.links.spotify": "· Spotify: (link)",
-        "music.links.apple": "· Apple Music: (link)",
-        "music.links.youtube": "· YouTube: (link)",
-        "music.openPage": "Open Music Page",
-
-        "music.card1.title": "Playlist · Night Train",
-        "music.card1.meta": "Template",
-        "music.card1.desc": "Make a 10-song themed playlist with one line of context.",
-
-        "music.card2.title": "Music Notes",
-        "music.card2.meta": "Template",
-        "music.card2.desc": "Write down a lyric or how a melody made you feel.",
-
-        "library.card1.title": "📚 Books I’m Reading",
-        "library.card1.meta": "Update anytime",
-        "library.card1.desc": "“______” — Why I’m reading: ______",
-
-        "library.card2.title": "🎬 Films / Series",
-        "library.card2.meta": "Update anytime",
-        "library.card2.desc": "Watched this week: ______. One-line take: ______.",
-
-        "now.cn.title": "Chinese version (optional)",
-        "now.cn.focus": "· Focus: ____________",
-        "now.cn.learning": "· Learning: ____________",
-        "now.cn.thinking": "· Thinking: ____________",
-
-        "now.en.title": "This can be your “Now” box",
-        "now.en.focus": "· Focus: ____________",
-        "now.en.learning": "· Learning: ____________",
-        "now.en.thinking": "· Thinking: ____________",
-
-        "tracks.left.title": "In Motion",
-        "tracks.left.desc": "Think of this as your public progress bar: what you’re building, practising, chasing.",
-        "tracks.left.boxTitle": "Now building",
-        "tracks.left.item1": "· Personal website: refining writing + structure",
-        "tracks.left.item2": "· Notes / Essays: weekly update",
-        "tracks.left.item3": "· Music: track of the week",
-
-        "tracks.right.title": "Connect",
-        "tracks.right.desc": "Swap this for: email, résumé, portfolio (a public email is enough).",
-        "tracks.right.linksTitle": "Links",
-        "tracks.right.linksDesc": "· LinkedIn / Instagram are under the avatar<br>· You can add: GitHub, Résumé, Email",
-        "tracks.right.github": "GitHub (edit)",
-        "tracks.right.resume": "Résumé (edit)",
-        "tracks.right.email": "Email (edit)",
-        "tracks.right.quote": "It’s okay to go slowly — what matters is staying in motion.",
-
-        "action.read": "Read",
-        "action.open": "Open",
-        "action.archive": "Archive",
-        "action.toLibrary": "Go to Library",
-        "action.allEssays": "All Essays",
-
-        "tag.life": "Life",
-        "tag.reflection": "Reflection",
-        "tag.bilingual": "ZH/EN",
-        "tag.slow": "Slow",
-        "tag.quiet": "Quiet",
-        "tag.notes": "Notes",
-        "tag.reading": "Reading",
-        "tag.film": "Film",
-        "tag.moments": "Moments",
-        "tag.future": "Future",
-        "tag.empty": "Empty Slot",
-        "tag.keep": "Keep",
-        "tag.essay": "Essay",
-        "tag.longform": "Longform",
-        "tag.draft": "Draft",
-        "tag.review": "Review",
-        "tag.systems": "Systems",
-        "tag.growth": "Growth",
-        "tag.playlist": "Playlist",
-        "tag.mood": "Mood",
-        "tag.weekly": "Weekly",
-        "tag.lyrics": "Lyrics",
-        "tag.feelings": "Feelings",
-        "tag.books": "Books",
-        "tag.series": "Series",
-        "tag.connect": "Connect",
-        "tag.links": "Links",
-        "tag.public": "Public",
-
-        "footer": "© 2026 Zihua Luo · Train in Motion · Built with calm and patience"
-      }
-    };
-
-    // ===== Theme: system default + manual toggle + persistence =====
-    (function () {
-      const STORAGE_KEY = "theme";
-      const root = document.documentElement;
-      const btn = document.getElementById("themeToggle");
-      const icon = document.getElementById("themeIcon");
-      const text = document.getElementById("themeText");
-
-      function getSystemTheme() {
-        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-      }
-
-      function applyTheme(theme) {
-        root.setAttribute("data-theme", theme);
-        if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
-        if (text) text.textContent = theme === "dark" ? "Light" : "Dark";
-      }
-
-      const stored = localStorage.getItem(STORAGE_KEY);
-      const initial = stored || getSystemTheme();
-      applyTheme(initial);
-
-      if (btn) {
-        btn.addEventListener("click", () => {
-          const current = root.getAttribute("data-theme") || "light";
-          const next = current === "dark" ? "light" : "dark";
-          localStorage.setItem(STORAGE_KEY, next);
-          applyTheme(next);
-        });
-      }
-
-      const mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
-      if (mq && !stored) mq.addEventListener("change", () => applyTheme(getSystemTheme()));
-    })();
-
-    // ===== Language: persistence + apply i18n keys =====
-    (function(){
-      const STORAGE_KEY = "lang";
-      const root = document.documentElement;
-      const select = document.getElementById("langSelect");
-
-      function applyLang(lang){
-        const dict = I18N[lang] || I18N["zh-CN"];
-        root.setAttribute("data-lang", lang);
-        root.setAttribute("lang", lang);
-
-        // Update all elements with data-i18n
-        document.querySelectorAll("[data-i18n]").forEach(el => {
-          const key = el.getAttribute("data-i18n");
-          if(!key) return;
-          const val = dict[key];
-          if(typeof val === "string"){
-            el.innerHTML = val; // allow <br> in some strings
-          }
-        });
-
-        // Update search placeholder (nice touch)
-        const search = document.getElementById("siteSearch");
-        if(search){
-          const ph = (lang === "en-CA") ? "Search" : (lang === "zh-TW" ? "搜尋" : "搜索");
-          search.placeholder = ph;
-        }
-      }
-
-      const stored = localStorage.getItem(STORAGE_KEY);
-      const initial = stored || (navigator.language || "zh-CN");
-      // normalize only to our 3 options
-      const normalized =
-        initial.startsWith("zh-TW") || initial.startsWith("zh-HK") ? "zh-TW" :
-        initial.startsWith("en") ? "en-CA" :
-        "zh-CN";
-
-      if(select){
-        select.value = stored ? stored : normalized;
-        select.addEventListener("change", () => {
-          const lang = select.value;
-          localStorage.setItem(STORAGE_KEY, lang);
-          applyLang(lang);
-        });
-      }
-
-      applyLang(select ? select.value : "zh-CN");
-    })();
-
-    // Smooth scroll for internal anchors (only handle #... links)
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href');
-        if (!id || id.length < 2) return;
-        const el = document.querySelector(id);
-        if (!el) return;
-        e.preventDefault();
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // Reveal on scroll
-    const els = Array.from(document.querySelectorAll('.reveal'));
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(ent => {
-        if (ent.isIntersecting) ent.target.classList.add('is-visible');
-      });
-    }, { threshold: 0.08 });
-    els.forEach(el => io.observe(el));
-
-    // ===== Simple site search: Enter to jump to first match (sections + card titles) =====
-    (function(){
-      const input = document.getElementById("siteSearch");
-      if(!input) return;
-
-      function norm(s){ return (s || "").toLowerCase().trim(); }
-
-      input.addEventListener("keydown", (e) => {
-        if(e.key !== "Enter") return;
-        const q = norm(input.value);
-        if(!q) return;
-
-        // 1) Match section heading first
-        const sections = [...document.querySelectorAll("section[id]")];
-        const section = sections.find(sec => {
-          const h = sec.querySelector(".section-title h3");
-          return h && norm(h.textContent).includes(q);
-        });
-        if(section){
-          section.scrollIntoView({ behavior: "smooth", block: "start" });
-          return;
-        }
-
-        // 2) Match card title
-        const titles = [...document.querySelectorAll(".card-title")];
-        const hit = titles.find(t => norm(t.textContent).includes(q));
-        if(hit){
-          const card = hit.closest(".card");
-          (card || hit).scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      });
-    })();
-  </script>
-</body>
-</html>
+      <div class="grid" style="margin-top:14
