@@ -487,13 +487,25 @@
     header.hero{
       margin-top: 0;
       border-radius: var(--radius-lg);
-      background: #fff
-      backdrop-filter: none
+      background: var(--card);
+      backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
       overflow: hidden;
       position: relative;
     }
 
+/* ✅ 让 hero 的真实内容在 edge/grain 伪元素之上 */
+header.hero > *{
+  position: relative;
+  z-index: 3;
+}
+
+/* ✅ 再保险：头像单独更高 */
+.avatar{
+  position: relative;
+  z-index: 4;
+}
+    
     .cover{ height: 110px; background: transparent; }
     .hero-body{ padding: 0 28px 28px; }
 
@@ -504,7 +516,7 @@
       text-align: center;
       margin-top: -38px;
     }
-
+    
     .avatar{
       width: 176px;
       height: 176px;
