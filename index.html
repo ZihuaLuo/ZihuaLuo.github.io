@@ -70,6 +70,13 @@
       --glow-1: rgba(42,111,93,0.14);
       --glow-2: rgba(176,122,72,0.14);
       --glow-3: rgba(42,111,93,0.10);
+
+      /* ✅ Bio bubbles（与玻璃卡片不同的一套颜色） */
+      --biochip-bg: rgba(47, 101, 148, 0.10);      /* 带一点蓝调 */
+      --biochip-bg-2: rgba(176, 122, 72, 0.10);    /* 带一点暖调 */
+      --biochip-border: rgba(47, 101, 148, 0.18);
+      --biochip-text: rgba(31, 31, 31, 0.90);
+      --biochip-company: rgba(31, 31, 31, 0.62);
     }
 
     html[data-theme="dark"]{
@@ -113,6 +120,13 @@
       --glow-1: rgba(96,165,250,0.18);
       --glow-2: rgba(251,191,36,0.12);
       --glow-3: rgba(34,197,94,0.10);
+
+      /* ✅ Bio bubbles（dark） */
+      --biochip-bg: rgba(96,165,250,0.12);
+      --biochip-bg-2: rgba(251,191,36,0.10);
+      --biochip-border: rgba(96,165,250,0.22);
+      --biochip-text: rgba(229,231,235,0.92);
+      --biochip-company: rgba(229,231,235,0.62);
     }
 
     *{ box-sizing: border-box; }
@@ -136,7 +150,6 @@
 
       /* ✅ Scroll-driven soft gradient */
       background:
-        /* glows slowly drift downward with scroll */
         radial-gradient(
           1200px 700px
           at calc(10% + var(--scroll)*8%) calc(10% + var(--scroll)*22%),
@@ -155,7 +168,6 @@
           color-mix(in srgb, var(--glow-3) calc(100% - var(--scroll)*30%), transparent),
           transparent 60%
         ),
-        /* base gradient shifts “cooler/deeper” as you scroll */
         linear-gradient(
           180deg,
           color-mix(in srgb, var(--bg-top) calc(100% - var(--scroll)*30%), var(--bg-mid)) 0%,
@@ -183,7 +195,6 @@
     .container{
       max-width: 920px;
       margin: 0 auto;
-      /* ✅ 给“居中圆角 header”留空间：topbar + top offset + 额外空隙 */
       padding: calc(var(--topbar-h) + var(--topbar-top) + 34px) 22px 80px;
     }
 
@@ -482,8 +493,7 @@
       .container{ padding-left: 14px; padding-right: 14px; }
     }
 
-    /* ====== 你原本的页面内容（Hero / Cards / Sections 等） ====== */
-
+    /* ====== 页面内容 ====== */
     header.hero{
       margin-top: 0;
       border-radius: var(--radius-lg);
@@ -494,18 +504,16 @@
       position: relative;
     }
 
-/* ✅ 让 hero 的真实内容在 edge/grain 伪元素之上 */
-header.hero > *{
-  position: relative;
-  z-index: 3;
-}
+    header.hero > *{
+      position: relative;
+      z-index: 3;
+    }
 
-/* ✅ 再保险：头像单独更高 */
-.avatar{
-  position: relative;
-  z-index: 4;
-}
-    
+    .avatar{
+      position: relative;
+      z-index: 4;
+    }
+
     .cover{ height: 110px; background: transparent; }
     .hero-body{ padding: 0 28px 28px; }
 
@@ -516,7 +524,7 @@ header.hero > *{
       text-align: center;
       margin-top: -38px;
     }
-    
+
     .avatar{
       width: 176px;
       height: 176px;
@@ -639,6 +647,63 @@ header.hero > *{
       line-height: 1.75;
     }
     html[data-theme="dark"] .bio-text p{ color: rgba(229,231,235,0.82); }
+
+    /* ✅ Bio 气泡（新功能） */
+    .bio-chips{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      padding-top: 4px;
+    }
+    .bio-chip{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--biochip-bg), var(--biochip-bg-2));
+      border: 1px solid var(--biochip-border);
+      box-shadow: 0 10px 26px rgba(15,15,15,0.06);
+      backdrop-filter: blur(10px);
+      max-width: 100%;
+    }
+    html[data-theme="dark"] .bio-chip{
+      box-shadow: 0 16px 46px rgba(0,0,0,0.30);
+    }
+    .bio-chip-bullet{
+      opacity: 0.75;
+      font-weight: 700;
+      transform: translateY(-0.5px);
+      flex: 0 0 auto;
+    }
+    .bio-chip-emoji{
+      flex: 0 0 auto;
+      font-size: 16px;
+      line-height: 1;
+      transform: translateY(-0.5px);
+    }
+    .bio-chip-text{
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      min-width: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
+    .bio-chip-role{
+      font-weight: 600;
+      color: var(--biochip-text);
+    }
+    .bio-chip-sep{
+      opacity: 0.55;
+      color: var(--biochip-company);
+    }
+    .bio-chip-company{
+      color: var(--biochip-company);
+      font-weight: 500;
+    }
 
     .intro{
       margin-top: 18px;
@@ -1052,10 +1117,13 @@ header.hero > *{
             <span class="pill edge" data-i18n="hero.pill2">Personal Space · ZKXHC</span>
           </div>
 
+          <!-- ✅ Bio（这里会自动渲染 “· role — company” 的气泡） -->
           <div class="bio edge grain">
             <div class="bio-title" data-i18n="hero.bioTitle">Bio</div>
             <div class="bio-text">
-              <p class="muted" data-i18n="hero.bioPlaceholder">（把你的 Bio 发我，我会替换到这里：中英文都可以）</p>
+              <div class="bio-chips" data-bio-chips></div>
+              <!-- 如果你想保留一段纯文本备用，也可以用 i18n 的 hero.bioPlaceholder -->
+              <p class="muted" data-bio-fallback data-i18n="hero.bioPlaceholder" style="display:none;"></p>
             </div>
           </div>
         </div>
@@ -1425,7 +1493,17 @@ header.hero > *{
         "hero.pill1": "只开小火车",
         "hero.pill2": "谋事在人，成事在天",
         "hero.bioTitle": "简介",
+
+        /* ✅ 这里就是你的“气泡经历”，role / company 分开写 */
+        "hero.bioItems": [
+          { "emoji": "💼", "role": "投资基金会计", "company": "CIBC Mellon" },
+          { "emoji": "📊", "role": "风险管理", "company": "FRM Candidate" },
+          { "emoji": "🚆", "role": "个人网站", "company": "持续更新中" }
+        ],
+
+        /* 备用：如果你把 hero.bioItems 设为空数组，会显示这句 */
         "hero.bioPlaceholder": "BIO",
+
         "hero.intro1": "恭喜你找到了我的隐藏开关🔑",
         "hero.intro2": "网站持续更新.....🚧",
         "hero.intro3": "这里记录思考与随想✍️",
@@ -1600,7 +1678,16 @@ header.hero > *{
         "hero.pill1": "ZKXHC",
         "hero.pill2": "Man proposes and God disposes",
         "hero.bioTitle": "Bio",
+
+        /* ✅ 英文版的气泡经历 */
+        "hero.bioItems": [
+          { "emoji": "💼", "role": "Investment Fund Accountant", "company": "CIBC Mellon" },
+          { "emoji": "📈", "role": "Risk Management", "company": "FRM Candidate" },
+          { "emoji": "🚆", "role": "Personal Website", "company": "In progress" }
+        ],
+
         "hero.bioPlaceholder": "Congratulations! You found my web. The website is constantly updated!! If you want to know more, just ask ChatGPT!!",
+
         "hero.intro1": "Ohhh You Found Me 😯",
         "hero.intro2": "The Wbsite is Constantly Being Updated.....🚧.",
         "hero.intro3": "Here are the Thoughts and Notes ✍️",
@@ -1663,10 +1750,7 @@ header.hero > *{
         "essays.card2.desc": "Write: goals, friction, strategies, next steps. Slowly build your system.",
 
         "music.week.title": "Track of the Week",
-        "music.week.song": "🎧 Song: ____________",
-        "music.week.artist": "🎼 Artist: ____________",
-        "music.week.why": "✍️ Why: ______________________",
-
+        "music.why": "✍️ Why: ______________________",
         "music.links.title": "Links (Spotify / Apple Music / YouTube)",
         "music.links.spotify": "· Spotify: (link)",
         "music.links.apple": "· Apple Music: (link)",
@@ -1782,6 +1866,53 @@ header.hero > *{
     });
 
     // ===============================
+    // ✅ Bio chips renderer (NEW)
+    // ===============================
+    function renderBioChips(dict){
+      const holder = document.querySelector('[data-bio-chips]');
+      const fallback = document.querySelector('[data-bio-fallback]');
+      if (!holder) return;
+
+      const items = (dict && Array.isArray(dict["hero.bioItems"])) ? dict["hero.bioItems"] : [];
+      holder.innerHTML = "";
+
+      if (!items.length){
+        if (fallback) fallback.style.display = "";
+        return;
+      }
+      if (fallback) fallback.style.display = "none";
+
+      items.forEach((it) => {
+        const emoji = (it && it.emoji) ? String(it.emoji) : "•";
+        const role = (it && it.role) ? String(it.role) : "";
+        const company = (it && it.company) ? String(it.company) : "";
+
+        const chip = document.createElement('div');
+        chip.className = 'bio-chip edge';
+
+        chip.innerHTML = `
+          <span class="bio-chip-bullet" aria-hidden="true">·</span>
+          <span class="bio-chip-emoji" aria-hidden="true">${emoji}</span>
+          <span class="bio-chip-text">
+            <span class="bio-chip-role">${escapeHtml(role)}</span>
+            <span class="bio-chip-sep" aria-hidden="true">—</span>
+            <span class="bio-chip-company">${escapeHtml(company)}</span>
+          </span>
+        `;
+        holder.appendChild(chip);
+      });
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    // ===============================
     // i18n switch
     // ===============================
     const langSelect = document.getElementById('langSelect');
@@ -1789,12 +1920,15 @@ header.hero > *{
     function applyLang(lang){
       document.documentElement.setAttribute('data-lang', lang);
       document.documentElement.setAttribute('lang', lang === 'zh-CN' ? 'zh-CN' : 'en');
+
       const dict = I18N[lang] || I18N["zh-CN"];
+
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (!key) return;
         const val = dict[key];
         if (val == null) return;
+
         // allow <br> in a few strings
         if (String(val).includes('<br>')) el.innerHTML = val;
         else el.textContent = val;
@@ -1802,7 +1936,10 @@ header.hero > *{
 
       // input placeholder
       const search = document.getElementById('siteSearch');
-      if (search) search.placeholder = (lang === 'zh-CN') ? 'Search' : 'Search';
+      if (search) search.placeholder = 'Search';
+
+      // ✅ render bio chips for current language
+      renderBioChips(dict);
 
       localStorage.setItem('lang', lang);
     }
@@ -1905,3 +2042,5 @@ header.hero > *{
   </script>
 </body>
 </html>
+
+        
