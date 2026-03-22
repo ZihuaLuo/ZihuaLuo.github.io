@@ -4,1002 +4,1291 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zihua Luo · 只开小火车</title>
-  <meta name="description" content="Zihua Luo 的个人网站：随想、随笔、音乐、收藏、Now 与 Tracks。" />
+  <meta name="description" content="Zihua Luo 的个人网站：随想、随笔、音乐、记录与长期维护的数字角落。" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg: #f6f2ec;
       --bg-soft: #fbfaf8;
-      --panel: rgba(255,255,255,.72);
-      --panel-strong: rgba(255,255,255,.88);
-      --text: #1d1d1f;
-      --muted: #636366;
-      --line: rgba(22,22,24,.10);
+      --bg-deep: #e9efe8;
+      --panel: rgba(255,255,255,.64);
+      --panel-strong: rgba(255,255,255,.82);
+      --panel-solid: rgba(255,255,255,.94);
+
+      --text: #1c1d1f;
+      --muted: #66686f;
+      --soft-text: #868892;
+
+      --line: rgba(30,32,36,.09);
+      --line-strong: rgba(30,32,36,.14);
+
       --accent: #2a6f5d;
       --accent-2: #b07a48;
-      --shadow: 0 24px 60px rgba(17, 24, 39, .12);
-      --shadow-soft: 0 10px 28px rgba(17, 24, 39, .08);
+      --accent-3: #7e8aa8;
+
+      --shadow: 0 24px 60px rgba(18, 24, 32, .12);
+      --shadow-soft: 0 10px 30px rgba(18, 24, 32, .08);
+      --shadow-glow: 0 20px 48px rgba(42,111,93,.12);
+
       --radius: 22px;
-      --radius-lg: 30px;
-      --maxw: 1120px;
-      --topbar-h: 64px;
-      --scroll: 0;
+      --radius-lg: 34px;
+      --radius-xl: 42px;
+      --maxw: 1180px;
 
-      --bio-bg: rgba(42,111,93,.08);
-      --bio-bg-alt: rgba(176,122,72,.08);
-      --bio-line: rgba(42,111,93,.14);
-      --quote-bg: rgba(42,111,93,.06);
-
-      --bg-top: #fcfaf7;
-      --bg-mid: #f6f2ec;
-      --bg-bot: #edf3f1;
-      --bg-deep: #e7eef8;
-
-      --glow-1: rgba(42,111,93,.16);
-      --glow-2: rgba(176,122,72,.14);
-      --glow-3: rgba(42,111,93,.10);
+      --hero-glow-1: rgba(42,111,93,.16);
+      --hero-glow-2: rgba(176,122,72,.14);
+      --hero-glow-3: rgba(126,138,168,.12);
 
       --linkedin: #0A66C2;
       --instagram: #E1306C;
+
+      --scroll: 0;
+      --nav-offset: 0px;
     }
 
     html[data-theme="dark"]{
-      --bg: #0a1020;
-      --bg-soft: #101829;
-      --panel: rgba(18,26,44,.58);
-      --panel-strong: rgba(18,26,44,.78);
-      --text: #eef2ff;
-      --muted: #a9b0c3;
-      --line: rgba(255,255,255,.10);
+      --bg: #0a101c;
+      --bg-soft: #101828;
+      --bg-deep: #132037;
+      --panel: rgba(18,26,42,.56);
+      --panel-strong: rgba(18,26,42,.76);
+      --panel-solid: rgba(18,26,42,.9);
+
+      --text: #edf1fb;
+      --muted: #a7afc0;
+      --soft-text: #8d97ab;
+
+      --line: rgba(255,255,255,.08);
+      --line-strong: rgba(255,255,255,.12);
+
       --accent: #76b4ff;
-      --accent-2: #f5c16a;
-      --shadow: 0 26px 72px rgba(0,0,0,.42);
-      --shadow-soft: 0 12px 28px rgba(0,0,0,.28);
+      --accent-2: #f2c06a;
+      --accent-3: #9ba9e8;
 
-      --bio-bg: rgba(118,180,255,.12);
-      --bio-bg-alt: rgba(245,193,106,.10);
-      --bio-line: rgba(118,180,255,.18);
-      --quote-bg: rgba(118,180,255,.08);
+      --shadow: 0 30px 70px rgba(0,0,0,.35);
+      --shadow-soft: 0 12px 34px rgba(0,0,0,.2);
+      --shadow-glow: 0 20px 48px rgba(118,180,255,.14);
 
-      --bg-top: #070b13;
-      --bg-mid: #0a1020;
-      --bg-bot: #0d1730;
-      --bg-deep: #0d1b39;
-
-      --glow-1: rgba(118,180,255,.18);
-      --glow-2: rgba(245,193,106,.12);
-      --glow-3: rgba(82,221,152,.10);
+      --hero-glow-1: rgba(118,180,255,.18);
+      --hero-glow-2: rgba(242,192,106,.13);
+      --hero-glow-3: rgba(155,169,232,.12);
     }
 
-    *{ box-sizing: border-box; }
-    html{ scroll-behavior: smooth; }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
-      margin: 0;
-      font-family: "Inter","PingFang SC","Noto Sans SC",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color: var(--text);
+      margin:0;
+      font-family:"Inter","PingFang SC","Noto Sans SC",system-ui,-apple-system,sans-serif;
+      color:var(--text);
       background: var(--bg);
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      line-height:1.75;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    img{ max-width: 100%; display: block; }
-    button, input, select{ font: inherit; color: inherit; }
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: none; }
+    img{ display:block; max-width:100%; }
+    button,input,select{ font:inherit; color:inherit; }
+    a{ color:inherit; text-decoration:none; }
 
-    .bg{
-      position: fixed;
-      inset: 0;
-      z-index: -2;
+    .ambient{
+      position:fixed;
+      inset:0;
+      z-index:-3;
       background:
-        radial-gradient(1100px 720px at calc(8% + var(--scroll) * 10%) calc(8% + var(--scroll) * 24%), var(--glow-1), transparent 55%),
-        radial-gradient(900px 620px at calc(92% - var(--scroll) * 7%) calc(18% + var(--scroll) * 28%), var(--glow-2), transparent 55%),
-        radial-gradient(860px 640px at 50% calc(110% - var(--scroll) * 20%), var(--glow-3), transparent 60%),
-        linear-gradient(180deg, var(--bg-top), var(--bg-mid) 45%, color-mix(in srgb, var(--bg-bot) 72%, var(--bg-deep)) 100%);
+        radial-gradient(900px 600px at calc(8% + var(--scroll) * 10%) calc(12% + var(--scroll) * 24%), var(--hero-glow-1), transparent 62%),
+        radial-gradient(760px 520px at calc(86% - var(--scroll) * 8%) calc(14% + var(--scroll) * 16%), var(--hero-glow-2), transparent 60%),
+        radial-gradient(880px 660px at 50% calc(110% - var(--scroll) * 24%), var(--hero-glow-3), transparent 60%),
+        linear-gradient(180deg, color-mix(in srgb, var(--bg-soft) 84%, white 16%), var(--bg) 48%, var(--bg-deep) 100%);
     }
-    .bg::after{
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: calc(.32 - var(--scroll) * .12);
+    .ambient::before{
+      content:"";
+      position:absolute;
+      inset:0;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.32) 0 2px, transparent 2px) 0 0/140px 140px,
-        radial-gradient(circle at 68% 58%, rgba(255,255,255,.18) 0 1px, transparent 1px) 0 0/180px 180px;
-      pointer-events: none;
+        linear-gradient(115deg, rgba(255,255,255,.14), transparent 35%),
+        linear-gradient(295deg, rgba(255,255,255,.08), transparent 30%);
+      opacity:.8;
+      pointer-events:none;
+    }
+    .ambient::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(255,255,255,.22) 1px, transparent 0);
+      background-size: 24px 24px;
+      opacity:calc(.06 - var(--scroll) * .02);
+      mix-blend-mode:soft-light;
+      pointer-events:none;
+    }
+
+    .noise{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      opacity:.06;
+      pointer-events:none;
+      background-image:
+        linear-gradient(transparent 0%, rgba(255,255,255,.18) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+      background-size:auto, 180px 180px;
+      mix-blend-mode:soft-light;
     }
 
     .container{
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 104px 20px 84px;
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:108px 20px 84px;
+      position:relative;
+      z-index:1;
     }
 
-    .surface{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+    .glass{
+      background:var(--panel);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
-    .panel{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: var(--radius);
-    }
-    .panel-strong{
-      background: var(--panel-strong);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-radius: var(--radius-lg);
+    .glass-strong{
+      background:var(--panel-strong);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
     .topbar{
-      position: fixed;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(calc(100% - 20px), 1180px);
-      min-height: var(--topbar-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 14px;
-      z-index: 1000;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--panel-strong) 86%, transparent);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
+      position:fixed;
+      top:14px;
+      left:50%;
+      transform:translateX(-50%) translateY(var(--nav-offset));
+      width:min(calc(100% - 20px), 1220px);
+      min-height:64px;
+      padding:10px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      z-index:1000;
+      border-radius:999px;
+      background: color-mix(in srgb, var(--panel-strong) 88%, transparent);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-    }
-    .topbar-left, .topbar-right{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .topbar-center{
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-      justify-content: center;
-      min-width: 0;
-    }
-    .brandmark{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-width: max-content;
-      font-weight: 700;
-      letter-spacing: .02em;
-    }
-    .brandmark-dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 12%, transparent);
-    }
-    .toplink,
-    .chip-btn,
-    .searchwrap,
-    .theme-toggle,
-    .sponsor-btn,
-    .menu-btn,
-    .lang-select{
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
-      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
-    }
-    .toplink{
-      padding: 9px 12px;
-      color: var(--muted);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    .toplink:hover,
-    .chip-btn:hover,
-    .theme-toggle:hover,
-    .sponsor-btn:hover,
-    .menu-btn:hover,
-    .lang-select:hover,
-    .social:hover,
-    .btn:hover,
-    .tag:hover,
-    .k:hover{
-      transform: translateY(-1px);
-      border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      transition:transform .35s ease, box-shadow .25s ease, background .25s ease;
     }
 
-    .lang-select,
-    .theme-toggle,
-    .menu-btn,
-    .sponsor-btn{
-      height: 42px;
-      padding: 0 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
+    .topbar-left,.topbar-right,.topbar-center{
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
-    .lang-select{
-      min-width: 132px;
-      appearance: none;
-      outline: none;
+    .topbar-center{
+      flex:1;
+      justify-content:center;
+      min-width:0;
     }
-    .menu-btn{ display: none; width: 42px; justify-content: center; padding: 0; }
-    .searchwrap{
-      height: 42px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 12px;
-      width: min(220px, 22vw);
+
+    .brand{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      min-width:max-content;
+      font-weight:700;
+      letter-spacing:.03em;
     }
-    .searchicon{ width: 16px; height: 16px; color: var(--muted); flex: 0 0 auto; }
-    .search{
-      width: 100%;
-      border: 0;
-      background: transparent;
-      outline: none;
+    .brand-dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 14%, transparent);
+      flex:0 0 auto;
+    }
+
+    .nav-link,
+    .chip-btn,
+    .ghost-btn,
+    .search-shell,
+    .select,
+    .menu-btn{
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 90%, transparent);
+      border-radius:999px;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+    }
+    .nav-link:hover,
+    .chip-btn:hover,
+    .ghost-btn:hover,
+    .search-shell:hover,
+    .social:hover,
+    .mini-chip:hover,
+    .page-card:hover,
+    .value-card:hover,
+    .timeline-item:hover{
+      transform:translateY(-1px);
+      box-shadow:var(--shadow-soft);
+      border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+    }
+
+    .nav-link{
+      padding:9px 13px;
+      color:var(--muted);
+      font-weight:500;
+      white-space:nowrap;
+    }
+
+    .search-shell{
+      height:42px;
+      width:min(230px, 23vw);
+      padding:0 12px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .search-shell svg{
+      width:16px;
+      height:16px;
+      color:var(--soft-text);
+      flex:0 0 auto;
+    }
+    .search-input{
+      width:100%;
+      border:0;
+      outline:none;
+      background:transparent;
+      min-width:0;
+    }
+
+    .select,
+    .chip-btn,
+    .ghost-btn,
+    .menu-btn{
+      height:42px;
+      padding:0 14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      cursor:pointer;
+    }
+    .select{
+      min-width:128px;
+      appearance:none;
+      outline:none;
+    }
+    .menu-btn{
+      width:42px;
+      padding:0;
+      display:none;
     }
 
     .menu-panel{
-      position: fixed;
-      top: 88px;
-      right: 16px;
-      width: min(320px, calc(100vw - 32px));
-      padding: 14px;
-      z-index: 999;
-      display: none;
-      border-radius: 24px;
+      position:fixed;
+      top:88px;
+      right:16px;
+      width:min(320px, calc(100vw - 32px));
+      padding:14px;
+      z-index:999;
+      display:none;
+      border-radius:26px;
     }
-    .menu-panel.open{ display: block; }
+    .menu-panel.open{ display:block; }
     .menu-grid{
-      display: grid;
-      gap: 10px;
+      display:grid;
+      gap:10px;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2,.65,.2,1);
+      will-change:transform, opacity;
+    }
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
     }
 
     .hero{
-      position: relative;
-      padding: 34px;
-      overflow: hidden;
+      position:relative;
+      padding:34px;
+      border-radius:var(--radius-xl);
+      overflow:hidden;
+      isolation:isolate;
     }
     .hero::before{
-      content: "";
-      position: absolute;
-      inset: 0;
+      content:"";
+      position:absolute;
+      inset:0;
       background:
-        radial-gradient(520px 280px at 12% 10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 65%),
-        radial-gradient(460px 280px at 88% 22%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 65%);
-      pointer-events: none;
+        radial-gradient(560px 300px at 10% 8%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 68%),
+        radial-gradient(420px 260px at 90% 18%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.12), transparent 26%);
+      pointer-events:none;
     }
-    .hero-grid{
-      position: relative;
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-    .hero-main{
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      min-width: 0;
-    }
-    .eyebrow{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: max-content;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--bio-bg) 80%, transparent);
-      border: 1px solid var(--bio-line);
-      color: var(--muted);
-      font-size: .95rem;
-    }
-    .eyebrow .pulse{
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 48%, transparent);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse{
-      0%{ box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 32%, transparent); }
-      70%{ box-shadow: 0 0 0 10px transparent; }
-      100%{ box-shadow: 0 0 0 0 transparent; }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:1px;
+      border-radius:inherit;
+      pointer-events:none;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), transparent 26%, transparent 74%, rgba(255,255,255,.08));
+      mix-blend-mode:soft-light;
     }
 
-    h1{
-      margin: 0;
-      font-size: clamp(2.5rem, 4vw, 4.25rem);
-      line-height: 1.05;
-      letter-spacing: -.04em;
+    .hero-grid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:26px;
+      align-items:stretch;
     }
-    .lead{
-      margin: 0;
-      max-width: 58ch;
-      color: var(--muted);
-      font-size: 1.08rem;
+
+    .hero-copy{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      justify-content:center;
+      padding:8px 2px 8px 2px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
+      background: color-mix(in srgb, var(--panel-solid) 70%, transparent);
+      color:var(--muted);
+      font-size:.95rem;
+    }
+    .eyebrow i{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 38%, transparent);
+      animation:pulse 2s infinite;
+    }
+    @keyframes pulse{
+      0%{ box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 32%, transparent); }
+      70%{ box-shadow:0 0 0 10px transparent; }
+      100%{ box-shadow:0 0 0 0 transparent; }
+    }
+
+    .hero-title{
+      margin:0;
+      font-family:"Cormorant Garamond","Songti SC","Times New Roman",serif;
+      font-size:clamp(3.15rem, 7vw, 5.4rem);
+      line-height:.96;
+      font-weight:600;
+      letter-spacing:-.035em;
+    }
+    .hero-title .accent{
+      display:block;
+      background:linear-gradient(135deg, var(--text), color-mix(in srgb, var(--accent) 56%, var(--text)));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .hero-lead{
+      margin:0;
+      max-width:58ch;
+      color:var(--muted);
+      font-size:1.08rem;
     }
 
     .hero-actions{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 2px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      padding-top:4px;
     }
-    .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 46px;
-      padding: 0 18px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 96%, transparent);
-      font-weight: 600;
-      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    .primary-btn,
+    .secondary-btn{
+      min-height:48px;
+      padding:0 18px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-weight:600;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
-    .btn.primary{
-      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 90%, white 10%), color-mix(in srgb, var(--accent-2) 72%, white 28%));
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 18px 36px color-mix(in srgb, var(--accent) 24%, transparent);
+    .primary-btn{
+      color:#fff;
+      border:0;
+      background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 88%, white 12%), color-mix(in srgb, var(--accent-2) 72%, white 28%));
+      box-shadow:var(--shadow-glow);
+    }
+    .secondary-btn{
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel-solid) 72%, transparent);
+    }
+    .primary-btn:hover,
+    .secondary-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:var(--shadow);
     }
 
     .meta-row{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 4px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      padding-top:4px;
     }
-    .chip{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
-      border: 1px solid var(--line);
-      color: var(--muted);
-      font-size: .95rem;
+    .mini-chip{
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      color:var(--muted);
+      font-size:.94rem;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
 
-    .hero-side{
-      display: grid;
-      gap: 14px;
-      align-content: start;
+    .hero-aside{
+      display:grid;
+      gap:14px;
+      align-content:start;
     }
+
     .profile-card{
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      padding: 18px;
-      align-items: center;
+      position:relative;
+      overflow:hidden;
+      border-radius:30px;
+      padding:18px;
     }
+    .profile-card::before{
+      content:"";
+      position:absolute;
+      inset:auto -40px -50px auto;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 16%, transparent), transparent 66%);
+      pointer-events:none;
+    }
+    .profile-top{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:16px;
+      align-items:center;
+      position:relative;
+      z-index:1;
+    }
+
     .avatar{
-      width: 108px;
-      height: 108px;
-      border-radius: 24px;
-      object-fit: cover;
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
+      width:118px;
+      height:118px;
+      object-fit:cover;
+      border-radius:28px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
     }
-    .profile-copy h2{
-      margin: 0;
-      font-size: 1.25rem;
+    .profile-text h2{
+      margin:0;
+      font-size:1.26rem;
+      letter-spacing:-.02em;
     }
-    .profile-copy p{
-      margin: 8px 0 0;
-      color: var(--muted);
+    .profile-text p{
+      margin:8px 0 0;
+      color:var(--muted);
     }
+
     .socials{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
     .social{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel-solid) 72%, transparent);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
-    .social svg{ width: 18px; height: 18px; }
-    .social.linkedin svg{ fill: var(--linkedin); }
-    .social.instagram svg{ fill: var(--instagram); }
+    .social svg{ width:18px; height:18px; }
+    .social.linkedin svg{ fill:var(--linkedin); }
+    .social.instagram svg{ fill:var(--instagram); }
 
-    .mini-grid{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+    .floating-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
     }
-    .mini{
-      padding: 18px;
+    .float-card{
+      border-radius:24px;
+      padding:16px;
+      position:relative;
+      overflow:hidden;
     }
-    .mini .label{
-      color: var(--muted);
-      font-size: .92rem;
-      margin-bottom: 6px;
+    .float-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -12px -22px auto;
+      width:86px;
+      height:86px;
+      border-radius:50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 66%);
+      opacity:.8;
+      pointer-events:none;
     }
-    .mini strong{
-      display: block;
-      font-size: 1.05rem;
+    .float-card .label{
+      color:var(--soft-text);
+      font-size:.88rem;
+      margin-bottom:7px;
+    }
+    .float-card strong{
+      display:block;
+      font-size:1.02rem;
+      letter-spacing:-.01em;
     }
 
     .section{
-      margin-top: 22px;
+      margin-top:24px;
     }
     .section-card{
-      padding: 26px;
+      padding:28px;
+      border-radius:var(--radius-lg);
+      position:relative;
+      overflow:hidden;
     }
+    .section-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), transparent 18%);
+      pointer-events:none;
+    }
+
     .section-head{
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:20px;
+      position:relative;
+      z-index:1;
     }
+    .section-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:10px;
+      color:var(--soft-text);
+      font-size:.88rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .section-kicker::before{
+      content:"";
+      width:28px;
+      height:1px;
+      background:color-mix(in srgb, var(--accent) 40%, var(--line));
+    }
+
     .section-title{
-      margin: 0;
-      font-size: clamp(1.4rem, 2vw, 2rem);
-      letter-spacing: -.02em;
+      margin:0;
+      font-family:"Cormorant Garamond","Songti SC","Times New Roman",serif;
+      font-size:clamp(2rem, 3vw, 2.8rem);
+      line-height:1;
+      font-weight:600;
+      letter-spacing:-.03em;
     }
     .section-desc{
-      margin: 6px 0 0;
-      color: var(--muted);
+      margin:8px 0 0;
+      color:var(--muted);
+      max-width:64ch;
     }
 
     .about-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-    .bio{
-      padding: 18px 20px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, color-mix(in srgb, var(--bio-bg) 80%, transparent), color-mix(in srgb, var(--bio-bg-alt) 40%, transparent));
-      border: 1px solid var(--bio-line);
-    }
-    .bio p{
-      margin: 0;
-    }
-    .bio p + p{
-      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      position:relative;
+      z-index:1;
     }
 
-    .quote{
-      padding: 18px 20px;
-      border-radius: 20px;
-      background: color-mix(in srgb, var(--quote-bg) 90%, transparent);
-      border: 1px solid var(--bio-line);
-      color: var(--muted);
+    .manifesto{
+      padding:22px;
+      border-radius:26px;
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),
+        color-mix(in srgb, var(--panel-solid) 70%, transparent);
+      border:1px solid color-mix(in srgb, var(--accent) 14%, var(--line));
     }
-    .quote strong{
-      color: var(--text);
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1rem;
+    .manifesto p{
+      margin:0;
+      font-size:1.02rem;
+    }
+    .manifesto p + p{ margin-top:14px; }
+
+    .values{
+      display:grid;
+      gap:14px;
+    }
+    .value-card{
+      padding:18px 18px 16px;
+      border-radius:22px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .value-card strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:1rem;
+      letter-spacing:-.01em;
+    }
+    .value-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:.96rem;
+    }
+    .value-card .num{
+      position:absolute;
+      top:14px;
+      right:16px;
+      color:color-mix(in srgb, var(--accent) 40%, var(--soft-text));
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.5rem;
+      line-height:1;
     }
 
-    .links-grid{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+    .pages-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:16px;
+      position:relative;
+      z-index:1;
     }
-    .card-link{
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      min-height: 182px;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
+    .page-card{
+      min-height:208px;
+      padding:22px;
+      border-radius:28px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
-    .card-link::after{
-      content: "";
-      position: absolute;
-      inset: auto -40px -40px auto;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent), transparent 68%);
-      pointer-events: none;
+    .page-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.14), transparent 34%),
+        radial-gradient(140px 140px at 86% 18%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+      pointer-events:none;
     }
-    .card-link h3{
-      margin: 0;
-      font-size: 1.18rem;
+    .page-card .eyeline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      color:var(--soft-text);
+      font-size:.9rem;
+      position:relative;
+      z-index:1;
     }
-    .card-link p{
-      margin: 0;
-      color: var(--muted);
-      flex: 1;
+    .page-card h3{
+      margin:0;
+      font-family:"Cormorant Garamond","Songti SC",serif;
+      font-size:2rem;
+      line-height:.95;
+      letter-spacing:-.03em;
+      position:relative;
+      z-index:1;
     }
-    .card-foot{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      color: var(--muted);
-      font-size: .95rem;
+    .page-card p{
+      margin:0;
+      color:var(--muted);
+      position:relative;
+      z-index:1;
+      flex:1;
+    }
+    .page-card .foot{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color:var(--muted);
+      font-size:.95rem;
     }
 
-    .tags{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .topic-strip{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      position:relative;
+      z-index:1;
     }
-    .tag{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
+    .topic{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel-solid) 72%, transparent);
+      color:var(--muted);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .topic:hover{
+      transform:translateY(-1px);
+      box-shadow:var(--shadow-soft);
+      border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+    }
+
+    .now-layout{
+      display:grid;
+      grid-template-columns: 1fr .92fr;
+      gap:18px;
+      position:relative;
+      z-index:1;
+    }
+
+    .timeline{
+      display:grid;
+      gap:12px;
+    }
+    .timeline-item{
+      display:grid;
+      grid-template-columns: 46px 1fr;
+      gap:14px;
+      padding:16px;
+      border-radius:22px;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .timeline-index{
+      width:46px;
+      height:46px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border:1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
+      color:var(--accent);
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.25rem;
+      line-height:1;
+    }
+    .timeline-item strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:1rem;
+      letter-spacing:-.01em;
+    }
+    .timeline-item p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .aside-stack{
+      display:grid;
+      gap:14px;
+    }
+    .aside-note{
+      padding:18px;
+      border-radius:24px;
+      position:relative;
+      overflow:hidden;
+    }
+    .aside-note::after{
+      content:"";
+      position:absolute;
+      inset:auto auto -28px -18px;
+      width:110px;
+      height:110px;
+      border-radius:50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-3) 16%, transparent), transparent 68%);
+      pointer-events:none;
+    }
+    .aside-note h4{
+      margin:0 0 8px;
+      font-size:1rem;
+      letter-spacing:-.01em;
+    }
+    .aside-note p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .search-panel{
+      display:none;
+      margin-top:18px;
+      padding:18px;
+      border-radius:22px;
+      border:1px dashed color-mix(in srgb, var(--accent) 28%, var(--line));
+      background: color-mix(in srgb, var(--panel-solid) 66%, transparent);
+      position:relative;
+      z-index:1;
+    }
+    .search-panel.active{ display:block; }
+    .search-panel h3{
+      margin:0 0 12px;
+      font-size:1.02rem;
+      letter-spacing:-.01em;
+    }
+    .search-list{
+      display:grid;
+      gap:10px;
+    }
+    .search-item{
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--bg-soft) 84%, transparent);
       transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
     }
-
-    .now-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    .search-item:hover{
+      transform:translateY(-1px);
+      box-shadow:var(--shadow-soft);
+      border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
     }
-    .now-list{
-      display: grid;
-      gap: 12px;
+    .search-item strong{
+      display:block;
+      margin-bottom:4px;
+      letter-spacing:-.01em;
     }
-    .now-item{
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
-      border: 1px solid var(--line);
-    }
-    .now-ico{
-      width: 28px;
-      height: 28px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      background: color-mix(in srgb, var(--accent) 12%, transparent);
-      color: var(--accent);
-      font-size: .95rem;
-      font-weight: 700;
-    }
-    .now-item strong{
-      display: block;
-      margin-bottom: 2px;
-    }
-    .now-item p{
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .search-results{
-      display: none;
-      margin-top: 18px;
-      padding: 18px;
-      border-radius: 18px;
-      border: 1px dashed color-mix(in srgb, var(--accent) 30%, var(--line));
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
-    }
-    .search-results.active{ display: block; }
-    .search-results h3{
-      margin: 0 0 10px;
-      font-size: 1.05rem;
-    }
-    .result-list{
-      display: grid;
-      gap: 10px;
-    }
-    .result-item{
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--bg-soft) 86%, transparent);
-    }
-    .result-item mark{
+    .search-item mark{
       background: color-mix(in srgb, var(--accent-2) 28%, transparent);
-      color: inherit;
-      padding: 0 .15em;
-      border-radius: .2em;
+      color:inherit;
+      border-radius:.25em;
+      padding:0 .18em;
     }
 
     .footer{
-      margin-top: 26px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      color: var(--muted);
+      margin-top:26px;
+      padding:22px 24px;
+      border-radius:26px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
     }
-    .footer small{ font-size: .95rem; }
+    .footer-copy{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      color:var(--muted);
+    }
+    .footer-copy strong{
+      color:var(--text);
+      letter-spacing:-.01em;
+    }
     .kbd{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
     }
-    .k{
-      min-width: 28px;
-      height: 28px;
-      padding: 0 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
-      font-size: .88rem;
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    .key{
+      min-width:28px;
+      height:28px;
+      padding:0 8px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel-solid) 72%, transparent);
+      font-size:.88rem;
     }
 
     .modal{
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 1100;
-      background: rgba(8, 10, 16, .42);
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(7,10,18,.42);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
+      z-index:1100;
     }
-    .modal.open{ display: flex; }
+    .modal.open{ display:flex; }
     .modal-card{
-      width: min(880px, 100%);
-      padding: 24px;
+      width:min(900px, 100%);
+      padding:24px;
+      border-radius:32px;
+      position:relative;
+      overflow:hidden;
+    }
+    .modal-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(340px 180px at 12% 8%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+        radial-gradient(280px 180px at 92% 14%, color-mix(in srgb, var(--accent-2) 12%, transparent), transparent 70%);
+      pointer-events:none;
     }
     .modal-head{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
     }
     .modal-head h3{
-      margin: 0;
-      font-size: 1.25rem;
+      margin:0;
+      font-family:"Cormorant Garamond","Songti SC",serif;
+      font-size:2rem;
+      line-height:1;
     }
     .close-btn{
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
-      cursor: pointer;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel-solid) 72%, transparent);
+      cursor:pointer;
     }
-    .sponsor-grid{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+    .pay-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:16px;
     }
     .pay-card{
-      padding: 18px;
-      text-align: center;
+      padding:18px;
+      border-radius:24px;
+      text-align:center;
     }
     .pay-card h4{
-      margin: 0 0 12px;
-      font-size: 1.05rem;
+      margin:0 0 12px;
+      font-size:1.05rem;
+      letter-spacing:-.01em;
     }
     .pay-card img{
-      width: 100%;
-      max-width: 320px;
-      margin: 0 auto;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
+      width:100%;
+      max-width:320px;
+      margin:0 auto;
+      border-radius:18px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
     }
     .pay-card p{
-      margin: 12px 0 0;
-      color: var(--muted);
-      font-size: .95rem;
+      margin:12px 0 0;
+      color:var(--muted);
+      font-size:.95rem;
     }
 
-    .hidden{ display: none !important; }
-
-    @media (max-width: 980px){
+    @media (max-width: 1024px){
       .hero-grid,
       .about-grid,
-      .links-grid,
-      .now-grid{
-        grid-template-columns: 1fr;
+      .now-layout,
+      .pages-grid{
+        grid-template-columns:1fr;
       }
-      .hero{
-        padding: 24px;
+      .topbar-center .nav-link{
+        display:none;
       }
-      .mini-grid{
-        grid-template-columns: 1fr 1fr;
-      }
-      .topbar-center .toplink{
-        display: none;
-      }
-      .menu-btn{ display: inline-flex; }
+      .menu-btn{ display:inline-flex; }
     }
 
     @media (max-width: 720px){
       .container{
-        padding: 96px 14px 70px;
+        padding:94px 14px 70px;
       }
       .topbar{
-        top: 10px;
-        width: calc(100% - 12px);
-        padding: 9px 10px;
-        gap: 8px;
+        top:10px;
+        width:calc(100% - 12px);
+        padding:9px 10px;
+        gap:8px;
       }
-      .topbar-left .brandmark span:last-child{
-        display: none;
+      .brand span:last-child{
+        display:none;
       }
-      .topbar-right{
-        gap: 8px;
+      .search-shell{
+        width:44px;
+        padding:0 13px;
       }
-      .searchwrap{
-        width: 44px;
-        padding: 0 13px;
+      .search-shell.active{
+        width:min(54vw, 220px);
       }
-      .searchwrap.active{
-        width: min(52vw, 220px);
+      .search-shell:not(.active) .search-input{
+        display:none;
       }
-      .searchwrap:not(.active) .search{
-        display: none;
-      }
-      .lang-select{
-        min-width: 110px;
-        padding: 0 10px;
+      .select{
+        min-width:112px;
+        padding:0 10px;
       }
       .hero{
-        padding: 20px;
+        padding:22px;
       }
-      .profile-card{
-        grid-template-columns: 1fr;
-        text-align: center;
+      .hero-title{
+        font-size:clamp(2.8rem, 15vw, 4.2rem);
       }
-      .avatar{
-        margin: 0 auto;
+      .profile-top{
+        grid-template-columns:1fr;
+        text-align:center;
       }
-      .socials{
-        justify-content: center;
-      }
-      .mini-grid,
-      .sponsor-grid{
-        grid-template-columns: 1fr;
+      .avatar{ margin:0 auto; }
+      .socials{ justify-content:center; }
+      .floating-grid,
+      .pay-grid{
+        grid-template-columns:1fr;
       }
       .section-card{
-        padding: 20px;
+        padding:22px;
       }
       .footer{
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction:column;
+        align-items:flex-start;
       }
     }
   </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
   <header class="topbar" id="topbar">
     <div class="topbar-left">
-      <a class="brandmark" href="#top">
-        <span class="brandmark-dot" aria-hidden="true"></span>
+      <a class="brand" href="#top">
+        <span class="brand-dot" aria-hidden="true"></span>
         <span data-i18n="brand">只开小火车</span>
       </a>
     </div>
 
-    <nav class="topbar-center" aria-label="Primary">
-      <a class="toplink" href="#about" data-i18n="navAbout">关于</a>
-      <a class="toplink" href="#links" data-i18n="navLinks">链接</a>
-      <a class="toplink" href="#now" data-i18n="navNow">近况</a>
-      <a class="toplink" href="#contact" data-i18n="navContact">联系</a>
+    <nav class="topbar-center" aria-label="Primary Navigation">
+      <a class="nav-link" href="#about" data-i18n="navAbout">关于</a>
+      <a class="nav-link" href="#pages" data-i18n="navPages">页面</a>
+      <a class="nav-link" href="#now" data-i18n="navNow">近况</a>
+      <a class="nav-link" href="#contact" data-i18n="navContact">联系</a>
     </nav>
 
     <div class="topbar-right">
-      <div class="searchwrap" id="searchWrap">
-        <svg class="searchicon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <div class="search-shell" id="searchShell">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 1 1-14 0a7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
-        <input class="search" id="siteSearch" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="搜索站内内容..." aria-label="Search site content" />
+        <input class="search-input" id="siteSearch" type="search" placeholder="搜索站内内容..." data-i18n-placeholder="searchPlaceholder" aria-label="Search site content" />
       </div>
 
-      <select class="lang-select" id="langSelect" aria-label="Language switcher">
+      <select class="select" id="langSelect" aria-label="Language">
         <option value="zh-CN">中文</option>
         <option value="en">English</option>
       </select>
 
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+      <button class="ghost-btn" id="themeToggle" type="button" aria-label="Toggle Theme">
         <span id="themeIcon">☼</span>
         <span data-i18n="themeText">主题</span>
       </button>
 
-      <button class="sponsor-btn" id="sponsorBtn" type="button">
+      <button class="chip-btn" id="sponsorBtn" type="button">
         <span>♡</span>
         <span data-i18n="sponsor">赞赏</span>
       </button>
 
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">☰</button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu">☰</button>
     </div>
   </header>
 
-  <div class="menu-panel panel-strong" id="menuPanel" aria-hidden="true">
+  <div class="menu-panel glass-strong" id="menuPanel" aria-hidden="true">
     <div class="menu-grid">
-      <a class="toplink" href="#about" data-i18n="navAbout">关于</a>
-      <a class="toplink" href="#links" data-i18n="navLinks">链接</a>
-      <a class="toplink" href="#now" data-i18n="navNow">近况</a>
-      <a class="toplink" href="#contact" data-i18n="navContact">联系</a>
-      <a class="toplink" href="archive.html" data-i18n="archive">Archive</a>
-      <a class="toplink" href="essays.html" data-i18n="essays">Essays</a>
-      <a class="toplink" href="music.html" data-i18n="music">Music</a>
+      <a class="nav-link" href="#about" data-i18n="navAbout">关于</a>
+      <a class="nav-link" href="#pages" data-i18n="navPages">页面</a>
+      <a class="nav-link" href="#now" data-i18n="navNow">近况</a>
+      <a class="nav-link" href="#contact" data-i18n="navContact">联系</a>
+      <a class="nav-link" href="archive.html" data-i18n="archive">Archive</a>
+      <a class="nav-link" href="essays.html" data-i18n="essays">Essays</a>
+      <a class="nav-link" href="music.html" data-i18n="music">Music</a>
     </div>
   </div>
 
   <main class="container" id="top">
-    <section class="hero panel-strong">
+    <section class="hero glass-strong reveal">
       <div class="hero-grid">
-        <div class="hero-main">
+        <div class="hero-copy">
           <div class="eyebrow">
-            <span class="pulse" aria-hidden="true"></span>
+            <i aria-hidden="true"></i>
             <span data-i18n="heroEyebrow">写作者 / 学习者 / 生活观察者</span>
           </div>
 
-          <h1 data-i18n="heroTitle">你好，我是 Zihua Luo。</h1>
-          <p class="lead" data-i18n="heroLead">
-            一个喜欢写作、记录、思考与表达的人。这里是我的数字角落，放一些随想、页面入口、最近在做的事，以及与世界建立连接的方式。
+          <h1 class="hero-title">
+            <span data-i18n="heroTitleLine1">你好，</span>
+            <span class="accent" data-i18n="heroTitleLine2">我是 Zihua Luo。</span>
+          </h1>
+
+          <p class="hero-lead" data-i18n="heroLead">
+            这是我的个人网站。一个介于写作、页面、音乐与生活记录之间的数字角落。我想把它做得轻、稳、耐看，并且能被长期维护。
           </p>
 
           <div class="hero-actions">
-            <a class="btn primary" href="#links" data-i18n="heroPrimary">开始逛逛</a>
-            <a class="btn" href="#contact" data-i18n="heroSecondary">联系我</a>
+            <a class="primary-btn" href="#pages" data-i18n="heroPrimary">开始逛逛</a>
+            <a class="secondary-btn" href="#contact" data-i18n="heroSecondary">联系我</a>
           </div>
 
           <div class="meta-row">
-            <span class="chip" data-i18n="metaLocation">📍 基于网络与现实之间</span>
-            <span class="chip" data-i18n="metaStatus">🟢 持续更新中</span>
-            <span class="chip" data-i18n="metaFocus">✍️ 写作 / 音乐 / 记录</span>
+            <span class="mini-chip" data-i18n="meta1">✦ 长期维护中</span>
+            <span class="mini-chip" data-i18n="meta2">✦ 写作 / 音乐 / 记录</span>
+            <span class="mini-chip" data-i18n="meta3">✦ 轻艺术化个人主页</span>
           </div>
         </div>
 
-        <aside class="hero-side">
-          <div class="profile-card panel">
-            <img class="avatar" src="avatar.jpg" alt="Zihua Luo avatar" />
-            <div class="profile-copy">
-              <h2>Zihua Luo</h2>
-              <p data-i18n="profileIntro">欢迎来到我的个人网站。一个简洁、长期维护的在线名片与内容入口。</p>
-              <div class="socials" id="contact">
-                <a class="social" href="mailto:luozihua@outlook.com" aria-label="Email">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.8" rx="2"/>
-                    <path d="m5 7 7 6 7-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-                <a class="social linkedin" href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45Z"/>
-                  </svg>
-                </a>
-                <a class="social instagram" href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.25 1.55a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8A2.8 2.8 0 0 0 12 9.2Z"/>
-                  </svg>
-                </a>
+        <aside class="hero-aside">
+          <div class="profile-card glass">
+            <div class="profile-top">
+              <img class="avatar" src="avatar.jpg" alt="Zihua Luo avatar" />
+              <div class="profile-text">
+                <h2>Zihua Luo</h2>
+                <p data-i18n="profileIntro">欢迎来到我的个人网站。这里放置我的内容入口、近况、写作与长期记录。</p>
+
+                <div class="socials" id="contact">
+                  <a class="social" href="mailto:luozihua@outlook.com" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.8" rx="2"/>
+                      <path d="m5 7 7 6 7-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                  <a class="social linkedin" href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45Z"/>
+                    </svg>
+                  </a>
+                  <a class="social instagram" href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.25 1.55a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8A2.8 2.8 0 0 0 12 9.2Z"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="mini-grid">
-            <div class="mini panel">
-              <div class="label" data-i18n="mini1Label">当前维护</div>
-              <strong data-i18n="mini1Value">个人网站 / 写作档案</strong>
+          <div class="floating-grid">
+            <div class="float-card glass">
+              <div class="label" data-i18n="float1Label">当前维护</div>
+              <strong data-i18n="float1Value">个人网站 / 写作归档</strong>
             </div>
-            <div class="mini panel">
-              <div class="label" data-i18n="mini2Label">内容方向</div>
-              <strong data-i18n="mini2Value">随笔 / 音乐 / 记录</strong>
+            <div class="float-card glass">
+              <div class="label" data-i18n="float2Label">内容气质</div>
+              <strong data-i18n="float2Value">轻、稳、克制、耐看</strong>
             </div>
-            <div class="mini panel">
-              <div class="label" data-i18n="mini3Label">页面风格</div>
-              <strong data-i18n="mini3Value">轻盈、克制、长期主义</strong>
+            <div class="float-card glass">
+              <div class="label" data-i18n="float3Label">关注方向</div>
+              <strong data-i18n="float3Value">写作 / 音乐 / 观察</strong>
             </div>
-            <div class="mini panel">
-              <div class="label" data-i18n="mini4Label">站点状态</div>
-              <strong data-i18n="mini4Value">稳定可访问</strong>
+            <div class="float-card glass">
+              <div class="label" data-i18n="float4Label">状态</div>
+              <strong data-i18n="float4Value">持续生长中</strong>
             </div>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="about">
-      <div class="section-card panel">
+    <section class="section reveal" id="about">
+      <div class="section-card glass">
         <div class="section-head">
           <div>
-            <h2 class="section-title" data-i18n="aboutTitle">关于我</h2>
-            <p class="section-desc" data-i18n="aboutDesc">一些简单的自我介绍，以及我想在这里持续放置的内容。</p>
+            <div class="section-kicker" data-i18n="aboutKicker">Manifesto</div>
+            <h2 class="section-title" data-i18n="aboutTitle">关于这个角落</h2>
+            <p class="section-desc" data-i18n="aboutDesc">我更希望它像一个会慢慢长出来的空间，而不是一次性摆满内容的橱窗。</p>
           </div>
         </div>
 
         <div class="about-grid">
-          <div class="bio">
-            <p data-i18n="aboutP1">
-              我把这个网站当成一个长期维护的个人空间。它不追求信息过载，而更像一个稳定、安静、能持续生长的角落。
-            </p>
-            <p data-i18n="aboutP2">
-              你可以在这里找到我的页面入口、写作索引、最近的生活状态，也可以通过这里联系到我。
-            </p>
-            <p data-i18n="aboutP3">
-              比起“展示”，我更关心的是“留下”。留下那些值得回看的痕迹，也留下与人重新建立连接的可能。
-            </p>
+          <div class="manifesto">
+            <p data-i18n="aboutP1">我把这个网站当成一个长期维护的个人空间。它不追求信息堆叠，而更像一个稳定、安静、能持续生长的角落。</p>
+            <p data-i18n="aboutP2">你可以在这里找到页面入口、写作索引、最近的生活状态，也可以通过这里重新与我建立连接。</p>
+            <p data-i18n="aboutP3">比起“展示”，我更关心的是“留下”。留下值得回看的痕迹，也留下未来再次回到这里时，能一眼认出这是我的地方。</p>
           </div>
 
-          <div class="quote">
-            <strong data-i18n="quoteTitle">这个网站想做到的事</strong>
-            <span data-i18n="quoteBody">
-              清晰、耐看、轻量，既能表达自己，也能让来访者迅速找到他们需要的内容。
-            </span>
+          <div class="values">
+            <div class="value-card glass">
+              <span class="num">01</span>
+              <strong data-i18n="value1Title">清晰</strong>
+              <p data-i18n="value1Body">让来访者迅速知道这里是什么、能去哪里、怎样找到我。</p>
+            </div>
+            <div class="value-card glass">
+              <span class="num">02</span>
+              <strong data-i18n="value2Title">耐看</strong>
+              <p data-i18n="value2Body">比起短暂刺激，我更喜欢柔和而持久的视觉体验。</p>
+            </div>
+            <div class="value-card glass">
+              <span class="num">03</span>
+              <strong data-i18n="value3Title">长期主义</strong>
+              <p data-i18n="value3Body">它会被反复修改、慢慢完善，而不是一次成型之后停在那里。</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="links">
-      <div class="section-card panel">
+    <section class="section reveal" id="pages">
+      <div class="section-card glass">
         <div class="section-head">
           <div>
-            <h2 class="section-title" data-i18n="linksTitle">页面入口</h2>
-            <p class="section-desc" data-i18n="linksDesc">一些我会持续维护的页面与主题分区。</p>
+            <div class="section-kicker" data-i18n="pagesKicker">Pages</div>
+            <h2 class="section-title" data-i18n="pagesTitle">页面入口</h2>
+            <p class="section-desc" data-i18n="pagesDesc">一些我会持续维护的页面与内容分区。</p>
           </div>
         </div>
 
-        <div class="links-grid">
-          <a class="card-link panel" href="archive.html">
+        <div class="pages-grid">
+          <a class="page-card glass" href="archive.html">
+            <div class="eyeline">
+              <span>01</span>
+              <span data-i18n="openPage">Open page</span>
+            </div>
             <h3 data-i18n="archive">Archive</h3>
-            <p data-i18n="archiveDesc">时间线、目录或更系统化的内容整理入口。</p>
-            <div class="card-foot">
-              <span data-i18n="openLink">打开页面</span>
+            <p data-i18n="archiveDesc">时间线、目录，或者更系统化的内容整理入口。</p>
+            <div class="foot">
+              <span data-i18n="pageFoot">继续查看</span>
               <span>→</span>
             </div>
           </a>
 
-          <a class="card-link panel" href="essays.html">
+          <a class="page-card glass" href="essays.html">
+            <div class="eyeline">
+              <span>02</span>
+              <span data-i18n="openPage">Open page</span>
+            </div>
             <h3 data-i18n="essays">Essays</h3>
-            <p data-i18n="essaysDesc">更成篇的写作、随笔、观察与思考。</p>
-            <div class="card-foot">
-              <span data-i18n="openLink">打开页面</span>
+            <p data-i18n="essaysDesc">更成篇的写作、观察、随笔与思考。</p>
+            <div class="foot">
+              <span data-i18n="pageFoot">继续查看</span>
               <span>→</span>
             </div>
           </a>
 
-          <a class="card-link panel" href="music.html">
+          <a class="page-card glass" href="music.html">
+            <div class="eyeline">
+              <span>03</span>
+              <span data-i18n="openPage">Open page</span>
+            </div>
             <h3 data-i18n="music">Music</h3>
-            <p data-i18n="musicDesc">关于音乐的收藏、记录，或者我最近在听什么。</p>
-            <div class="card-foot">
-              <span data-i18n="openLink">打开页面</span>
+            <p data-i18n="musicDesc">关于音乐的收藏、记录，或者最近在听什么。</p>
+            <div class="foot">
+              <span data-i18n="pageFoot">继续查看</span>
               <span>→</span>
             </div>
           </a>
@@ -1007,119 +1296,128 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-card panel">
+    <section class="section reveal">
+      <div class="section-card glass">
         <div class="section-head">
           <div>
-            <h2 class="section-title" data-i18n="topicsTitle">站点关键词</h2>
-            <p class="section-desc" data-i18n="topicsDesc">如果你想快速了解这里的气质，可以先看这些词。</p>
+            <div class="section-kicker" data-i18n="topicsKicker">Atmosphere</div>
+            <h2 class="section-title" data-i18n="topicsTitle">关键词</h2>
+            <p class="section-desc" data-i18n="topicsDesc">如果想快速感受这个网站的气质，可以先看这些词。</p>
           </div>
         </div>
 
-        <div class="tags">
-          <span class="tag" data-i18n="tag1">长期主义</span>
-          <span class="tag" data-i18n="tag2">写作</span>
-          <span class="tag" data-i18n="tag3">观察</span>
-          <span class="tag" data-i18n="tag4">音乐</span>
-          <span class="tag" data-i18n="tag5">记录</span>
-          <span class="tag" data-i18n="tag6">极简设计</span>
-          <span class="tag" data-i18n="tag7">个人表达</span>
-          <span class="tag" data-i18n="tag8">数字花园</span>
+        <div class="topic-strip">
+          <span class="topic" data-i18n="topic1">长期主义</span>
+          <span class="topic" data-i18n="topic2">写作</span>
+          <span class="topic" data-i18n="topic3">观察</span>
+          <span class="topic" data-i18n="topic4">音乐</span>
+          <span class="topic" data-i18n="topic5">记录</span>
+          <span class="topic" data-i18n="topic6">极简设计</span>
+          <span class="topic" data-i18n="topic7">个人表达</span>
+          <span class="topic" data-i18n="topic8">数字花园</span>
         </div>
       </div>
     </section>
 
-    <section class="section" id="now">
-      <div class="section-card panel">
+    <section class="section reveal" id="now">
+      <div class="section-card glass">
         <div class="section-head">
           <div>
-            <h2 class="section-title" data-i18n="nowTitle">Now</h2>
-            <p class="section-desc" data-i18n="nowDesc">这是一个轻量的“最近在做什么”区域，会慢慢更新。</p>
+            <div class="section-kicker" data-i18n="nowKicker">Now</div>
+            <h2 class="section-title" data-i18n="nowTitle">最近在做什么</h2>
+            <p class="section-desc" data-i18n="nowDesc">这是一个轻量的 Now 区域，会随着时间慢慢更新。</p>
           </div>
         </div>
 
-        <div class="now-grid">
-          <div class="now-list">
-            <div class="now-item">
-              <div class="now-ico">01</div>
+        <div class="now-layout">
+          <div class="timeline">
+            <div class="timeline-item glass">
+              <div class="timeline-index">01</div>
               <div>
                 <strong data-i18n="now1Title">维护个人网站</strong>
-                <p data-i18n="now1Body">让它更轻、更稳，也更接近我真正想表达的样子。</p>
+                <p data-i18n="now1Body">继续把它做得更轻、更稳，也更接近我真正想表达的样子。</p>
               </div>
             </div>
-            <div class="now-item">
-              <div class="now-ico">02</div>
+
+            <div class="timeline-item glass">
+              <div class="timeline-index">02</div>
               <div>
                 <strong data-i18n="now2Title">整理写作与页面结构</strong>
-                <p data-i18n="now2Body">把零散内容慢慢归档，形成更清晰的入口与层级。</p>
+                <p data-i18n="now2Body">把零散内容慢慢归档，形成更清晰的入口、层级与节奏。</p>
               </div>
             </div>
-            <div class="now-item">
-              <div class="now-ico">03</div>
+
+            <div class="timeline-item glass">
+              <div class="timeline-index">03</div>
               <div>
                 <strong data-i18n="now3Title">记录近期输入</strong>
                 <p data-i18n="now3Body">包括音乐、阅读、思考片段，以及一些未完成的念头。</p>
               </div>
             </div>
-          </div>
 
-          <div class="now-list">
-            <div class="now-item">
-              <div class="now-ico">04</div>
+            <div class="timeline-item glass">
+              <div class="timeline-index">04</div>
               <div>
                 <strong data-i18n="now4Title">尝试更克制的设计</strong>
                 <p data-i18n="now4Body">减少噪音，让内容和节奏本身更突出。</p>
               </div>
             </div>
-            <div class="now-item">
-              <div class="now-ico">05</div>
-              <div>
-                <strong data-i18n="now5Title">保持更新习惯</strong>
-                <p data-i18n="now5Body">不追求高频，只希望这个地方持续生长。</p>
-              </div>
+          </div>
+
+          <div class="aside-stack">
+            <div class="aside-note glass">
+              <h4 data-i18n="note1Title">关于更新频率</h4>
+              <p data-i18n="note1Body">这里不会为了“看起来活跃”而频繁更新，但会保持持续生长。</p>
             </div>
-            <div class="now-item">
-              <div class="now-ico">06</div>
-              <div>
-                <strong data-i18n="now6Title">接受新的连接</strong>
-                <p data-i18n="now6Body">如果你因为某个页面来到这里，欢迎给我发邮件。</p>
-              </div>
+
+            <div class="aside-note glass">
+              <h4 data-i18n="note2Title">关于网站设计</h4>
+              <p data-i18n="note2Body">我希望它是柔和、安静、有层次感的，而不是过度张扬的展示页。</p>
+            </div>
+
+            <div class="aside-note glass">
+              <h4 data-i18n="note3Title">关于连接</h4>
+              <p data-i18n="note3Body">如果你是因为某个页面来到这里，欢迎用邮件或社交链接联系我。</p>
             </div>
           </div>
         </div>
 
-        <div class="search-results" id="searchResults" aria-live="polite">
+        <div class="search-panel" id="searchPanel" aria-live="polite">
           <h3 data-i18n="searchResultsTitle">搜索结果</h3>
-          <div class="result-list" id="resultList"></div>
+          <div class="search-list" id="searchList"></div>
         </div>
       </div>
     </section>
 
-    <footer class="footer panel">
-      <small data-i18n="footerText">© 2025 Zihua Luo. Built with care, kept intentionally simple.</small>
+    <footer class="footer glass reveal">
+      <div class="footer-copy">
+        <strong data-i18n="footerTitle">Zihua Luo</strong>
+        <span data-i18n="footerText">Built with care, kept intentionally simple, and meant to grow over time.</span>
+      </div>
+
       <div class="kbd">
         <span data-i18n="searchHint">搜索</span>
-        <span class="k">/</span>
-        <span class="k">⌘</span>
-        <span class="k">K</span>
+        <span class="key">/</span>
+        <span class="key">⌘</span>
+        <span class="key">K</span>
       </div>
     </footer>
   </main>
 
   <div class="modal" id="sponsorModal" aria-hidden="true">
-    <div class="modal-card panel-strong">
+    <div class="modal-card glass-strong">
       <div class="modal-head">
         <h3 data-i18n="sponsorTitle">请我喝杯咖啡</h3>
         <button class="close-btn" id="closeSponsor" type="button" aria-label="Close">✕</button>
       </div>
 
-      <div class="sponsor-grid">
-        <div class="pay-card panel">
+      <div class="pay-grid">
+        <div class="pay-card glass">
           <h4 data-i18n="wechatPay">微信赞赏</h4>
           <img src="sponsor.wechat.jpg" alt="WeChat sponsor QR code" />
-          <p data-i18n="wechatPayDesc">谢谢你的支持，它会变成网站继续更新的动力。</p>
+          <p data-i18n="wechatDesc">谢谢你的支持，它会变成网站继续更新的动力。</p>
         </div>
-        <div class="pay-card panel">
+        <div class="pay-card glass">
           <h4 data-i18n="alipay">支付宝赞赏</h4>
           <img src="sponsor.alipay.jpg" alt="Alipay sponsor QR code" />
           <p data-i18n="alipayDesc">你的好意我会认真收下，也会认真继续做内容。</p>
@@ -1133,156 +1431,198 @@
       "zh-CN": {
         brand: "只开小火车",
         navAbout: "关于",
-        navLinks: "链接",
+        navPages: "页面",
         navNow: "近况",
         navContact: "联系",
-        archive: "Archive",
-        essays: "Essays",
-        music: "Music",
         themeText: "主题",
         sponsor: "赞赏",
         searchPlaceholder: "搜索站内内容...",
         heroEyebrow: "写作者 / 学习者 / 生活观察者",
-        heroTitle: "你好，我是 Zihua Luo。",
-        heroLead: "一个喜欢写作、记录、思考与表达的人。这里是我的数字角落，放一些随想、页面入口、最近在做的事，以及与世界建立连接的方式。",
+        heroTitleLine1: "你好，",
+        heroTitleLine2: "我是 Zihua Luo。",
+        heroLead: "这是我的个人网站。一个介于写作、页面、音乐与生活记录之间的数字角落。我想把它做得轻、稳、耐看，并且能被长期维护。",
         heroPrimary: "开始逛逛",
         heroSecondary: "联系我",
-        metaLocation: "📍 基于网络与现实之间",
-        metaStatus: "🟢 持续更新中",
-        metaFocus: "✍️ 写作 / 音乐 / 记录",
-        profileIntro: "欢迎来到我的个人网站。一个简洁、长期维护的在线名片与内容入口。",
-        mini1Label: "当前维护",
-        mini1Value: "个人网站 / 写作档案",
-        mini2Label: "内容方向",
-        mini2Value: "随笔 / 音乐 / 记录",
-        mini3Label: "页面风格",
-        mini3Value: "轻盈、克制、长期主义",
-        mini4Label: "站点状态",
-        mini4Value: "稳定可访问",
-        aboutTitle: "关于我",
-        aboutDesc: "一些简单的自我介绍，以及我想在这里持续放置的内容。",
-        aboutP1: "我把这个网站当成一个长期维护的个人空间。它不追求信息过载，而更像一个稳定、安静、能持续生长的角落。",
-        aboutP2: "你可以在这里找到我的页面入口、写作索引、最近的生活状态，也可以通过这里联系到我。",
-        aboutP3: "比起“展示”，我更关心的是“留下”。留下那些值得回看的痕迹，也留下与人重新建立连接的可能。",
-        quoteTitle: "这个网站想做到的事",
-        quoteBody: "清晰、耐看、轻量，既能表达自己，也能让来访者迅速找到他们需要的内容。",
-        linksTitle: "页面入口",
-        linksDesc: "一些我会持续维护的页面与主题分区。",
-        archiveDesc: "时间线、目录或更系统化的内容整理入口。",
-        essaysDesc: "更成篇的写作、随笔、观察与思考。",
-        musicDesc: "关于音乐的收藏、记录，或者我最近在听什么。",
-        openLink: "打开页面",
-        topicsTitle: "站点关键词",
-        topicsDesc: "如果你想快速了解这里的气质，可以先看这些词。",
-        tag1: "长期主义",
-        tag2: "写作",
-        tag3: "观察",
-        tag4: "音乐",
-        tag5: "记录",
-        tag6: "极简设计",
-        tag7: "个人表达",
-        tag8: "数字花园",
-        nowTitle: "Now",
-        nowDesc: "这是一个轻量的“最近在做什么”区域，会慢慢更新。",
+        meta1: "✦ 长期维护中",
+        meta2: "✦ 写作 / 音乐 / 记录",
+        meta3: "✦ 轻艺术化个人主页",
+        profileIntro: "欢迎来到我的个人网站。这里放置我的内容入口、近况、写作与长期记录。",
+
+        float1Label: "当前维护",
+        float1Value: "个人网站 / 写作归档",
+        float2Label: "内容气质",
+        float2Value: "轻、稳、克制、耐看",
+        float3Label: "关注方向",
+        float3Value: "写作 / 音乐 / 观察",
+        float4Label: "状态",
+        float4Value: "持续生长中",
+
+        aboutKicker: "Manifesto",
+        aboutTitle: "关于这个角落",
+        aboutDesc: "我更希望它像一个会慢慢长出来的空间，而不是一次性摆满内容的橱窗。",
+        aboutP1: "我把这个网站当成一个长期维护的个人空间。它不追求信息堆叠，而更像一个稳定、安静、能持续生长的角落。",
+        aboutP2: "你可以在这里找到页面入口、写作索引、最近的生活状态，也可以通过这里重新与我建立连接。",
+        aboutP3: "比起“展示”，我更关心的是“留下”。留下值得回看的痕迹，也留下未来再次回到这里时，能一眼认出这是我的地方。",
+        value1Title: "清晰",
+        value1Body: "让来访者迅速知道这里是什么、能去哪里、怎样找到我。",
+        value2Title: "耐看",
+        value2Body: "比起短暂刺激，我更喜欢柔和而持久的视觉体验。",
+        value3Title: "长期主义",
+        value3Body: "它会被反复修改、慢慢完善，而不是一次成型之后停在那里。",
+
+        pagesKicker: "Pages",
+        pagesTitle: "页面入口",
+        pagesDesc: "一些我会持续维护的页面与内容分区。",
+        openPage: "打开页面",
+        pageFoot: "继续查看",
+        archive: "Archive",
+        essays: "Essays",
+        music: "Music",
+        archiveDesc: "时间线、目录，或者更系统化的内容整理入口。",
+        essaysDesc: "更成篇的写作、观察、随笔与思考。",
+        musicDesc: "关于音乐的收藏、记录，或者最近在听什么。",
+
+        topicsKicker: "Atmosphere",
+        topicsTitle: "关键词",
+        topicsDesc: "如果想快速感受这个网站的气质，可以先看这些词。",
+        topic1: "长期主义",
+        topic2: "写作",
+        topic3: "观察",
+        topic4: "音乐",
+        topic5: "记录",
+        topic6: "极简设计",
+        topic7: "个人表达",
+        topic8: "数字花园",
+
+        nowKicker: "Now",
+        nowTitle: "最近在做什么",
+        nowDesc: "这是一个轻量的 Now 区域，会随着时间慢慢更新。",
         now1Title: "维护个人网站",
-        now1Body: "让它更轻、更稳，也更接近我真正想表达的样子。",
+        now1Body: "继续把它做得更轻、更稳，也更接近我真正想表达的样子。",
         now2Title: "整理写作与页面结构",
-        now2Body: "把零散内容慢慢归档，形成更清晰的入口与层级。",
+        now2Body: "把零散内容慢慢归档，形成更清晰的入口、层级与节奏。",
         now3Title: "记录近期输入",
         now3Body: "包括音乐、阅读、思考片段，以及一些未完成的念头。",
         now4Title: "尝试更克制的设计",
         now4Body: "减少噪音，让内容和节奏本身更突出。",
-        now5Title: "保持更新习惯",
-        now5Body: "不追求高频，只希望这个地方持续生长。",
-        now6Title: "接受新的连接",
-        now6Body: "如果你因为某个页面来到这里，欢迎给我发邮件。",
+        note1Title: "关于更新频率",
+        note1Body: "这里不会为了“看起来活跃”而频繁更新，但会保持持续生长。",
+        note2Title: "关于网站设计",
+        note2Body: "我希望它是柔和、安静、有层次感的，而不是过度张扬的展示页。",
+        note3Title: "关于连接",
+        note3Body: "如果你是因为某个页面来到这里，欢迎用邮件或社交链接联系我。",
+
         searchResultsTitle: "搜索结果",
-        footerText: "© 2025 Zihua Luo. Built with care, kept intentionally simple.",
+        footerTitle: "Zihua Luo",
+        footerText: "Built with care, kept intentionally simple, and meant to grow over time.",
         searchHint: "搜索",
+
         sponsorTitle: "请我喝杯咖啡",
         wechatPay: "微信赞赏",
-        wechatPayDesc: "谢谢你的支持，它会变成网站继续更新的动力。",
+        wechatDesc: "谢谢你的支持，它会变成网站继续更新的动力。",
         alipay: "支付宝赞赏",
         alipayDesc: "你的好意我会认真收下，也会认真继续做内容。"
       },
+
       en: {
         brand: "Only a Little Train",
         navAbout: "About",
-        navLinks: "Links",
+        navPages: "Pages",
         navNow: "Now",
         navContact: "Contact",
-        archive: "Archive",
-        essays: "Essays",
-        music: "Music",
         themeText: "Theme",
         sponsor: "Sponsor",
         searchPlaceholder: "Search this site...",
         heroEyebrow: "Writer / Learner / Observer of life",
-        heroTitle: "Hi, I'm Zihua Luo.",
-        heroLead: "A person who enjoys writing, recording, thinking, and expressing. This is my digital corner for small notes, page entries, recent updates, and ways to connect with the world.",
+        heroTitleLine1: "Hello,",
+        heroTitleLine2: "I'm Zihua Luo.",
+        heroLead: "This is my personal website — a digital corner between writing, pages, music, and small records of life. I want it to feel light, steady, elegant, and worth maintaining for a long time.",
         heroPrimary: "Start exploring",
         heroSecondary: "Contact me",
-        metaLocation: "📍 Somewhere between the web and real life",
-        metaStatus: "🟢 Actively maintained",
-        metaFocus: "✍️ Writing / Music / Notes",
-        profileIntro: "Welcome to my personal website — a clean, long-term home for my profile and content.",
-        mini1Label: "Currently maintaining",
-        mini1Value: "Personal site / Writing archive",
-        mini2Label: "Content focus",
-        mini2Value: "Essays / Music / Notes",
-        mini3Label: "Site style",
-        mini3Value: "Light, restrained, long-term",
-        mini4Label: "Site status",
-        mini4Value: "Stable and accessible",
-        aboutTitle: "About",
-        aboutDesc: "A short introduction, and what I hope to keep placing here over time.",
-        aboutP1: "I see this website as a personal space maintained for the long run. It is not meant to overload with information, but to stay calm, stable, and quietly growing.",
-        aboutP2: "You can find page entries, writing indexes, recent life updates, and ways to reach me here.",
-        aboutP3: "Compared with ‘showing’, I care more about ‘leaving something behind’ — traces worth revisiting, and the possibility of reconnecting with people.",
-        quoteTitle: "What this site tries to do",
-        quoteBody: "Stay clear, elegant, and lightweight — expressive enough for me, and easy enough for visitors to quickly find what they need.",
-        linksTitle: "Pages",
-        linksDesc: "A few sections and themes I plan to keep maintaining.",
-        archiveDesc: "A place for timelines, indexes, and more systematically organized content.",
-        essaysDesc: "Longer writing, reflections, observations, and thoughts.",
-        musicDesc: "Music I collect, note down, or simply what I have been listening to recently.",
-        openLink: "Open page",
-        topicsTitle: "Site keywords",
-        topicsDesc: "If you want a quick sense of the tone here, these words are a good start.",
-        tag1: "Long-termism",
-        tag2: "Writing",
-        tag3: "Observation",
-        tag4: "Music",
-        tag5: "Documentation",
-        tag6: "Minimal design",
-        tag7: "Personal expression",
-        tag8: "Digital garden",
-        nowTitle: "Now",
-        nowDesc: "A lightweight section for what I'm currently doing. It will evolve slowly.",
-        now1Title: "Maintaining this personal website",
-        now1Body: "Making it lighter, steadier, and closer to what I actually want to express.",
+        meta1: "✦ Maintained over time",
+        meta2: "✦ Writing / Music / Notes",
+        meta3: "✦ An artistic personal homepage",
+        profileIntro: "Welcome to my personal website. This is where I place page entries, current notes, writing, and long-term records.",
+
+        float1Label: "Currently maintaining",
+        float1Value: "Personal site / Writing archive",
+        float2Label: "Tone",
+        float2Value: "Light, steady, restrained",
+        float3Label: "Focus",
+        float3Value: "Writing / Music / Observation",
+        float4Label: "Status",
+        float4Value: "Still growing",
+
+        aboutKicker: "Manifesto",
+        aboutTitle: "About this corner",
+        aboutDesc: "I want it to feel like a space that grows slowly, not a showcase filled all at once.",
+        aboutP1: "I see this site as a personal space maintained for the long run. It is not meant to stack information endlessly, but to remain calm, stable, and quietly growing.",
+        aboutP2: "You can find page entries, writing indexes, recent updates, and ways to reconnect with me here.",
+        aboutP3: "Compared with ‘showing’, I care more about ‘leaving something behind’ — traces worth revisiting, and a place that still feels unmistakably mine when I return later.",
+        value1Title: "Clarity",
+        value1Body: "Visitors should quickly understand what this place is, where to go, and how to reach me.",
+        value2Title: "Enduring beauty",
+        value2Body: "I prefer a soft and lasting visual experience over something briefly intense.",
+        value3Title: "Long-termism",
+        value3Body: "This site will be revised again and again, slowly refined rather than finished once and left there.",
+
+        pagesKicker: "Pages",
+        pagesTitle: "Page entries",
+        pagesDesc: "A few sections and content areas I plan to keep maintaining.",
+        openPage: "Open page",
+        pageFoot: "Continue",
+        archive: "Archive",
+        essays: "Essays",
+        music: "Music",
+        archiveDesc: "A place for timelines, indexes, and more systematic organization.",
+        essaysDesc: "Longer writing, reflections, observations, and essays.",
+        musicDesc: "Music I collect, note down, or simply what I have been listening to lately.",
+
+        topicsKicker: "Atmosphere",
+        topicsTitle: "Keywords",
+        topicsDesc: "If you want a quick sense of the tone here, start with these words.",
+        topic1: "Long-termism",
+        topic2: "Writing",
+        topic3: "Observation",
+        topic4: "Music",
+        topic5: "Documentation",
+        topic6: "Minimal design",
+        topic7: "Personal expression",
+        topic8: "Digital garden",
+
+        nowKicker: "Now",
+        nowTitle: "What I'm doing now",
+        nowDesc: "A lightweight Now section that will update slowly over time.",
+        now1Title: "Maintaining this personal site",
+        now1Body: "Making it lighter, steadier, and closer to what I truly want to express.",
         now2Title: "Organizing writing and page structure",
-        now2Body: "Gradually archiving scattered pieces into clearer entries and layers.",
+        now2Body: "Gradually turning scattered pieces into clearer entries, layers, and rhythm.",
         now3Title: "Recording recent inputs",
         now3Body: "Music, reading, thought fragments, and unfinished ideas.",
         now4Title: "Trying a more restrained design",
-        now4Body: "Reducing noise so the content and rhythm can stand out more naturally.",
-        now5Title: "Keeping a steady update habit",
-        now5Body: "Not chasing frequency — just letting this place keep growing.",
-        now6Title: "Welcoming new connections",
-        now6Body: "If you arrived here through one of these pages, feel free to email me.",
+        now4Body: "Reducing noise so the content and rhythm can stand out more clearly.",
+        note1Title: "About update frequency",
+        note1Body: "This site will not update often just to look active, but it will keep growing steadily.",
+        note2Title: "About the design",
+        note2Body: "I want it to feel soft, quiet, and layered — not like an overly loud showcase.",
+        note3Title: "About connection",
+        note3Body: "If you arrived here through one of these pages, feel free to reach out by email or social links.",
+
         searchResultsTitle: "Search results",
-        footerText: "© 2025 Zihua Luo. Built with care, kept intentionally simple.",
+        footerTitle: "Zihua Luo",
+        footerText: "Built with care, kept intentionally simple, and meant to grow over time.",
         searchHint: "Search",
+
         sponsorTitle: "Buy me a coffee",
         wechatPay: "WeChat",
-        wechatPayDesc: "Thank you for the support. It helps keep this site growing.",
+        wechatDesc: "Thank you for the support. It helps keep this site growing.",
         alipay: "Alipay",
         alipayDesc: "I truly appreciate your kindness, and I’ll keep making thoughtful work here."
       }
     };
 
     const htmlEl = document.documentElement;
+    const topbar = document.getElementById("topbar");
     const langSelect = document.getElementById("langSelect");
     const themeToggle = document.getElementById("themeToggle");
     const themeIcon = document.getElementById("themeIcon");
@@ -1291,44 +1631,46 @@
     const closeSponsor = document.getElementById("closeSponsor");
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
+    const searchShell = document.getElementById("searchShell");
     const siteSearch = document.getElementById("siteSearch");
-    const searchWrap = document.getElementById("searchWrap");
-    const searchResults = document.getElementById("searchResults");
-    const resultList = document.getElementById("resultList");
-    const topbar = document.getElementById("topbar");
+    const searchPanel = document.getElementById("searchPanel");
+    const searchList = document.getElementById("searchList");
 
     const SEARCH_DATA = [
-      { key: "archive", zh: "Archive 时间线 目录 内容整理", en: "Archive timeline index organized content", href: "archive.html" },
-      { key: "essays", zh: "Essays 随笔 写作 观察 思考", en: "Essays writing reflection observation thoughts", href: "essays.html" },
-      { key: "music", zh: "Music 音乐 收藏 听歌 播放列表", en: "Music listening collection playlist", href: "music.html" },
-      { key: "about", zh: "关于我 自我介绍 数字角落 长期维护", en: "About profile digital corner long-term maintenance", href: "#about" },
-      { key: "now", zh: "近况 最近在做什么 更新 维护 网站", en: "Now current updates maintaining site", href: "#now" },
-      { key: "contact", zh: "联系 邮件 LinkedIn Instagram", en: "Contact email LinkedIn Instagram", href: "#contact" }
+      { title: "Archive", zh: "Archive 时间线 目录 内容整理 页面入口", en: "Archive timeline index organized content page entry", href: "archive.html" },
+      { title: "Essays", zh: "Essays 随笔 写作 观察 思考 长文", en: "Essays writing reflection observation longform", href: "essays.html" },
+      { title: "Music", zh: "Music 音乐 收藏 听歌 记录 播放列表", en: "Music listening collection notes playlist", href: "music.html" },
+      { title: "About", zh: "关于 自我介绍 数字角落 长期维护 个人空间", en: "About personal space digital corner long-term maintenance", href: "#about" },
+      { title: "Now", zh: "近况 最近在做什么 维护 网站 设计 更新", en: "Now current updates maintaining design website", href: "#now" },
+      { title: "Contact", zh: "联系 邮件 LinkedIn Instagram 社交", en: "Contact email LinkedIn Instagram social", href: "#contact" }
     ];
 
     const state = {
       lang: localStorage.getItem("site-lang") || "zh-CN",
       theme: localStorage.getItem("site-theme") || "light",
       menuOpen: false,
-      sponsorOpen: false
+      sponsorOpen: false,
+      lastScrollY: window.scrollY || 0
     };
 
     function applyLanguage(lang){
       state.lang = i18n[lang] ? lang : "zh-CN";
-      htmlEl.setAttribute("lang", state.lang);
+      htmlEl.lang = state.lang;
       htmlEl.dataset.lang = state.lang;
       localStorage.setItem("site-lang", state.lang);
       langSelect.value = state.lang;
 
-      document.querySelectorAll("[data-i18n]").forEach((el) => {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.dataset.i18n;
         if (i18n[state.lang][key]) el.textContent = i18n[state.lang][key];
       });
 
-      document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
         const key = el.dataset.i18nPlaceholder;
         if (i18n[state.lang][key]) el.placeholder = i18n[state.lang][key];
       });
+
+      if (siteSearch.value.trim()) handleSearch();
     }
 
     function applyTheme(theme){
@@ -1353,74 +1695,103 @@
       document.body.style.overflow = state.sponsorOpen ? "hidden" : "";
     }
 
+    function escapeRegExp(str){
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
     function highlight(text, query){
-      const safe = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const safe = escapeRegExp(query);
       return text.replace(new RegExp(`(${safe})`, "ig"), "<mark>$1</mark>");
     }
 
-    function renderResults(matches, query){
-      resultList.innerHTML = "";
-      if (!matches.length){
+    function renderSearchResults(results, query){
+      searchList.innerHTML = "";
+
+      if (!results.length){
         const empty = document.createElement("div");
-        empty.className = "result-item";
+        empty.className = "search-item";
         empty.textContent = state.lang === "zh-CN" ? "没有找到相关内容。" : "No matching content found.";
-        resultList.appendChild(empty);
+        searchList.appendChild(empty);
       } else {
-        matches.forEach((item) => {
-          const box = document.createElement("a");
-          box.className = "result-item";
-          box.href = item.href;
-          const raw = state.lang === "zh-CN" ? item.zh : item.en;
-          const title = item.key.charAt(0).toUpperCase() + item.key.slice(1);
-          box.innerHTML = `<strong>${title}</strong><div>${highlight(raw, query)}</div>`;
-          resultList.appendChild(box);
+        results.forEach(item => {
+          const link = document.createElement("a");
+          link.className = "search-item";
+          link.href = item.href;
+          const text = state.lang === "zh-CN" ? item.zh : item.en;
+          link.innerHTML = `<strong>${item.title}</strong><div>${highlight(text, query)}</div>`;
+          searchList.appendChild(link);
         });
       }
-      searchResults.classList.add("active");
+
+      searchPanel.classList.add("active");
     }
 
     function handleSearch(){
-      const query = siteSearch.value.trim().toLowerCase();
-      if (!query){
-        searchResults.classList.remove("active");
-        resultList.innerHTML = "";
+      const q = siteSearch.value.trim().toLowerCase();
+      if (!q){
+        searchPanel.classList.remove("active");
+        searchList.innerHTML = "";
         return;
       }
-      const matches = SEARCH_DATA.filter((item) => {
-        const hay = `${item.key} ${item.zh} ${item.en}`.toLowerCase();
-        return hay.includes(query);
+
+      const results = SEARCH_DATA.filter(item => {
+        const hay = `${item.title} ${item.zh} ${item.en}`.toLowerCase();
+        return hay.includes(q);
       });
-      renderResults(matches, query);
+
+      renderSearchResults(results, q);
     }
 
-    function updateOnScroll(){
+    function updateScrollEffects(){
       const y = window.scrollY || 0;
-      const progress = Math.min(y / 1200, 1);
+      const progress = Math.min(y / 1400, 1);
       htmlEl.style.setProperty("--scroll", progress.toFixed(3));
 
-      topbar.style.transform = `translateX(-50%) translateY(${Math.min(y / 40, 6)}px)`;
-      topbar.style.background = `color-mix(in srgb, var(--panel-strong) ${86 - progress * 10}%, transparent)`;
+      const goingDown = y > state.lastScrollY && y > 120;
+      htmlEl.style.setProperty("--nav-offset", goingDown ? "-86px" : "0px");
       topbar.style.boxShadow = y > 20 ? "var(--shadow)" : "var(--shadow-soft)";
+      topbar.style.background = `color-mix(in srgb, var(--panel-strong) ${88 - progress * 10}%, transparent)`;
+
+      state.lastScrollY = y;
     }
 
-    function initSearchFocusMobile(){
-      if (window.innerWidth <= 720){
-        searchWrap.addEventListener("click", () => {
-          searchWrap.classList.add("active");
-          siteSearch.focus();
+    function initReveal(){
+      const items = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting){
+            entry.target.classList.add("show");
+            io.unobserve(entry.target);
+          }
         });
+      }, { threshold: 0.12 });
+
+      items.forEach(item => io.observe(item));
+    }
+
+    function initMobileSearch(){
+      if (window.innerWidth <= 720){
+        searchShell.classList.remove("active");
+        searchShell.addEventListener("click", focusSearchShell);
+        siteSearch.addEventListener("focus", () => searchShell.classList.add("active"));
         siteSearch.addEventListener("blur", () => {
-          if (!siteSearch.value.trim()) searchWrap.classList.remove("active");
+          if (!siteSearch.value.trim()) searchShell.classList.remove("active");
         });
       } else {
-        searchWrap.classList.add("active");
+        searchShell.classList.add("active");
       }
+    }
+
+    function focusSearchShell(){
+      searchShell.classList.add("active");
+      siteSearch.focus();
     }
 
     applyLanguage(state.lang);
     applyTheme(state.theme);
-    updateOnScroll();
-    initSearchFocusMobile();
+    updateScrollEffects();
+    initReveal();
+    initMobileSearch();
 
     langSelect.addEventListener("change", (e) => applyLanguage(e.target.value));
     themeToggle.addEventListener("click", () => applyTheme(state.theme === "dark" ? "light" : "dark"));
@@ -1428,42 +1799,41 @@
     closeSponsor.addEventListener("click", () => setSponsor(false));
     menuBtn.addEventListener("click", () => setMenu(!state.menuOpen));
 
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 980) setMenu(false);
-      if (window.innerWidth > 720) searchWrap.classList.add("active");
-    });
-
-    window.addEventListener("scroll", updateOnScroll, { passive: true });
-
-    document.addEventListener("keydown", (event) => {
-      if ((event.key === "k" && (event.metaKey || event.ctrlKey)) || event.key === "/"){
-        if (event.target && ["INPUT","TEXTAREA"].includes(event.target.tagName)) return;
-        event.preventDefault();
-        searchWrap.classList.add("active");
-        siteSearch.focus();
+    siteSearch.addEventListener("input", handleSearch);
+    siteSearch.addEventListener("keydown", (e) => {
+      if (e.key === "Enter"){
+        e.preventDefault();
+        handleSearch();
       }
     });
 
-    menuPanel.addEventListener("click", (event) => {
-      if (event.target.matches("a")) setMenu(false);
+    window.addEventListener("scroll", updateScrollEffects, { passive: true });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1024) setMenu(false);
+      if (window.innerWidth > 720) searchShell.classList.add("active");
+      else if (!siteSearch.value.trim()) searchShell.classList.remove("active");
     });
 
-    sponsorModal.addEventListener("click", (event) => {
-      if (event.target?.dataset.close === "1") setSponsor(false);
+    menuPanel.addEventListener("click", (e) => {
+      if (e.target.matches("a")) setMenu(false);
     });
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape"){
+    sponsorModal.addEventListener("click", (e) => {
+      if (e.target === sponsorModal) setSponsor(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/"){
+        const tag = e.target && e.target.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA") return;
+        e.preventDefault();
+        focusSearchShell();
+      }
+
+      if (e.key === "Escape"){
         setMenu(false);
         setSponsor(false);
-      }
-    });
-
-    siteSearch.addEventListener("input", handleSearch);
-    siteSearch.addEventListener("keydown", (event) => {
-      if (event.key === "Enter"){
-        event.preventDefault();
-        handleSearch();
       }
     });
   </script>
