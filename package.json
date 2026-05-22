@@ -1,0 +1,12 @@
+import { withBase } from "@i18n/routes";
+
+export function GET({ site }: { site: URL }) {
+  const siteUrl = site ?? new URL("https://zihualuo.github.io");
+  const sitemapUrl = new URL(withBase("/sitemap.xml"), siteUrl).toString();
+
+  return new Response(`User-agent: *\nAllow: /\nSitemap: ${sitemapUrl}\n`, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+    },
+  });
+}

@@ -1,0 +1,58 @@
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
+
+const language = z.enum(["en", "zh"]);
+
+const writingSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  date: z.coerce.date(),
+  category: z.string(),
+  tags: z.array(z.string()).default([]),
+  language,
+  translationKey: z.string(),
+  draft: z.boolean().default(false),
+});
+
+// Add new bilingual Thoughts and Notes by placing paired files in
+// src/content/thoughts/{en,zh}/ or src/content/notes/{en,zh}/ with the same translationKey
+const thoughts = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/thoughts" }),
+  schema: writingSchema,
+});
+
+const notes = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/notes" }),
+  schema: writingSchema,
+});
+
+const timeline = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/timeline" }),
+  schema: z.object({
+    type: z.enum(["experience", "milestone"]).default("milestone"),
+    date: z.string(),
+    title: z.string().optional(),
+    role: z.string().optional(),
+    company: z.string().optional(),
+    description: z.string(),
+    category: z.string(),
+    organization: z.string().optional(),
+    context: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    language,
+    translationKey: z.string(),
+    draft: z.boolean().default(false),
+    link: z.string().optional(),
+    logo: z.string().optional(),
+    logoAlt: z.string().optional(),
+    location: z.string().optional(),
+    displayLocation: z.boolean().default(false),
+    showLocation: z.boolean().default(false),
+    highlight: z.string().optional(),
+    featured: z.boolean().default(false),
+    order: z.number().optional(),
+  }),
+});
+
+export const collections = { thoughts, notes, timeline };

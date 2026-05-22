@@ -1,0 +1,664 @@
+---
+import type { Language } from "@i18n/routes";
+import { nowDashboardCopy } from "@data/now";
+
+interface Props {
+  lang: Language;
+  showHeader?: boolean;
+}
+
+const { lang, showHeader = true } = Astro.props;
+const copy = nowDashboardCopy[lang];
+
+const dashboardText = {
+  en: {
+    eyebrow: "Personal Operating System",
+    title: "Now Dashboard",
+    subtitle: "A snapshot of what I am learning, building, writing, and paying attention to",
+    focusTitle: "Focus Allocation",
+    learningTitle: "Learning Progress",
+    trendTitle: "Output Trend",
+    prioritiesTitle: "Current Priorities",
+    knowledgeTitle: "Knowledge Network",
+    knowledgeSubtitle: "A compact map of connected learning, research, analytics, and writing domains",
+    weeklyTitle: "Weekly Signal",
+    weeklySubtitle: "A small operating strip for study, output, and reflection cadence",
+    centerLabel: "allocated",
+    moduleBadge: "Modules",
+    trendLabel: "7-week signal",
+    networkLegend: "structured thinking system",
+    statusItems: [
+      { label: "Current Focus", value: "CFA Level II", level: 82 },
+      { label: "Current Build", value: "Bilingual archive", level: 68 },
+      { label: "Learning Mode", value: "Deep review", level: 76 },
+      { label: "Weekly Signal", value: "Building momentum", level: 88 },
+    ],
+    networkNodes: [
+      { label: "Finance", x: 50, y: 17, color: "#67E8F9" },
+      { label: "Risk", x: 22, y: 42, color: "#C4B5FD" },
+      { label: "Research", x: 50, y: 52, color: "#D6A85C" },
+      { label: "Analytics", x: 78, y: 42, color: "#60A5FA" },
+      { label: "Writing", x: 33, y: 78, color: "#A78BFA" },
+      { label: "CFA", x: 68, y: 78, color: "#38BDF8" },
+    ],
+    weeklySignals: [
+      { label: "Study", value: 82, color: "#67E8F9" },
+      { label: "Notes", value: 64, color: "#C4B5FD" },
+      { label: "Writing", value: 58, color: "#D6A85C" },
+      { label: "Reflection", value: 74, color: "#60A5FA" },
+    ],
+  },
+  zh: {
+    eyebrow: "\u4e2a\u4eba\u64cd\u4f5c\u7cfb\u7edf",
+    title: "\u5f53\u524d\u72b6\u6001\u9762\u677f",
+    subtitle:
+      "\u8bb0\u5f55\u6211\u6700\u8fd1\u6b63\u5728\u5b66\u4e60\u3001\u5efa\u7acb\u3001\u5199\u4f5c\u4e0e\u91cd\u70b9\u5173\u6ce8\u7684\u65b9\u5411",
+    focusTitle: "\u7cbe\u529b\u5206\u5e03",
+    learningTitle: "\u5b66\u4e60\u8fdb\u5ea6",
+    trendTitle: "\u8f93\u51fa\u8d8b\u52bf",
+    prioritiesTitle: "\u5f53\u524d\u91cd\u70b9",
+    knowledgeTitle: "\u77e5\u8bc6\u7f51\u7edc",
+    knowledgeSubtitle:
+      "\u628a\u91d1\u878d\u3001\u98ce\u9669\u3001\u7814\u7a76\u3001\u5206\u6790\u4e0e\u5199\u4f5c\u8fde\u6210\u4e00\u4e2a\u53ef\u6301\u7eed\u589e\u957f\u7684\u7cfb\u7edf",
+    weeklyTitle: "\u672c\u5468\u4fe1\u53f7",
+    weeklySubtitle:
+      "\u7528\u5c0f\u578b\u6307\u6807\u8bb0\u5f55\u5b66\u4e60\u3001\u8f93\u51fa\u4e0e\u53cd\u601d\u8282\u594f",
+    centerLabel: "\u5206\u914d",
+    moduleBadge: "\u6a21\u5757",
+    trendLabel: "7 \u5468\u4fe1\u53f7",
+    networkLegend: "\u7ed3\u6784\u5316\u601d\u8003\u7cfb\u7edf",
+    statusItems: [
+      { label: "\u5f53\u524d\u91cd\u70b9", value: "CFA \u4e8c\u7ea7", level: 82 },
+      { label: "\u6b63\u5728\u5efa\u7acb", value: "\u53cc\u8bed\u77e5\u8bc6\u6863\u6848", level: 68 },
+      { label: "\u5b66\u4e60\u6a21\u5f0f", value: "\u6df1\u5ea6\u590d\u76d8", level: 76 },
+      { label: "\u672c\u5468\u4fe1\u53f7", value: "\u6301\u7eed\u63a8\u8fdb", level: 88 },
+    ],
+    networkNodes: [
+      { label: "\u91d1\u878d", x: 50, y: 17, color: "#67E8F9" },
+      { label: "\u98ce\u9669", x: 22, y: 42, color: "#C4B5FD" },
+      { label: "\u7814\u7a76", x: 50, y: 52, color: "#D6A85C" },
+      { label: "\u5206\u6790", x: 78, y: 42, color: "#60A5FA" },
+      { label: "\u5199\u4f5c", x: 33, y: 78, color: "#A78BFA" },
+      { label: "CFA", x: 68, y: 78, color: "#38BDF8" },
+    ],
+    weeklySignals: [
+      { label: "\u5b66\u4e60", value: 82, color: "#67E8F9" },
+      { label: "\u7b14\u8bb0", value: 64, color: "#C4B5FD" },
+      { label: "\u5199\u4f5c", value: 58, color: "#D6A85C" },
+      { label: "\u53cd\u601d", value: 74, color: "#60A5FA" },
+    ],
+  },
+}[lang];
+
+const trendGradientId = `trend-gradient-${lang}`;
+const trendFillId = `trend-fill-${lang}`;
+const trendGlowId = `trend-glow-${lang}`;
+const networkGlowId = `network-glow-${lang}`;
+const learningPalette = ["var(--cyan)", "var(--text-cyan)", "var(--text-violet)", "var(--accent-warm)", "var(--accent-2)"];
+const learningTotal = copy.learningItems.reduce((sum, item) => sum + item.value, 0);
+const focusStyle =
+  "background: conic-gradient(var(--cyan) 0 34%, var(--text-violet) 34% 62%, var(--accent-warm) 62% 82%, var(--accent-2) 82% 100%)";
+---
+
+<div class="now-dashboard relative">
+  {showHeader && (
+    <div class="dashboard-header mb-10 grid gap-6 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
+      <div class="max-w-3xl overflow-visible">
+        <p class="eyebrow mb-3 inline-flex items-center gap-2">
+          <span class="h-px w-8 bg-gold/80" aria-hidden="true"></span>
+          {dashboardText.eyebrow}
+        </p>
+        <h2 class="display-heading bg-[linear-gradient(135deg,#FFFFFF_0%,#DBEAFE_46%,#7DD3FC_72%,#C4B5FD_100%)] bg-clip-text text-3xl font-semibold leading-[1.12] text-transparent sm:text-4xl lg:text-5xl">
+          {dashboardText.title}
+        </h2>
+        <p class="mt-4 text-base leading-8 text-muted sm:text-lg">{dashboardText.subtitle}</p>
+      </div>
+
+      <div class="dashboard-status-grid grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {dashboardText.statusItems.map((item, index) => (
+          <div class="dashboard-signal rounded-2xl border border-white/[0.13] bg-white/[0.075] p-4 shadow-card backdrop-blur">
+            <span class="text-[0.66rem] font-extrabold uppercase tracking-[0.18em] text-muted">{item.label}</span>
+            <span class="mt-2 flex items-center gap-2 text-sm font-bold text-ink">
+              <span class={`h-2 w-2 rounded-full ${index === 1 ? "bg-violet" : index === 2 ? "bg-gold" : "bg-accent"} shadow-[0_0_16px_rgba(125,211,252,0.55)]`} aria-hidden="true"></span>
+              {item.value}
+            </span>
+            <span class="dashboard-signal__track mt-3" aria-hidden="true">
+              <span style={`width:${item.level}%`}></span>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <div class="dashboard-grid grid gap-5 xl:grid-cols-12">
+    <article class="dashboard-card dashboard-card--focus premium-card overflow-hidden rounded-3xl p-6 xl:col-span-4">
+      <div class="dashboard-card__glow" aria-hidden="true"></div>
+      <p class="eyebrow">{dashboardText.focusTitle}</p>
+      <p class="mt-3 text-sm leading-7 text-body">{copy.focusSubtitle}</p>
+      <div class="mt-7 grid gap-6 sm:grid-cols-[190px_1fr] sm:items-center xl:grid-cols-1 2xl:grid-cols-[190px_1fr]">
+        <div class="focus-donut mx-auto" style={focusStyle} aria-label={dashboardText.focusTitle}>
+          <div class="focus-donut__halo" aria-hidden="true"></div>
+          <div class="focus-donut__core">
+            <span>{copy.focusCenter}</span>
+            <small>{dashboardText.centerLabel}</small>
+          </div>
+        </div>
+        <div class="grid gap-3">
+          {copy.focusItems.map((item) => (
+            <div class="focus-row flex items-center justify-between gap-3 rounded-2xl border border-white/[0.12] bg-white/[0.07] px-3 py-2">
+              <span class="flex min-w-0 items-center gap-2 text-sm font-semibold text-body">
+                <span class="h-2.5 w-2.5 rounded-full shadow-[0_0_14px_currentColor]" style={`background:${item.color}; color:${item.color}`} aria-hidden="true"></span>
+                <span class="truncate">{item.label}</span>
+              </span>
+              <span class="text-sm font-extrabold text-ink">{item.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <article class="dashboard-card dashboard-card--learning premium-card overflow-hidden rounded-3xl p-6 xl:col-span-5">
+      <div class="dashboard-card__glow dashboard-card__glow--violet" aria-hidden="true"></div>
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="eyebrow">{dashboardText.learningTitle}</p>
+          <p class="mt-3 text-sm leading-7 text-body">{copy.learningSubtitle}</p>
+        </div>
+        <span class="rounded-full border border-accent/35 bg-accent/10 px-3 py-1 text-xs font-extrabold text-accent">
+          {dashboardText.moduleBadge}
+        </span>
+      </div>
+      <div class="learning-stack mt-6" aria-hidden="true">
+        {copy.learningItems.map((item, index) => (
+          <span
+            style={`width:${Math.max(8, Math.round((item.value / learningTotal) * 100))}%; --bar:${learningPalette[index % learningPalette.length]}`}
+          ></span>
+        ))}
+      </div>
+      <div class="mt-7 grid gap-5">
+        {copy.learningItems.map((item, index) => (
+          <div class="learning-row">
+            <div class="mb-2 flex items-center justify-between gap-3 text-sm">
+              <span class="font-semibold text-body">{item.label}</span>
+              <span class="font-extrabold text-accent">{item.value}%</span>
+            </div>
+            <div class="learning-track">
+              <span
+                style={`width:${item.value}%; --bar:${learningPalette[index % learningPalette.length]}`}
+              ></span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </article>
+
+    <article class="dashboard-card dashboard-card--trend premium-card overflow-hidden rounded-3xl p-6 xl:col-span-3">
+      <p class="eyebrow">{dashboardText.trendTitle}</p>
+      <div class="mt-4 flex items-end justify-between gap-4">
+        <p class="max-w-[15rem] text-sm leading-7 text-body">{copy.trendSubtitle}</p>
+        <div class="text-right">
+          <span class="block text-xs font-bold uppercase tracking-[0.16em] text-muted">{dashboardText.trendLabel}</span>
+          <strong class="mt-1 block display-heading text-4xl font-semibold text-accent">{copy.trendValue}</strong>
+        </div>
+      </div>
+      <svg class="trend-chart mt-7 h-44 w-full overflow-visible" viewBox="0 0 280 160" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id={trendGradientId} x1="10" y1="136" x2="270" y2="22" gradientUnits="userSpaceOnUse">
+            <stop stop-color="var(--cyan)" />
+            <stop offset="0.52" stop-color="var(--text-violet)" />
+            <stop offset="1" stop-color="var(--accent-warm)" />
+          </linearGradient>
+          <linearGradient id={trendFillId} x1="140" y1="22" x2="140" y2="150" gradientUnits="userSpaceOnUse">
+            <stop stop-color="var(--cyan)" stop-opacity="0.26" />
+            <stop offset="0.68" stop-color="var(--accent-2)" stop-opacity="0.09" />
+            <stop offset="1" stop-color="var(--bg-elevated)" stop-opacity="0" />
+          </linearGradient>
+          <filter id={trendGlowId} x="-20%" y="-40%" width="140%" height="180%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <path d="M10 136 C42 118 56 124 82 96 S130 82 154 68 S204 34 270 22 V150 H10 Z" fill={`url(#${trendFillId})`} />
+        <path d="M10 126 H270 M10 88 H270 M10 50 H270" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+        <path d="M40 144 V116 M92 144 V94 M144 144 V72 M196 144 V54 M248 144 V32" stroke="rgba(var(--rgb-cyan-soft),0.16)" stroke-width="6" stroke-linecap="round" />
+        <path d="M10 136 C42 118 56 124 82 96 S130 82 154 68 S204 34 270 22" stroke={`url(#${trendGradientId})`} stroke-width="4" stroke-linecap="round" filter={`url(#${trendGlowId})`} />
+        <g fill="#67E8F9">
+          <circle cx="82" cy="96" r="4.5" />
+          <circle cx="154" cy="68" r="4.5" />
+          <circle cx="270" cy="22" r="4.5" />
+        </g>
+      </svg>
+    </article>
+
+    <div class="xl:col-span-12">
+      <p class="eyebrow mb-4">{dashboardText.prioritiesTitle}</p>
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {copy.priorities.map((item) => (
+          <article class={`dashboard-card priority-card priority-card--${item.tone} premium-card overflow-hidden rounded-3xl p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lift`}>
+            <span class="priority-card__line" aria-hidden="true"></span>
+            <span class="priority-card__pulse" aria-hidden="true"></span>
+            <span class="text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-muted">{item.label}</span>
+            <h3 class="mt-4 display-heading text-2xl font-semibold leading-tight text-ink">{item.value}</h3>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <article class="dashboard-card dashboard-card--network premium-card overflow-hidden rounded-3xl p-6 xl:col-span-7">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="eyebrow">{dashboardText.knowledgeTitle}</p>
+          <p class="mt-3 text-sm leading-7 text-body">{dashboardText.knowledgeSubtitle}</p>
+        </div>
+        <span class="rounded-full border border-white/[0.12] bg-white/[0.08] px-3 py-1 text-xs font-extrabold text-gold">
+          {dashboardText.networkLegend}
+        </span>
+      </div>
+
+      <div class="knowledge-map mt-7">
+        <svg viewBox="0 0 420 260" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <filter id={networkGlowId} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path d="M210 46 92 110 210 136 328 110 210 46Z" filter={`url(#${networkGlowId})`} />
+          <path d="M92 110 138 204 210 136 282 204 328 110" filter={`url(#${networkGlowId})`} />
+          <path d="M138 204 210 136 282 204" filter={`url(#${networkGlowId})`} />
+          <circle cx="210" cy="136" r="54" filter={`url(#${networkGlowId})`} />
+        </svg>
+        {dashboardText.networkNodes.map((node) => (
+          <span
+            class="knowledge-node"
+            style={`--x:${node.x}%; --y:${node.y}%; --node:${node.color}`}
+          >
+            {node.label}
+          </span>
+        ))}
+      </div>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {copy.snapshot.map((item) => (
+          <div class="snapshot-metric rounded-2xl border border-white/[0.12] bg-white/[0.07] p-4">
+            <span class="display-heading text-4xl font-semibold text-ink">{item.value}</span>
+            <span class="mt-2 block text-xs font-bold uppercase tracking-[0.14em] text-muted">{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </article>
+
+    <article class="dashboard-card dashboard-card--weekly premium-card overflow-hidden rounded-3xl p-6 xl:col-span-5">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="eyebrow">{dashboardText.weeklyTitle}</p>
+          <p class="mt-3 text-sm leading-7 text-body">{dashboardText.weeklySubtitle}</p>
+        </div>
+        <span class="h-2.5 w-2.5 rounded-full bg-gold shadow-[0_0_24px_rgba(214,168,92,0.78)]" aria-hidden="true"></span>
+      </div>
+
+      <div class="weekly-terminal mt-7">
+        <div class="weekly-terminal__dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="grid gap-4">
+          {dashboardText.weeklySignals.map((item) => (
+            <div class="weekly-row">
+              <div class="flex items-center justify-between gap-3 text-sm">
+                <span class="font-bold text-body">{item.label}</span>
+                <span class="font-extrabold text-accent">{item.value}%</span>
+              </div>
+              <div class="weekly-track">
+                <span style={`width:${item.value}%; --bar:${item.color}`}></span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-7">
+        <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-accent">{copy.momentumLabel}</p>
+        <h3 class="mt-3 display-heading text-2xl font-semibold leading-tight text-ink">{copy.momentumBody}</h3>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {copy.momentumTags.map((tag) => (
+            <span class="rounded-full border border-accent/25 bg-accent/10 px-3 py-1.5 text-xs font-bold text-body">{tag}</span>
+          ))}
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<style>
+  .now-dashboard::before {
+    background:
+      radial-gradient(ellipse at 50% 16%, rgba(var(--rgb-cyan), 0.16), transparent 30rem),
+      radial-gradient(ellipse at 72% 32%, var(--glow-violet), transparent 28rem);
+    content: "";
+    filter: blur(12px);
+    inset: -3rem -2rem auto;
+    height: 24rem;
+    opacity: 0.78;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .dashboard-card {
+    min-height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .dashboard-card::before {
+    background:
+      linear-gradient(90deg, rgba(var(--rgb-cyan-soft), 0.13) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(var(--rgb-violet-soft), 0.12) 1px, transparent 1px);
+    background-size: 34px 34px;
+    content: "";
+    inset: 0;
+    opacity: 0.18;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .dashboard-card__glow {
+    background: radial-gradient(circle, rgba(var(--rgb-cyan-soft), 0.28), transparent 62%);
+    filter: blur(14px);
+    height: 12rem;
+    pointer-events: none;
+    position: absolute;
+    right: -3.5rem;
+    top: -4rem;
+    width: 12rem;
+  }
+
+  .dashboard-card__glow--violet {
+    background: radial-gradient(circle, rgba(var(--rgb-violet-soft), 0.28), transparent 64%);
+  }
+
+  .dashboard-signal {
+    box-shadow:
+      0 18px 48px rgba(var(--rgb-cyan), 0.08),
+      0 0 32px rgba(var(--rgb-violet), 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .dashboard-signal__track,
+  .learning-track,
+  .weekly-track {
+    background: rgba(var(--rgb-bg-base), 0.56);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    box-shadow: inset 0 1px 8px rgba(var(--rgb-bg-base), 0.34);
+    display: block;
+    height: 0.5rem;
+    overflow: hidden;
+  }
+
+  .dashboard-signal__track span,
+  .learning-track span,
+  .weekly-track span {
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 22%),
+      linear-gradient(90deg, var(--bar, var(--cyan)), var(--text-violet));
+    border-radius: inherit;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--bar, var(--cyan)), transparent 58%);
+    display: block;
+    height: 100%;
+  }
+
+  .dashboard-signal__track span {
+    --bar: var(--cyan);
+  }
+
+  .focus-donut {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    box-shadow:
+      0 24px 58px rgba(var(--rgb-cyan), 0.14),
+      0 0 54px rgba(var(--rgb-violet), 0.18),
+      inset 0 0 24px rgba(255, 255, 255, 0.12);
+    display: grid;
+    height: 11.7rem;
+    padding: 1rem;
+    place-items: center;
+    position: relative;
+    transform: rotateX(10deg) rotateZ(-10deg);
+    width: 11.7rem;
+  }
+
+  .focus-donut::before {
+    background:
+      radial-gradient(circle at 45% 20%, rgba(var(--rgb-cyan-soft), 0.12), transparent 52%),
+      var(--bg-elevated);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: inherit;
+    box-shadow: inset 0 0 26px rgba(var(--rgb-bg-base), 0.68);
+    content: "";
+    inset: 1.16rem;
+    position: absolute;
+  }
+
+  .focus-donut::after {
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.28), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.08));
+    border-radius: inherit;
+    content: "";
+    inset: 0.45rem;
+    opacity: 0.72;
+    position: absolute;
+  }
+
+  .focus-donut__halo {
+    border-radius: inherit;
+    box-shadow:
+      0 0 42px rgba(var(--rgb-cyan-soft), 0.2),
+      0 0 72px rgba(var(--rgb-violet), 0.18);
+    inset: -0.35rem;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .focus-donut__core {
+    display: grid;
+    place-items: center;
+    position: relative;
+    text-align: center;
+    transform: rotateZ(10deg);
+    z-index: 1;
+  }
+
+  .focus-donut__core span {
+    color: var(--text-primary);
+    font-family: Newsreader, Georgia, serif;
+    font-size: 2.45rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .focus-donut__core small {
+    color: var(--text-secondary);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    margin-top: 0.45rem;
+    text-transform: uppercase;
+  }
+
+  .focus-row,
+  .snapshot-metric,
+  .weekly-terminal {
+    box-shadow:
+      0 14px 34px rgba(var(--rgb-cyan), 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .learning-stack {
+    align-items: stretch;
+    background: rgba(var(--rgb-bg-base), 0.5);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    box-shadow:
+      0 0 32px rgba(var(--rgb-cyan), 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    display: flex;
+    gap: 0.25rem;
+    height: 1rem;
+    overflow: hidden;
+    padding: 0.18rem;
+  }
+
+  .learning-stack span {
+    background: linear-gradient(90deg, var(--bar), color-mix(in srgb, var(--bar), white 28%));
+    border-radius: 999px;
+    box-shadow: 0 0 18px color-mix(in srgb, var(--bar), transparent 58%);
+  }
+
+  .priority-card__line {
+    background: linear-gradient(90deg, var(--cyan), rgba(var(--rgb-violet-soft), 0.4), transparent);
+    height: 1px;
+    inset: 0 0 auto;
+    position: absolute;
+  }
+
+  .priority-card__pulse {
+    background: radial-gradient(circle, rgba(var(--rgb-cyan-soft), 0.18), transparent 62%);
+    filter: blur(10px);
+    height: 5rem;
+    position: absolute;
+    right: -2rem;
+    top: -2rem;
+    width: 5rem;
+  }
+
+  .priority-card--violet .priority-card__line {
+    background: linear-gradient(90deg, var(--text-violet), rgba(var(--rgb-violet), 0.4), transparent);
+  }
+
+  .priority-card--gold .priority-card__line {
+    background: linear-gradient(90deg, var(--accent-warm), rgba(var(--rgb-violet-soft), 0.32), transparent);
+  }
+
+  .priority-card--blue .priority-card__line {
+    background: linear-gradient(90deg, var(--text-cyan), rgba(var(--rgb-cyan-soft), 0.3), transparent);
+  }
+
+  .knowledge-map {
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(var(--rgb-cyan-soft), 0.12), transparent 56%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      rgba(var(--rgb-bg-base), 0.34);
+    background-size: auto, 34px 34px, 34px 34px, auto;
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    min-height: 18rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .knowledge-map svg {
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .knowledge-map path,
+  .knowledge-map circle {
+    fill: none;
+    stroke: rgba(var(--rgb-cyan-soft), 0.22);
+    stroke-width: 1.4;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .knowledge-map circle {
+    stroke: rgba(var(--rgb-violet-soft), 0.2);
+  }
+
+  .knowledge-node {
+    align-items: center;
+    background:
+      radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--node), white 24%), transparent 38%),
+      var(--bg-panel);
+    border: 1px solid color-mix(in srgb, var(--node), white 14%);
+    border-radius: 999px;
+    box-shadow:
+      0 0 24px color-mix(in srgb, var(--node), transparent 56%),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.76rem;
+    font-weight: 850;
+    gap: 0.4rem;
+    left: var(--x);
+    line-height: 1;
+    padding: 0.55rem 0.72rem;
+    position: absolute;
+    top: var(--y);
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+
+  .knowledge-node::before {
+    background: var(--node);
+    border-radius: 999px;
+    box-shadow: 0 0 14px var(--node);
+    content: "";
+    height: 0.45rem;
+    width: 0.45rem;
+  }
+
+  .weekly-terminal {
+    background:
+      radial-gradient(ellipse at 82% 10%, rgba(var(--rgb-cyan-soft), 0.12), transparent 16rem),
+      rgba(var(--rgb-bg-base), 0.38);
+    border: 1px solid var(--border-soft);
+    border-radius: 22px;
+    padding: 1rem;
+  }
+
+  .weekly-terminal__dots {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .weekly-terminal__dots span {
+    background: var(--cyan);
+    border-radius: 999px;
+    box-shadow: 0 0 12px rgba(var(--rgb-cyan-soft), 0.5);
+    height: 0.45rem;
+    width: 0.45rem;
+  }
+
+  .weekly-terminal__dots span:nth-child(2) {
+    background: var(--text-violet);
+  }
+
+  .weekly-terminal__dots span:nth-child(3) {
+    background: var(--accent-warm);
+  }
+
+  @media (max-width: 640px) {
+    .focus-donut {
+      height: 10.25rem;
+      width: 10.25rem;
+    }
+
+    .knowledge-map {
+      min-height: 16rem;
+    }
+
+    .knowledge-node {
+      font-size: 0.68rem;
+      padding: 0.48rem 0.58rem;
+    }
+  }
+</style>

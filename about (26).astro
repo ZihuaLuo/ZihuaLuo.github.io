@@ -1,0 +1,134 @@
+import type { Language } from "@i18n/routes";
+
+export type NowDashboardCopy = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  statusItems: { label: string; value: string }[];
+  focusTitle: string;
+  focusSubtitle: string;
+  focusCenter: string;
+  focusItems: { label: string; value: string; color: string }[];
+  learningTitle: string;
+  learningSubtitle: string;
+  learningItems: { label: string; value: number }[];
+  trendTitle: string;
+  trendSubtitle: string;
+  trendLabel: string;
+  trendValue: string;
+  prioritiesTitle: string;
+  priorities: { label: string; value: string; tone: "cyan" | "violet" | "gold" | "blue" }[];
+  snapshotTitle: string;
+  snapshotSubtitle: string;
+  snapshot: { label: string; value: string }[];
+  momentumTitle: string;
+  momentumLabel: string;
+  momentumBody: string;
+  momentumTags: string[];
+};
+
+export const nowDashboardCopy: Record<Language, NowDashboardCopy> = {
+  en: {
+    eyebrow: "Now Dashboard",
+    title: "A personal operating dashboard for focus, learning, and output",
+    subtitle: "A snapshot of what I am learning, building, writing, and paying attention to",
+    statusItems: [
+      { label: "Focus", value: "CFA Level II" },
+      { label: "Cadence", value: "Weekly review" },
+      { label: "Signal", value: "Building momentum" },
+    ],
+    focusTitle: "Focus Allocation",
+    focusSubtitle: "Current attention across learning, research, writing, and brand building",
+    focusCenter: "100%",
+    focusItems: [
+      { label: "CFA Level II", value: "34%", color: "#67E8F9" },
+      { label: "Research & Analytics", value: "28%", color: "#C4B5FD" },
+      { label: "Writing", value: "20%", color: "#D8C38A" },
+      { label: "Personal Branding", value: "18%", color: "#7C3AED" },
+    ],
+    learningTitle: "Learning Progress",
+    learningSubtitle: "Finance modules currently being converted into reusable notes",
+    learningItems: [
+      { label: "Equity Valuation", value: 76 },
+      { label: "Fixed Income", value: 68 },
+      { label: "Derivatives", value: 58 },
+      { label: "Financial Statement Analysis", value: 82 },
+      { label: "Portfolio Management", value: 54 },
+    ],
+    trendTitle: "Activity / Output Trend",
+    trendSubtitle: "Learning, note-writing, and reflection cadence",
+    trendLabel: "7-week signal",
+    trendValue: "+18%",
+    prioritiesTitle: "Current Priorities",
+    priorities: [
+      { label: "Focus Area", value: "Risk-aware finance judgment", tone: "cyan" },
+      { label: "Current Build", value: "Bilingual knowledge archive", tone: "violet" },
+      { label: "Reading Flow", value: "Markets, valuation, research notes", tone: "gold" },
+      { label: "Reflection Theme", value: "How structure improves decisions", tone: "blue" },
+    ],
+    snapshotTitle: "Knowledge System Snapshot",
+    snapshotSubtitle: "A lightweight view of the archive in progress",
+    snapshot: [
+      { label: "Notes in progress", value: "06" },
+      { label: "Thoughts drafted", value: "06" },
+      { label: "Themes explored", value: "08" },
+      { label: "Learning modules", value: "05" },
+    ],
+    momentumTitle: "Momentum / Direction",
+    momentumLabel: "Operating thesis",
+    momentumBody:
+      "Build a compounding archive where finance learning, analytical practice, and reflective writing reinforce one another",
+    momentumTags: ["Continuous learning", "Writing system", "Career preparation"],
+  },
+  zh: {
+    eyebrow: "当前状态面板",
+    title: "一个围绕关注、学习与输出的个人操作面板",
+    subtitle: "记录我最近正在学习、建立、写作与重点关注的方向",
+    statusItems: [
+      { label: "Focus", value: "CFA 二级" },
+      { label: "Cadence", value: "每周回看" },
+      { label: "Signal", value: "持续推进" },
+    ],
+    focusTitle: "关注分配",
+    focusSubtitle: "当前注意力在学习、研究、写作与个人品牌之间的分布",
+    focusCenter: "100%",
+    focusItems: [
+      { label: "CFA 二级", value: "34%", color: "#67E8F9" },
+      { label: "研究分析", value: "28%", color: "#C4B5FD" },
+      { label: "写作", value: "20%", color: "#D8C38A" },
+      { label: "个人品牌", value: "18%", color: "#7C3AED" },
+    ],
+    learningTitle: "学习进度",
+    learningSubtitle: "正在被整理成可复用笔记的金融模块",
+    learningItems: [
+      { label: "权益估值", value: 76 },
+      { label: "固定收益", value: 68 },
+      { label: "衍生品", value: 58 },
+      { label: "财务报表分析", value: 82 },
+      { label: "投资组合管理", value: 54 },
+    ],
+    trendTitle: "活动 / 输出趋势",
+    trendSubtitle: "学习、笔记写作与反思节奏",
+    trendLabel: "7 周信号",
+    trendValue: "+18%",
+    prioritiesTitle: "当前优先级",
+    priorities: [
+      { label: "关注方向", value: "风险意识驱动的金融判断", tone: "cyan" },
+      { label: "正在建立", value: "双语知识档案", tone: "violet" },
+      { label: "阅读输入", value: "市场、估值与研究笔记", tone: "gold" },
+      { label: "反思主题", value: "结构如何改善决策", tone: "blue" },
+    ],
+    snapshotTitle: "知识系统快照",
+    snapshotSubtitle: "正在增长的个人档案视图",
+    snapshot: [
+      { label: "进行中笔记", value: "06" },
+      { label: "已起草想法", value: "06" },
+      { label: "探索主题", value: "08" },
+      { label: "学习模块", value: "05" },
+    ],
+    momentumTitle: "动能 / 方向",
+    momentumLabel: "操作命题",
+    momentumBody: "建立一个会复利的档案，让金融学习、分析练习和反思写作互相强化",
+    momentumTags: ["持续学习", "写作系统", "职业准备"],
+  },
+};

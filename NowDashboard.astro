@@ -1,0 +1,136 @@
+---
+import BrandMark from "@components/BrandMark.astro";
+import LanguageSwitcher from "@components/LanguageSwitcher.astro";
+import { navItems, stripBase, withBase, type Language } from "@i18n/routes";
+import { siteInfo, ui } from "@i18n/ui";
+
+interface Props {
+  lang: Language;
+  currentPath: string;
+  alternateHref: string;
+}
+
+const { lang, currentPath, alternateHref } = Astro.props;
+const cleanPath = stripBase(currentPath);
+const nav = navItems[lang];
+const homeHref = lang === "zh" ? "/zh/" : "/";
+const brandName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
+const brandLine = lang === "zh" ? "金融 / 研究分析 / 风险意识" : "Finance / Research / Analytics";
+const isActive = (href: string) =>
+  href === "/" || href === "/zh/"
+    ? cleanPath === href
+    : cleanPath === href || cleanPath.startsWith(href);
+---
+
+<a
+  class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:border focus:border-accent/40 focus:bg-[var(--bg-header)] focus:px-4 focus:py-2 focus:text-ink focus:shadow-card"
+  href="#main"
+>
+  {ui[lang].skip}
+</a>
+
+<header class="sticky top-0 z-40 border-b border-white/[0.14] bg-[var(--bg-header)] shadow-[0_18px_80px_rgba(56,189,248,0.08),0_14px_48px_rgba(10,16,36,0.34)] ring-1 ring-white/[0.055] backdrop-blur-2xl">
+  <div class="container-page flex min-h-[70px] items-center justify-between gap-3 sm:min-h-[78px] sm:gap-4">
+    <a href={withBase(homeHref)} class="group flex min-w-0 items-center gap-3" aria-label={brandName}>
+      <BrandMark label={brandName} size="sm" dark />
+      <span class="hidden leading-tight sm:block">
+        <span class="block text-sm font-extrabold text-ink">{brandName}</span>
+        <span class="block text-xs font-semibold uppercase tracking-[0.14em] text-muted">{brandLine}</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 rounded-full border border-white/[0.12] bg-white/[0.075] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-white/5 lg:flex" aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
+      {nav.map((item) => (
+        <a
+          href={withBase(item.href)}
+          class={`rounded-full px-3.5 py-2 text-sm font-bold transition ${
+            isActive(item.href)
+              ? "bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(167,139,250,0.22))] text-ink shadow-[0_0_34px_var(--glow-violet),inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-accent/40"
+              : "text-body hover:bg-white/[0.1] hover:text-ink hover:ring-1 hover:ring-white/10"
+          }`}
+          aria-current={isActive(item.href) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-2 lg:flex">
+      <button
+        class="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.14] bg-white/[0.09] px-3.5 text-sm font-extrabold text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-white/5 backdrop-blur transition hover:border-accent/70 hover:bg-white/[0.15] hover:text-accent"
+        type="button"
+        aria-label={ui[lang].search}
+        data-search-open
+      >
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m20 20-4.6-4.6m2.1-5.15a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+        <span>{ui[lang].search}</span>
+        <kbd class="hidden rounded-md border border-white/[0.12] px-1.5 py-0.5 text-[0.65rem] font-extrabold text-muted xl:inline">Ctrl K</kbd>
+      </button>
+      <LanguageSwitcher lang={lang} alternateHref={alternateHref} />
+    </div>
+
+    <div class="flex shrink-0 items-center gap-1.5 lg:hidden">
+      <button
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.09] text-ink shadow-sm ring-1 ring-white/5 transition hover:border-accent/60 hover:bg-white/[0.13]"
+        type="button"
+        aria-label={ui[lang].search}
+        data-search-open
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m20 20-4.6-4.6m2.1-5.15a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+      <LanguageSwitcher lang={lang} alternateHref={alternateHref} />
+      <button
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.09] text-ink shadow-sm ring-1 ring-white/5 transition hover:border-accent/60 hover:bg-white/[0.13]"
+        type="button"
+        aria-label={lang === "zh" ? "打开导航菜单" : "Open navigation menu"}
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-menu-button
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true" data-menu-open-icon>
+          <path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+        <svg class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true" data-menu-close-icon>
+          <path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="border-t border-white/[0.12] bg-[rgba(var(--rgb-bg-base),0.96)] shadow-card backdrop-blur-2xl lg:hidden" hidden data-mobile-nav>
+    <nav class="container-page grid gap-1 py-4" aria-label={lang === "zh" ? "移动端导航" : "Mobile navigation"}>
+      {nav.map((item) => (
+        <a
+          href={withBase(item.href)}
+          class={`rounded-xl px-4 py-3 text-base font-bold transition ${
+            isActive(item.href) ? "bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(167,139,250,0.22))] text-ink ring-1 ring-accent/35" : "text-body hover:bg-white/[0.1] hover:text-ink"
+          }`}
+          aria-current={isActive(item.href) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  const button = document.querySelector("[data-menu-button]");
+  const menu = document.querySelector("[data-mobile-nav]");
+  const openIcon = document.querySelector("[data-menu-open-icon]");
+  const closeIcon = document.querySelector("[data-menu-close-icon]");
+
+  if (button && menu && openIcon && closeIcon) {
+    button.addEventListener("click", () => {
+      const isOpen = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!isOpen));
+      menu.hidden = isOpen;
+      openIcon.classList.toggle("hidden", !isOpen);
+      closeIcon.classList.toggle("hidden", isOpen);
+    });
+  }
+</script>

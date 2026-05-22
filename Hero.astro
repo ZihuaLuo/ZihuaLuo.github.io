@@ -1,0 +1,63 @@
+---
+import { siteConfig } from "@config/site";
+
+const provider = siteConfig.analytics.provider;
+
+// Enable Plausible with:
+// PUBLIC_ANALYTICS_PROVIDER=plausible
+// PUBLIC_PLAUSIBLE_DOMAIN=your-public-domain.com
+const plausibleEnabled =
+  import.meta.env.PROD && provider === "plausible" && Boolean(siteConfig.analytics.plausibleDomain);
+
+// Enable Umami with:
+// PUBLIC_ANALYTICS_PROVIDER=umami
+// PUBLIC_UMAMI_WEBSITE_ID=your-public-website-id
+// PUBLIC_UMAMI_SCRIPT_URL=https://cloud.umami.is/script.js
+const umamiEnabled =
+  import.meta.env.PROD && provider === "umami" && Boolean(siteConfig.analytics.umamiWebsiteId);
+---
+
+<script is:inline>
+  window.trackSiteEvent = function trackSiteEvent(name, props) {
+    try {
+      const eventProps = props || {};
+      if (typeof window.plausible === "function") {
+        window.plausible(name, { props: eventProps });
+      }
+      if (window.umami && typeof window.umami.track === "function") {
+        window.umami.track(name, eventProps);
+      }
+    } catch (_) {
+      // Analytics should never affect the website experience
+    }
+  };
+
+  document.addEventListener("click", function handleTrackedClick(event) {
+    const target = event.target instanceof Element ? event.target.closest("[data-track-event]") : null;
+    if (!target) return;
+
+    let props = {};
+    const rawProps = target.getAttribute("data-track-props");
+    if (rawProps) {
+      try {
+        props = JSON.parse(rawProps);
+      } catch (_) {
+        props = {};
+      }
+    }
+
+    window.trackSiteEvent(target.getAttribute("data-track-event"), props);
+  });
+</script>
+
+{plausibleEnabled && (
+  <script defer data-domain={siteConfig.analytics.plausibleDomain} src="https://plausible.io/js/script.js"></script>
+)}
+
+{umamiEnabled && (
+  <script
+    defer
+    src={siteConfig.analytics.umamiScriptUrl}
+    data-website-id={siteConfig.analytics.umamiWebsiteId}
+  ></script>
+)}

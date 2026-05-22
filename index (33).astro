@@ -1,0 +1,74 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Tag from "@components/Tag.astro";
+import { formatDate, langPath, readingTime, type Language } from "@i18n/routes";
+import { siteInfo, ui } from "@i18n/ui";
+
+interface Props {
+  entry: any;
+  lang: Language;
+  collection: "thoughts" | "notes";
+  alternateHref: string;
+  canonicalPath: string;
+}
+
+const { entry, lang, collection, alternateHref, canonicalPath } = Astro.props;
+const backLabel = collection === "thoughts" ? ui[lang].backToThoughts : ui[lang].backToNotes;
+const backHref = langPath(lang, `/${collection}/`);
+const authorName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
+const pageTitle = `${entry.data.title} | ${authorName}`;
+const minutes = readingTime(entry.body ?? "", lang);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={entry.data.description}
+  lang={lang}
+  alternateHref={alternateHref}
+  canonicalPath={canonicalPath}
+  type="article"
+>
+  <article>
+    <header class="finance-shell py-14 sm:py-20">
+      <div class="container-page relative z-10">
+        <a
+          class="mb-8 inline-flex rounded-full border border-line bg-white/[0.06] px-3 py-1.5 text-sm font-bold text-ink shadow-card transition hover:-translate-y-0.5 hover:border-accent/60 hover:bg-white/[0.1]"
+          href={backHref}
+        >
+          ← {backLabel}
+        </a>
+        <div class="max-w-3xl">
+          <div class="mb-5 flex flex-wrap items-center gap-2 text-sm text-muted">
+            <span class="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-xs font-bold text-ink">
+              {entry.data.category}
+            </span>
+            <time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time>
+            <span aria-hidden="true">/</span>
+            <span>{minutes}</span>
+          </div>
+          <h1 class="display-heading text-4xl font-semibold leading-[1.02] text-ink sm:text-5xl lg:text-6xl">{entry.data.title}</h1>
+          <p class="mt-5 text-lg leading-8 text-muted">{entry.data.description}</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            {entry.data.tags.map((tag: string) => <Tag label={tag} />)}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-page mt-[-24px] grid gap-10 pb-16 lg:grid-cols-[minmax(0,760px)_1fr]">
+      <div class="prose-article premium-card rounded-2xl p-6 sm:p-9">
+        <slot />
+      </div>
+      <aside class="hidden lg:block">
+        <div class="premium-card sticky top-28 rounded-2xl p-5 text-sm leading-7 text-muted">
+          <p class="font-bold text-ink">{authorName}</p>
+          <p class="mt-4">
+            {lang === "zh"
+              ? "一篇来自长期个人档案的思考记录，关注学习、判断与结构化成长"
+              : "A record from a long-term personal archive focused on learning, judgment, and structured growth"}
+          </p>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

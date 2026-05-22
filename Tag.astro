@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  align?: "left" | "center";
+  tone?: "light" | "dark";
+}
+
+const { eyebrow, title, description, align = "left" } = Astro.props;
+const centered = align === "center";
+const textClass = "bg-[linear-gradient(135deg,#FFFFFF_0%,#DBEAFE_48%,#C4B5FD_100%)] bg-clip-text text-transparent";
+const mutedClass = "text-muted";
+---
+
+<header class={`${centered ? "mx-auto text-center" : ""} max-w-3xl overflow-visible`}>
+  {eyebrow && (
+    <p class="eyebrow mb-4 inline-flex items-center gap-2">
+      <span class="h-px w-9 bg-gold/80" aria-hidden="true"></span>
+      {eyebrow}
+    </p>
+  )}
+  <h1 class={`display-heading text-4xl font-semibold leading-[1.12] ${textClass} sm:text-5xl lg:text-6xl`}>
+    {title}
+  </h1>
+  {description && <p class={`mt-5 text-base leading-8 ${mutedClass} sm:text-lg`}>{description}</p>}
+</header>

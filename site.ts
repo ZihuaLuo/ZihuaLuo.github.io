@@ -1,0 +1,68 @@
+---
+import { siteConfig } from "@config/site";
+import { withBase, type Language } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Language;
+  canonicalPath?: string;
+  alternateHref?: string;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description,
+  lang,
+  canonicalPath,
+  alternateHref,
+  image,
+  type = "website",
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL(siteConfig.siteUrl);
+const defaultImage = lang === "zh" ? siteInfo.ogImageZh : siteInfo.ogImage;
+const resolvedImage = image ?? defaultImage;
+const canonicalUrl =
+  canonicalPath && canonicalPath.startsWith("http")
+    ? canonicalPath
+    : new URL(canonicalPath ? withBase(canonicalPath) : Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = resolvedImage.startsWith("http")
+  ? resolvedImage
+  : new URL(withBase(resolvedImage), siteUrl).toString();
+const alternateUrl = alternateHref
+  ? new URL(alternateHref.startsWith("/") ? withBase(alternateHref) : alternateHref, siteUrl).toString()
+  : undefined;
+const locale = lang === "zh" ? "zh_CN" : "en_US";
+const siteName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content={siteName} />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#071426" />
+<link rel="canonical" href={canonicalUrl} />
+{alternateUrl && <link rel="alternate" hreflang={lang === "zh" ? "en" : "zh-CN"} href={alternateUrl} />}
+{lang === "en" && <link rel="alternate" hreflang="x-default" href={canonicalUrl} />}
+<link rel="sitemap" type="application/xml" href={new URL(withBase("/sitemap.xml"), siteUrl).toString()} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={locale} />
+<meta property="og:locale:alternate" content={lang === "zh" ? "en_US" : "zh_CN"} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />

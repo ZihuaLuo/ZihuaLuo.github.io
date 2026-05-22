@@ -1,0 +1,81 @@
+import type { Language } from "@i18n/routes";
+
+export type OperatingPrinciple = {
+  index: string;
+  title: string;
+  label: string;
+  description: string;
+  signal: string;
+  tags: string[];
+};
+
+export const operatingPrinciples: Record<Language, OperatingPrinciple[]> = {
+  en: [
+    {
+      index: "01",
+      title: "Structured Thinking",
+      label: "Framework",
+      description: "Convert complex information into clear frameworks",
+      signal: "Clarity",
+      tags: ["Structure", "Analysis", "Learning"],
+    },
+    {
+      index: "02",
+      title: "Risk-Aware Judgment",
+      label: "Probability",
+      description: "Think in probabilities, trade-offs, and second-order effects",
+      signal: "Downside",
+      tags: ["Risk", "Judgment", "Decision Making"],
+    },
+    {
+      index: "03",
+      title: "Research Discipline",
+      label: "Evidence",
+      description: "Build insight through evidence, context, and careful interpretation",
+      signal: "Context",
+      tags: ["Research", "Evidence", "Analytics"],
+    },
+    {
+      index: "04",
+      title: "Learning in Public",
+      label: "Archive",
+      description: "Turn learning notes and reflections into a long-term knowledge archive",
+      signal: "Compounding",
+      tags: ["Writing", "Notes", "Learning"],
+    },
+  ],
+  zh: [
+    {
+      index: "01",
+      title: "结构化思考",
+      label: "框架",
+      description: "将复杂信息整理成清晰的判断框架",
+      signal: "清晰",
+      tags: ["结构", "分析", "学习"],
+    },
+    {
+      index: "02",
+      title: "风险意识",
+      label: "概率",
+      description: "用概率、权衡与二阶影响理解决策",
+      signal: "下行",
+      tags: ["风险", "判断", "决策"],
+    },
+    {
+      index: "03",
+      title: "研究纪律",
+      label: "证据",
+      description: "通过证据、语境与审慎解释建立洞察",
+      signal: "语境",
+      tags: ["研究", "证据", "分析"],
+    },
+    {
+      index: "04",
+      title: "公开学习",
+      label: "档案",
+      description: "将学习笔记与反思沉淀成长期知识档案",
+      signal: "复利",
+      tags: ["写作", "笔记", "学习"],
+    },
+  ],
+};

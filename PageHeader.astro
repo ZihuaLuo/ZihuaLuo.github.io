@@ -1,0 +1,121 @@
+---
+import AvatarCard from "@components/AvatarCard.astro";
+import CTAButton from "@components/CTAButton.astro";
+import HeroAtmosphere from "@components/HeroAtmosphere.astro";
+import { langPath, type Language } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const headingLeading = lang === "zh" ? "leading-[1.12]" : "leading-[0.98]";
+const copy = {
+  en: {
+    eyebrow: "Finance intelligence / personal operating system",
+    name: siteInfo.englishName,
+    tagline: "Finance, Research & Analytics, Risk-Aware Thinking",
+    intro:
+      "I use finance, data, and structured thinking to understand businesses, markets, and decision-making",
+    primary: "Read Thoughts",
+    secondary: "View Notes",
+    tertiary: "Contact",
+    share: "Share",
+    shareLabel: "Share profile",
+    badges: ["Finance", "Research", "Analytics", "Risk-Aware Thinking"],
+    metrics: [
+      ["01", "Markets"],
+      ["02", "Evidence"],
+      ["03", "Judgment"],
+    ],
+    tape: ["Risk", "Capital", "Signals", "Research"],
+  },
+  zh: {
+    eyebrow: "个人品牌 / 金融思考系统",
+    name: siteInfo.zhDisplayName,
+    tagline: "金融、研究分析与风险意识驱动的思考方式",
+    intro: "我关注金融、数据与结构化思考，试图理解企业、市场与决策背后的逻辑",
+    primary: "阅读想法",
+    secondary: "查看笔记",
+    tertiary: "联系我",
+    share: "分享",
+    shareLabel: "分享个人主页",
+    badges: ["金融", "研究", "分析", "风险意识"],
+    metrics: [
+      ["01", "市场"],
+      ["02", "证据"],
+      ["03", "判断"],
+    ],
+    tape: ["风险", "资本", "信号", "研究"],
+  },
+}[lang];
+---
+
+<section class="finance-hero py-14 sm:py-18 lg:py-24">
+  <HeroAtmosphere />
+  <div class="container-page relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+    <div class="order-2 max-w-3xl text-ink lg:order-1">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/25 bg-white/[0.08] px-3.5 py-1.5 text-sm font-bold text-ink shadow-[0_0_34px_rgba(124,58,237,0.16),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur">
+        <span class="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_18px_rgba(56,189,248,0.75)]" aria-hidden="true"></span>
+        {copy.eyebrow}
+      </div>
+      <h1 class={`display-heading max-w-4xl bg-[linear-gradient(135deg,var(--text-primary)_0%,#DBEAFE_42%,var(--text-violet)_82%)] bg-clip-text text-5xl font-semibold ${headingLeading} text-transparent sm:text-6xl lg:text-7xl`}>
+        {copy.name}
+      </h1>
+      <p class="mt-7 max-w-2xl text-xl font-bold leading-relaxed text-ink sm:text-2xl">
+        {copy.tagline}
+      </p>
+      <p class="mt-5 max-w-2xl text-lg leading-8 text-body">
+        {copy.intro}
+      </p>
+
+      <div class="mt-7 flex flex-wrap gap-2" aria-label={lang === "zh" ? "身份关键词" : "Identity markers"}>
+        {copy.badges.map((badge) => (
+          <span class="rounded-full border border-white/[0.12] bg-white/[0.08] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-body shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur transition hover:border-accent/60 hover:bg-white/[0.12] hover:text-ink">
+            {badge}
+          </span>
+        ))}
+      </div>
+
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <CTAButton href={langPath(lang, "/thoughts/")} label={copy.primary} />
+        <CTAButton href={langPath(lang, "/notes/")} label={copy.secondary} variant="secondary" />
+        <CTAButton href={langPath(lang, "/contact/")} label={copy.tertiary} variant="ghost" />
+        <button
+          class="group relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full border border-violet/40 bg-white/[0.075] px-5 text-sm font-extrabold text-ink shadow-[0_0_34px_rgba(124,58,237,0.16),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:bg-white/[0.12] hover:shadow-lift"
+          type="button"
+          aria-label={copy.shareLabel}
+          data-share-open
+        >
+          <span class="absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition duration-500 group-hover:left-full group-hover:opacity-70" aria-hidden="true"></span>
+          <svg class="relative h-[1.125rem] w-[1.125rem]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8.6 12.7 15.4 16.6M15.4 7.4 8.6 11.3M18 6.5a2.6 2.6 0 1 1-5.2 0 2.6 2.6 0 0 1 5.2 0ZM8.6 12a2.6 2.6 0 1 1-5.2 0 2.6 2.6 0 0 1 5.2 0ZM18 17.5a2.6 2.6 0 1 1-5.2 0 2.6 2.6 0 0 1 5.2 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <span class="relative">{copy.share}</span>
+        </button>
+      </div>
+
+      <div class="mt-11 grid max-w-2xl gap-3 sm:grid-cols-3">
+        {copy.metrics.map(([number, label]) => (
+          <div class="hero-metric rounded-2xl border border-white/[0.12] bg-white/[0.08] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.09)] backdrop-blur transition hover:-translate-y-1 hover:border-accent/50 hover:bg-white/[0.12]">
+            <p class="text-xs font-extrabold text-accent">{number}</p>
+            <p class="mt-2 text-sm font-bold text-ink">{label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 flex max-w-2xl flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C7D2FE]" aria-hidden="true">
+        {copy.tape.map((item) => (
+          <span class="inline-flex items-center gap-2">
+            <span class="h-px w-6 bg-gradient-to-r from-accent to-gold"></span>{item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <AvatarCard lang={lang} />
+    </div>
+  </div>
+</section>
