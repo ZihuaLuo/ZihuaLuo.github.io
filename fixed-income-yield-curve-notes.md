@@ -1,0 +1,119 @@
+---
+import { withBase } from "@i18n/routes";
+
+interface Props {
+  entry: any;
+  align?: "left" | "right" | "single";
+}
+
+const { entry, align = "single" } = Astro.props;
+const isRight = align === "right";
+const type = entry.data.type ?? (entry.data.featured ? "milestone" : "experience");
+const isMilestone = type === "milestone";
+const company = entry.data.company ?? entry.data.organization ?? entry.data.context;
+const mainLine = isMilestone
+  ? entry.data.title ?? [entry.data.role, company].filter(Boolean).join(" | ")
+  : [entry.data.role, company].filter(Boolean).join(" | ");
+const showLocation = entry.data.displayLocation || entry.data.showLocation;
+const badge = isMilestone ? (entry.data.highlight ?? "Milestone") : entry.data.category;
+const fallbackSource = company ?? entry.data.role ?? entry.data.title ?? "ZL";
+const fallbackLogo = isMilestone
+  ? "M"
+  : fallbackSource
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word: string) => word[0])
+      .join("")
+      .toUpperCase();
+---
+
+<article class={`timeline-entry relative h-full ${align === "single" ? "pl-12" : "pl-12 lg:pl-0"}`}>
+  <span
+    class={`timeline-marker absolute top-8 z-20 grid place-items-center rounded-full border ${
+      isMilestone
+        ? "h-6 w-6 border-gold/80 bg-[rgba(124,58,237,0.42)] shadow-[0_0_0_7px_rgba(124,58,237,0.18),0_0_34px_rgba(216,195,138,0.36)]"
+        : "h-5 w-5 border-accent/80 bg-[rgba(56,189,248,0.28)] shadow-[0_0_0_6px_rgba(56,189,248,0.14),0_0_30px_rgba(125,211,252,0.36)]"
+    } ${
+      align === "single" ? "left-0" : isRight ? "left-0 lg:left-[-42px]" : "left-0 lg:right-[-42px] lg:left-auto"
+    }`}
+    aria-hidden="true"
+  >
+    <span class={`${isMilestone ? "h-2.5 w-2.5 bg-gold" : "h-2 w-2 bg-accent"} rounded-full`}></span>
+  </span>
+
+  <span
+    class={`absolute top-10 hidden h-px w-10 bg-gradient-to-r from-transparent via-accent/85 to-violet/45 lg:block ${
+      isRight ? "left-[-32px]" : "right-[-32px]"
+    }`}
+    aria-hidden="true"
+  ></span>
+
+  <div class={`timeline-card premium-card ${isMilestone ? "timeline-card--milestone" : "timeline-card--experience"} group relative flex h-full min-h-[210px] flex-col overflow-hidden rounded-2xl border p-5 shadow-card backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lift sm:p-6`}>
+    <div class={`pointer-events-none absolute inset-x-0 top-0 h-px ${isMilestone ? "bg-gradient-to-r from-gold via-accent/60 to-transparent" : "bg-gradient-to-r from-accent/80 via-violet/50 to-transparent"}`} aria-hidden="true"></div>
+
+    <div class="mb-4 flex flex-wrap items-center gap-2 text-xs">
+      <span class="rounded-full border border-accent/45 bg-accent/15 px-2.5 py-1 font-extrabold text-ink shadow-[0_0_18px_rgba(56,189,248,0.12)]">
+        {entry.data.date}
+      </span>
+      <span class={`rounded-full border px-2.5 py-1 font-extrabold ${
+        isMilestone ? "border-gold/55 bg-gold/15 text-ink shadow-[0_0_18px_rgba(216,195,138,0.12)]" : "border-white/[0.14] bg-white/[0.08] text-body"
+      }`}>
+        {badge}
+      </span>
+      {showLocation && entry.data.location && <span class="font-semibold text-muted">{entry.data.location}</span>}
+    </div>
+
+    <div class="flex gap-4">
+      <div class="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-2xl border border-accent/28 bg-white/[0.1] shadow-[0_0_30px_rgba(124,58,237,0.2),inset_0_1px_0_rgba(255,255,255,0.12)]">
+        {entry.data.logo ? (
+          <img class="h-full w-full object-contain p-2" src={withBase(entry.data.logo)} alt={entry.data.logoAlt ?? `${mainLine} logo`} loading="lazy" />
+        ) : (
+          <span class="text-sm font-extrabold text-ink">{fallbackLogo}</span>
+        )}
+      </div>
+      <div class="min-w-0">
+        <h3 class="text-lg font-extrabold leading-snug text-ink transition group-hover:text-accent sm:text-xl">
+          {mainLine}
+        </h3>
+        {!isMilestone && entry.data.title && (
+          <p class="mt-1 text-xs font-bold uppercase tracking-[0.13em] text-gold">{entry.data.title}</p>
+        )}
+        {isMilestone && company && <p class="mt-1 text-xs font-extrabold uppercase tracking-[0.13em] text-gold">{company}</p>}
+      </div>
+    </div>
+
+    <p class="mt-4 text-sm leading-6 text-body">
+      {entry.data.description}
+    </p>
+
+    <div class="mt-auto flex flex-wrap items-center gap-2 pt-5">
+      {entry.data.tags?.slice(0, 3).map((tag: string) => (
+        <span class="rounded-full border border-white/[0.13] bg-white/[0.085] px-2.5 py-1 text-xs font-bold text-body shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">{tag}</span>
+      ))}
+    </div>
+
+    {entry.data.link && (
+      <a class="mt-5 inline-flex text-sm font-extrabold text-accent hover:underline" href={entry.data.link}>
+        {entry.data.link}
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .timeline-card--milestone {
+    border-color: rgba(var(--rgb-warm), 0.44);
+  }
+
+  .timeline-card--milestone::after {
+    background:
+      radial-gradient(circle at 18% 0%, rgba(var(--rgb-warm), 0.13), transparent 18rem),
+      radial-gradient(circle at 86% 8%, rgba(var(--rgb-cyan-soft), 0.1), transparent 16rem),
+      linear-gradient(135deg, rgba(var(--rgb-violet), 0.12), transparent 42%);
+  }
+
+  .timeline-card--experience {
+    border-color: var(--border-glow);
+  }
+</style>

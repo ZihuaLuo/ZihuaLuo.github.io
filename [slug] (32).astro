@@ -1,0 +1,68 @@
+---
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import SEO from "@components/SEO.astro";
+import Analytics from "@components/Analytics.astro";
+import SearchModal from "@components/SearchModal.astro";
+import ShareCard from "@components/ShareCard.astro";
+import type { Language } from "@i18n/routes";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Language;
+  alternateHref?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description,
+  lang = "en",
+  alternateHref = lang === "en" ? "/zh/" : "/",
+  canonicalPath,
+  ogImage,
+  type = "website",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang === "zh" ? "zh-CN" : "en"}>
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      lang={lang}
+      canonicalPath={canonicalPath}
+      alternateHref={alternateHref}
+      image={ogImage}
+      type={type}
+    />
+    <Analytics />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="site-aura" aria-hidden="true">
+      <span class="site-aura__orb site-aura__orb--violet"></span>
+      <span class="site-aura__orb site-aura__orb--cyan"></span>
+      <span class="site-aura__orb site-aura__orb--blue"></span>
+      <span class="site-aura__beam site-aura__beam--one"></span>
+      <span class="site-aura__beam site-aura__beam--two"></span>
+    </div>
+    <Header lang={lang} currentPath={Astro.url.pathname} alternateHref={alternateHref} />
+    <main id="main" class="site-main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <SearchModal lang={lang} />
+    <ShareCard lang={lang} sharePath={canonicalPath ?? Astro.url.pathname} />
+  </body>
+</html>

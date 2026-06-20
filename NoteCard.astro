@@ -1,0 +1,48 @@
+---
+import BrandMark from "@components/BrandMark.astro";
+import SocialIconLinks from "@components/SocialIconLinks.astro";
+import { langPath, type Language } from "@i18n/routes";
+import { siteInfo, ui } from "@i18n/ui";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+const brandName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
+const shareLabel = lang === "zh" ? "分享" : "Share";
+const shareAria = lang === "zh" ? "分享个人主页" : "Share profile";
+---
+
+<footer class="mt-24 border-t border-white/[0.12] bg-[linear-gradient(180deg,rgba(var(--rgb-bg-base),0.58),rgba(var(--rgb-bg-deep),0.66))] shadow-[0_-20px_80px_rgba(56,189,248,0.08),0_-10px_42px_rgba(124,58,237,0.08)] backdrop-blur-2xl">
+  <div class="container-page grid gap-8 py-11 md:grid-cols-[1fr_auto] md:items-center">
+    <div>
+      <a href={langPath(lang, "/")} class="inline-flex items-center gap-3">
+        <BrandMark label={brandName} dark />
+        <span>
+          <span class="block text-sm font-extrabold text-ink">{brandName}</span>
+          <span class="block max-w-xl text-sm leading-6 text-muted">{ui[lang].footerNote}</span>
+        </span>
+      </a>
+    </div>
+    <div class="flex items-center gap-2 md:justify-end">
+      <button
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.13] bg-white/[0.08] text-ink shadow-[0_0_28px_rgba(124,58,237,0.16),inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-white/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:bg-white/[0.13] hover:shadow-lift"
+        type="button"
+        aria-label={shareAria}
+        title={shareLabel}
+        data-share-open
+      >
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8.6 12.7 15.4 16.6M15.4 7.4 8.6 11.3M18 6.5a2.6 2.6 0 1 1-5.2 0 2.6 2.6 0 0 1 5.2 0ZM8.6 12a2.6 2.6 0 1 1-5.2 0 2.6 2.6 0 0 1 5.2 0ZM18 17.5a2.6 2.6 0 1 1-5.2 0 2.6 2.6 0 0 1 5.2 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+      <SocialIconLinks lang={lang} compact />
+    </div>
+  </div>
+  <div class="container-page flex flex-col gap-2 border-t border-white/[0.12] py-5 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+    <span>© {year} {brandName}</span>
+    <a class="font-semibold transition hover:text-accent" href={siteInfo.socials.email} data-track-event="Click Email">{siteInfo.emailAddress}</a>
+  </div>
+</footer>

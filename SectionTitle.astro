@@ -1,0 +1,21 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  meta?: string;
+  index?: string;
+}
+
+const { title, description, meta, index = "01" } = Astro.props;
+---
+
+<article class="premium-card group overflow-hidden rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lift">
+  <div class="mb-7 flex items-center justify-between gap-4">
+    <span class="rounded-full border border-gold/30 bg-gold/10 px-2.5 py-1 text-xs font-extrabold text-accent">{index}</span>
+    <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
+    <span class="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_16px_rgba(56,189,248,0.55)] transition group-hover:bg-gold" aria-hidden="true"></span>
+  </div>
+  {meta && <p class="eyebrow mb-3 text-muted">{meta}</p>}
+  <h3 class="display-heading text-2xl font-semibold leading-tight text-ink">{title}</h3>
+  <p class="mt-4 text-sm leading-7 text-muted">{description}</p>
+</article>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LZ personal brand mark">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1F3A"/>
+      <stop offset="1" stop-color="#071A2F"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="12" y1="48" x2="54" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BFA46A"/>
+      <stop offset="1" stop-color="#E2C98E"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <rect x="7.5" y="7.5" width="49" height="49" rx="13" fill="none" stroke="#C7A76C" stroke-opacity=".48"/>
+  <path d="M17 44V19h6v19.5h11V44H17Z" fill="#F8F5ED"/>
+  <path d="M36 19h19L43.4 38.4h11.2V44H34.3l11.5-19.4H36V19Z" fill="#F8F5ED"/>
+  <path d="M13 50c8.6-11.2 17.1-14.5 25.7-9.8 5 2.7 8.7 1.5 12.3-3.8" fill="none" stroke="url(#gold)" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M13 14h13M13 19h7M45 50h7" stroke="#C7A76C" stroke-width="1.4" stroke-linecap="round"/>
+</svg>
