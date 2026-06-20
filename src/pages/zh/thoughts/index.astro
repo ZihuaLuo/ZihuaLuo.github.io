@@ -1,0 +1,92 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import ThoughtCard from "@components/ThoughtCard.astro";
+import { thoughtPreviewLimit, thoughtSeries, thoughtSeriesHref } from "@data/thoughtSeries";
+import { entrySlug, langPath } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+
+const lang = "zh";
+const includeDrafts = !import.meta.env.PROD;
+const thoughts = (await getCollection(
+  "thoughts",
+  ({ data }) => data.language === lang && (includeDrafts || !data.draft),
+)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const seriesCards = thoughtSeries.map((series) => {
+  const entries = thoughts.filter((entry) => entry.data.category === series.category[lang]);
+  return {
+    ...series,
+    count: entries.length,
+    entries,
+    href: entries.length > 0 ? thoughtSeriesHref(lang, series.slug) : undefined,
+  };
+});
+
+const activeSeries = seriesCards.filter((series) => series.count > 0);
+---
+
+<BaseLayout
+  title={`个人思考档案馆 | ${siteInfo.zhDisplayName}`}
+  description="日学日进，日省吾身。用一篇篇反思整理认知，也用一次次回看见证成长。"
+  lang={lang}
+  alternateHref="/thoughts/"
+  canonicalPath="/zh/thoughts/"
+>
+  <section class="finance-shell py-14 sm:py-20">
+    <div class="container-page relative z-10">
+      <PageHeader
+        eyebrow="思考"
+        title="个人思考档案馆"
+        description="日学日进，日省吾身。用一篇篇反思整理认知，也用一次次回看见证成长。"
+      />
+    </div>
+  </section>
+
+  <section class="surface-section archive-section archive-section--thoughts py-18 sm:py-24">
+    <div class="container-page grid gap-12">
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4" aria-label="思考篇目">
+        {seriesCards.map((item) => (
+          <a
+            class={`premium-card group flex min-h-64 flex-col rounded-2xl p-6 transition duration-300 ${item.href ? "hover:-translate-y-1 hover:border-accent/50 hover:shadow-lift" : "cursor-default opacity-75"}`}
+            href={item.href}
+            aria-disabled={item.href ? "false" : "true"}
+          >
+            <p class="eyebrow text-accent">篇目</p>
+            <h2 class="display-heading mt-5 text-3xl font-semibold leading-tight text-ink">{item.title[lang]}</h2>
+            <p class="mt-4 text-sm leading-7 text-body">{item.description[lang]}</p>
+            <div class="mt-auto flex items-end justify-between gap-4 pt-8">
+              <span class="text-xs font-extrabold uppercase tracking-[0.16em] text-gold">
+                {item.count > 0 ? `${item.count} 篇文章` : "即将更新"}
+              </span>
+              <span class="text-2xl text-accent transition group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {activeSeries.map((item) => (
+        <section class="scroll-mt-28">
+          <div class="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p class="eyebrow text-accent">最近更新</p>
+              <h2 class="display-heading mt-2 text-3xl font-semibold text-ink">{item.title[lang]}</h2>
+            </div>
+            <a
+              class="inline-flex min-h-11 items-center justify-center rounded-full border border-line bg-white/[0.06] px-4 text-sm font-extrabold text-ink transition hover:-translate-y-0.5 hover:border-accent/60 hover:bg-white/[0.1]"
+              href={item.href}
+            >
+              查看全部 {item.count} 篇
+            </a>
+          </div>
+          <div class="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+            {item.entries.slice(0, thoughtPreviewLimit).map((entry) => (
+              <ThoughtCard entry={entry} lang={lang} href={langPath(lang, `/thoughts/${entrySlug(entry.id)}/`)} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

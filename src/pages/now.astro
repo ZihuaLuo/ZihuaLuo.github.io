@@ -1,0 +1,31 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import NowDashboard from "@components/NowDashboard.astro";
+import { siteInfo } from "@i18n/ui";
+---
+
+<BaseLayout
+  title={`Impact Metrics | ${siteInfo.englishName}`}
+  description="Quantified academic performance, credentials, work execution, professional networking, and analytical scale for Zihua Luo, FRM"
+  lang="en"
+  alternateHref="/zh/now/"
+  canonicalPath="/now/"
+>
+  <section class="finance-shell py-14 sm:py-20">
+    <div class="container-page relative z-10">
+      <PageHeader
+        eyebrow="Impact"
+        title="Impact Metrics"
+        description="A quantified record of academic performance, credentials, work execution, professional networking, and analytical scale"
+        tone="dark"
+      />
+    </div>
+  </section>
+
+  <section class="surface-section now-section py-18 sm:py-24">
+    <div class="container-page">
+      <NowDashboard lang="en" showHeader={false} />
+    </div>
+  </section>
+</BaseLayout>

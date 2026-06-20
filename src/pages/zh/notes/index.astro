@@ -1,0 +1,76 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import NoteCard from "@components/NoteCard.astro";
+import Tag from "@components/Tag.astro";
+import { entrySlug, langPath } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+
+const lang = "zh";
+const includeDrafts = !import.meta.env.PROD;
+const notes = (await getCollection(
+  "notes",
+  ({ data }) => data.language === lang && (includeDrafts || !data.draft),
+)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const grouped = notes.reduce<Record<string, typeof notes>>((acc, entry) => {
+  acc[entry.data.category] ??= [];
+  acc[entry.data.category].push(entry);
+  return acc;
+}, {});
+
+const categories = [
+  "CFA 二级",
+  "财务报表分析",
+  "固定收益",
+  "衍生品",
+  "权益估值",
+  "投资组合管理",
+  "经济学",
+  "数据分析",
+];
+---
+
+<BaseLayout
+  title={`笔记 | ${siteInfo.zhDisplayName}`}
+  description="罗子华，FRM 关于 CFA 二级、财务报表分析、固定收益、衍生品、权益估值、投资组合管理、经济学和数据分析的结构化学习系统"
+  lang={lang}
+  alternateHref="/notes/"
+  canonicalPath="/zh/notes/"
+>
+  <section class="finance-shell py-14 sm:py-20">
+    <div class="container-page relative z-10 grid gap-8 lg:grid-cols-[1fr_0.62fr] lg:items-end">
+      <PageHeader
+        eyebrow="笔记"
+        title="一个围绕金融与分析的结构化学习系统"
+        description="笔记可以比文章更简洁，但分类和结构应该足够清晰，让 CFA 概念和金融框架能够长期累积"
+      />
+      <div class="premium-card rounded-2xl p-5">
+        <p class="eyebrow mb-4">知识地图</p>
+        <div class="flex flex-wrap gap-2" aria-label="笔记分类">
+          {categories.map((category) => <Tag label={category} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="surface-section archive-section archive-section--notes py-18 sm:py-24">
+    <div class="container-page grid gap-10">
+      {Object.entries(grouped).map(([category, entries]) => (
+        <section>
+          <div class="mb-5 flex items-center gap-4">
+            <h2 class="display-heading text-3xl font-semibold text-ink">{category}</h2>
+            <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
+            <span class="text-xs font-bold text-gold">{entries.length} 篇</span>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {entries.map((entry) => (
+              <NoteCard entry={entry} lang={lang} href={langPath(lang, `/notes/${entrySlug(entry.id)}/`)} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

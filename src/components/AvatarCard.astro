@@ -1,0 +1,73 @@
+---
+import SocialIconLinks from "@components/SocialIconLinks.astro";
+import { withBase, type Language } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const alt = lang === "zh" ? "罗子华，FRM 的个人照片" : "Portrait of Zihua Luo, FRM";
+const coffeeCopy = {
+  en: {
+    eyebrow: "Coffee Chat",
+    title: "Want to grab coffee?",
+    detail: "Reach me here",
+    funFact: "Fun Fact About Me: 5L water per day on average",
+  },
+  zh: {
+    eyebrow: "Coffee Chat",
+    title: "想一起喝杯咖啡吗？",
+    detail: "从这里联系我",
+    funFact: "关于我有趣的事：平均每天喝5L水",
+  },
+}[lang];
+---
+
+<aside class="portrait-system relative mx-auto w-full max-w-[360px] sm:max-w-[430px]" aria-label={lang === "zh" ? "个人照片与社交链接" : "Profile photo and social links"}>
+  <div class="absolute -left-10 top-10 hidden h-44 w-44 rounded-full bg-violet/30 blur-3xl sm:block" aria-hidden="true"></div>
+  <div class="absolute -right-10 bottom-20 hidden h-52 w-52 rounded-full bg-accent/24 blur-3xl sm:block" aria-hidden="true"></div>
+
+  <div class="premium-card relative rounded-[1.4rem] border-accent/25 p-3 shadow-lift">
+    <div class="relative overflow-hidden rounded-[1.08rem] border border-white/[0.14] bg-[linear-gradient(135deg,rgba(var(--rgb-bg-elevated),0.68),rgba(var(--rgb-bg-deep),0.58))] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[length:34px_34px]" aria-hidden="true"></div>
+      <div class="absolute right-5 top-5 flex items-end gap-1.5" aria-hidden="true">
+        <span class="h-9 w-1 rounded-full bg-accent/80 shadow-[0_0_18px_rgba(56,189,248,0.45)]"></span>
+        <span class="h-16 w-1 rounded-full bg-gold/50"></span>
+        <span class="h-12 w-1 rounded-full bg-cyan-300/40"></span>
+        <span class="h-20 w-1 rounded-full bg-gold/70"></span>
+      </div>
+      <div class="relative aspect-[4/5]" data-portrait>
+        <img
+          class="h-full w-full object-cover object-center"
+          src={withBase(siteInfo.profilePhoto)}
+          alt={alt}
+          loading="eager"
+          onerror="this.hidden=true; this.nextElementSibling.classList.remove('hidden');"
+        />
+        <div class="hidden grid h-full place-items-center bg-gradient-to-br from-elevated to-paper px-8 text-center text-ink">
+          <div class="mx-auto grid h-24 w-24 place-items-center rounded-full border border-gold/40 bg-white/[0.06] text-3xl font-semibold">
+            ZL
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative grid gap-4 px-3 pb-3 pt-5">
+      <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+        <div class="coffee-invite-card relative rounded-2xl border border-accent/25 bg-white/[0.075] px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
+          <p class="text-[0.8rem] font-extrabold uppercase tracking-[0.18em] text-accent">{coffeeCopy.eyebrow}</p>
+          <p class="mt-1.5 text-lg font-extrabold leading-snug text-ink">{coffeeCopy.title}</p>
+          <p class="mt-1 text-sm font-bold text-muted">{coffeeCopy.detail}</p>
+          <svg class="absolute -right-8 top-1/2 hidden h-6 w-9 -translate-y-1/2 text-accent drop-shadow-[0_0_12px_rgba(56,189,248,0.55)] sm:block" viewBox="0 0 40 24" fill="none" aria-hidden="true">
+            <path d="M3 12h30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+            <path d="m26 5 7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <SocialIconLinks lang={lang} compact includeEmail className="justify-end" />
+      </div>
+    </div>
+  </div>
+  <p class="mt-3 px-3 text-center text-xs font-semibold text-muted/85">{coffeeCopy.funFact}</p>
+</aside>

@@ -1,0 +1,625 @@
+---
+import { withBase, type Language } from "@i18n/routes";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
+const copy = {
+  en: {
+    eyebrow: "Featured soundtrack",
+    title: "Love Story",
+    artist: "Taylor Swift · Local audio",
+    ready: "Press play to begin",
+    loading: "Loading local audio...",
+    playing: "Now playing",
+    permission: "Allow audio in your browser, then press play again",
+    unavailable: "Local audio is temporarily unavailable",
+    play: "Play Love Story by Taylor Swift",
+    pause: "Pause Love Story by Taylor Swift",
+    seek: "Seek through Love Story by Taylor Swift",
+  },
+  zh: {
+    eyebrow: "首页精选音乐",
+    title: "Love Story",
+    artist: "Taylor Swift · 本地音乐",
+    ready: "点击播放，进入我的声音空间",
+    loading: "正在加载本地音乐...",
+    playing: "正在播放",
+    permission: "请允许浏览器播放音频后再次点击",
+    unavailable: "本地音乐暂时无法播放",
+    play: "播放 Taylor Swift 的 Love Story",
+    pause: "暂停 Taylor Swift 的 Love Story",
+    seek: "调整 Taylor Swift 的 Love Story 播放进度",
+  },
+}[lang];
+---
+
+<section
+  class="hero-music mt-8 max-w-2xl"
+  aria-label={copy.eyebrow}
+  data-music-player
+  data-ready-message={copy.ready}
+  data-loading-message={copy.loading}
+  data-playing-message={copy.playing}
+  data-permission-message={copy.permission}
+  data-error-message={copy.unavailable}
+  data-play-label={copy.play}
+  data-pause-label={copy.pause}
+>
+  <div class="hero-music__aura" aria-hidden="true"></div>
+  <div class="hero-music__panel">
+    <button class="hero-music__disc-button" type="button" aria-label={copy.play} data-music-toggle>
+      <span class="hero-music__disc" aria-hidden="true">
+        <span class="hero-music__disc-lines"></span>
+        <span class="hero-music__disc-core">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M9 18V6.6l9-1.8v10.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            <circle cx="6.8" cy="18.1" r="2.3" stroke="currentColor" stroke-width="1.8"></circle>
+            <circle cx="15.8" cy="15.3" r="2.3" stroke="currentColor" stroke-width="1.8"></circle>
+          </svg>
+        </span>
+      </span>
+    </button>
+
+    <div class="hero-music__content">
+      <div class="hero-music__heading">
+        <div>
+          <div class="hero-music__eyebrow">
+            <span class="hero-music__live-dot" aria-hidden="true"></span>
+            {copy.eyebrow}
+          </div>
+          <h2>{copy.title}</h2>
+          <p>{copy.artist}</p>
+        </div>
+
+        <div class="hero-music__wave" aria-hidden="true">
+          {Array.from({ length: 18 }, (_, index) => (
+            <span style={`--wave-index:${index}; --wave-height:${8 + ((index * 7) % 20)}px`}></span>
+          ))}
+        </div>
+      </div>
+
+      <div class="hero-music__controls">
+        <button class="hero-music__play" type="button" aria-label={copy.play} data-music-toggle>
+          <svg data-music-play-icon viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m9 6 9 6-9 6V6Z" fill="currentColor"></path>
+          </svg>
+          <svg data-music-pause-icon viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+            <path d="M8 6.5v11M16 6.5v11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+          </svg>
+        </button>
+
+        <div class="hero-music__timeline">
+          <label class="sr-only" for={`hero-music-progress-${lang}`}>{copy.seek}</label>
+          <input
+            id={`hero-music-progress-${lang}`}
+            type="range"
+            min="0"
+            max="100"
+            step="0.1"
+            value="0"
+            aria-label={copy.seek}
+            data-music-progress
+          />
+          <div class="hero-music__meta">
+            <span data-music-status>{copy.ready}</span>
+            <span class="hero-music__time">
+              <span data-music-current>00:00</span>
+              <span aria-hidden="true">/</span>
+              <span data-music-duration>--:--</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <audio preload="metadata" src={audioSrc} data-music-audio></audio>
+  </div>
+</section>
+
+<script>
+  const formatMusicTime = (value: number) => {
+    if (!Number.isFinite(value)) return "--:--";
+    const minutes = Math.floor(value / 60);
+    const seconds = Math.floor(value % 60);
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-music-player]").forEach((root) => {
+    if (root.dataset.musicReady === "true") return;
+    root.dataset.musicReady = "true";
+
+    const audio = root.querySelector<HTMLAudioElement>("[data-music-audio]");
+    const toggles = root.querySelectorAll<HTMLButtonElement>("[data-music-toggle]");
+    const playIcon = root.querySelector<SVGElement>("[data-music-play-icon]");
+    const pauseIcon = root.querySelector<SVGElement>("[data-music-pause-icon]");
+    const progress = root.querySelector<HTMLInputElement>("[data-music-progress]");
+    const current = root.querySelector<HTMLElement>("[data-music-current]");
+    const duration = root.querySelector<HTMLElement>("[data-music-duration]");
+    const status = root.querySelector<HTMLElement>("[data-music-status]");
+
+    if (!audio || !progress || !current || !duration || !status) return;
+
+    let hasError = false;
+
+    const setStatus = (message: string, error = false) => {
+      status.textContent = message;
+      root.classList.toggle("has-error", error);
+    };
+
+    const setPlaying = (playing: boolean) => {
+      root.classList.toggle("is-playing", playing);
+      toggles.forEach((toggle) => {
+        toggle.setAttribute("aria-label", playing ? root.dataset.pauseLabel || "" : root.dataset.playLabel || "");
+      });
+      if (playIcon) playIcon.toggleAttribute("hidden", playing);
+      if (pauseIcon) pauseIcon.toggleAttribute("hidden", !playing);
+    };
+
+    const updateProgress = () => {
+      const percent = Number.isFinite(audio.duration) && audio.duration > 0
+        ? (audio.currentTime / audio.duration) * 100
+        : 0;
+      progress.value = String(percent);
+      progress.style.setProperty("--music-progress", `${percent}%`);
+      current.textContent = formatMusicTime(audio.currentTime);
+    };
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener("click", async () => {
+        if (!audio.paused) {
+          audio.pause();
+          return;
+        }
+
+        if (hasError) {
+          setStatus(root.dataset.errorMessage || "Audio unavailable", true);
+          return;
+        }
+
+        setStatus(root.dataset.loadingMessage || "Loading...");
+
+        try {
+          await audio.play();
+        } catch (error) {
+          const errorName = error instanceof Error ? error.name : "";
+          if (errorName === "NotAllowedError") {
+            setPlaying(false);
+            setStatus(root.dataset.permissionMessage || "Allow audio, then try again");
+            return;
+          }
+          hasError = true;
+          setPlaying(false);
+          setStatus(root.dataset.errorMessage || "Audio unavailable", true);
+        }
+      });
+    });
+
+    progress.addEventListener("input", () => {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+      audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+      updateProgress();
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      duration.textContent = formatMusicTime(audio.duration);
+      setStatus(root.dataset.readyMessage || "Ready");
+    });
+    audio.addEventListener("timeupdate", updateProgress);
+    audio.addEventListener("play", () => {
+      setPlaying(true);
+      setStatus(root.dataset.playingMessage || "Playing");
+    });
+    audio.addEventListener("pause", () => {
+      setPlaying(false);
+      if (!hasError && !audio.ended) {
+        setStatus(root.dataset.readyMessage || "Ready");
+      }
+    });
+    audio.addEventListener("ended", () => {
+      setPlaying(false);
+      audio.currentTime = 0;
+      updateProgress();
+      setStatus(root.dataset.readyMessage || "Ready");
+    });
+    audio.addEventListener("error", () => {
+      hasError = true;
+      setPlaying(false);
+      setStatus(root.dataset.errorMessage || "Audio unavailable", true);
+    });
+  });
+</script>
+
+<style>
+  .hero-music {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .hero-music__aura {
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 18% 52%, rgba(var(--rgb-violet), 0.13), transparent 30%),
+      radial-gradient(circle at 78% 48%, rgba(var(--rgb-cyan), 0.1), transparent 38%);
+    filter: blur(16px);
+    opacity: 0.46;
+  }
+
+  .hero-music__panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(var(--rgb-violet-soft), 0.3);
+    border-radius: 1.4rem;
+    padding: 1rem;
+    background:
+      linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 30%),
+      radial-gradient(circle at 0% 40%, rgba(var(--rgb-violet), 0.1), transparent 36%),
+      rgba(var(--rgb-bg-deep), 0.69);
+    box-shadow:
+      0 16px 38px rgba(var(--rgb-bg-base), 0.28),
+      0 0 24px rgba(var(--rgb-violet), 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    transition: border-color 280ms ease, box-shadow 280ms ease, transform 280ms ease;
+  }
+
+  .hero-music__panel::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background:
+      linear-gradient(110deg, transparent 0 42%, rgba(255, 255, 255, 0.08) 49%, transparent 56%),
+      linear-gradient(90deg, transparent, rgba(var(--rgb-cyan-soft), 0.08), transparent);
+    background-size: 220% 100%, 100% 1px;
+    background-position: 120% 0, 0 calc(100% - 1px);
+    opacity: 0.68;
+    transition: background-position 800ms ease;
+  }
+
+  .hero-music:hover .hero-music__panel,
+  .hero-music.is-playing .hero-music__panel {
+    border-color: rgba(var(--rgb-cyan-soft), 0.52);
+    box-shadow:
+      0 18px 44px rgba(var(--rgb-bg-base), 0.34),
+      0 0 28px rgba(var(--rgb-cyan), 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .hero-music:hover .hero-music__panel::after {
+    background-position: -120% 0, 0 calc(100% - 1px);
+  }
+
+  .hero-music__disc-button,
+  .hero-music__play {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    border: 0;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .hero-music__disc-button {
+    align-self: center;
+    width: 4.75rem;
+    height: 4.75rem;
+    border-radius: 999px;
+    padding: 0;
+    background: transparent;
+    filter: drop-shadow(0 10px 16px rgba(var(--rgb-bg-base), 0.42));
+  }
+
+  .hero-music__disc {
+    position: relative;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    border: 1px solid rgba(var(--rgb-cyan-soft), 0.34);
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at center, rgba(var(--rgb-bg-base), 0.86) 0 12%, transparent 13%),
+      repeating-radial-gradient(circle at center, transparent 0 5px, rgba(255, 255, 255, 0.08) 5.8px 6.2px),
+      conic-gradient(from 210deg, #0b1730, #4338ca, #0f2c46, #7c3aed, #0b1730);
+    box-shadow:
+      0 0 0 5px rgba(255, 255, 255, 0.03),
+      0 0 22px rgba(var(--rgb-violet), 0.18),
+      inset 0 0 24px rgba(var(--rgb-cyan-soft), 0.12);
+  }
+
+  .hero-music__disc-lines {
+    position: absolute;
+    inset: 7px;
+    border: 1px dashed rgba(var(--rgb-cyan-soft), 0.36);
+    border-radius: inherit;
+  }
+
+  .hero-music__disc-core {
+    position: relative;
+    display: grid;
+    width: 2.15rem;
+    height: 2.15rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    border-radius: 999px;
+    color: var(--cyan);
+    background: rgba(var(--rgb-bg-base), 0.82);
+    box-shadow: 0 0 12px rgba(var(--rgb-cyan), 0.28);
+  }
+
+  .hero-music__disc-core svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .hero-music__content {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  .hero-music__heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .hero-music__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 850;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .hero-music__live-dot {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(var(--rgb-cyan), 0.72);
+  }
+
+  .hero-music h2 {
+    overflow: hidden;
+    margin: 0.28rem 0 0;
+    color: var(--ink);
+    font-family: Newsreader, "Source Serif 4", Georgia, serif;
+    font-size: 1.22rem;
+    font-weight: 650;
+    line-height: 1.1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hero-music p {
+    overflow: hidden;
+    margin: 0.2rem 0 0;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hero-music__wave {
+    display: flex;
+    height: 1.9rem;
+    align-items: center;
+    gap: 2px;
+    opacity: 0.5;
+    transition: opacity 220ms ease;
+  }
+
+  .hero-music__wave span {
+    width: 2px;
+    height: var(--wave-height);
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--cyan), var(--violet));
+    transform: scaleY(0.28);
+    transform-origin: center;
+  }
+
+  .hero-music.is-playing .hero-music__wave {
+    opacity: 1;
+  }
+
+  .hero-music.is-playing .hero-music__wave span {
+    animation: music-wave 760ms ease-in-out infinite alternate;
+    animation-delay: calc(var(--wave-index) * -48ms);
+  }
+
+  .hero-music.is-playing .hero-music__disc {
+    animation: music-disc-spin 8s linear infinite;
+  }
+
+  .hero-music__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .hero-music__play {
+    width: 2.35rem;
+    height: 2.35rem;
+    border: 1px solid rgba(var(--rgb-cyan-soft), 0.46);
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(var(--rgb-cyan), 0.96), rgba(var(--rgb-violet-soft), 0.92));
+    box-shadow:
+      0 0 16px rgba(var(--rgb-cyan), 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.46);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+
+  .hero-music__play:hover,
+  .hero-music__disc-button:hover {
+    transform: scale(1.055);
+  }
+
+  .hero-music__play svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .hero-music__timeline {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .hero-music__timeline input {
+    --music-progress: 0%;
+    display: block;
+    width: 100%;
+    height: 0.25rem;
+    margin: 0;
+    appearance: none;
+    border-radius: 999px;
+    cursor: pointer;
+    background:
+      linear-gradient(90deg, var(--cyan), var(--violet) var(--music-progress), rgba(255, 255, 255, 0.15) var(--music-progress));
+  }
+
+  .hero-music__timeline input::-webkit-slider-thumb {
+    width: 0.7rem;
+    height: 0.7rem;
+    appearance: none;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(var(--rgb-cyan), 0.54);
+  }
+
+  .hero-music__timeline input::-moz-range-thumb {
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(var(--rgb-cyan), 0.54);
+  }
+
+  .hero-music__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.7rem;
+    margin-top: 0.42rem;
+    color: var(--muted);
+    font-size: 0.63rem;
+    font-weight: 720;
+  }
+
+  .hero-music__time {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.22rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero-music.has-error [data-music-status] {
+    color: var(--gold);
+  }
+
+  @keyframes music-wave {
+    from {
+      transform: scaleY(0.28);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes music-disc-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero-music__panel {
+      grid-template-columns: 3.35rem minmax(0, 1fr);
+      gap: 0.72rem;
+      border-radius: 1.15rem;
+      padding: 0.8rem;
+    }
+
+    .hero-music__disc-button {
+      width: 3.35rem;
+      height: 3.35rem;
+    }
+
+    .hero-music__disc-lines {
+      inset: 5px;
+    }
+
+    .hero-music__disc-core {
+      width: 1.65rem;
+      height: 1.65rem;
+    }
+
+    .hero-music__disc-core svg {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+
+    .hero-music__wave {
+      display: none;
+    }
+
+    .hero-music h2 {
+      font-size: 1.05rem;
+    }
+
+    .hero-music p {
+      font-size: 0.65rem;
+    }
+
+    .hero-music__controls {
+      gap: 0.55rem;
+      margin-top: 0.62rem;
+    }
+
+    .hero-music__play {
+      width: 2.1rem;
+      height: 2.1rem;
+    }
+
+    .hero-music__meta {
+      font-size: 0.56rem;
+    }
+
+    [data-music-status] {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-music__panel,
+    .hero-music__play,
+    .hero-music__disc-button,
+    .hero-music__wave span,
+    .hero-music__disc {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

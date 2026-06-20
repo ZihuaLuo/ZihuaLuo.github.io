@@ -1,0 +1,33 @@
+---
+title: "Do Not Mistake Cheap Attention For Real Value"
+description: "The place where attention gathers is not necessarily worth following"
+date: 2026-02-12
+category: "Cognition"
+tags: ["Attention", "Value Judgment", "Long-Term Relationships"]
+language: "en"
+translationKey: "cheap-attention-is-not-real-value"
+featured: true
+draft: false
+---
+
+
+
+> The place where attention gathers is not necessarily worth following.
+
+After reading Letter 013, "Other People's Attention May Be Worth Very Little," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: in today's age of information overload, attention seems increasingly important, but not all attention has the same value. Many people believe that as long as someone sees them, clicks on them, or watches them, they have influence and value. But this letter reminds me that the important question is not "how many people are paying attention," but "what kind of people are paying attention, and can that attention create real meaning?"
+
+The letter begins with the free model of the internet. After many kinds of content and services became free, people began to believe that "gaining user attention itself has value." This view looks reasonable: attention creates traffic, and traffic seems monetizable. But Wu Jun points out that attention itself is not necessarily valuable. Spending energy on things that are not worth attention can bring very low returns. For example, many small game companies advertise on media platforms. On the surface, their ads may be seen by millions of users every day, but very few people are actually willing to click, understand, download, and continue using the game. The advertising platform can certainly say, "You received a lot of attention." But if that attention cannot become real users and real revenue, it is only noise.
+
+This makes me think of a very real problem: we often mistake "being seen" for "having value." In the internet environment, a piece of content being shown to many people, an account having many followers, or a product receiving a lot of exposure can all create the illusion of success. But exposure is not recognition, and being watched is not the same as being trusted. Much attention is shallow. People see it, but have no interest. They pause for a few seconds, but do not act. Sometimes it is only pushed in front of them by an algorithm, not actively chosen. This kind of attention looks large in quantity, but its actual value may be very low.
+
+The letter also uses television and other media to show that different kinds of content attract attention of different value. Internet ads may seem everywhere, but if users simply swipe past them with scattered attention, their commercial value is very low. By contrast, some high-quality magazines, films, or serious content may not have the largest audience, but readers and viewers are willing to invest more time and pay for the content. A book in the United States may cost about 30 dollars, and if the reader spends ten hours reading it, they are willing to pay about three dollars per hour for that content. The hourly cost of watching a movie may be even higher. But reading low-quality tabloids or online gossip may leave the value of an hour at only a few cents. This shows that the value of content does not depend only on how many people view it. It depends on how much time, money, and trust viewers are willing to give it.
+
+Behind this is a deeper judgment: attention is not equal. Some attention is only temporary watching, while some attention represents trust, willingness to pay, and long-term relationship. A person or product being seen by many people does not mean it is truly recognized. A piece of content spreading widely does not mean it is truly valuable. What is truly worth pursuing is not making everyone see you, but making the people who truly need you, recognize you, and are willing to connect with you pay attention. In other words, the quality of attention matters more than the quantity of attention.
+
+The example of Leica cameras is also instructive. Under price competition from Nikon, Canon, and other companies, Leica once nearly went bankrupt. Later, its revival did not come from chasing everyone's attention or making its products cheaper. It came from re-understanding its core users. Leica began managing its community and improving the user consumption experience, allowing people who genuinely liked it and were willing to pay for it to gain a stronger sense of identity and use value. This example shows that sometimes a company does not need to pursue the largest possible scale of attention. It needs to find the most valuable attention. No amount of low-quality attention is as valuable as the long-term value created by a smaller number of high-quality users.
+
+This letter is also highly relevant to personal development. Today, many people like to attend all kinds of events, add many contacts on WeChat, seek attention, and maintain a sense of presence, believing this will expand their resources. But if these relationships are only shallow connections, and the other person does not understand you or know what value you can provide, then that attention is cheap. Instead of spending time making more people know me, it is better to think first about which people I can truly help. The relationships that can support each other, enable each other, and produce real value are the ones worth cherishing more in personal development. They may not be the most numerous, but they are the highest in quality.
+
+Likewise, in learning and information consumption, we cannot hand over our attention simply because something is free, lively, or easy to obtain. Many free pieces of content appear to have no cost, but they consume time and judgment. If a person spends large amounts of time every day on low-quality information, it looks like they spent no money, but in reality they wasted a more expensive resource. The content truly worth attention is often not the most stimulating, noisy, or easily available content. It is the content that can improve cognition, train judgment, and help us grow.
+
+The core reflection this letter left me with is that more attention is not always better. What matters is whether the attention has quality, whether it can become value, and whether it deserves long-term investment. Whether building a company, producing media, or developing personally, we cannot only chase being seen by more people. What truly matters is finding the people worth serving, the content worth investing in, and the relationships worth building. Cheap attention only creates false prosperity. High-quality attention creates real value.

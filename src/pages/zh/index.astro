@@ -1,0 +1,99 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.astro";
+import SectionTitle from "@components/SectionTitle.astro";
+import NowDashboard from "@components/NowDashboard.astro";
+import ThoughtCard from "@components/ThoughtCard.astro";
+import TimelineItem from "@components/TimelineItem.astro";
+import TimelineMotion from "@components/TimelineMotion.astro";
+import CreditSection from "@components/CreditSection.astro";
+import CTAButton from "@components/CTAButton.astro";
+import { entrySlug, langPath } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+
+const lang = "zh";
+const includeDrafts = !import.meta.env.PROD;
+const featuredThoughts = (await getCollection(
+  "thoughts",
+  ({ data }) => data.language === lang && data.featured && (includeDrafts || !data.draft),
+))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 6);
+
+const timelinePreview = (await getCollection(
+  "timeline",
+  ({ data }) => data.language === lang && (includeDrafts || !data.draft),
+))
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+  .slice(0, 10);
+
+---
+
+<BaseLayout
+  title={`${siteInfo.zhDisplayName} | 金融、研究分析与风险意识`}
+  description="关于金融、研究分析、风险意识、学习记录与结构化反思的双语个人网站"
+  lang={lang}
+  alternateHref="/"
+  canonicalPath="/zh/"
+>
+  <Hero lang={lang} />
+
+  <section id="timeline" class="timeline-stage py-18 sm:py-24" data-timeline-stage>
+    <div class="container-page relative z-10">
+      <div class="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
+        <SectionTitle
+          title="我的金融、研究与判断力成长路径"
+          description="这条时间线记录了我在金融实务、研究支持与数据分析中的成长轨迹。每一段经历都不只是职位变化，而是一次能力沉淀：从处理复杂信息，到建立判断框架，再到把分析结果转化为可执行、可复用的成果。"
+        />
+        <div class="premium-card rounded-2xl p-5">
+          <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-accent">我的职业命题</p>
+          <p class="mt-2 text-sm font-semibold leading-7 text-muted">
+            我的兴趣不止于金融数据本身，而在于数据背后的资产逻辑、风险结构与市场行为：用分析理解价值，用判断连接决策。
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs font-extrabold text-body">
+            <span class="rounded-full border border-white/[0.13] bg-white/[0.08] px-2.5 py-1">资产逻辑</span>
+            <span class="rounded-full border border-white/[0.13] bg-white/[0.08] px-2.5 py-1">风险结构</span>
+            <span class="rounded-full border border-white/[0.13] bg-white/[0.08] px-2.5 py-1">市场判断</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-rail relative mt-14 grid gap-y-12 before:absolute before:left-2.5 before:top-0 before:h-full before:w-px lg:gap-y-20 lg:before:left-1/2" data-timeline-rail>
+        <span class="timeline-progress" aria-hidden="true"></span>
+        {timelinePreview.map((entry, index) => (
+          <div class={`timeline-row grid lg:grid-cols-2 lg:gap-x-16 ${index % 2 === 0 ? "timeline-row--left" : "timeline-row--right"}`} data-timeline-entry>
+            <div class={index % 2 === 0 ? "lg:col-start-1" : "lg:col-start-2"}>
+              <TimelineItem entry={entry} align={index % 2 === 0 ? "left" : "right"} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <TimelineMotion />
+  </section>
+
+  <section id="impact" class="surface-section now-section scroll-mt-24 py-18 sm:py-24">
+    <div class="container-page">
+      <NowDashboard lang={lang} />
+    </div>
+  </section>
+
+  <section id="thinking" class="surface-section archive-section archive-section--thoughts scroll-mt-24 py-18 sm:py-24">
+    <div class="container-page">
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <SectionTitle
+          title="精选思考文章"
+          description="从完整思考档案中挑出的重点文章，记录认知、判断、职业和长期成长"
+        />
+        <CTAButton href={langPath(lang, "/thoughts/")} label="全部思考" variant="secondary" />
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+        {featuredThoughts.map((entry) => (
+          <ThoughtCard entry={entry} lang={lang} href={langPath(lang, `/thoughts/${entrySlug(entry.id)}/`)} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CreditSection lang={lang} />
+</BaseLayout>

@@ -1,0 +1,1381 @@
+---
+import type { Language } from "@i18n/routes";
+
+interface Props {
+  lang: Language;
+  showHeader?: boolean;
+}
+
+const { lang, showHeader = true } = Astro.props;
+
+type Tone = "cyan" | "violet" | "gold" | "blue";
+
+const dashboardText = {
+  en: {
+    eyebrow: "Measured Achievement Archive",
+    title: "Impact Metrics",
+    subtitle:
+      "A quantified record of academic performance, credentials, work execution, professional networking, and analytical scale",
+    statusItems: [
+      { label: "Academic Record", value: "GPA 3.90/4.00", level: 98, tone: "cyan" as Tone },
+      { label: "Credential Speed", value: "Full FRM in 6 Months", level: 88, tone: "violet" as Tone },
+      { label: "CFA Preparation", value: "CFA I/II Study 730 Hours", level: 73, tone: "gold" as Tone },
+      { label: "Capital Exposure", value: "$3B+ AUM", level: 92, tone: "blue" as Tone },
+    ],
+    metricTitle: "Quantified Highlights",
+    metricSubtitle: "Sustained learning, routine discipline, and personal operating standards",
+    heroMetrics: [
+      { label: "Online Learning", value: "1,800 Hours", detail: "Recorded learning accumulation", tone: "cyan" as Tone },
+      { label: "Annual Reviews", value: "4 Years", detail: "Completed every year", tone: "cyan" as Tone },
+      { label: "Wake-Up Time", value: "6 AM", detail: "Daily operating rhythm", tone: "violet" as Tone },
+    ],
+    credentialTitle: "Academic Breadth",
+    credentialSubtitle: "Academic structure and cross-disciplinary preparation",
+    credentialItems: [
+      { label: "Academic Minors", value: "3 Minors", detail: "Multi-disciplinary academic load", level: 62, tone: "blue" as Tone },
+      { label: "DeGroote Standing", value: "Top 10%", detail: "Ranked among the strongest academic cohort", level: 90, tone: "cyan" as Tone },
+      { label: "Core Study Areas", value: "4", detail: "Finance, economics, analytics, and advanced math", level: 76, tone: "gold" as Tone },
+      { label: "Major Focus", value: "Finance", detail: "Honours commerce concentration", level: 86, tone: "violet" as Tone },
+      { label: "Program Track", value: "Honours BCom", detail: "Honours commerce program", level: 70, tone: "cyan" as Tone },
+    ],
+    executionTitle: "Professional Networking & Execution Load",
+    executionSubtitle: "Relationship-building, role volume, multitasking, and delivery intensity",
+    executionItems: [
+      { label: "Professional Events", value: "20+", detail: "Networking events attended", tone: "cyan" as Tone },
+      { label: "Coffee Chats", value: "100+", detail: "Career conversations completed", tone: "violet" as Tone },
+      { label: "Concurrent Jobs", value: "3 Jobs", detail: "Workstreams managed in parallel", tone: "gold" as Tone },
+      { label: "Multitasking Load", value: "8+", detail: "Active responsibilities handled at once", tone: "blue" as Tone },
+      { label: "Latest Work Time", value: "3 AM", detail: "Peak late-cycle execution", tone: "violet" as Tone },
+      { label: "Follow-Up Notes", value: "120+", detail: "Post-conversation tracking", tone: "cyan" as Tone },
+    ],
+    scaleTitle: "Analysis Scale",
+    scaleSubtitle: "Data depth, review volume, filing history, commercial reading, tax exposure, and conversion results",
+    scaleOutcomeCards: [
+      { label: "Analysis Dimensions", value: "7", tone: "blue" as Tone },
+      { label: "Dashboards Built", value: "4+", tone: "cyan" as Tone },
+      { label: "Cost Reduction", value: "30%", tone: "gold" as Tone },
+    ],
+    scaleCoreLabel: "Data Points Analyzed",
+    scaleCoreValue: "100K+",
+    scaleItems: [
+      { label: "Fund Reports Reviewed", value: "50+", detail: "Reviews", level: 72, tone: "violet" as Tone },
+      { label: "SEC Filings Reviewed", value: "30 Years", detail: "Filing History", level: 64, tone: "gold" as Tone },
+      { label: "Business Articles", value: "2,000+", detail: "Commercial writing reviewed", level: 88, tone: "cyan" as Tone },
+      { label: "Tax Filing Amount", value: "$100K+", detail: "Cumulative filing value", level: 68, tone: "gold" as Tone },
+      { label: "Client Conversion", value: "15%+", detail: "Conversion performance", level: 80, tone: "blue" as Tone },
+    ],
+    networkTitle: "Evidence Network",
+    networkSubtitle: "A layered flow from academic base and relationship reach into execution, analysis, and measurable outcomes",
+    networkLegend: "Impact Flow",
+    networkCoreLabel: "Outcome Engine",
+    networkCoreValue: "12 Signals",
+    networkStages: [
+      {
+        title: "Foundation",
+        value: "3.90 GPA",
+        tone: "cyan" as Tone,
+        items: ["Academics", "Honours BCom", "CFA / FRM"],
+      },
+      {
+        title: "Relationship Reach",
+        value: "120+ Notes",
+        tone: "violet" as Tone,
+        items: ["Professional Events", "Coffee Chats", "Follow-Up Notes"],
+      },
+      {
+        title: "Execution System",
+        value: "3 Jobs / 8+",
+        tone: "gold" as Tone,
+        items: ["Workload", "Office / Coding Tools", "Delivery Rhythm"],
+      },
+      {
+        title: "Analytical Output",
+        value: "100K+",
+        tone: "blue" as Tone,
+        items: ["Research Dashboard", "Fund Review", "SEC Filings", "Client Conversion"],
+      },
+    ],
+    networkStats: [
+      { label: "Reliability", value: "100%", level: 100, tone: "gold" as Tone },
+      { label: "To-Do List Execution", value: "8h", level: 88, tone: "blue" as Tone },
+      { label: "Office & Coding Tools", value: "15+", level: 90, tone: "violet" as Tone },
+      { label: "Evidence Groups", value: "12 Nodes", level: 86, tone: "cyan" as Tone },
+    ],
+  },
+  zh: {
+    eyebrow: "可量化成果档案",
+    title: "量化成果",
+    subtitle: "记录学业、证书、执行负载、职业社交与分析规模",
+    statusItems: [
+      { label: "学业记录", value: "GPA 3.90/4.00", level: 98, tone: "cyan" as Tone },
+      { label: "证书速度", value: "6 个月通过全部 FRM", level: 88, tone: "violet" as Tone },
+      { label: "CFA 备考", value: "CFA 一/二级学习 730 小时", level: 73, tone: "gold" as Tone },
+      { label: "资金规模", value: "超 $3B AUM", level: 92, tone: "blue" as Tone },
+    ],
+    metricTitle: "量化亮点",
+    metricSubtitle: "持续学习、日常纪律与个人执行标准",
+    heroMetrics: [
+      { label: "线上学习", value: "1,800 小时", detail: "累计学习记录", tone: "cyan" as Tone },
+      { label: "年度总结", value: "4 年", detail: "连续完成年度复盘", tone: "cyan" as Tone },
+      { label: "起床时间", value: "6 AM", detail: "稳定作息节奏", tone: "violet" as Tone },
+    ],
+    credentialTitle: "学术广度",
+    credentialSubtitle: "学业结构与跨方向准备",
+    credentialItems: [
+      { label: "辅修数量", value: "3 个", detail: "跨方向学业负载", level: 62, tone: "blue" as Tone },
+      { label: "德格鲁特排名", value: "前 10%", detail: "保持在商学院高表现群体", level: 90, tone: "cyan" as Tone },
+      { label: "核心学习方向", value: "4 个", detail: "金融、经济、分析与高阶数学", level: 76, tone: "gold" as Tone },
+      { label: "主修方向", value: "金融", detail: "荣誉商科学士核心方向", level: 86, tone: "violet" as Tone },
+      { label: "商科项目", value: "荣誉商科", detail: "荣誉商科学士项目", level: 70, tone: "cyan" as Tone },
+    ],
+    executionTitle: "职业社交与执行负载",
+    executionSubtitle: "关系建立、工作并行、多任务处理与高强度交付",
+    executionItems: [
+      { label: "职业活动", value: "20+", detail: "参加职业社交活动", tone: "cyan" as Tone },
+      { label: "咖啡交流", value: "100+", detail: "完成职业交流", tone: "violet" as Tone },
+      { label: "同时进行的工作", value: "3 份", detail: "并行推进工作流", tone: "gold" as Tone },
+      { label: "多任务负载", value: "8+", detail: "同时处理的任务数量", tone: "blue" as Tone },
+      { label: "最晚工作时间", value: "3 AM", detail: "高强度交付节点", tone: "violet" as Tone },
+      { label: "跟进记录", value: "120+", detail: "会后跟进与记录", tone: "cyan" as Tone },
+    ],
+    scaleTitle: "分析规模",
+    scaleSubtitle: "用数据深度、审核数量、申报文件跨度、商业阅读、报税金额与转化表现呈现真实分析工作量",
+    scaleOutcomeCards: [
+      { label: "分析维度覆盖", value: "7 类", tone: "blue" as Tone },
+      { label: "动态仪表盘", value: "4+", tone: "cyan" as Tone },
+      { label: "成本优化", value: "30%", tone: "gold" as Tone },
+    ],
+    scaleCoreLabel: "数据分析规模",
+    scaleCoreValue: "100K+",
+    scaleItems: [
+      { label: "基金报表审核", value: "50+", detail: "审核数量", level: 72, tone: "violet" as Tone },
+      { label: "SEC 申报文件跨度", value: "30 年", detail: "申报文件历史", level: 64, tone: "gold" as Tone },
+      { label: "商业文章审阅", value: "2,000+", detail: "商业内容阅读与审阅", level: 88, tone: "cyan" as Tone },
+      { label: "报税累计金额", value: "$100K+", detail: "累计处理金额", level: 68, tone: "gold" as Tone },
+      { label: "客户转化率", value: "15%+", detail: "转化表现", level: 80, tone: "blue" as Tone },
+    ],
+    networkTitle: "成果网络",
+    networkSubtitle: "把学业基础、关系触达、执行系统与分析产出组织成一条可追踪的成果流",
+    networkLegend: "成果流",
+    networkCoreLabel: "成果引擎",
+    networkCoreValue: "12 个信号",
+    networkStages: [
+      {
+        title: "基础资产",
+        value: "3.90 GPA",
+        tone: "cyan" as Tone,
+        items: ["学业", "荣誉商科", "CFA / FRM"],
+      },
+      {
+        title: "关系触达",
+        value: "120+ 记录",
+        tone: "violet" as Tone,
+        items: ["职业活动", "咖啡交流", "跟进记录"],
+      },
+      {
+        title: "执行系统",
+        value: "3 份 / 8+",
+        tone: "gold" as Tone,
+        items: ["工作负载", "工具栈", "交付节奏"],
+      },
+      {
+        title: "分析产出",
+        value: "100K+",
+        tone: "blue" as Tone,
+        items: ["研究仪表盘", "基金审核", "SEC 申报文件", "客户转化"],
+      },
+    ],
+    networkStats: [
+      { label: "交付可靠性", value: "100%", level: 100, tone: "gold" as Tone },
+      { label: "待办清单执行", value: "8h", level: 88, tone: "blue" as Tone },
+      { label: "办公与编程工具", value: "15+", level: 90, tone: "violet" as Tone },
+      { label: "证据节点", value: "12 个", level: 86, tone: "cyan" as Tone },
+    ],
+  },
+}[lang];
+
+const trackColor = (tone: Tone) =>
+  tone === "cyan"
+    ? "var(--cyan)"
+    : tone === "violet"
+      ? "var(--text-violet)"
+      : tone === "gold"
+        ? "var(--accent-warm)"
+        : "var(--text-cyan)";
+---
+
+<div class="impact-dashboard relative">
+  {showHeader && (
+    <div class="impact-header mb-9 grid gap-6 lg:grid-cols-[0.76fr_1.24fr] lg:items-end">
+      <div class="max-w-3xl overflow-visible">
+        <h2 class="display-heading title-flow title-flow--section bg-[linear-gradient(135deg,#FFFFFF_0%,#DBEAFE_46%,#7DD3FC_72%,#C4B5FD_100%)] bg-clip-text text-4xl font-semibold leading-[1.12] text-transparent sm:text-5xl lg:text-6xl">
+          {dashboardText.title}
+        </h2>
+        <p class="mt-4 text-base leading-8 text-muted sm:text-lg">{dashboardText.subtitle}</p>
+      </div>
+
+      <div class="impact-status-grid grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {dashboardText.statusItems.map((item) => (
+          <div class={`impact-status impact-tone-${item.tone} ${item.value.length > 12 ? "impact-status--compact" : ""}`}>
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+            <i style={`width:${item.level}%; --bar:${trackColor(item.tone)}`}></i>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <div class="impact-grid">
+    <section class="impact-panel impact-panel--scoreboard">
+      <div class="impact-panel__head">
+        <div>
+          <p class="eyebrow">{dashboardText.metricTitle}</p>
+          <p class="mt-3 text-sm leading-7 text-body">{dashboardText.metricSubtitle}</p>
+        </div>
+      </div>
+
+      <div class="metric-wall mt-6">
+        {dashboardText.heroMetrics.map((item) => (
+          <article class={`metric-tile impact-tone-${item.tone}`}>
+            <span class="metric-tile__label">{item.label}</span>
+            <strong class="metric-tile__value">{item.value}</strong>
+            <span class="metric-tile__detail">{item.detail}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="impact-panel impact-panel--credentials">
+      <div class="impact-panel__head">
+        <div>
+          <p class="eyebrow">{dashboardText.credentialTitle}</p>
+          <p class="mt-3 text-sm leading-7 text-body">{dashboardText.credentialSubtitle}</p>
+        </div>
+      </div>
+
+      <div class="achievement-bars mt-6">
+        {dashboardText.credentialItems.map((item) => (
+          <div class={`achievement-row impact-tone-${item.tone}`}>
+            <div class="achievement-row__top">
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+            <p>{item.detail}</p>
+            <div class="achievement-track" aria-hidden="true">
+              <span style={`width:${item.level}%; --bar:${trackColor(item.tone)}`}></span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="impact-panel impact-panel--execution">
+      <div class="impact-panel__head">
+        <div>
+          <p class="eyebrow">{dashboardText.executionTitle}</p>
+          <p class="mt-3 text-sm leading-7 text-body">{dashboardText.executionSubtitle}</p>
+        </div>
+      </div>
+
+      <div class="execution-stack mt-6">
+        {dashboardText.executionItems.map((item) => (
+          <article class={`execution-row impact-tone-${item.tone}`}>
+            <div>
+              <span>{item.label}</span>
+              <p>{item.detail}</p>
+            </div>
+            <strong>{item.value}</strong>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="impact-panel impact-panel--scale">
+      <div class="impact-panel__head impact-panel__head--split impact-panel__head--scale">
+        <div class="scale-copy">
+          <p class="eyebrow">{dashboardText.scaleTitle}</p>
+          <p class="scale-copy__subtitle">{dashboardText.scaleSubtitle}</p>
+        </div>
+        <div class="scale-lead-grid" aria-label={dashboardText.scaleTitle}>
+          {dashboardText.scaleOutcomeCards.map((item) => (
+            <article class={`scale-lead impact-tone-${item.tone}`}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="scale-visual mt-5">
+        <div class="scale-radar" aria-hidden="true">
+          <div class="scale-radar__ring scale-radar__ring--one"></div>
+          <div class="scale-radar__ring scale-radar__ring--two"></div>
+          <div class="scale-radar__core">
+            <span>{dashboardText.scaleCoreValue}</span>
+            <small>{dashboardText.scaleCoreLabel}</small>
+          </div>
+        </div>
+
+        <div class="scale-bars">
+          {dashboardText.scaleItems.map((item) => (
+            <div class={`scale-bar impact-tone-${item.tone}`}>
+              <div class="scale-bar__top">
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+              <p>{item.detail}</p>
+              <div class="scale-bar__track" aria-hidden="true">
+                <span style={`width:${item.level}%; --bar:${trackColor(item.tone)}`}></span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-panel impact-panel--network">
+      <div class="impact-panel__head impact-panel__head--split">
+        <div>
+          <p class="eyebrow">{dashboardText.networkTitle}</p>
+          <p class="mt-3 max-w-3xl text-sm leading-7 text-body">{dashboardText.networkSubtitle}</p>
+        </div>
+        <span class="network-legend">{dashboardText.networkLegend}</span>
+      </div>
+
+      <div class="impact-flow mt-7">
+        <div class="impact-flow__scene">
+          <svg class="impact-flow__ribbons" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id={`flow-primary-${lang}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#67E8F9" stop-opacity="0.12" />
+                <stop offset="34%" stop-color="#C4B5FD" stop-opacity="0.56" />
+                <stop offset="66%" stop-color="#D6A85C" stop-opacity="0.48" />
+                <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.14" />
+              </linearGradient>
+              <linearGradient id={`flow-secondary-${lang}`} x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.15" />
+                <stop offset="50%" stop-color="#67E8F9" stop-opacity="0.5" />
+                <stop offset="100%" stop-color="#C4B5FD" stop-opacity="0.18" />
+              </linearGradient>
+              <radialGradient id={`flow-core-glow-${lang}`} cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0.55" />
+                <stop offset="45%" stop-color="#67E8F9" stop-opacity="0.16" />
+                <stop offset="100%" stop-color="#0B1226" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <ellipse class="impact-flow__halo" cx="500" cy="260" rx="262" ry="150" />
+            <path class="impact-flow__ribbon impact-flow__ribbon--wide" d="M74 162 C210 80 338 214 500 260 S760 430 930 336" stroke={`url(#flow-primary-${lang})`} />
+            <path class="impact-flow__ribbon" d="M90 382 C250 462 342 304 500 260 S738 74 906 152" stroke={`url(#flow-secondary-${lang})`} />
+            <path class="impact-flow__ribbon impact-flow__ribbon--fine" d="M108 260 C242 218 368 218 500 260 S748 318 892 260" />
+            <path class="impact-flow__connector impact-flow__connector--one" d="M182 142 C292 146 386 182 500 260" />
+            <path class="impact-flow__connector impact-flow__connector--two" d="M276 404 C350 356 422 314 500 260" />
+            <path class="impact-flow__connector impact-flow__connector--three" d="M724 142 C638 162 570 204 500 260" />
+            <path class="impact-flow__connector impact-flow__connector--four" d="M820 404 C712 376 600 314 500 260" />
+            <circle class="impact-flow__core-glow" cx="500" cy="260" r="148" fill={`url(#flow-core-glow-${lang})`} />
+          </svg>
+
+          <div class="impact-flow__core">
+            <span>{dashboardText.networkCoreLabel}</span>
+            <strong>{dashboardText.networkCoreValue}</strong>
+          </div>
+
+          <div class="impact-flow__stages">
+            {dashboardText.networkStages.map((stage, index) => (
+              <article class={`impact-flow__stage impact-flow__stage--${index + 1} impact-tone-${stage.tone}`} style={`--stage:${trackColor(stage.tone)}; --index:${index}`}>
+                <span class="impact-flow__node" aria-hidden="true"></span>
+                <div class="impact-flow__stage-top">
+                  <span>{stage.title}</span>
+                  <strong>{stage.value}</strong>
+                </div>
+                <div class="impact-flow__chips">
+                  {stage.items.map((item) => (
+                    <span>{item}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="network-stat-grid mt-5">
+        {dashboardText.networkStats.map((item) => (
+          <article class={`network-stat impact-tone-${item.tone}`}>
+            <div class="network-stat__top">
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+            <div class="network-stat__track" aria-hidden="true">
+              <span style={`width:${item.level}%; --bar:${trackColor(item.tone)}`}></span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+</div>
+
+<style>
+  .impact-dashboard::before {
+    background:
+      radial-gradient(ellipse at 58% 8%, rgba(var(--rgb-cyan), 0.11), transparent 32rem),
+      radial-gradient(ellipse at 82% 26%, rgba(var(--rgb-violet), 0.13), transparent 34rem);
+    content: "";
+    filter: blur(8px);
+    inset: -4rem -2rem auto;
+    height: 30rem;
+    opacity: 0.48;
+    pointer-events: none;
+    position: absolute;
+    contain: paint;
+  }
+
+  .impact-grid {
+    display: grid;
+    gap: 1.35rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    position: relative;
+    z-index: 1;
+  }
+
+  .impact-panel,
+  .impact-status,
+  .metric-tile,
+  .execution-row,
+  .scale-lead {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.04)),
+      rgba(var(--rgb-bg-base), 0.42);
+    box-shadow:
+      0 18px 46px rgba(var(--rgb-bg-base), 0.3),
+      0 0 26px rgba(var(--rgb-cyan), 0.045),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    contain: paint;
+  }
+
+  .impact-panel {
+    border-radius: 1.7rem;
+    overflow: hidden;
+    padding: 1.55rem;
+    position: relative;
+  }
+
+  .impact-panel::before {
+    background:
+      linear-gradient(90deg, rgba(var(--rgb-cyan-soft), 0.09) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(var(--rgb-violet-soft), 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+    content: "";
+    inset: 0;
+    opacity: 0.12;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .impact-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .impact-panel--scoreboard,
+  .impact-panel--scale {
+    grid-column: 1 / -1;
+  }
+
+  .impact-panel--scale {
+    order: 1;
+  }
+
+  .impact-panel--scoreboard {
+    order: 2;
+  }
+
+  .impact-panel--credentials {
+    grid-column: span 7;
+    order: 3;
+  }
+
+  .impact-panel--execution {
+    grid-column: span 5;
+    order: 4;
+  }
+
+  .impact-panel--network {
+    grid-column: 1 / -1;
+    order: 5;
+  }
+
+  .impact-panel__head {
+    align-items: start;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .impact-panel__head--split {
+    align-items: center;
+  }
+
+  .impact-panel__head--scale {
+    align-items: start;
+    display: grid;
+    gap: 1rem 1.25rem;
+    grid-template-columns: minmax(0, 1fr) minmax(23rem, 25.5rem);
+  }
+
+  .impact-panel__head > div > .eyebrow {
+    font-size: 0.92rem;
+    letter-spacing: 0.12em;
+    line-height: 1.35;
+  }
+
+  .scale-copy {
+    max-width: 41rem;
+  }
+
+  .scale-copy__subtitle {
+    color: var(--text-body);
+    font-size: 0.875rem;
+    line-height: 1.58;
+    margin-top: 0.52rem;
+    max-width: 40rem;
+  }
+
+  .impact-status {
+    border-radius: 1.1rem;
+    display: grid !important;
+    grid-template-rows: auto minmax(3rem, 1fr) auto;
+    min-height: 7.35rem;
+    padding: 0.95rem;
+  }
+
+  .impact-status span,
+  .metric-tile__label,
+  .execution-row span,
+  .scale-lead span,
+  .scale-bar__top span,
+  .achievement-row__top span {
+    color: var(--text-secondary);
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .impact-status strong {
+    align-self: start;
+    color: var(--text-primary);
+    display: block;
+    font-size: 1.04rem;
+    font-weight: 900;
+    line-height: 1.18;
+    margin-top: 0.7rem;
+    overflow-wrap: normal;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .impact-status.impact-status--compact strong {
+    font-size: 0.94rem;
+    line-height: 1.28;
+  }
+
+  .impact-status i {
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.34), transparent 22%),
+      linear-gradient(90deg, var(--bar), color-mix(in srgb, var(--bar), white 22%));
+    border-radius: 999px;
+    display: block;
+    height: 0.38rem;
+    margin-top: 0;
+  }
+
+  .metric-wall {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metric-tile {
+    border-radius: 1.25rem;
+    min-height: 10.2rem;
+    overflow: hidden;
+    padding: 1.1rem;
+    position: relative;
+  }
+
+  .metric-tile::after {
+    background: linear-gradient(90deg, var(--tone), rgba(255, 255, 255, 0.06), transparent);
+    content: "";
+    height: 2px;
+    inset: 0 0 auto;
+    position: absolute;
+  }
+
+  .metric-tile__value {
+    color: var(--text-primary);
+    display: block;
+    font-family: Newsreader, Georgia, serif;
+    font-size: 2.45rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 0.96;
+    margin-top: 1.05rem;
+    overflow-wrap: anywhere;
+  }
+
+  .metric-tile__detail {
+    color: var(--text-secondary);
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 750;
+    line-height: 1.45;
+    margin-top: 0.9rem;
+  }
+
+  .achievement-bars,
+  .execution-stack,
+  .scale-bars {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .achievement-row {
+    background: rgba(var(--rgb-bg-base), 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.1rem;
+    padding: 1rem;
+  }
+
+  .achievement-row__top,
+  .scale-bar__top {
+    align-items: baseline;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .achievement-row__top strong,
+  .scale-bar__top strong,
+  .execution-row strong,
+  .scale-lead strong {
+    color: var(--tone);
+    font-family: Newsreader, Georgia, serif;
+    font-size: 2.05rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .achievement-row p,
+  .scale-bar p,
+  .execution-row p {
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    font-weight: 720;
+    line-height: 1.45;
+    margin-top: 0.45rem;
+  }
+
+  .achievement-track,
+  .scale-bar__track {
+    background: rgba(var(--rgb-bg-deep), 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    display: block;
+    height: 0.55rem;
+    margin-top: 0.85rem;
+    overflow: hidden;
+  }
+
+  .achievement-track span,
+  .scale-bar__track span {
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 24%),
+      linear-gradient(90deg, var(--bar), color-mix(in srgb, var(--bar), white 26%));
+    border-radius: inherit;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--bar), transparent 58%);
+    display: block;
+    height: 100%;
+  }
+
+  .execution-row {
+    align-items: center;
+    border-radius: 1.15rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    min-height: 6.1rem;
+    padding: 1rem;
+  }
+
+  .execution-row strong {
+    font-size: 2.35rem;
+  }
+
+  .scale-lead {
+    border-radius: 1.25rem;
+    max-width: 100%;
+    min-height: 5.1rem;
+    min-width: 0;
+    padding: 0.78rem 0.9rem;
+    text-align: center;
+  }
+
+  .scale-lead strong {
+    display: block;
+    font-size: 2.05rem;
+    margin-top: 0.32rem;
+    text-align: center;
+  }
+
+  .scale-lead-grid {
+    display: grid;
+    flex: 0 1 25.5rem;
+    gap: 0.6rem;
+    grid-template-columns: repeat(3, minmax(7.25rem, 1fr));
+    justify-self: end;
+    min-width: min(25.5rem, 100%);
+    width: min(25.5rem, 100%);
+  }
+
+  .scale-visual {
+    align-items: center;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .scale-radar {
+    aspect-ratio: 1;
+    border-radius: 999px;
+    display: grid;
+    isolation: isolate;
+    justify-self: center;
+    max-width: 22rem;
+    place-items: center;
+    position: relative;
+    transform: translateX(1.15rem);
+    width: 100%;
+  }
+
+  .scale-radar::before {
+    background:
+      conic-gradient(from 220deg, var(--cyan), var(--text-violet), var(--accent-warm), var(--text-cyan), var(--cyan));
+    border-radius: inherit;
+    box-shadow:
+      0 0 34px rgba(var(--rgb-cyan-soft), 0.13);
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+
+  .scale-radar::after {
+    background:
+      radial-gradient(circle at 50% 40%, rgba(var(--rgb-cyan-soft), 0.09), transparent 46%),
+      rgba(var(--rgb-bg-base), 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: inherit;
+    box-shadow: inset 0 0 30px rgba(var(--rgb-bg-deep), 0.74);
+    content: "";
+    inset: 1.35rem;
+    position: absolute;
+  }
+
+  .scale-radar__ring {
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: inherit;
+    inset: 2.2rem;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .scale-radar__ring--two {
+    border-color: rgba(var(--rgb-cyan-soft), 0.16);
+    inset: 4.2rem;
+  }
+
+  .scale-radar__core {
+    display: grid;
+    place-items: center;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .scale-radar__core span {
+    color: var(--text-primary);
+    font-family: Newsreader, Georgia, serif;
+    font-size: 4.1rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 0.95;
+  }
+
+  .scale-radar__core small {
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    margin-top: 0.8rem;
+    max-width: 10rem;
+    text-transform: uppercase;
+  }
+
+  .scale-bar {
+    background: rgba(var(--rgb-bg-base), 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.2rem;
+    padding: 1rem;
+  }
+
+  .impact-flow {
+    background:
+      radial-gradient(ellipse at 50% 44%, rgba(var(--rgb-cyan-soft), 0.085), transparent 30rem),
+      radial-gradient(circle at 52% 52%, rgba(var(--rgb-violet), 0.09), transparent 18rem),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      rgba(var(--rgb-bg-base), 0.35);
+    background-size: auto, 34px 34px, 34px 34px, auto;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 1.35rem;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 1.2rem;
+    position: relative;
+  }
+
+  .impact-flow::after {
+    background:
+      linear-gradient(90deg, transparent, rgba(var(--rgb-cyan-soft), 0.075), transparent);
+    content: "";
+    inset: 0;
+    opacity: 0.42;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .impact-flow__scene {
+    min-height: 34rem;
+    position: relative;
+  }
+
+  .impact-flow__ribbons {
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .impact-flow__ribbon,
+  .impact-flow__connector {
+    fill: none;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .impact-flow__halo {
+    fill: none;
+    stroke: rgba(var(--rgb-cyan-soft), 0.2);
+    stroke-dasharray: 5 12;
+    stroke-width: 1.2;
+  }
+
+  .impact-flow__ribbon {
+    filter: drop-shadow(0 0 10px rgba(var(--rgb-cyan-soft), 0.16));
+    stroke: rgba(var(--rgb-cyan-soft), 0.3);
+    stroke-width: 7;
+  }
+
+  .impact-flow__ribbon--wide {
+    stroke-width: 18;
+  }
+
+  .impact-flow__ribbon--fine {
+    stroke: rgba(255, 255, 255, 0.26);
+    stroke-dasharray: 8 12;
+    stroke-width: 1.4;
+  }
+
+  .impact-flow__connector {
+    opacity: 0.92;
+    stroke: rgba(255, 255, 255, 0.22);
+    stroke-dasharray: 4 8;
+    stroke-width: 1.35;
+  }
+
+  .impact-flow__core-glow {
+    opacity: 0.9;
+  }
+
+  .impact-flow__core {
+    align-items: center;
+    background:
+      linear-gradient(135deg, rgba(var(--rgb-cyan-soft), 0.18), rgba(var(--rgb-violet), 0.14)),
+      rgba(var(--rgb-bg-base), 0.88);
+    border: 1px solid rgba(var(--rgb-cyan-soft), 0.4);
+    border-radius: 1.35rem;
+    box-shadow:
+      0 20px 48px rgba(var(--rgb-bg-deep), 0.34),
+      0 0 40px rgba(var(--rgb-cyan-soft), 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    display: grid;
+    gap: 0.35rem;
+    left: 50%;
+    max-width: 100%;
+    min-width: 13rem;
+    padding: 1rem 1.2rem;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    z-index: 4;
+  }
+
+  .impact-flow__core::before {
+    border: 1px solid rgba(var(--rgb-cyan-soft), 0.16);
+    border-radius: inherit;
+    content: "";
+    inset: -0.55rem;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .impact-flow__core::after {
+    background: linear-gradient(90deg, transparent, rgba(var(--rgb-cyan-soft), 0.68), transparent);
+    content: "";
+    height: 1px;
+    inset: 0.72rem 1.4rem auto;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .impact-flow__core span {
+    color: var(--text-secondary);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .impact-flow__core strong {
+    color: var(--text-primary);
+    font-family: Newsreader, Georgia, serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 0.98;
+  }
+
+  .impact-flow__stages {
+    inset: 0;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .impact-flow__stage {
+    background:
+      radial-gradient(circle at 14% 14%, color-mix(in srgb, var(--stage), transparent 74%), transparent 8rem),
+      linear-gradient(180deg, color-mix(in srgb, var(--stage), transparent 88%), transparent 62%),
+      rgba(var(--rgb-bg-base), 0.6);
+    border: 1px solid color-mix(in srgb, var(--stage), white 10%);
+    border-radius: 1.15rem;
+    box-shadow:
+      0 18px 42px rgba(var(--rgb-bg-deep), 0.28),
+      0 0 24px color-mix(in srgb, var(--stage), transparent 88%),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 12.2rem;
+    overflow: hidden;
+    padding: 1rem;
+    position: absolute;
+    width: min(18.6rem, 28%);
+  }
+
+  .impact-flow__stage--1 {
+    left: 1.1rem;
+    top: 1.1rem;
+  }
+
+  .impact-flow__stage--2 {
+    bottom: 1.1rem;
+    left: 16%;
+  }
+
+  .impact-flow__stage--3 {
+    right: 16%;
+    top: 1.1rem;
+  }
+
+  .impact-flow__stage--4 {
+    bottom: 1.1rem;
+    right: 1.1rem;
+  }
+
+  .impact-flow__stage::before {
+    background: linear-gradient(90deg, var(--stage), transparent);
+    content: "";
+    height: 2px;
+    inset: 0 0 auto;
+    position: absolute;
+  }
+
+  .impact-flow__stage::after {
+    background: linear-gradient(130deg, rgba(255, 255, 255, 0.12), transparent 38%);
+    content: "";
+    inset: 0;
+    opacity: 0.55;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .impact-flow__node {
+    background: var(--stage);
+    border-radius: 999px;
+    box-shadow:
+      0 0 0 0.45rem color-mix(in srgb, var(--stage), transparent 84%),
+      0 0 24px color-mix(in srgb, var(--stage), transparent 38%);
+    height: 0.58rem;
+    position: absolute;
+    width: 0.58rem;
+    z-index: 2;
+  }
+
+  .impact-flow__stage--1 .impact-flow__node,
+  .impact-flow__stage--2 .impact-flow__node {
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .impact-flow__stage--3 .impact-flow__node,
+  .impact-flow__stage--4 .impact-flow__node {
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .impact-flow__stage-top,
+  .impact-flow__chips {
+    position: relative;
+    z-index: 1;
+  }
+
+  .impact-flow__stage-top span {
+    color: var(--text-secondary);
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 920;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .impact-flow__stage-top strong {
+    color: var(--stage);
+    display: block;
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(1.8rem, 2.35vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 0.98;
+    margin-top: 0.8rem;
+  }
+
+  .impact-flow__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.6rem;
+  }
+
+  .impact-flow__chips span {
+    background: rgba(var(--rgb-bg-deep), 0.42);
+    border: 1px solid color-mix(in srgb, var(--stage), transparent 60%);
+    border-radius: 999px;
+    color: var(--text-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.15;
+    padding: 0.42rem 0.58rem;
+  }
+
+  .network-stat-grid {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .network-stat {
+    background: rgba(var(--rgb-bg-base), 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 0.9rem;
+  }
+
+  .network-stat__top {
+    align-items: baseline;
+    display: flex;
+    gap: 0.8rem;
+    justify-content: space-between;
+  }
+
+  .network-stat__top span {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .network-stat__top strong {
+    color: var(--tone);
+    font-family: Newsreader, Georgia, serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .network-stat__track {
+    background: rgba(var(--rgb-bg-deep), 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    height: 0.45rem;
+    margin-top: 0.8rem;
+    overflow: hidden;
+  }
+
+  .network-stat__track span {
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.24), transparent 24%),
+      linear-gradient(90deg, var(--bar), color-mix(in srgb, var(--bar), white 22%));
+    border-radius: inherit;
+    display: block;
+    height: 100%;
+  }
+
+  .network-legend {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    display: inline-flex;
+    font-size: 0.74rem;
+    font-weight: 850;
+    padding: 0.48rem 0.74rem;
+  }
+
+  .impact-tone-cyan {
+    --tone: var(--cyan);
+  }
+
+  .impact-tone-violet {
+    --tone: var(--text-violet);
+  }
+
+  .impact-tone-gold {
+    --tone: var(--accent-warm);
+  }
+
+  .impact-tone-blue {
+    --tone: var(--text-cyan);
+  }
+
+  @media (max-width: 1180px) {
+    .metric-wall {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .impact-panel--credentials,
+    .impact-panel--execution,
+    .impact-panel--network {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .impact-flow__scene {
+      display: grid;
+      gap: 1rem;
+      min-height: 0;
+    }
+
+    .impact-flow__ribbons {
+      opacity: 0.5;
+    }
+
+    .impact-flow__core {
+      justify-self: center;
+      left: auto;
+      position: relative;
+      top: auto;
+      transform: none;
+    }
+
+    .impact-flow__stages {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      inset: auto;
+      position: relative;
+    }
+
+    .impact-flow__stage,
+    .impact-flow__stage--1,
+    .impact-flow__stage--2,
+    .impact-flow__stage--3,
+    .impact-flow__stage--4 {
+      bottom: auto;
+      left: auto;
+      min-height: 12rem;
+      position: relative;
+      right: auto;
+      top: auto;
+      width: auto;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .impact-panel {
+      border-radius: 1.3rem;
+      padding: 1.15rem;
+    }
+
+    .impact-panel__head,
+    .impact-panel__head--split,
+    .achievement-row__top,
+    .scale-bar__top {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .metric-wall {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-tile {
+      min-height: 8.6rem;
+    }
+
+    .metric-tile__value {
+      font-size: 2.15rem;
+    }
+
+    .scale-visual {
+      grid-template-columns: 1fr;
+    }
+
+    .scale-radar {
+      justify-self: center;
+      max-width: 17rem;
+      transform: none;
+    }
+
+    .scale-radar__core span {
+      font-size: 3.2rem;
+    }
+
+    .scale-lead {
+      min-width: 0;
+      text-align: center;
+      width: auto;
+    }
+
+    .impact-panel__head--scale {
+      grid-template-columns: 1fr;
+    }
+
+    .scale-copy,
+    .scale-copy__subtitle {
+      max-width: none;
+    }
+
+    .scale-lead-grid {
+      flex-basis: auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      min-width: 0;
+      width: 100%;
+    }
+
+    .scale-lead strong {
+      font-size: 1.92rem;
+    }
+
+    .impact-panel__head > div > .eyebrow {
+      font-size: 0.84rem;
+    }
+
+    .execution-row {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .impact-flow {
+      min-height: 0;
+      padding: 1rem;
+    }
+
+    .impact-flow__scene {
+      gap: 1rem;
+    }
+
+    .impact-flow__ribbons {
+      display: none;
+    }
+
+    .impact-flow__core {
+      margin-bottom: 1rem;
+      min-width: 0;
+      position: relative;
+      transform: none;
+      left: auto;
+      top: auto;
+      width: 100%;
+    }
+
+    .impact-flow__core strong {
+      font-size: 1.8rem;
+    }
+
+    .impact-flow__stages {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .impact-flow__stage,
+    .impact-flow__stage:nth-child(1),
+    .impact-flow__stage:nth-child(2),
+    .impact-flow__stage:nth-child(3),
+    .impact-flow__stage:nth-child(4) {
+      align-self: stretch;
+      min-height: 0;
+    }
+
+    .impact-flow__stage-top strong {
+      font-size: 1.8rem;
+    }
+
+    .network-stat-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .scale-lead-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+interface Props {
+  label?: string;
+  dark?: boolean;
+  size?: "sm" | "md" | "lg";
+}
+
+const { label = "Zihua Luo, FRM", dark = false, size = "md" } = Astro.props;
+const sizeClass = {
+  sm: "h-10 w-10",
+  md: "h-12 w-12",
+  lg: "h-14 w-14",
+}[size];
+---
+
+<span
+  class={`brand-mark ${sizeClass} ${dark ? "brand-mark-dark" : ""}`}
+  aria-label={label}
+  role="img"
+>
+  <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+    <rect x="8.5" y="8.5" width="47" height="47" rx="13" stroke="currentColor" stroke-width="1.5" opacity="0.38" />
+    <path d="M18 44V20h5.7v18.8H34V44H18Z" fill="currentColor" />
+    <path d="M36.5 20h18.2l-11 18.7h10.7V44H34.8l11-18.7h-9.3V20Z" fill="currentColor" />
+    <path d="M14 50c8-10.5 16.2-13.6 24.4-9.4 4.9 2.5 8.5 1.5 11.6-3.2" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" />
+    <path d="M13 14h13M13 19h7M44 50h7" stroke="#A78BFA" stroke-width="1.4" stroke-linecap="round" opacity="0.9" />
+  </svg>
+</span>

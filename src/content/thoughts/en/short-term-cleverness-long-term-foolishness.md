@@ -1,0 +1,31 @@
+---
+title: "Do Not Turn Short-Term Cleverness Into Long-Term Foolishness"
+description: "Truly smart people do not overdraw other people's trust"
+date: 2026-02-12
+category: "Cognition"
+tags: ["Long-Term Trust", "Reliability", "Repeated Games"]
+language: "en"
+translationKey: "short-term-cleverness-long-term-foolishness"
+featured: true
+draft: false
+---
+
+
+
+> Truly smart people do not overdraw other people's trust.
+
+After reading Wu Jun's weekend interaction piece, "How To Avoid Becoming Someone Who Plays Petty Tricks," from *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: petty cleverness looks like it is helping us fight for our own interests, but in reality it often overdraws other people's trust. If a person only looks at the gain or loss of one single moment, they may think taking a small advantage does no harm. But if life is viewed as a long-term repeated game, it becomes clear that credit is the asset most worth protecting.
+
+The letter gives two very everyday examples. The first is buying a watermelon from a fruit stand. If the customer cannot judge the quality, they may ask the owner whether the melon is good. If the owner says, "Don't worry, I have sold here for many years," he is actually emphasizing a long-term relationship: he is not only doing business with you once, but must continue facing nearby customers, colleagues, and neighbors. If he cheats you this time, he may earn a little more in the short term, but you will not come again next time, and you may even tell people around you not to buy from him. The second example is buying local specialties at tourist sites abroad. Local shops may price their products much higher than ordinary supermarkets because they usually face one-time tourists. Tourists buy and leave, and the probability that they will return is low, so the store is more likely to choose one-time profit. The difference between the two examples is not who is smarter. It is whether the transaction relationship repeats.
+
+This made me think of an important truth: morality is not only abstract preaching. It is also related to long-term interest. In a one-shot game, petty tricks may temporarily help someone gain an advantage. But in a repeated game, petty tricks can make a person lose future opportunities for cooperation. The letter uses the prisoner's dilemma to explain this. If two people both pursue only their own maximum benefit, they may enter a lose-lose result. By contrast, if both sides consider long-term cooperation, a win-win outcome becomes possible. Many relationships in real life work the same way. Among friends, colleagues, and business partners, each event may look separate, but in reality each one accumulates other people's judgment of us. One breach of trust, one attempt to take advantage, one act of laziness may not bring an immediate cost, but it changes how others trust us.
+
+Therefore, to truly avoid becoming someone who plays petty tricks, the first step is to shift from "single-event gain" to "long-term credit." Some people like to calculate every small matter very precisely. They always want to take a little more and let others take a little less, and they even treat this as sophistication. But the problem is that people do not live in only one transaction. If today you make others feel disadvantaged, tomorrow they will reduce cooperation with you. If today you gain through rhetoric, in the future others will become more defensive toward you. In the long run, petty cleverness is not an ability. It is a form of consumption. It consumes trust, relationships, and the possibility that others will continue working with you.
+
+The letter also offers a very useful point from information theory: if we want others to understand us, it is not enough to speak loudly or appear clever. We need to increase "redundant information." Shannon believed that communication contains noise, and one way to overcome noise is to add redundancy. In other words, repeating something, explaining the background, and filling in necessary information may look verbose, but it reduces the probability of misunderstanding. The letter says slow people often use such clumsy methods, such as making a special trip to mail a letter or manually organizing investment information. These methods look less efficient, but they make things more reliable.
+
+This also reminds me that what we call "petty cleverness" is often an attempt to skip necessary steps. We want others to understand us, but we are unwilling to explain more. We want others to trust us, but we are unwilling to do a little extra to make them feel secure. We want to do things well, but we always look for shortcuts. Yet many real problems are not caused by a lack of intelligence. They are caused by skipping those clumsy but necessary links. A reliable person is not necessarily the person who speaks most beautifully or reacts fastest. It is the person willing to explain clearly, leave confirmation, and do one more step to reduce misunderstanding.
+
+So I think avoiding petty cleverness is not about making a person dull. It is about learning to respect long-term relationships and the cost of information. Petty cleverness likes to compress cost: say it in one sentence, take a one-time advantage, get the benefit immediately. But the mature approach is exactly the opposite: it is willing to pay costs for long-term credit. Explaining more reduces misunderstanding. Confirming once more prevents mistakes. Taking a little less from others preserves the possibility of cooperation next time.
+
+The core reflection this letter left me with is this: in life and work, I should not only ask whether something is worthwhile in the moment, but whether it is worth it in the long run. Petty cleverness pursues winning a little more right now. True intelligence pursues making others willing to keep trusting you. A person who always tries to take small advantages may eventually lose bigger opportunities. A person who is willing to use clumsy methods to accumulate credit may gain more in long-term relationships. Being smart does not mean winning every time. It means knowing that some advantages cannot be taken, some trust cannot be overdrawn, and some things require one extra step.

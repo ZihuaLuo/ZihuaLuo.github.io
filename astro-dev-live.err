@@ -1,0 +1,16 @@
+19:20:30 [ERROR] Could not import `/src/components/MarketIndexDashboard.astro`.
+  Hint:
+    This is often caused by a typo in the import path. Please make sure the file exists.
+  Error reference:
+    https://docs.astro.build/en/reference/errors/failed-to-load-module-ssr/
+  Stack trace:
+    at loadAndTransform (file:///C:/Users/zihua/OneDrive/%E6%96%87%E6%A1%A3/New%20project/personal-website/node_modules/astro/node_modules/vite/dist/node/chunks/config.js:22679:33)
+    at async handleInvoke (file:///C:/Users/zihua/OneDrive/%E6%96%87%E6%A1%A3/New%20project/personal-website/node_modules/astro/node_modules/vite/dist/node/chunks/config.js:25853:21)
+19:20:32 [ERROR] Could not import `/src/components/MarketIndexDashboard.astro`.
+  Hint:
+    This is often caused by a typo in the import path. Please make sure the file exists.
+  Error reference:
+    https://docs.astro.build/en/reference/errors/failed-to-load-module-ssr/
+  Stack trace:
+    at loadAndTransform (file:///C:/Users/zihua/OneDrive/%E6%96%87%E6%A1%A3/New%20project/personal-website/node_modules/astro/node_modules/vite/dist/node/chunks/config.js:22679:33)
+    at async handleInvoke (file:///C:/Users/zihua/OneDrive/%E6%96%87%E6%A1%A3/New%20project/personal-website/node_modules/astro/node_modules/vite/dist/node/chunks/config.js:25853:21)

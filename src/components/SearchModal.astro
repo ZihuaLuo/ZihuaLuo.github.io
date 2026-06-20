@@ -1,0 +1,699 @@
+---
+import { withBase, type Language } from "@i18n/routes";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const labels = {
+  en: {
+    title: "Search",
+    placeholder: "Search thinking, notes, timeline, and impact metrics",
+    emptyTitle: "Start with a keyword",
+    emptyDescription: "Try CFA, Fixed Income, Risk, Valuation, Research, Analytics, Timeline, Learning, Notes",
+    noResults: "No results found",
+    loading: "Loading search index",
+    open: "Open",
+    close: "Close search",
+    resultCount: "results",
+    typeLabels: {
+      thought: "Thinking",
+      note: "Note",
+      timeline: "Timeline",
+      now: "Impact",
+      principle: "Principle",
+    },
+    suggestions: ["CFA", "Fixed Income", "Risk", "Valuation", "Derivatives", "Analytics"],
+  },
+  zh: {
+    title: "搜索",
+    placeholder: "搜索思考、笔记、经历与量化成果",
+    emptyTitle: "输入一个关键词开始",
+    emptyDescription: "可以试试 CFA、固定收益、风险、估值、研究、分析、时间线、学习、笔记",
+    noResults: "没有找到结果",
+    loading: "正在加载搜索索引",
+    open: "打开",
+    close: "关闭搜索",
+    resultCount: "条结果",
+    typeLabels: {
+      thought: "思考",
+      note: "笔记",
+      timeline: "经历",
+      now: "成果",
+      principle: "原则",
+    },
+    suggestions: ["CFA", "固定收益", "风险", "估值", "研究", "分析"],
+  },
+}[lang];
+
+const serializedLabels = JSON.stringify(labels);
+const inputId = `site-search-input-${lang}`;
+const titleId = `site-search-title-${lang}`;
+---
+
+<div
+  class="site-search"
+  data-search-modal
+  data-index-url={withBase("/search-index.json")}
+  data-labels={serializedLabels}
+  data-lang={lang}
+  hidden
+>
+  <button class="site-search__backdrop" type="button" aria-label={labels.close} data-search-close></button>
+  <section
+    class="site-search__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={titleId}
+  >
+    <div class="site-search__glow" aria-hidden="true"></div>
+    <div class="site-search__header">
+      <div>
+        <p class="eyebrow">{labels.title}</p>
+        <h2 id={titleId} class="display-heading site-search__title">{labels.placeholder}</h2>
+      </div>
+      <button class="site-search__close" type="button" aria-label={labels.close} data-search-close>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="site-search__input-wrap">
+      <label class="sr-only" for={inputId}>{labels.title}</label>
+      <svg class="site-search__input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m20 20-4.6-4.6m2.1-5.15a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <input
+        id={inputId}
+        class="site-search__input"
+        type="search"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder={labels.placeholder}
+        aria-label={labels.placeholder}
+        data-search-input
+      />
+      <kbd class="site-search__kbd">Esc</kbd>
+    </div>
+
+    <p class="site-search__status" aria-live="polite" data-search-status></p>
+    <div class="site-search__results" data-search-results></div>
+  </section>
+</div>
+
+<style is:global>
+  .site-search[hidden] {
+    display: none;
+  }
+
+  .site-search {
+    align-items: flex-start;
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    padding: 6.5rem 1rem 1.25rem;
+    position: fixed;
+    z-index: 80;
+  }
+
+  .site-search__backdrop {
+    background:
+      radial-gradient(circle at 50% 12%, var(--glow-violet), transparent 32rem),
+      radial-gradient(circle at 82% 24%, var(--glow-cyan), transparent 28rem),
+      var(--bg-header);
+    border: 0;
+    cursor: default;
+    inset: 0;
+    position: fixed;
+    backdrop-filter: blur(18px);
+  }
+
+  .site-search__panel {
+    background: var(--background-card);
+    border: 1px solid var(--border-cyan);
+    border-radius: 24px;
+    box-shadow:
+      0 34px 110px rgba(var(--rgb-bg-base), 0.54),
+      0 0 88px var(--glow-violet),
+      0 0 56px rgba(var(--rgb-cyan), 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: var(--ink);
+    max-height: min(760px, calc(100vh - 8rem));
+    overflow: hidden;
+    position: relative;
+    width: min(760px, 100%);
+    backdrop-filter: blur(26px);
+  }
+
+  .site-search__panel::before {
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.042) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.034) 1px, transparent 1px);
+    background-size: 42px 42px;
+    content: "";
+    inset: 0;
+    opacity: 0.24;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .site-search__glow {
+    background: radial-gradient(circle, rgba(var(--rgb-cyan-soft), 0.25), transparent 62%);
+    filter: blur(18px);
+    height: 14rem;
+    pointer-events: none;
+    position: absolute;
+    right: -5rem;
+    top: -5rem;
+    width: 14rem;
+  }
+
+  .site-search__header,
+  .site-search__input-wrap,
+  .site-search__status,
+  .site-search__results {
+    position: relative;
+  }
+
+  .site-search__header {
+    align-items: flex-start;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 1.35rem 1.35rem 1rem;
+  }
+
+  .site-search__title {
+    color: var(--text-primary);
+    font-size: clamp(1.55rem, 4vw, 2.4rem);
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0.35rem 0 0;
+  }
+
+  .site-search__close {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 2.5rem;
+    justify-content: center;
+    transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+    width: 2.5rem;
+  }
+
+  .site-search__close:hover {
+    background: rgba(255, 255, 255, 0.13);
+    border-color: var(--border-cyan);
+    color: var(--accent);
+  }
+
+  .site-search__close svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  .site-search__input-wrap {
+    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    margin: 0 1.35rem;
+    border: 1px solid var(--border-cyan);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.085);
+    box-shadow:
+      0 0 36px rgba(var(--rgb-cyan), 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 0.95rem;
+  }
+
+  .site-search__input-icon {
+    color: var(--accent);
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  .site-search__input {
+    background: transparent;
+    border: 0;
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+    min-width: 0;
+    outline: 0;
+  }
+
+  .site-search__input::placeholder {
+    color: rgba(226, 232, 240, 0.72);
+  }
+
+  .site-search__kbd {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 9px;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .site-search__status {
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    min-height: 1.25rem;
+    padding: 0.8rem 1.35rem 0;
+  }
+
+  .site-search__results {
+    display: grid;
+    gap: 0.7rem;
+    max-height: min(470px, calc(100vh - 19rem));
+    overflow-y: auto;
+    padding: 0.9rem 1.35rem 1.35rem;
+  }
+
+  .site-search__state {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at 14% 0%, rgba(125, 211, 252, 0.12), transparent 13rem),
+      rgba(255, 255, 255, 0.06);
+    padding: 1.25rem;
+  }
+
+  .site-search__state h3 {
+    color: var(--ink);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .site-search__state p {
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0.55rem 0 0;
+  }
+
+  .site-search__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1rem;
+  }
+
+  .site-search__chip {
+    border: 1px solid var(--border-glow);
+    border-radius: 999px;
+    background: rgba(var(--rgb-cyan-soft), 0.08);
+    color: var(--zh-body);
+    font-size: 0.76rem;
+    font-weight: 800;
+    padding: 0.35rem 0.55rem;
+  }
+
+  .site-search__result {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.045)),
+      var(--bg-panel);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+    transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  }
+
+  .site-search__result:hover,
+  .site-search__result:focus-visible {
+    background:
+      linear-gradient(135deg, rgba(var(--rgb-cyan), 0.16), rgba(var(--rgb-violet-soft), 0.12)),
+      var(--bg-panel-strong);
+    border-color: var(--border-cyan);
+    transform: translateY(-1px);
+  }
+
+  .site-search__result-top {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .site-search__type,
+  .site-search__language,
+  .site-search__date {
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 850;
+    padding: 0.28rem 0.5rem;
+  }
+
+  .site-search__type {
+    border: 1px solid var(--border-cyan);
+    background: rgba(var(--rgb-cyan-soft), 0.12);
+    color: #e0f2fe;
+  }
+
+  .site-search__language,
+  .site-search__date {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--muted);
+  }
+
+  .site-search__result-title {
+    color: var(--ink);
+    font-size: 1.08rem;
+    font-weight: 850;
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .site-search__result-description {
+    color: var(--text-body);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .site-search__result-bottom {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  .site-search__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .site-search__tag {
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 750;
+  }
+
+  .site-search__open {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 850;
+  }
+
+  @media (max-width: 640px) {
+    .site-search {
+      align-items: stretch;
+      padding: 5rem 0.75rem 0.75rem;
+    }
+
+    .site-search__panel {
+      border-radius: 20px;
+      max-height: calc(100vh - 5.75rem);
+    }
+
+    .site-search__header {
+      padding: 1.1rem 1rem 0.85rem;
+    }
+
+    .site-search__input-wrap {
+      margin: 0 1rem;
+    }
+
+    .site-search__status {
+      padding-inline: 1rem;
+    }
+
+    .site-search__results {
+      max-height: calc(100vh - 17rem);
+      padding: 0.8rem 1rem 1rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const modal = document.querySelector("[data-search-modal]");
+    if (!modal || modal.dataset.ready === "true") return;
+
+    modal.dataset.ready = "true";
+
+    const input = modal.querySelector("[data-search-input]");
+    const results = modal.querySelector("[data-search-results]");
+    const status = modal.querySelector("[data-search-status]");
+    const labels = JSON.parse(modal.dataset.labels || "{}");
+    const lang = modal.dataset.lang || "en";
+    const indexUrl = modal.dataset.indexUrl || "/search-index.json";
+    const openButtons = document.querySelectorAll("[data-search-open]");
+    const closeButtons = modal.querySelectorAll("[data-search-close]");
+    let indexedItems = [];
+    let indexPromise;
+    let previousFocus;
+    let previousOverflow = "";
+    let searchFrame = 0;
+
+    const escapeHtml = (value) =>
+      String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    const normalize = (value) => String(value ?? "").toLocaleLowerCase().normalize("NFKC");
+
+    const prepareSearchItem = (item) => {
+      const fields = {
+        title: normalize(item.title),
+        description: normalize(item.description),
+        category: normalize(item.category),
+        tags: normalize((item.tags || []).join(" ")),
+        content: normalize(item.content || ""),
+        type: normalize(item.type),
+      };
+
+      return {
+        ...item,
+        _search: {
+          fields,
+          haystack: Object.values(fields).join(" "),
+        },
+      };
+    };
+
+    const track = (eventName, props = {}) => {
+      if (typeof window.trackSiteEvent === "function") {
+        window.trackSiteEvent(eventName, props);
+      }
+    };
+
+    const loadIndex = () => {
+      if (!indexPromise) {
+        indexPromise = fetch(indexUrl)
+          .then((response) => {
+            if (!response.ok) throw new Error("Search index unavailable");
+            return response.json();
+          })
+          .then((items) => {
+            const list = Array.isArray(items) ? items : [];
+            indexedItems = list.filter((item) => item.language === lang).map(prepareSearchItem);
+            return indexedItems;
+          })
+          .catch((error) => {
+            indexPromise = undefined;
+            throw error;
+          });
+      }
+      return indexPromise;
+    };
+
+    const tokenScore = (item, query, tokens) => {
+      const { fields, haystack } = item._search;
+      let score = 0;
+
+      if (fields.title.includes(query)) score += 34;
+      if (fields.tags.includes(query)) score += 22;
+      if (fields.category.includes(query)) score += 16;
+      if (fields.description.includes(query)) score += 12;
+      if (fields.content.includes(query)) score += 4;
+
+      for (const token of tokens) {
+        if (fields.title.includes(token)) score += 12;
+        if (fields.tags.includes(token)) score += 9;
+        if (fields.category.includes(token)) score += 7;
+        if (fields.description.includes(token)) score += 5;
+        if (fields.content.includes(token)) score += 1;
+        if (!haystack.includes(token)) score -= 5;
+      }
+
+      return score > 0 ? score : 0;
+    };
+
+    const renderEmpty = () => {
+      status.textContent = "";
+      results.innerHTML = `
+        <div class="site-search__state">
+          <h3>${escapeHtml(labels.emptyTitle)}</h3>
+          <p>${escapeHtml(labels.emptyDescription)}</p>
+          <div class="site-search__chips">
+            ${(labels.suggestions || [])
+              .map((suggestion) => `<span class="site-search__chip">${escapeHtml(suggestion)}</span>`)
+              .join("")}
+          </div>
+        </div>
+      `;
+    };
+
+    const renderNoResults = () => {
+      status.textContent = "";
+      results.innerHTML = `
+        <div class="site-search__state">
+          <h3>${escapeHtml(labels.noResults)}</h3>
+          <p>${escapeHtml(labels.emptyDescription)}</p>
+        </div>
+      `;
+    };
+
+    const renderLoading = () => {
+      status.textContent = labels.loading || "";
+    };
+
+    const renderResults = (query) => {
+      const trimmed = query.trim();
+      if (!trimmed) {
+        renderEmpty();
+        return;
+      }
+
+      const normalizedQuery = normalize(trimmed);
+      const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+      const matches = indexedItems
+        .map((item) => ({ item, score: tokenScore(item, normalizedQuery, tokens) }))
+        .filter((match) => match.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 12)
+        .map((match) => match.item);
+
+      if (!matches.length) {
+        renderNoResults();
+        return;
+      }
+
+      status.textContent =
+        lang === "zh" ? `${matches.length} ${labels.resultCount}` : `${matches.length} ${labels.resultCount}`;
+      results.innerHTML = matches
+        .map((item) => {
+          const tags = (item.tags || [])
+            .slice(0, 4)
+            .map((tag) => `<span class="site-search__tag">#${escapeHtml(tag)}</span>`)
+            .join("");
+          const date = item.date
+            ? `<span class="site-search__date">${escapeHtml(item.date)}</span>`
+            : "";
+          return `
+            <a class="site-search__result" href="${escapeHtml(item.url)}" data-search-result data-search-result-type="${escapeHtml(item.type)}">
+              <span class="site-search__result-top">
+                <span class="site-search__type">${escapeHtml(labels.typeLabels?.[item.type] || item.type)}</span>
+                <span class="site-search__language">${escapeHtml(item.language.toUpperCase())}</span>
+                ${date}
+              </span>
+              <span>
+                <h3 class="site-search__result-title">${escapeHtml(item.title)}</h3>
+                <p class="site-search__result-description">${escapeHtml(item.description)}</p>
+              </span>
+              <span class="site-search__result-bottom">
+                <span class="site-search__tags">${tags}</span>
+                <span class="site-search__open">${escapeHtml(labels.open)}</span>
+              </span>
+            </a>
+          `;
+        })
+        .join("");
+    };
+
+    const runSearch = () => {
+      const query = input.value || "";
+      if (!query.trim()) {
+        renderEmpty();
+        return;
+      }
+      renderLoading();
+      loadIndex()
+        .then(() => renderResults(query))
+        .catch(() => renderNoResults());
+    };
+
+    const scheduleSearch = () => {
+      if (searchFrame) window.cancelAnimationFrame(searchFrame);
+      searchFrame = window.requestAnimationFrame(() => {
+        searchFrame = 0;
+        runSearch();
+      });
+    };
+
+    const openSearch = () => {
+      previousFocus = document.activeElement;
+      previousOverflow = document.body.style.overflow;
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+      renderEmpty();
+      track("Open Search", { language: lang });
+      window.requestAnimationFrame(() => {
+        input.focus();
+        input.select();
+      });
+      loadIndex().then(() => {
+        if (input.value.trim()) renderResults(input.value);
+      }).catch(() => {
+        status.textContent = "";
+      });
+    };
+
+    const closeSearch = () => {
+      modal.hidden = true;
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
+    };
+
+    openButtons.forEach((button) => {
+      button.addEventListener("click", openSearch);
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", closeSearch);
+    });
+
+    results.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const link = target?.closest("[data-search-result]");
+      if (!link || !results.contains(link)) return;
+      track("Click Search Result", {
+        language: lang,
+        type: link.dataset.searchResultType || "unknown",
+      });
+    });
+
+    input.addEventListener("input", scheduleSearch);
+
+    document.addEventListener("keydown", (event) => {
+      const key = event.key.toLowerCase();
+      if ((event.metaKey || event.ctrlKey) && key === "k") {
+        event.preventDefault();
+        if (modal.hidden) openSearch();
+        return;
+      }
+      if (event.key === "Escape" && !modal.hidden) {
+        closeSearch();
+      }
+    });
+  })();
+</script>

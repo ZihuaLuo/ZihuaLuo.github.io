@@ -1,0 +1,23 @@
+---
+import { otherLanguage, type Language, withBase } from "@i18n/routes";
+import { ui } from "@i18n/ui";
+
+interface Props {
+  lang: Language;
+  alternateHref: string;
+}
+
+const { lang, alternateHref } = Astro.props;
+const nextLang = otherLanguage(lang);
+const href = alternateHref.startsWith("/") ? withBase(alternateHref) : alternateHref;
+---
+
+<a
+  href={href}
+  class="inline-flex min-h-10 items-center rounded-full border border-white/[0.14] bg-white/[0.09] px-3 text-sm font-extrabold text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-white/5 backdrop-blur transition hover:border-accent/70 hover:bg-white/[0.15] hover:text-accent sm:px-3.5"
+  lang={nextLang === "zh" ? "zh-CN" : "en"}
+  hreflang={nextLang === "zh" ? "zh-CN" : "en"}
+  aria-label={`${ui[lang].languageLabel}: ${ui[lang].switchTo}`}
+>
+  {ui[lang].switchTo}
+</a>

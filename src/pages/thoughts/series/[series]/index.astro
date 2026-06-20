@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import ThoughtSeriesArchive from "@components/ThoughtSeriesArchive.astro";
+import { thoughtSeries, thoughtsPerPage } from "@data/thoughtSeries";
+
+export async function getStaticPaths() {
+  const lang = "en";
+  const includeDrafts = !import.meta.env.PROD;
+  const allThoughts = await getCollection(
+    "thoughts",
+    ({ data }) => data.language === lang && (includeDrafts || !data.draft),
+  );
+
+  return thoughtSeries.flatMap((series) => {
+    const entries = allThoughts
+      .filter((entry) => entry.data.category === series.category[lang])
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    const totalPages = Math.ceil(entries.length / thoughtsPerPage);
+
+    if (entries.length === 0) {
+      return [];
+    }
+
+    return [
+      {
+        params: { series: series.slug },
+        props: {
+          currentPage: 1,
+          entries: entries.slice(0, thoughtsPerPage),
+          lang,
+          series,
+          totalCount: entries.length,
+          totalPages,
+        },
+      },
+    ];
+  });
+}
+---
+
+<ThoughtSeriesArchive {...Astro.props} />

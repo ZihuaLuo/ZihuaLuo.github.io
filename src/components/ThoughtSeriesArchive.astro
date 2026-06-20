@@ -1,0 +1,92 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import ThoughtCard from "@components/ThoughtCard.astro";
+import { entrySlug, langPath, type Language } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+import {
+  thoughtSeriesHref,
+  thoughtSeriesPath,
+  type ThoughtSeries,
+} from "@data/thoughtSeries";
+
+interface Props {
+  currentPage: number;
+  entries: any[];
+  lang: Language;
+  series: ThoughtSeries;
+  totalCount: number;
+  totalPages: number;
+}
+
+const { currentPage, entries, lang, series, totalCount, totalPages } = Astro.props;
+const isZh = lang === "zh";
+const otherLang = isZh ? "en" : "zh";
+const seriesTitle = series.title[lang];
+const description = series.description[lang];
+const authorName = isZh ? siteInfo.zhDisplayName : siteInfo.englishName;
+const countLabel = isZh ? `${totalCount} 篇文章` : `${totalCount} ${totalCount === 1 ? "essay" : "essays"}`;
+const pageLabel = isZh ? `第 ${currentPage} / ${totalPages} 页` : `Page ${currentPage} of ${totalPages}`;
+const previousHref = currentPage > 1 ? thoughtSeriesHref(lang, series.slug, currentPage - 1) : undefined;
+const nextHref = currentPage < totalPages ? thoughtSeriesHref(lang, series.slug, currentPage + 1) : undefined;
+const archiveHref = langPath(lang, "/thoughts/");
+---
+
+<BaseLayout
+  title={`${seriesTitle} | ${isZh ? "思考" : "Thinking"} | ${authorName}`}
+  description={description}
+  lang={lang}
+  alternateHref={thoughtSeriesPath(otherLang, series.slug, Math.min(currentPage, totalPages))}
+  canonicalPath={thoughtSeriesPath(lang, series.slug, currentPage)}
+>
+  <section class="finance-shell py-14 sm:py-20">
+    <div class="container-page relative z-10">
+      <a
+        class="mb-8 inline-flex rounded-full border border-line bg-white/[0.06] px-3 py-1.5 text-sm font-bold text-ink shadow-card transition hover:-translate-y-0.5 hover:border-accent/60 hover:bg-white/[0.1]"
+        href={archiveHref}
+      >
+        <span aria-hidden="true">←</span>
+        <span class="ml-2">{isZh ? "返回思考目录" : "Back to Thinking"}</span>
+      </a>
+      <PageHeader
+        eyebrow={isZh ? "思考篇目" : "Thought Series"}
+        title={seriesTitle}
+        description={description}
+      />
+      <div class="mt-8 flex flex-wrap items-center gap-3 text-sm font-extrabold">
+        <span class="rounded-full border border-accent/35 bg-accent/12 px-3 py-1.5 text-accent">{countLabel}</span>
+        <span class="rounded-full border border-gold/35 bg-gold/12 px-3 py-1.5 text-gold">{pageLabel}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="surface-section archive-section archive-section--thoughts py-18 sm:py-24">
+    <div class="container-page">
+      <div class="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+        {entries.map((entry) => (
+          <ThoughtCard entry={entry} lang={lang} href={langPath(lang, `/thoughts/${entrySlug(entry.id)}/`)} />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <nav class="mt-12 flex flex-col gap-4 rounded-2xl border border-line bg-white/[0.045] p-4 sm:flex-row sm:items-center sm:justify-between" aria-label={isZh ? "文章分页" : "Essay pagination"}>
+          <a
+            class={`inline-flex min-h-11 items-center justify-center rounded-full border px-4 text-sm font-extrabold transition ${previousHref ? "border-line bg-white/[0.06] text-ink hover:-translate-y-0.5 hover:border-accent/60" : "pointer-events-none border-white/[0.08] text-muted/45"}`}
+            href={previousHref}
+            aria-disabled={previousHref ? "false" : "true"}
+          >
+            {isZh ? "上一页" : "Previous"}
+          </a>
+          <span class="text-center text-sm font-extrabold text-muted">{pageLabel}</span>
+          <a
+            class={`inline-flex min-h-11 items-center justify-center rounded-full border px-4 text-sm font-extrabold transition ${nextHref ? "border-line bg-white/[0.06] text-ink hover:-translate-y-0.5 hover:border-accent/60" : "pointer-events-none border-white/[0.08] text-muted/45"}`}
+            href={nextHref}
+            aria-disabled={nextHref ? "false" : "true"}
+          >
+            {isZh ? "下一页" : "Next"}
+          </a>
+        </nav>
+      )}
+    </div>
+  </section>
+</BaseLayout>

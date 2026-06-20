@@ -1,0 +1,99 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.astro";
+import SectionTitle from "@components/SectionTitle.astro";
+import NowDashboard from "@components/NowDashboard.astro";
+import ThoughtCard from "@components/ThoughtCard.astro";
+import TimelineItem from "@components/TimelineItem.astro";
+import TimelineMotion from "@components/TimelineMotion.astro";
+import CreditSection from "@components/CreditSection.astro";
+import CTAButton from "@components/CTAButton.astro";
+import { entrySlug, langPath } from "@i18n/routes";
+import { siteInfo } from "@i18n/ui";
+
+const lang = "en";
+const includeDrafts = !import.meta.env.PROD;
+const featuredThoughts = (await getCollection(
+  "thoughts",
+  ({ data }) => data.language === lang && data.featured && (includeDrafts || !data.draft),
+))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 6);
+
+const timelinePreview = (await getCollection(
+  "timeline",
+  ({ data }) => data.language === lang && (includeDrafts || !data.draft),
+))
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
+  .slice(0, 10);
+
+---
+
+<BaseLayout
+  title={`${siteInfo.englishName} | Finance, Research & Analytics`}
+  description="Finance, research analytics, risk-aware thinking, and a bilingual archive of learning and reflection"
+  lang={lang}
+  alternateHref="/zh/"
+  canonicalPath="/"
+>
+  <Hero lang={lang} />
+
+  <section id="timeline" class="timeline-stage py-18 sm:py-24" data-timeline-stage>
+    <div class="container-page relative z-10">
+      <div class="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
+        <SectionTitle
+          title="My Growth Path in Finance, Research, and Judgment"
+          description="This timeline records my growth across financial practice, research support, and data analytics. Each experience is more than a change in title; it is a layer of capability built over time: from handling complex information, to building judgment frameworks, to turning analytical results into actionable, reusable outcomes."
+        />
+        <div class="premium-card rounded-2xl p-5">
+          <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-accent">My Career Thesis</p>
+          <p class="mt-2 text-sm font-semibold leading-7 text-muted">
+            My interest goes beyond financial data itself; it lies in the asset logic, risk structures, and market behavior behind the data: using analysis to understand value, and judgment to connect decisions.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs font-extrabold text-body">
+            <span class="rounded-full border border-white/[0.13] bg-white/[0.08] px-2.5 py-1">Asset Logic</span>
+            <span class="rounded-full border border-white/[0.13] bg-white/[0.08] px-2.5 py-1">Risk Structure</span>
+            <span class="rounded-full border border-white/[0.13] bg-white/[0.08] px-2.5 py-1">Market Judgment</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-rail relative mt-14 grid gap-y-12 before:absolute before:left-2.5 before:top-0 before:h-full before:w-px lg:gap-y-20 lg:before:left-1/2" data-timeline-rail>
+        <span class="timeline-progress" aria-hidden="true"></span>
+        {timelinePreview.map((entry, index) => (
+          <div class={`timeline-row grid lg:grid-cols-2 lg:gap-x-16 ${index % 2 === 0 ? "timeline-row--left" : "timeline-row--right"}`} data-timeline-entry>
+            <div class={index % 2 === 0 ? "lg:col-start-1" : "lg:col-start-2"}>
+              <TimelineItem entry={entry} align={index % 2 === 0 ? "left" : "right"} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <TimelineMotion />
+  </section>
+
+  <section id="impact" class="surface-section now-section scroll-mt-24 py-18 sm:py-24">
+    <div class="container-page">
+      <NowDashboard lang={lang} />
+    </div>
+  </section>
+
+  <section id="thinking" class="surface-section archive-section archive-section--thoughts scroll-mt-24 py-18 sm:py-24">
+    <div class="container-page">
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <SectionTitle
+          title="Featured reflections"
+          description="Selected essays from the full archive on cognition, judgment, career growth, and long-term learning"
+        />
+        <CTAButton href={langPath(lang, "/thoughts/")} label="All Thinking" variant="secondary" />
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+        {featuredThoughts.map((entry) => (
+          <ThoughtCard entry={entry} lang={lang} href={langPath(lang, `/thoughts/${entrySlug(entry.id)}/`)} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CreditSection lang={lang} />
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from "astro:content";
+import ContentLayout from "@layouts/ContentLayout.astro";
+import { entrySlug } from "@i18n/routes";
+
+export async function getStaticPaths() {
+  const includeDrafts = !import.meta.env.PROD;
+  const all = await getCollection("notes", ({ data }) => includeDrafts || !data.draft);
+  const entries = all.filter((entry) => entry.data.language === "en");
+
+  return entries.map((entry) => {
+    const slug = entrySlug(entry.id);
+    const counterpart = all.find(
+      (candidate) =>
+        candidate.data.language === "zh" &&
+        candidate.data.translationKey === entry.data.translationKey,
+    );
+    const alternateHref = counterpart ? `/zh/notes/${entrySlug(counterpart.id)}/` : "/zh/";
+
+    return {
+      params: { slug },
+      props: {
+        entry,
+        alternateHref,
+        canonicalPath: `/notes/${slug}/`,
+      },
+    };
+  });
+}
+
+const { entry, alternateHref, canonicalPath } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<ContentLayout
+  entry={entry}
+  lang="en"
+  collection="notes"
+  alternateHref={alternateHref}
+  canonicalPath={canonicalPath}
+>
+  <Content />
+</ContentLayout>

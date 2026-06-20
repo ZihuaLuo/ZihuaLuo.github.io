@@ -1,0 +1,35 @@
+﻿---
+title: "Pessimism Often Amplifies Fear Rather Than Seeing Reality"
+description: "Truly clear people do not refuse to believe in the future; they are not led by emotion"
+date: 2026-03-01
+category: "Cognition"
+tags: ["Pessimism", "Fear", "Reality Judgment"]
+language: "en"
+translationKey: "pessimism-often-amplifies-fear-rather-than-seeing-reality"
+featured: true
+draft: false
+---
+
+
+
+> Truly clear people do not refuse to believe in the future; they are not led by emotion.
+
+After reading Letter 066, "How Does Pessimism Arise?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: pessimism does not arise entirely because the world has truly become worse. It often arises because people overestimate themselves, magnify bad news, and are easily influenced by repeatedly transmitted information. Pessimism looks calm and profound, but in many cases it is not the result of rationality. It is the product of cognitive bias and accumulated emotion.
+
+In this letter, Wu Jun first mentions that one root of pessimism is excessive confidence, which creates a gap between the self and reality. If a person overestimates their own ability, they will repeatedly hit walls in reality. When reality fails to meet their expectations, they easily feel that the world is unfair and the future has no hope. The letter mentions an experiment in which people were asked to judge whether they could disassemble a complex device and put it back together. Many people initially thought it would not be difficult, but the percentage who could truly complete it was low. More interestingly, those who believed they could complete the task tended to estimate the task as easier. This shows that people cannot always judge their own ability accurately. Sometimes pessimism does not come from the world being too cruel, but from the fact that our original imagination of ourselves and the world was too optimistic.
+
+This gap is also common in real life. Before studying, working, or starting a business, many people feel that as long as they work hard, they should get the ideal result. But when that result does not appear, they easily explain failure as a bad era, an unfair society, or unlucky fate. More honestly, though, sometimes the external world has not completely blocked the path. We may have estimated our abilities, resources, and situation too highly. If a person is unwilling to admit the gap between reality and imagination, they can easily slide from confidence into disappointment, and from disappointment into pessimism.
+
+The letter also mentions another reason pessimism forms: bad news is constantly amplified in modern society. The more developed communication and media become, the more disasters, crises, and conflicts people encounter. In the past, when floods, famines, wars, or accidents happened in many places, distant people might never know about them. Today, any event can quickly spread through media to appear before everyone. As a result, people develop an illusion: the world seems more dangerous, and disasters seem more frequent. In fact, many problems also existed in the past. They just were not presented so intensively before.
+
+This makes me think that more information does not necessarily mean more accurate judgment. If information lacks context and proportion, it easily becomes fuel for fear. For example, after airplane accidents receive heavy coverage, people may feel that flying is dangerous. But in terms of actual probability, airplanes are still a very safe form of transportation. Similarly, after natural disasters, economic crises, and social problems are repeatedly reported, people without a historical scale or data awareness easily treat local events as overall trends and individual risks as inevitable disasters. Pessimism gains its spreading power through this amplification of information.
+
+The third reason is that pessimism often attracts attention through unusual information. The letter mentions that from the perspective of information theory, the more a viewpoint differs from common understanding and the more unexpected it is, the more information it carries and the more easily it spreads. If someone says, "next year will be roughly the same as this year," people will not find it interesting. But if someone says, "a huge crisis will happen in the future," it is more likely to attract attention. Many pessimistic statements are not necessarily more correct. They are just more stimulating and more unusual, so they are easier to remember and spread.
+
+This is also why some seemingly rational scholars and experts keep making pessimistic predictions. If a pessimistic prediction comes true, it will be seen as foresight. Even if it does not come true, it can often be explained as "the time has not arrived yet." This mechanism makes pessimism very hard to completely falsify. By contrast, moderate, cautious, and balanced judgment is less likely to attract attention. If a society rewards extreme expression for a long time, pessimism will spread more easily than rational judgment.
+
+However, this letter is not telling us to be blindly optimistic. The real question is not whether we should see bad things, but whether we can look at bad things in the right way. The problem with pessimism is that it easily treats risk as outcome, difficulty as fate, and local problems as the whole picture of the world. Rational people should certainly see crises, but they should also see human capacity for action, technological progress, institutional adjustment, and the possibility of long-term improvement. Bad news without a path to solution is not clarity. It is being controlled by fear.
+
+This is a personal reminder for me as well. When facing study, career planning, or future choices, I can also be influenced by pessimistic emotions. Seeing intense competition, I may feel that I have no chance. Seeing other people succeed, I may feel the gap is too large. Seeing environmental changes, I may worry that the future is uncontrollable. But if I think carefully, much pessimism comes from magnified imagination. What I should really do is not sink into the anxiety of "what will happen later," but break the problem apart: which risks are real? Which risks have been amplified? Which things can I change? Which things must I accept? Only in this way will pessimism not swallow the ability to act.
+
+The core reflection this letter left me with is that pessimism often does not see through reality; it amplifies fear. It may come from the gap after excessive expectations, from the accumulation of bad news in the media environment, or from the mechanism by which extreme views spread more easily. Mature cognition is not forcing oneself to be optimistic, nor indulging in pessimism. It is keeping a sense of proportion, awareness of evidence, and the ability to act in a complex world. Seeing problems is necessary, but being frightened into paralysis is not wisdom. Admitting risk is clear, but believing that people can still change reality is the kind of clarity that truly has power.

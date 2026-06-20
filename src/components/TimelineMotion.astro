@@ -1,0 +1,134 @@
+<script is:inline>
+  (() => {
+    const initializeTimelineMotion = () => {
+      document.querySelectorAll("[data-timeline-stage]").forEach((stage) => {
+        if (stage.dataset.timelineMotionReady === "true") return;
+        stage.dataset.timelineMotionReady = "true";
+
+        const rail = stage.querySelector("[data-timeline-rail]");
+        const entries = [...stage.querySelectorAll("[data-timeline-entry]")];
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const animationCleanupTimers = new WeakMap();
+
+        if (reducedMotion) {
+          entries.forEach((entry) => entry.classList.add("is-in-view"));
+          rail?.style.setProperty("--timeline-progress-scale", "1");
+          return;
+        }
+
+        stage.classList.add("timeline-motion-ready");
+
+        let previousScrollY = window.scrollY;
+        let scrollDirection = "down";
+        let ticking = false;
+        let stageInView = false;
+
+        const updateTimeline = () => {
+          ticking = false;
+          if (!stageInView) return;
+          scrollDirection = window.scrollY >= previousScrollY ? "down" : "up";
+          previousScrollY = window.scrollY;
+          stage.dataset.scrollDirection = scrollDirection;
+
+          if (!rail) return;
+          const rect = rail.getBoundingClientRect();
+          const readingLine = window.innerHeight * 0.62;
+          const progress = Math.min(Math.max(readingLine - rect.top, 0), rect.height);
+          const progressRatio = rect.height > 0 ? progress / rect.height : 0;
+          rail.style.setProperty("--timeline-progress-scale", progressRatio.toFixed(4));
+        };
+
+        const requestTimelineUpdate = () => {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(updateTimeline);
+        };
+
+        const stageObserver = new IntersectionObserver(
+          ([observation]) => {
+            stageInView = Boolean(observation?.isIntersecting);
+            if (stageInView) requestTimelineUpdate();
+          },
+          { rootMargin: "18% 0px 18% 0px" },
+        );
+
+        const markEntryAnimating = (entry) => {
+          entry.classList.add("is-animating");
+          window.clearTimeout(animationCleanupTimers.get(entry));
+          animationCleanupTimers.set(
+            entry,
+            window.setTimeout(() => {
+              entry.classList.remove("is-animating");
+              animationCleanupTimers.delete(entry);
+            }, 960),
+          );
+        };
+
+        const resetEntryIfOutsideViewport = (entry) => {
+          const rect = entry.getBoundingClientRect();
+          const outsideViewport = rect.bottom < -80 || rect.top > window.innerHeight + 80;
+          if (outsideViewport) {
+            entry.classList.remove("is-in-view", "is-animating");
+            window.clearTimeout(animationCleanupTimers.get(entry));
+            animationCleanupTimers.delete(entry);
+          }
+        };
+
+        const observer = new IntersectionObserver(
+          (observations) => {
+            observations.forEach((observation) => {
+              const entry = observation.target;
+              if (observation.isIntersecting) {
+                entry.dataset.enterDirection = scrollDirection;
+                markEntryAnimating(entry);
+                entry.classList.add("is-in-view");
+              } else {
+                resetEntryIfOutsideViewport(entry);
+              }
+            });
+          },
+          { threshold: 0.16, rootMargin: "-10% 0px -12% 0px" },
+        );
+
+        stageObserver.observe(stage);
+        entries.forEach((entry) => observer.observe(entry));
+
+        window.addEventListener("scroll", requestTimelineUpdate, { passive: true });
+        window.addEventListener("resize", requestTimelineUpdate);
+        stageInView = true;
+        requestTimelineUpdate();
+
+        const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
+        if (!supportsFinePointer) return;
+
+        stage.querySelectorAll("[data-timeline-card]").forEach((card) => {
+          let frame = 0;
+          let nextX = "50%";
+          let nextY = "0%";
+          let rect = card.getBoundingClientRect();
+          const updatePointerBounds = () => {
+            rect = card.getBoundingClientRect();
+          };
+
+          card.addEventListener("pointerenter", updatePointerBounds, { passive: true });
+          card.addEventListener("pointermove", (event) => {
+            nextX = `${event.clientX - rect.left}px`;
+            nextY = `${event.clientY - rect.top}px`;
+            if (frame) return;
+            frame = window.requestAnimationFrame(() => {
+              frame = 0;
+              card.style.setProperty("--spot-x", nextX);
+              card.style.setProperty("--spot-y", nextY);
+            });
+          }, { passive: true });
+        });
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeTimelineMotion, { once: true });
+    } else {
+      initializeTimelineMotion();
+    }
+  })();
+</script>

@@ -1,0 +1,34 @@
+---
+import BrandMark from "@components/BrandMark.astro";
+import SocialIconLinks from "@components/SocialIconLinks.astro";
+import { langPath, type Language } from "@i18n/routes";
+import { personalSignature, siteInfo } from "@i18n/ui";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+const brandName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
+---
+
+<footer class="mt-24 border-t border-white/[0.12] bg-[linear-gradient(180deg,rgba(var(--rgb-bg-base),0.58),rgba(var(--rgb-bg-deep),0.66))] shadow-[0_-20px_80px_rgba(56,189,248,0.08),0_-10px_42px_rgba(124,58,237,0.08)] backdrop-blur-2xl">
+  <div class="container-page grid gap-8 py-11 md:grid-cols-[1fr_auto] md:items-center">
+    <div>
+      <a href={langPath(lang, "/")} class="inline-flex items-center gap-3">
+        <BrandMark label={brandName} dark />
+        <span>
+          <span class="block text-sm font-extrabold text-ink">{brandName}</span>
+          <span class="block max-w-xl text-sm leading-6 text-muted">{personalSignature[lang]}</span>
+        </span>
+      </a>
+    </div>
+    <div class="flex items-center gap-2 md:justify-end">
+      <SocialIconLinks lang={lang} compact includeEmail />
+    </div>
+  </div>
+  <div class="container-page border-t border-white/[0.12] py-5 text-sm text-muted">
+    <span>&copy; {year} {brandName}</span>
+  </div>
+</footer>
