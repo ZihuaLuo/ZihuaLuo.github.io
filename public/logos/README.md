@@ -1,4 +1,4 @@
-Logo assets for Timeline entries.
+Logo assets for Experience entries.
 
 User-provided company and school logos:
 
@@ -7,7 +7,7 @@ User-provided company and school logos:
 - `degroote-mcmaster.png`: DeGroote School of Business
 - `rer-reconocer.jpg`: RER / RECONOCER
 
-Other timeline logos:
+Other experience logos:
 
 - `mcmaster-university.png`: McMaster University
 - `cfa-institute.png`: CFA Institute

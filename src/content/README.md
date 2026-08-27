@@ -1,20 +1,21 @@
 # Content Guide
 
-Thoughts and Notes are powered by Astro content collections
+Approved essays are powered by the Astro `writing` content collection.
 
-Add new public content by creating paired Markdown or MDX files in the language folders:
+Add new public writing only after approval by creating Markdown or MDX files in:
 
 ```txt
-src/content/thoughts/en/my-topic.md
-src/content/thoughts/zh/my-topic.md
-src/content/notes/en/my-note.md
-src/content/notes/zh/my-note.md
+src/content/writing/en/my-topic.md
 ```
-
-Use the same `translationKey` for the English and Chinese versions so language switching can connect related entries
 
 Set `draft: true` when you want a file to stay out of production lists and generated routes
 
-The homepage previews and archive pages update automatically after a new file is added
+Experience entries use the `experience` collection and live under:
 
-Visible copy follows the site style: avoid sentence-ending periods in English and Chinese UI/content text
+```txt
+src/content/experience/en/my-entry.md
+```
+
+The Writing archive, Experience page, search index, and sitemap update automatically after approved content is added.
+
+Do not create placeholder notes, study maps, or inferred personal writing.

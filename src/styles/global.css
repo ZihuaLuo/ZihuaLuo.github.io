@@ -54,7 +54,7 @@
   --panel-strong: var(--bg-panel-strong);
   --ink: var(--text-primary);
   --body: var(--text-body);
-  --zh-body: #e2e8f0;
+  --body-soft: #e2e8f0;
   --muted: var(--text-secondary);
   --meta: var(--text-muted);
   --soft: #e0f2fe;
@@ -96,6 +96,28 @@ html {
   scroll-behavior: smooth;
   overflow-x: clip;
   background: var(--background-page);
+}
+
+::view-transition-old(root) {
+  animation: 180ms cubic-bezier(0.4, 0, 1, 1) both page-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 320ms cubic-bezier(0.16, 1, 0.3, 1) both page-fade-in;
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem);
+  }
 }
 
 body {
@@ -225,13 +247,25 @@ body > footer {
   transform: rotate(-18deg);
 }
 
-.timeline-stage,
 .surface-section {
   content-visibility: auto;
   contain-intrinsic-size: auto 920px;
 }
 
+/* Keep homepage anchor positions stable before the first scroll/navigation. */
+[data-experience-section],
+#writing.surface-section,
+#credit.surface-section {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 1ms;
+  }
+
   .site-aura::before {
     animation: none;
   }
@@ -327,20 +361,6 @@ button {
 
 .text-accent {
   color: var(--accent) !important;
-}
-
-html[lang="zh-CN"] .text-muted {
-  color: var(--zh-body) !important;
-}
-
-html[lang="zh-CN"] p,
-html[lang="zh-CN"] li {
-  line-height: 1.85;
-}
-
-html[lang="zh-CN"] .display-heading {
-  line-height: 1.16 !important;
-  padding-block: 0.04em;
 }
 
 section,
@@ -467,7 +487,6 @@ article,
 .finance-hero::before,
 .finance-hero::after,
 .finance-shell::before,
-.finance-shell::after,
 .timeline-stage::before,
 .section-panel::before,
 .surface-section::before {
@@ -669,15 +688,6 @@ article,
 
 .finance-shell {
   border-bottom: 1px solid var(--line);
-}
-
-.finance-shell::after {
-  right: max(18px, calc((100vw - 1180px) / 2));
-  bottom: 12%;
-  width: min(340px, 42vw);
-  height: 140px;
-  border-left: 1px solid var(--border-glow);
-  border-bottom: 1px solid rgba(var(--rgb-cyan), 0.16);
 }
 
 .timeline-stage {
@@ -906,7 +916,7 @@ article,
   margin: 1.7rem 0;
   padding: 0.4rem 0 0.4rem 1.15rem;
   border-left: 3px solid var(--violet);
-  color: var(--zh-body);
+  color: var(--body-soft);
   background: rgba(var(--rgb-violet-soft), 0.08);
 }
 

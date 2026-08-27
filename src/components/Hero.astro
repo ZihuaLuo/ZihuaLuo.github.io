@@ -1,9 +1,8 @@
 ---
 import AvatarCard from "@components/AvatarCard.astro";
-import CTAButton from "@components/CTAButton.astro";
 import HeroAtmosphere from "@components/HeroAtmosphere.astro";
 import HeroMusicPlayer from "@components/HeroMusicPlayer.astro";
-import { langPath, withBase, type Language } from "@i18n/routes";
+import { withBase, type Language } from "@i18n/routes";
 import { personalSignature, siteInfo } from "@i18n/ui";
 
 interface Props {
@@ -11,66 +10,30 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const headingLeading = lang === "zh" ? "leading-[1.12]" : "leading-[0.98]";
+const headingLeading = "leading-[0.98]";
 const donationHref = withBase("/documents/un-women-donation-confirmation.pdf");
 const nutritionDonationHref = withBase("/documents/children-nutrition-donation-certificate-bilingual.png");
-const proposalSeparator = lang === "zh" ? "：" : ": ";
+const proposalSeparator = ": ";
 const copy = {
-  en: {
-    eyebrow: "About Me",
-    name: siteInfo.englishName,
-    tagline: personalSignature.en,
-    proposalLabel: "Belief",
-    proposal: "The world deserves better.",
-    donation: "CA$1,000 donation to UN Women",
-    nutritionDonation: "Bilingual RMB 1,000 nutrition meal certificate",
-    primary: "Read Thinking",
-    quickLinks: [
-      { label: "Impact Metrics", href: "#impact", variant: "secondary" as const },
-      { label: "Credits", href: "#credit", variant: "secondary" as const },
-    ],
-    metrics: [
-      ["01", "Sincere"],
-      ["02", "Optimistic"],
-      ["03", "Resilient"],
-    ],
-  },
-  zh: {
-    eyebrow: "关于我",
-    name: siteInfo.zhDisplayName,
-    tagline: personalSignature.zh,
-    proposalLabel: "信念",
-    proposal: "世界值得变得更好。",
-    donation: "向联合国妇女署捐赠 CA$1,000",
-    nutritionDonation: "RMB 1,000 营养餐捐赠双语证书",
-    primary: "阅读思考内容",
-    quickLinks: [
-      { label: "量化成果", href: "#impact", variant: "secondary" as const },
-      { label: "致谢", href: "#credit", variant: "secondary" as const },
-    ],
-    metrics: [
-      ["01", "真诚"],
-      ["02", "乐观"],
-      ["03", "抗压"],
-    ],
-  },
-}[lang];
+  name: siteInfo.credentialedEnglishName,
+  tagline: personalSignature.en,
+  proposalLabel: "Belief",
+  proposal: "The world deserves better.",
+  donation: "CA$1,000 donation to UN Women",
+  nutritionDonation: "Bilingual RMB 1,000 nutrition meal certificate",
+  metrics: ["Sincere", "Optimistic", "Resilient"],
+};
 
-const heroHref = (href: string) => href.startsWith("#") ? href : langPath(lang, href);
 const donationLinks = [
   { label: copy.donation, href: donationHref },
   { label: copy.nutritionDonation, href: nutritionDonationHref },
 ];
 ---
 
-<section class="finance-hero py-14 sm:py-18 lg:py-24">
+<section id="home" class="finance-hero py-10 sm:py-12 lg:py-16">
   <HeroAtmosphere />
   <div class="container-page relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
     <div class="order-2 max-w-3xl text-ink lg:order-1">
-      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/25 bg-white/[0.08] px-3.5 py-1.5 text-sm font-bold text-ink shadow-[0_0_34px_rgba(124,58,237,0.16),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur">
-        <span class="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_18px_rgba(56,189,248,0.75)]" aria-hidden="true"></span>
-        {copy.eyebrow}
-      </div>
       <h1 class={`display-heading title-flow title-flow--hero max-w-4xl bg-[linear-gradient(135deg,var(--text-primary)_0%,#DBEAFE_42%,var(--text-violet)_82%)] bg-clip-text text-5xl font-semibold ${headingLeading} text-transparent sm:text-6xl lg:text-7xl`}>
         {copy.name}
       </h1>
@@ -101,20 +64,12 @@ const donationLinks = [
         </div>
       </div>
 
-      <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <CTAButton href={langPath(lang, "/thoughts/")} label={copy.primary} />
-        {copy.quickLinks.map((link) => (
-          <CTAButton href={heroHref(link.href)} label={link.label} variant={link.variant} />
-        ))}
-      </div>
-
       <HeroMusicPlayer lang={lang} />
 
-      <div class="mt-11 grid max-w-3xl gap-4 sm:grid-cols-3">
-        {copy.metrics.map(([number, label]) => (
-          <div class="hero-metric min-h-20 rounded-2xl border border-accent/22 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.055))] p-3.5 shadow-[0_16px_44px_rgba(56,189,248,0.07),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur transition hover:-translate-y-1 hover:border-accent/60 hover:bg-white/[0.14] hover:shadow-lift">
-            <p class="text-sm font-extrabold text-accent">{number}</p>
-            <p class="mt-2 text-2xl font-extrabold leading-tight text-ink sm:text-3xl">{label}</p>
+      <div class="mt-7 grid max-w-3xl gap-3 sm:grid-cols-3" aria-label="Personal qualities">
+        {copy.metrics.map((label) => (
+          <div class="hero-metric flex min-h-16 items-center justify-center rounded-2xl border border-accent/22 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.055))] p-3 text-center shadow-[0_16px_44px_rgba(56,189,248,0.07),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur">
+            <p class="text-xl font-extrabold leading-tight text-ink sm:text-2xl">{label}</p>
           </div>
         ))}
       </div>

@@ -1,8 +1,7 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { nowDashboardCopy } from "@data/now";
 import { entrySlug, withBase, type Language } from "@i18n/routes";
 
-type SearchType = "thought" | "note" | "timeline" | "now";
+type SearchType = "writing" | "experience";
 
 type SearchItem = {
   title: string;
@@ -14,6 +13,8 @@ type SearchItem = {
   language: Language;
   date?: string;
   content?: string;
+  track?: string;
+  aliases?: string[];
 };
 
 function cleanMarkdown(value = "") {
@@ -27,10 +28,20 @@ function cleanMarkdown(value = "") {
     .trim();
 }
 
-type TimelineEntry = CollectionEntry<"timeline">;
+type ExperienceEntry = CollectionEntry<"experience">;
 
-function timelineTitle(entry: TimelineEntry) {
+function experienceTitle(entry: ExperienceEntry) {
   const company = entry.data.company ?? entry.data.organization ?? entry.data.context;
+  if (entry.data.track === "professional") {
+    return [company, entry.data.role].filter(Boolean).join(" | ");
+  }
+  if (entry.data.track === "research" || entry.data.track === "credentials") {
+    return entry.data.title ?? [entry.data.role, company].filter(Boolean).join(" | ");
+  }
+  if (entry.data.track === "education") {
+    return entry.data.education?.degree ?? entry.data.role ?? company ?? entry.data.category;
+  }
+
   const type = entry.data.type ?? (entry.data.featured ? "milestone" : "experience");
   if (type !== "milestone") {
     return [entry.data.role, company].filter(Boolean).join(" | ") || entry.data.title || entry.data.category;
@@ -47,150 +58,97 @@ function entryDateLabel(entry: { data: { date: Date; displayDate?: string } }) {
   return entry.data.displayDate ?? entry.data.date.toISOString().slice(0, 10);
 }
 
-function timelineDateLabel(entry: TimelineEntry) {
+function experienceDateLabel(entry: ExperienceEntry) {
   return entry.data.displayDate ?? entry.data.date;
 }
 
-function nowItems(lang: Language): SearchItem[] {
-  const copy = nowDashboardCopy[lang];
-  const url = withBase(lang === "zh" ? "/zh/now/" : "/now/");
-  const tags = [
-    ...copy.statusItems.map((item) => item.value),
-    ...copy.focusItems.map((item) => item.label),
-    ...copy.learningItems.map((item) => item.label),
-    ...copy.learningItems.map((item) => item.display),
-    ...copy.priorities.map((item) => item.value),
-    ...copy.snapshot.flatMap((item) => [item.label, item.value]),
-    ...copy.momentumTags,
-  ];
+function experienceUrl(entry: ExperienceEntry) {
+  const track = entry.data.track;
+  const anchor = `experience-${entrySlug(entry.id)}`;
+  return withBase(`/experience/?track=${encodeURIComponent(track)}#${anchor}`);
+}
 
+function experienceAliases(entry: ExperienceEntry) {
+  const source = [entry.data.title, entry.data.role, ...entry.data.tags].filter(Boolean).join(" ");
+  const numericLevels = source
+    .replace(/\bLevel II\b/gi, "Level 2")
+    .replace(/\bLevel I\b/gi, "Level 1")
+    .replace(/\bPart II\b/gi, "Part 2")
+    .replace(/\bPart I\b/gi, "Part 1");
+  const aliases = numericLevels === source ? [] : [numericLevels];
+
+  if (entry.data.tags.includes("Certified FRM")) {
+    aliases.push("FRM Charterholder");
+  }
+
+  return aliases;
+}
+
+function experienceSearchContent(entry: ExperienceEntry) {
+  const education = entry.data.education;
   return [
-    {
-      title: copy.eyebrow,
-      description: copy.subtitle,
-      url,
-      type: "now",
-      category: lang === "zh" ? "量化成果" : "Impact Metrics",
-      tags,
-      language: lang,
-      content: [
-        copy.title,
-        copy.focusTitle,
-        copy.learningTitle,
-        copy.prioritiesTitle,
-        copy.snapshotTitle,
-        copy.momentumTitle,
-      ].join(" "),
-    },
-    {
-      title: copy.focusTitle,
-      description: copy.focusSubtitle,
-      url,
-      type: "now",
-      category: lang === "zh" ? "成果分布" : "Achievement Mix",
-      tags: copy.focusItems.map((item) => item.label),
-      language: lang,
-    },
-    {
-      title: copy.learningTitle,
-      description: copy.learningSubtitle,
-      url,
-      type: "now",
-      category: lang === "zh" ? "证书与学习记录" : "Credential & Learning Record",
-      tags: copy.learningItems.flatMap((item) => [item.label, item.display]),
-      language: lang,
-    },
-    {
-      title: copy.prioritiesTitle,
-      description: copy.priorities.map((item) => `${item.label}: ${item.value}`).join(" | "),
-      url,
-      type: "now",
-      category: lang === "zh" ? "核心指标" : "Core Metrics",
-      tags: copy.priorities.map((item) => item.value),
-      language: lang,
-    },
-    {
-      title: copy.momentumTitle,
-      description: copy.momentumBody,
-      url,
-      type: "now",
-      category: lang === "zh" ? "执行负载" : "Operating Load",
-      tags: copy.momentumTags,
-      language: lang,
-    },
-  ];
+    entry.data.role,
+    entry.data.company,
+    entry.data.organization,
+    entry.data.context,
+    entry.data.highlight,
+    entry.data.track,
+    education?.degree,
+    education?.school,
+    ...(education?.fields ?? []),
+    ...(education?.recognition.flatMap((item) => [item.label, item.value]) ?? []),
+    education?.awardsLabel,
+    ...(education?.awards ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
 export async function GET() {
-  const includeDrafts = !import.meta.env.PROD;
-  const thoughts = await getCollection("thoughts", ({ data }) => includeDrafts || !data.draft);
-  const notes = await getCollection("notes", ({ data }) => includeDrafts || !data.draft);
-  const timeline = await getCollection("timeline", ({ data }) => includeDrafts || !data.draft);
+  const writing = await getCollection(
+    "writing",
+    ({ data }) => data.language === "en" && !data.draft,
+  );
+  const experience = await getCollection(
+    "experience",
+    ({ data }) => data.language === "en" && !data.draft,
+  );
 
-  const writingItems: SearchItem[] = [
-    ...thoughts.map((entry) => ({
-      title: entry.data.title,
-      description: entry.data.description,
-      url: withBase(
-        entry.data.language === "zh"
-          ? `/zh/thoughts/${entrySlug(entry.id)}/`
-          : `/thoughts/${entrySlug(entry.id)}/`,
-      ),
-      type: "thought" as const,
-      category: entry.data.category,
-      tags: entry.data.tags,
-      language: entry.data.language,
-      date: entryDateLabel(entry),
-      content: cleanMarkdown(entry.body),
-    })),
-    ...notes.map((entry) => ({
-      title: entry.data.title,
-      description: entry.data.description,
-      url: withBase(
-        entry.data.language === "zh"
-          ? `/zh/notes/${entrySlug(entry.id)}/`
-          : `/notes/${entrySlug(entry.id)}/`,
-      ),
-      type: "note" as const,
-      category: entry.data.category,
-      tags: entry.data.tags,
-      language: entry.data.language,
-      date: entryDateLabel(entry),
-      content: cleanMarkdown(entry.body),
-    })),
-  ];
-
-  const timelineItems: SearchItem[] = timeline.map((entry) => ({
-    title: timelineTitle(entry),
+  const writingItems: SearchItem[] = writing.map((entry) => ({
+    title: entry.data.title,
     description: entry.data.description,
-    url: withBase(entry.data.language === "zh" ? "/zh/#timeline" : "/#timeline"),
-    type: "timeline",
+    url: withBase(`/writing/${entrySlug(entry.id)}/`),
+    type: "writing" as const,
     category: entry.data.category,
     tags: entry.data.tags,
     language: entry.data.language,
-    date: timelineDateLabel(entry),
-    content: [
-      entry.data.role,
-      entry.data.company,
-      entry.data.organization,
-      entry.data.context,
-      entry.data.highlight,
-    ]
-      .filter(Boolean)
-      .join(" "),
+    date: entryDateLabel(entry),
+    content: cleanMarkdown(entry.body),
+  }));
+
+  const experienceItems: SearchItem[] = experience.map((entry) => ({
+    title: experienceTitle(entry),
+    description: entry.data.description,
+    url: experienceUrl(entry),
+    type: "experience",
+    category: entry.data.category,
+    tags: entry.data.tags,
+    language: entry.data.language,
+    date: experienceDateLabel(entry),
+    content: experienceSearchContent(entry),
+    track: entry.data.track,
+    aliases: experienceAliases(entry),
   }));
 
   const items = [
+    ...experienceItems,
     ...writingItems,
-    ...timelineItems,
-    ...nowItems("en"),
-    ...nowItems("zh"),
   ];
 
   return new Response(JSON.stringify(items), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
+      "Cache-Control": "public, max-age=0, must-revalidate",
     },
   });
 }

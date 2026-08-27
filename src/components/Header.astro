@@ -1,30 +1,29 @@
 ---
 import BrandMark from "@components/BrandMark.astro";
-import LanguageSwitcher from "@components/LanguageSwitcher.astro";
 import { navItems, stripBase, withBase, type Language } from "@i18n/routes";
 import { siteInfo, ui } from "@i18n/ui";
 
 interface Props {
   lang: Language;
   currentPath: string;
-  alternateHref: string;
 }
 
-const { lang, currentPath, alternateHref } = Astro.props;
+const { lang, currentPath } = Astro.props;
 const cleanPath = stripBase(currentPath);
-const nav = navItems[lang];
-const homeHref = lang === "zh" ? "/zh/" : "/";
-const brandName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
-const brandLine = lang === "zh" ? "谋事在人 / 成事在天" : "Man Proposes / God Disposes";
-const navHref = (href: string) =>
-  cleanPath === homeHref && href.startsWith(`${homeHref}#`)
-    ? href.slice(homeHref.length)
-    : href;
-const rankBadge = "Top 2%";
-const isActive = (href: string) =>
-  href === "/" || href === "/zh/"
-    ? cleanPath === href
-    : cleanPath === href || cleanPath.startsWith(href);
+const nav = navItems.en;
+const homeHref = "/";
+const brandName = siteInfo.credentialedEnglishName;
+const brandLine = "Man Proposes, God Disposes";
+const brandHref = withBase(homeHref);
+const rankBadge = "Goal: Top 2%";
+const normalizePath = (path: string) => path === "/" ? path : `${path.replace(/\/+$/, "")}/`;
+const isActive = (item: (typeof nav)[number]) => {
+  const current = normalizePath(cleanPath);
+  const href = normalizePath(item.href);
+  if (href === "/") return current === href;
+  return [href, ...(item.activePrefixes ?? []).map(normalizePath)]
+    .some((prefix) => current === prefix || current.startsWith(prefix));
+};
 ---
 
 <a
@@ -34,9 +33,9 @@ const isActive = (href: string) =>
   {ui[lang].skip}
 </a>
 
-<header class="sticky top-0 z-40 border-b border-white/[0.14] bg-[var(--bg-header)] shadow-[0_18px_80px_rgba(56,189,248,0.08),0_14px_48px_rgba(10,16,36,0.34)] ring-1 ring-white/[0.055] backdrop-blur-2xl">
+<header class="sticky top-0 z-40 border-b border-white/[0.14] bg-[var(--bg-header)] shadow-[0_18px_80px_rgba(56,189,248,0.08),0_14px_48px_rgba(10,16,36,0.34)] ring-1 ring-white/[0.055] backdrop-blur-2xl" data-site-header>
   <div class="container-page relative flex min-h-[70px] items-center justify-between gap-3 sm:min-h-[78px] sm:gap-4">
-    <a href={withBase(homeHref)} class="group flex min-w-0 items-center gap-3" aria-label={brandName}>
+    <a href={brandHref} class="group flex min-w-0 items-center gap-3" aria-label={brandName}>
       <BrandMark label={brandName} size="sm" dark />
       <span class="hidden leading-tight sm:block">
         <span class="block text-sm font-extrabold text-ink">{brandName}</span>
@@ -45,17 +44,19 @@ const isActive = (href: string) =>
     </a>
 
     <div class="absolute left-1/2 hidden -translate-x-1/2 lg:block">
-      <nav class="flex items-center gap-1 rounded-full border border-white/[0.12] bg-white/[0.075] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-white/5" aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
+      <nav class="flex items-center gap-1 rounded-full border border-white/[0.12] bg-white/[0.075] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-white/5" aria-label="Primary navigation">
         {nav.map((item) => (
           <a
-            href={withBase(navHref(item.href))}
+            href={withBase(item.href)}
             data-nav-link
+            data-nav-paths={[item.href, ...(item.activePrefixes ?? [])].map(withBase).join("|")}
+            data-nav-variant="desktop"
             class={`rounded-full px-3.5 py-2 text-sm font-bold transition ${
-              isActive(item.href)
+              isActive(item)
                 ? "bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(167,139,250,0.22))] text-ink shadow-[0_0_34px_var(--glow-violet),inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-accent/40"
                 : "text-body hover:bg-white/[0.1] hover:text-ink hover:ring-1 hover:ring-white/10"
             }`}
-            aria-current={isActive(item.href) ? "page" : undefined}
+            aria-current={isActive(item) ? "page" : undefined}
           >
             {item.label}
           </a>
@@ -79,7 +80,6 @@ const isActive = (href: string) =>
         <span>{ui[lang].search}</span>
         <kbd class="hidden rounded-md border border-white/[0.12] px-1.5 py-0.5 text-[0.65rem] font-extrabold text-muted xl:inline">Ctrl K</kbd>
       </button>
-      <LanguageSwitcher lang={lang} alternateHref={alternateHref} />
     </div>
 
     <div class="flex shrink-0 items-center gap-1.5 lg:hidden">
@@ -93,11 +93,10 @@ const isActive = (href: string) =>
           <path d="m20 20-4.6-4.6m2.1-5.15a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
         </svg>
       </button>
-      <LanguageSwitcher lang={lang} alternateHref={alternateHref} />
       <button
         class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.09] text-ink shadow-sm ring-1 ring-white/5 transition hover:border-accent/60 hover:bg-white/[0.13]"
         type="button"
-        aria-label={lang === "zh" ? "打开导航菜单" : "Open navigation menu"}
+        aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-nav"
         data-menu-button
@@ -113,15 +112,17 @@ const isActive = (href: string) =>
   </div>
 
   <div id="mobile-nav" class="border-t border-white/[0.12] bg-[rgba(var(--rgb-bg-base),0.96)] shadow-card backdrop-blur-2xl lg:hidden" hidden data-mobile-nav>
-    <nav class="container-page grid gap-1 py-4" aria-label={lang === "zh" ? "移动端导航" : "Mobile navigation"}>
+    <nav class="container-page grid gap-1 py-4" aria-label="Mobile navigation">
       {nav.map((item) => (
         <a
-          href={withBase(navHref(item.href))}
+          href={withBase(item.href)}
           data-nav-link
+          data-nav-paths={[item.href, ...(item.activePrefixes ?? [])].map(withBase).join("|")}
+          data-nav-variant="mobile"
           class={`rounded-xl px-4 py-3 text-base font-bold transition ${
-            isActive(item.href) ? "bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(167,139,250,0.22))] text-ink ring-1 ring-accent/35" : "text-body hover:bg-white/[0.1] hover:text-ink"
+            isActive(item) ? "bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(167,139,250,0.22))] text-ink ring-1 ring-accent/35" : "text-body hover:bg-white/[0.1] hover:text-ink"
           }`}
-          aria-current={isActive(item.href) ? "page" : undefined}
+          aria-current={isActive(item) ? "page" : undefined}
         >
           {item.label}
         </a>
@@ -130,31 +131,103 @@ const isActive = (href: string) =>
   </div>
 </header>
 
-<script is:inline>
-  const button = document.querySelector("[data-menu-button]");
-  const menu = document.querySelector("[data-mobile-nav]");
-  const openIcon = document.querySelector("[data-menu-open-icon]");
-  const closeIcon = document.querySelector("[data-menu-close-icon]");
-  const navLinks = document.querySelectorAll("[data-nav-link]");
+<script>
+  (() => {
+    const navClasses = {
+      desktop: {
+        active: [
+          "bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(167,139,250,0.22))]",
+          "text-ink",
+          "shadow-[0_0_34px_var(--glow-violet),inset_0_1px_0_rgba(255,255,255,0.16)]",
+          "ring-1",
+          "ring-accent/40",
+        ],
+        inactive: [
+          "text-body",
+          "hover:bg-white/[0.1]",
+          "hover:text-ink",
+          "hover:ring-1",
+          "hover:ring-white/10",
+        ],
+      },
+      mobile: {
+        active: [
+          "bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(167,139,250,0.22))]",
+          "text-ink",
+          "ring-1",
+          "ring-accent/35",
+        ],
+        inactive: [
+          "text-body",
+          "hover:bg-white/[0.1]",
+          "hover:text-ink",
+        ],
+      },
+    };
 
-  if (button && menu && openIcon && closeIcon) {
-    const closeMenu = () => {
+    const normalizePath = (path) => path === "/" ? path : `${path.replace(/\/+$/, "")}/`;
+
+    const initializeHeader = () => {
+      const header = document.querySelector("[data-site-header]");
+      if (!header) return;
+
+      const button = header.querySelector("[data-menu-button]");
+      const menu = header.querySelector("[data-mobile-nav]");
+      const openIcon = header.querySelector("[data-menu-open-icon]");
+      const closeIcon = header.querySelector("[data-menu-close-icon]");
+      const navLinks = header.querySelectorAll("[data-nav-link]");
+
+      navLinks.forEach((link) => {
+        const variant = link.dataset.navVariant === "mobile" ? "mobile" : "desktop";
+        const classes = navClasses[variant];
+        const currentPath = normalizePath(window.location.pathname);
+        const paths = (link.dataset.navPaths || "")
+          .split("|")
+          .filter(Boolean)
+          .map(normalizePath);
+        const active = paths.some((path) =>
+          path === "/" ? currentPath === path : currentPath === path || currentPath.startsWith(path),
+        );
+
+        link.classList.remove(...classes.active, ...classes.inactive);
+        link.classList.add(...(active ? classes.active : classes.inactive));
+
+        if (active) {
+          link.setAttribute("aria-current", "page");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+
+      const closeMenu = () => {
+      if (!button || !menu || !openIcon || !closeIcon) return;
       button.setAttribute("aria-expanded", "false");
       menu.hidden = true;
       openIcon.classList.remove("hidden");
       closeIcon.classList.add("hidden");
+      };
+
+      if (header.dataset.siteHeaderReady === "true") return;
+      header.dataset.siteHeaderReady = "true";
+
+      if (button && menu && openIcon && closeIcon) {
+        button.addEventListener("click", () => {
+          const isOpen = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!isOpen));
+          menu.hidden = isOpen;
+          openIcon.classList.toggle("hidden", !isOpen);
+          closeIcon.classList.toggle("hidden", isOpen);
+        });
+      }
+
+      navLinks.forEach((link) => link.addEventListener("click", closeMenu));
     };
 
-    button.addEventListener("click", () => {
-      const isOpen = button.getAttribute("aria-expanded") === "true";
-      button.setAttribute("aria-expanded", String(!isOpen));
-      menu.hidden = isOpen;
-      openIcon.classList.toggle("hidden", !isOpen);
-      closeIcon.classList.toggle("hidden", isOpen);
-    });
-
-    navLinks.forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
-  }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeHeader, { once: true });
+    } else {
+      initializeHeader();
+    }
+    document.addEventListener("astro:page-load", initializeHeader);
+  })();
 </script>

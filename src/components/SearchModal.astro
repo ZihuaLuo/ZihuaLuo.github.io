@@ -7,45 +7,21 @@ interface Props {
 
 const { lang } = Astro.props;
 const labels = {
-  en: {
-    title: "Search",
-    placeholder: "Search thinking, notes, timeline, and impact metrics",
-    emptyTitle: "Start with a keyword",
-    emptyDescription: "Try CFA, Fixed Income, Risk, Valuation, Research, Analytics, Timeline, Learning, Notes",
-    noResults: "No results found",
-    loading: "Loading search index",
-    open: "Open",
-    close: "Close search",
-    resultCount: "results",
-    typeLabels: {
-      thought: "Thinking",
-      note: "Note",
-      timeline: "Timeline",
-      now: "Impact",
-      principle: "Principle",
-    },
-    suggestions: ["CFA", "Fixed Income", "Risk", "Valuation", "Derivatives", "Analytics"],
+  title: "Search",
+  placeholder: "Search writing and experience",
+  emptyTitle: "Start with a keyword",
+  emptyDescription: "Try CFA, FRM, Research, Education, Risk, Valuation, Analytics, or a company name",
+  noResults: "No results found",
+  loading: "Loading search index",
+  open: "Open",
+  close: "Close search",
+  resultCount: "results",
+  typeLabels: {
+    writing: "Writing",
+    experience: "Experience",
   },
-  zh: {
-    title: "搜索",
-    placeholder: "搜索思考、笔记、经历与量化成果",
-    emptyTitle: "输入一个关键词开始",
-    emptyDescription: "可以试试 CFA、固定收益、风险、估值、研究、分析、时间线、学习、笔记",
-    noResults: "没有找到结果",
-    loading: "正在加载搜索索引",
-    open: "打开",
-    close: "关闭搜索",
-    resultCount: "条结果",
-    typeLabels: {
-      thought: "思考",
-      note: "笔记",
-      timeline: "经历",
-      now: "成果",
-      principle: "原则",
-    },
-    suggestions: ["CFA", "固定收益", "风险", "估值", "研究", "分析"],
-  },
-}[lang];
+  suggestions: ["CFA", "FRM", "Research", "Education", "Risk", "Analytics"],
+};
 
 const serializedLabels = JSON.stringify(labels);
 const inputId = `site-search-input-${lang}`;
@@ -311,7 +287,7 @@ const titleId = `site-search-title-${lang}`;
     border: 1px solid var(--border-glow);
     border-radius: 999px;
     background: rgba(var(--rgb-cyan-soft), 0.08);
-    color: var(--zh-body);
+    color: var(--body-soft);
     font-size: 0.76rem;
     font-weight: 800;
     padding: 0.35rem 0.55rem;
@@ -347,7 +323,6 @@ const titleId = `site-search-title-${lang}`;
   }
 
   .site-search__type,
-  .site-search__language,
   .site-search__date {
     border-radius: 999px;
     font-size: 0.68rem;
@@ -361,7 +336,6 @@ const titleId = `site-search-title-${lang}`;
     color: #e0f2fe;
   }
 
-  .site-search__language,
   .site-search__date {
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--muted);
@@ -438,8 +412,13 @@ const titleId = `site-search-title-${lang}`;
   }
 </style>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (() => {
+    window.__siteSearchController?.abort();
+    const listenerController = new AbortController();
+    window.__siteSearchController = listenerController;
+    const listenerOptions = { signal: listenerController.signal };
+
     const modal = document.querySelector("[data-search-modal]");
     if (!modal || modal.dataset.ready === "true") return;
 
@@ -467,7 +446,13 @@ const titleId = `site-search-title-${lang}`;
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 
-    const normalize = (value) => String(value ?? "").toLocaleLowerCase().normalize("NFKC");
+    const normalize = (value) =>
+      String(value ?? "")
+        .toLocaleLowerCase()
+        .normalize("NFKD")
+        .replace(/\p{M}/gu, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
 
     const prepareSearchItem = (item) => {
       const fields = {
@@ -477,6 +462,9 @@ const titleId = `site-search-title-${lang}`;
         tags: normalize((item.tags || []).join(" ")),
         content: normalize(item.content || ""),
         type: normalize(item.type),
+        date: normalize(item.date || ""),
+        track: normalize(item.track || ""),
+        aliases: normalize((item.aliases || []).join(" ")),
       };
 
       return {
@@ -496,7 +484,7 @@ const titleId = `site-search-title-${lang}`;
 
     const loadIndex = () => {
       if (!indexPromise) {
-        indexPromise = fetch(indexUrl)
+        indexPromise = fetch(indexUrl, { cache: "no-store" })
           .then((response) => {
             if (!response.ok) throw new Error("Search index unavailable");
             return response.json();
@@ -516,21 +504,39 @@ const titleId = `site-search-title-${lang}`;
 
     const tokenScore = (item, query, tokens) => {
       const { fields, haystack } = item._search;
+      const semanticHaystack = Object.entries(fields)
+        .filter(([field]) => field !== "date")
+        .map(([, value]) => value)
+        .join(" ");
+      const missesRequiredToken = tokens.some((token) => {
+        const searchableText = /^\d{4}$/.test(token) ? haystack : semanticHaystack;
+        return !searchableText.includes(token);
+      });
+      if (missesRequiredToken) return 0;
+
       let score = 0;
 
       if (fields.title.includes(query)) score += 34;
+      if (fields.title === query) score += 70;
+      else if (fields.title.startsWith(query)) score += 14;
       if (fields.tags.includes(query)) score += 22;
+      if (fields.aliases.includes(query)) score += 20;
       if (fields.category.includes(query)) score += 16;
+      if (fields.track.includes(query)) score += 14;
+      if (fields.track === query) score += 90;
       if (fields.description.includes(query)) score += 12;
+      if (fields.date.includes(query)) score += 6;
       if (fields.content.includes(query)) score += 4;
 
       for (const token of tokens) {
         if (fields.title.includes(token)) score += 12;
         if (fields.tags.includes(token)) score += 9;
+        if (fields.aliases.includes(token)) score += 8;
         if (fields.category.includes(token)) score += 7;
+        if (fields.track.includes(token)) score += 6;
         if (fields.description.includes(token)) score += 5;
+        if (fields.date.includes(token)) score += 3;
         if (fields.content.includes(token)) score += 1;
-        if (!haystack.includes(token)) score -= 5;
       }
 
       return score > 0 ? score : 0;
@@ -574,10 +580,19 @@ const titleId = `site-search-title-${lang}`;
 
       const normalizedQuery = normalize(trimmed);
       const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+      const resultYear = (item) => {
+        const match = String(item.date || "").match(/\d{4}/);
+        return match ? +match[0] : 0;
+      };
       const matches = indexedItems
         .map((item) => ({ item, score: tokenScore(item, normalizedQuery, tokens) }))
         .filter((match) => match.score > 0)
-        .sort((a, b) => b.score - a.score)
+        .sort(
+          (a, b) =>
+            b.score - a.score ||
+            resultYear(b.item) - resultYear(a.item) ||
+            a.item.title.localeCompare(b.item.title),
+        )
         .slice(0, 12)
         .map((match) => match.item);
 
@@ -586,8 +601,7 @@ const titleId = `site-search-title-${lang}`;
         return;
       }
 
-      status.textContent =
-        lang === "zh" ? `${matches.length} ${labels.resultCount}` : `${matches.length} ${labels.resultCount}`;
+      status.textContent = `${matches.length} ${labels.resultCount}`;
       results.innerHTML = matches
         .map((item) => {
           const tags = (item.tags || [])
@@ -601,7 +615,6 @@ const titleId = `site-search-title-${lang}`;
             <a class="site-search__result" href="${escapeHtml(item.url)}" data-search-result data-search-result-type="${escapeHtml(item.type)}">
               <span class="site-search__result-top">
                 <span class="site-search__type">${escapeHtml(labels.typeLabels?.[item.type] || item.type)}</span>
-                <span class="site-search__language">${escapeHtml(item.language.toUpperCase())}</span>
                 ${date}
               </span>
               <span>
@@ -665,11 +678,11 @@ const titleId = `site-search-title-${lang}`;
     };
 
     openButtons.forEach((button) => {
-      button.addEventListener("click", openSearch);
+      button.addEventListener("click", openSearch, listenerOptions);
     });
 
     closeButtons.forEach((button) => {
-      button.addEventListener("click", closeSearch);
+      button.addEventListener("click", closeSearch, listenerOptions);
     });
 
     results.addEventListener("click", (event) => {
@@ -680,9 +693,9 @@ const titleId = `site-search-title-${lang}`;
         language: lang,
         type: link.dataset.searchResultType || "unknown",
       });
-    });
+    }, listenerOptions);
 
-    input.addEventListener("input", scheduleSearch);
+    input.addEventListener("input", scheduleSearch, listenerOptions);
 
     document.addEventListener("keydown", (event) => {
       const key = event.key.toLowerCase();
@@ -694,6 +707,6 @@ const titleId = `site-search-title-${lang}`;
       if (event.key === "Escape" && !modal.hidden) {
         closeSearch();
       }
-    });
+    }, listenerOptions);
   })();
 </script>

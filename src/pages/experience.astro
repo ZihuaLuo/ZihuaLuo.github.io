@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ExperienceSection from "@components/ExperienceSection.astro";
+import { siteInfo } from "@i18n/ui";
+
+const lang = "en";
+const includeDrafts = !import.meta.env.PROD;
+const experienceEntries = (await getCollection(
+  "experience",
+  ({ data }) => data.language === lang && (includeDrafts || !data.draft),
+))
+  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+---
+
+<BaseLayout
+  title={`Experience | ${siteInfo.englishName}`}
+  description="Professional work, research, education, and financial credentials."
+  lang={lang}
+  canonicalPath="/experience/"
+>
+  <ExperienceSection entries={experienceEntries} />
+</BaseLayout>

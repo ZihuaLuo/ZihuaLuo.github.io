@@ -27,21 +27,17 @@ const configuredSiteUrl =
 const analyticsProvider = normalizeAnalyticsProvider(import.meta.env.PUBLIC_ANALYTICS_PROVIDER);
 
 export const siteConfig = {
-  siteName: "Zihua Luo, FRM",
-  englishName: "Zihua Luo, FRM",
-  chineseName: "罗子华，FRM",
+  siteName: "Zihua Luo",
+  englishName: "Zihua Luo",
+  credentialedEnglishName: "Zihua Luo, FRM",
   romanizedName: "Zihua Luo",
   designation: "FRM",
   description:
-    "Finance, research analytics, risk-aware thinking, and a bilingual archive of learning and reflection",
-  chineseDescription:
-    "关于金融、研究分析、风险意识、学习记录与结构化反思的双语个人网站",
+    "Finance, research analytics, risk-aware thinking, and an archive of learning and reflection",
   siteUrl: normalizeSiteUrl(configuredSiteUrl),
-  defaultLanguage: "en",
   profilePhoto: "/images/zihua-profile.jpg",
   ogImages: {
     en: "/og-image.png",
-    zh: "/og-image-zh.png",
   },
   email: "zihualuo58@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/zihualuo/",

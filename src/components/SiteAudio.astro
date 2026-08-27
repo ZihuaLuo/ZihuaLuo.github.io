@@ -1,0 +1,295 @@
+---
+import { withBase } from "@i18n/routes";
+
+const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
+const homePath = withBase("/");
+---
+
+<audio
+  hidden
+  preload="auto"
+  aria-hidden="true"
+  data-music-audio
+  transition:persist="featured-soundtrack"
+>
+  <source src={audioSrc} type="audio/mpeg" />
+</audio>
+
+<div
+  class="floating-music"
+  data-floating-music
+  data-home-path={homePath}
+  hidden
+>
+  <button
+    class="floating-music__button"
+    type="button"
+    aria-label="Pause Love Story"
+    data-floating-music-toggle
+  >
+    <span class="floating-music__art" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M9 18V6.6l9-1.8v10.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="6.8" cy="18.1" r="2.3" stroke="currentColor" stroke-width="1.8"></circle>
+        <circle cx="15.8" cy="15.3" r="2.3" stroke="currentColor" stroke-width="1.8"></circle>
+      </svg>
+    </span>
+
+    <span class="floating-music__copy">
+      <strong>Love Story</strong>
+      <span data-floating-music-status>Playing</span>
+    </span>
+
+    <span class="floating-music__control" aria-hidden="true">
+      <svg data-floating-music-play viewBox="0 0 24 24" fill="none" hidden>
+        <path d="m9 6 9 6-9 6V6Z" fill="currentColor"></path>
+      </svg>
+      <svg data-floating-music-pause viewBox="0 0 24 24" fill="none">
+        <path d="M8 6.5v11M16 6.5v11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+      </svg>
+    </span>
+  </button>
+</div>
+
+<script>
+  type FloatingMusicWindow = Window & {
+    __floatingMusicController?: AbortController;
+    __floatingMusicPageLoad?: () => void;
+  };
+
+  const initializeFloatingMusic = () => {
+    const root = document.querySelector<HTMLElement>("[data-floating-music]");
+    const audio = document.querySelector<HTMLAudioElement>("[data-music-audio]");
+    if (!root || !audio) return;
+
+    const button = root.querySelector<HTMLButtonElement>("[data-floating-music-toggle]");
+    const status = root.querySelector<HTMLElement>("[data-floating-music-status]");
+    const playIcon = root.querySelector<SVGElement>("[data-floating-music-play]");
+    const pauseIcon = root.querySelector<SVGElement>("[data-floating-music-pause]");
+    if (!button || !status || !playIcon || !pauseIcon) return;
+
+    const musicWindow = window as FloatingMusicWindow;
+    musicWindow.__floatingMusicController?.abort();
+    const controller = new AbortController();
+    musicWindow.__floatingMusicController = controller;
+    const listenerOptions = { signal: controller.signal };
+
+    const normalizePath = (value: string) => value === "/" ? value : `${value.replace(/\/+$/, "")}/`;
+    const isHome = normalizePath(window.location.pathname) === normalizePath(root.dataset.homePath || "/");
+
+    const sync = () => {
+      const hasStarted = audio.dataset.musicStarted === "true" || audio.currentTime > 0 || !audio.paused;
+      const playing = !audio.paused && !audio.ended;
+      root.hidden = isHome || !hasStarted;
+      root.classList.toggle("is-playing", playing);
+
+      if (audio.ended) {
+        status.textContent = "Replay";
+        button.setAttribute("aria-label", "Replay Love Story");
+      } else if (playing) {
+        status.textContent = "Playing";
+        button.setAttribute("aria-label", "Pause Love Story");
+      } else {
+        status.textContent = "Paused";
+        button.setAttribute("aria-label", "Play Love Story");
+      }
+
+      playIcon.toggleAttribute("hidden", playing);
+      pauseIcon.toggleAttribute("hidden", !playing);
+    };
+
+    button.addEventListener("click", async () => {
+      if (!audio.paused) {
+        audio.pause();
+        return;
+      }
+
+      if (audio.ended) audio.currentTime = 0;
+
+      try {
+        await audio.play();
+      } catch {
+        status.textContent = "Unavailable";
+        button.setAttribute("aria-label", "Love Story is unavailable");
+      }
+    }, listenerOptions);
+
+    audio.addEventListener("play", () => {
+      audio.dataset.musicStarted = "true";
+      sync();
+    }, listenerOptions);
+    audio.addEventListener("pause", sync, listenerOptions);
+    audio.addEventListener("ended", sync, listenerOptions);
+    audio.addEventListener("loadedmetadata", sync, listenerOptions);
+
+    sync();
+  };
+
+  const musicWindow = window as FloatingMusicWindow;
+  if (musicWindow.__floatingMusicPageLoad) {
+    document.removeEventListener("astro:page-load", musicWindow.__floatingMusicPageLoad);
+  }
+  musicWindow.__floatingMusicPageLoad = initializeFloatingMusic;
+  document.addEventListener("astro:page-load", initializeFloatingMusic);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeFloatingMusic, { once: true });
+  } else {
+    initializeFloatingMusic();
+  }
+</script>
+
+<style is:global>
+  .floating-music[hidden] {
+    display: none;
+  }
+
+  .floating-music {
+    position: fixed;
+    z-index: 55;
+    top: 5.8rem;
+    right: clamp(0.85rem, 2.5vw, 2rem);
+  }
+
+  .floating-music__button {
+    display: grid;
+    grid-template-columns: 2.35rem minmax(0, auto) 2.05rem;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: 3.5rem;
+    border: 1px solid rgba(var(--rgb-cyan-soft), 0.42);
+    border-radius: 999px;
+    padding: 0.52rem 0.62rem 0.52rem 0.52rem;
+    color: var(--ink);
+    cursor: pointer;
+    background:
+      linear-gradient(135deg, rgba(var(--rgb-cyan), 0.12), rgba(var(--rgb-violet-soft), 0.12)),
+      rgba(var(--rgb-bg-deep), 0.9);
+    box-shadow:
+      0 14px 34px rgba(var(--rgb-bg-base), 0.42),
+      0 0 22px rgba(var(--rgb-cyan), 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .floating-music__button:hover,
+  .floating-music__button:focus-visible {
+    border-color: rgba(var(--rgb-cyan-soft), 0.72);
+    background:
+      linear-gradient(135deg, rgba(var(--rgb-cyan), 0.2), rgba(var(--rgb-violet-soft), 0.18)),
+      rgba(var(--rgb-bg-deep), 0.94);
+    box-shadow:
+      0 14px 34px rgba(var(--rgb-bg-base), 0.46),
+      0 0 26px rgba(var(--rgb-cyan), 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    outline: none;
+  }
+
+  .floating-music__button:focus-visible {
+    box-shadow:
+      0 0 0 3px rgba(var(--rgb-cyan-soft), 0.22),
+      0 14px 34px rgba(var(--rgb-bg-base), 0.46),
+      0 0 26px rgba(var(--rgb-cyan), 0.16);
+  }
+
+  .floating-music__art,
+  .floating-music__control {
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+  }
+
+  .floating-music__art {
+    width: 2.35rem;
+    height: 2.35rem;
+    border: 1px solid rgba(var(--rgb-violet-soft), 0.5);
+    color: var(--cyan);
+    background: radial-gradient(circle at 34% 28%, rgba(var(--rgb-cyan), 0.26), rgba(var(--rgb-violet), 0.24) 56%, rgba(var(--rgb-bg-base), 0.78));
+  }
+
+  .floating-music__art svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .floating-music__copy {
+    display: grid;
+    min-width: 5.8rem;
+    text-align: left;
+  }
+
+  .floating-music__copy strong {
+    overflow: hidden;
+    max-width: 8rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .floating-music__copy span {
+    margin-top: 0.16rem;
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .floating-music.is-playing .floating-music__copy span {
+    color: var(--accent);
+  }
+
+  .floating-music__control {
+    width: 2.05rem;
+    height: 2.05rem;
+    border: 1px solid rgba(var(--rgb-cyan-soft), 0.42);
+    color: var(--ink);
+    background: linear-gradient(135deg, rgba(var(--rgb-cyan), 0.88), rgba(var(--rgb-violet-soft), 0.84));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .floating-music__control svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .floating-music {
+      top: 5rem;
+      right: 0.7rem;
+    }
+
+    .floating-music__button {
+      grid-template-columns: 2.1rem 1.9rem;
+      gap: 0.55rem;
+      min-height: 3rem;
+      padding: 0.42rem 0.46rem;
+    }
+
+    .floating-music__art {
+      width: 2.1rem;
+      height: 2.1rem;
+    }
+
+    .floating-music__copy {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    .floating-music__control {
+      width: 1.9rem;
+      height: 1.9rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating-music__button {
+      transition: none;
+    }
+  }
+</style>

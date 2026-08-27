@@ -1,0 +1,97 @@
+---
+title: "A Good Story Is Not the Same as a Good Investment"
+description: "Investment returns depend not only on what will happen, but on what the market already expects, what price we pay, and whether the mechanism behind a strategy actually survives in the market where we use it."
+date: 2026-09-03
+category: "Economic Thinking"
+tags: ["Investment Thesis", "Market Expectations", "Valuation"]
+language: "en"
+featured: false
+draft: false
+---
+
+> Investment returns depend not only on what will happen, but on what the market already expects, what price we pay, and whether the mechanism behind a strategy actually survives in the market where we use it.
+
+The final lecture ends with several investing mistakes, but I think they all point to the same underlying problem: a convincing story is not necessarily a profitable investment thesis.
+
+Consider economic growth.
+
+It sounds obvious that a country with faster GDP growth should have a better-performing stock market. The same intuition applies to industries. If I correctly identify an industry that will transform the economy over the next fifty years, it seems natural that investing in that industry should generate exceptional returns.
+
+But there is a missing variable:
+
+**price.**
+
+A company can grow rapidly and still be a poor investment if investors already paid for even more growth. An old industry can stagnate economically and still generate attractive returns if expectations embedded in its valuation are sufficiently low.
+
+This is one of the most important distinctions in investing.
+
+Predicting the future correctly is not enough.
+
+I need to predict the future better than what is already reflected in the price.
+
+That is why “this industry will grow” and “this stock will outperform” are fundamentally different statements. One is a judgment about the business. The other is a judgment about the gap between reality and expectations.
+
+The discussion of artificial intelligence reinforces the same lesson.
+
+It is tempting to believe that enough data and a sufficiently sophisticated model can discover profitable patterns automatically. But a model can always find relationships in historical data, especially when the number of possible signals becomes enormous.
+
+The challenge is distinguishing a persistent mechanism from statistical coincidence.
+
+A backtest can tell me that something worked.
+
+It cannot, by itself, tell me why it should continue working.
+
+This is where the behavioral framework from the course becomes useful. If a strategy can be connected to limited attention, loss aversion, overconfidence, institutional constraints, or another persistent mechanism, I have at least some reason to believe the historical relationship is not entirely accidental.
+
+AI can improve how signals are combined and processed.
+
+It cannot eliminate the need to understand where those signals come from.
+
+The same reasoning explains why an investment strategy cannot always be transported directly from one market to another.
+
+Momentum works strongly in some markets and weakly in others. That does not necessarily mean the underlying behavioral bias disappears. The institutional environment may simply change how the bias enters prices.
+
+Investor turnover is one example.
+
+If investors hold stocks for much shorter periods, the reference points that generate the disposition effect also change more quickly. A six-month return signal that captures investor gains and losses in one market may capture something completely different in another.
+
+The psychology can be similar.
+
+The market outcome can still be different.
+
+This is an important correction to how I used to think about investment research. Finding a factor that worked in the United States is not the end of the analysis. It is the beginning of another question:
+
+**What mechanism created this return, and does that mechanism exist here in the same form?**
+
+Even the debate between active and passive investing depends on this context.
+
+If professional investors cannot consistently exploit mispricing after costs, a low-cost index becomes extremely attractive. But if a market contains larger inefficiencies and skilled active managers can still capture some of them, the optimal conclusion may be different.
+
+There is no reason an investment philosophy has to produce the same answer in every market.
+
+The course began by challenging the assumption that people and markets always behave according to perfectly rational models. But the final lesson, for me, is not simply that investors are irrational.
+
+It is that context matters.
+
+Behavioral biases interact with valuation. Valuation interacts with market structure. Market structure interacts with trading constraints. Strategies interact with the other investors using them. And all of these relationships can change across countries and over time.
+
+That makes investing much harder than finding an attractive narrative.
+
+But it also gives me a better framework for evaluating one.
+
+When I hear that a country will grow rapidly, an industry will change the world, an AI model has discovered a new signal, or a strategy has produced extraordinary historical returns, I should not immediately ask whether the story is true.
+
+I should ask:
+
+**What is already priced in?**
+
+**Why should the opportunity exist?**
+
+**What prevents it from disappearing?**
+
+**And does the mechanism still apply in the market where I intend to use it?**
+
+A good investment thesis needs more than a good story.
+
+It needs a reason the story has not already been fully priced.
+

@@ -8,7 +8,6 @@ interface Props {
   description: string;
   lang: Language;
   canonicalPath?: string;
-  alternateHref?: string;
   image?: string;
   type?: "website" | "article";
 }
@@ -18,13 +17,12 @@ const {
   description,
   lang,
   canonicalPath,
-  alternateHref,
   image,
   type = "website",
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL(siteConfig.siteUrl);
-const defaultImage = lang === "zh" ? siteInfo.ogImageZh : siteInfo.ogImage;
+const defaultImage = siteInfo.ogImage;
 const resolvedImage = image ?? defaultImage;
 const canonicalUrl =
   canonicalPath && canonicalPath.startsWith("http")
@@ -33,14 +31,8 @@ const canonicalUrl =
 const ogImageUrl = resolvedImage.startsWith("http")
   ? resolvedImage
   : new URL(withBase(resolvedImage), siteUrl).toString();
-const alternateUrl = alternateHref
-  ? new URL(alternateHref.startsWith("/") ? withBase(alternateHref) : alternateHref, siteUrl).toString()
-  : undefined;
-const locale = lang === "zh" ? "zh_CN" : "en_US";
-const siteName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
-const currentHreflang = lang === "zh" ? "zh-CN" : "en";
-const alternateHreflang = lang === "zh" ? "en" : "zh-CN";
-const xDefaultUrl = lang === "en" ? canonicalUrl : alternateUrl;
+const locale = "en_US";
+const siteName = siteInfo.englishName;
 ---
 
 <meta charset="utf-8" />
@@ -51,9 +43,8 @@ const xDefaultUrl = lang === "en" ? canonicalUrl : alternateUrl;
 <meta name="robots" content="index, follow" />
 <meta name="theme-color" content="#071426" />
 <link rel="canonical" href={canonicalUrl} />
-<link rel="alternate" hreflang={currentHreflang} href={canonicalUrl} />
-{alternateUrl && <link rel="alternate" hreflang={alternateHreflang} href={alternateUrl} />}
-{xDefaultUrl && <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />}
+<link rel="alternate" hreflang="en" href={canonicalUrl} />
+<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 <link rel="sitemap" type="application/xml" href={new URL(withBase("/sitemap.xml"), siteUrl).toString()} />
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={siteName} />
@@ -64,7 +55,6 @@ const xDefaultUrl = lang === "en" ? canonicalUrl : alternateUrl;
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content={locale} />
-<meta property="og:locale:alternate" content={lang === "zh" ? "en_US" : "zh_CN"} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />

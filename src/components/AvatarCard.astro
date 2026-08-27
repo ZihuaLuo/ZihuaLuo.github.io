@@ -8,24 +8,16 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const alt = lang === "zh" ? "罗子华，FRM 的个人照片" : "Portrait of Zihua Luo, FRM";
+const alt = "Portrait of Zihua Luo";
 const coffeeCopy = {
-  en: {
-    eyebrow: "Coffee Chat",
-    title: "Want to grab coffee?",
-    detail: "Reach me here",
-    funFact: "Fun Fact About Me: 5L water per day on average",
-  },
-  zh: {
-    eyebrow: "Coffee Chat",
-    title: "想一起喝杯咖啡吗？",
-    detail: "从这里联系我",
-    funFact: "关于我有趣的事：平均每天喝5L水",
-  },
-}[lang];
+  eyebrow: "Coffee Chat",
+  title: "Want to grab coffee?",
+  detail: "Reach me here",
+  funFact: "Fun Fact About Me: 5L water per day on average",
+};
 ---
 
-<aside class="portrait-system relative mx-auto w-full max-w-[360px] sm:max-w-[430px]" aria-label={lang === "zh" ? "个人照片与社交链接" : "Profile photo and social links"}>
+<aside class="portrait-system relative mx-auto w-full max-w-[360px] sm:max-w-[430px]" aria-label="Profile photo and social links">
   <div class="absolute -left-10 top-10 hidden h-44 w-44 rounded-full bg-violet/30 blur-3xl sm:block" aria-hidden="true"></div>
   <div class="absolute -right-10 bottom-20 hidden h-52 w-52 rounded-full bg-accent/24 blur-3xl sm:block" aria-hidden="true"></div>
 

@@ -1,0 +1,923 @@
+---
+import { entrySlug, withBase } from "@i18n/routes";
+
+type ExperienceTrack = "professional" | "research" | "education" | "credentials";
+
+interface Props {
+  entries: any[];
+}
+
+const { entries } = Astro.props;
+const trackOrder: ExperienceTrack[] = ["professional", "research", "education", "credentials"];
+const copy = {
+  title: "Experience",
+  subtitle: "A chronological view of professional experience, research projects, education, and financial credentials.",
+  tabListLabel: "Experience categories",
+  tabs: {
+    professional: "Professional",
+    research: "Research",
+    education: "Education",
+    credentials: "Credentials",
+  },
+  focus: "Focus",
+  minors: "Minors",
+  academicRecord: "Academic record",
+  issuedBy: "Issued by",
+};
+
+const yearOf = (entry: any) => entry.data.date.match(/\d{4}/)?.[0] ?? entry.data.date;
+const sortedEntries = [...entries].sort((left, right) => {
+  const yearDifference = Number(yearOf(right)) - Number(yearOf(left));
+  return yearDifference || (left.data.order ?? 0) - (right.data.order ?? 0);
+});
+
+const entriesByTrack = Object.fromEntries(
+  trackOrder.map((track) => [track, sortedEntries.filter((entry) => entry.data.track === track)]),
+) as Record<ExperienceTrack, any[]>;
+
+const groupByYear = (trackEntries: any[]) => {
+  const groups = new Map<string, any[]>();
+  trackEntries.forEach((entry) => {
+    const year = yearOf(entry);
+    const group = groups.get(year) ?? [];
+    group.push(entry);
+    groups.set(year, group);
+  });
+  return [...groups].map(([year, items]) => ({ year, items }));
+};
+
+const professionalGroups = groupByYear(entriesByTrack.professional);
+const researchGroups = groupByYear(entriesByTrack.research);
+const educationGroups = groupByYear(entriesByTrack.education);
+const credentialGroups = groupByYear(entriesByTrack.credentials);
+const tabId = (track: ExperienceTrack) => `experience-tab-${track}`;
+const panelId = (track: ExperienceTrack) => `experience-panel-${track}`;
+const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
+---
+
+<section id="experience" class="experience-stage surface-section scroll-mt-24 py-18 sm:py-24" data-experience-section>
+  <div class="experience-atmosphere" aria-hidden="true"></div>
+
+  <div class="container-page relative z-10">
+    <header class="experience-heading max-w-4xl">
+      <h2 class="display-heading title-flow title-flow--section bg-[linear-gradient(135deg,#FFFFFF_0%,#DBEAFE_48%,#C4B5FD_100%)] bg-clip-text text-4xl font-semibold leading-[1.08] text-transparent sm:text-5xl lg:text-6xl">
+        {copy.title}
+      </h2>
+      <p class="mt-4 max-w-3xl text-base leading-7 text-muted sm:text-lg">{copy.subtitle}</p>
+    </header>
+
+    <div class="experience-tab-shell mt-9">
+      <div class="experience-tabs" role="tablist" aria-label={copy.tabListLabel}>
+        {trackOrder.map((track, index) => (
+          <button
+            id={tabId(track)}
+            class="experience-tab"
+            type="button"
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+            aria-controls={panelId(track)}
+            tabindex={index === 0 ? 0 : -1}
+            data-experience-tab={track}
+          >
+            {copy.tabs[track]}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="experience-panels mt-10">
+      <section
+        id={panelId("professional")}
+        class="experience-panel"
+        role="tabpanel"
+        aria-labelledby={tabId("professional")}
+        data-experience-panel="professional"
+      >
+        <div class="experience-timeline">
+          {professionalGroups.map((group) => (
+            <section class="experience-year-group" aria-label={group.year}>
+              <div class="experience-year-column">
+                <time>{group.year}</time>
+              </div>
+              <div class="experience-year-entries">
+                {group.items.map((entry) => (
+                  <article id={entryId(entry)} class="experience-entry experience-entry--professional">
+                    <div class="experience-entry__header">
+                      <div class="experience-logo">
+                        <img src={withBase(entry.data.logo)} alt={entry.data.logoAlt ?? ""} loading="lazy" />
+                      </div>
+                      <div class="min-w-0">
+                        <h3>{entry.data.company}</h3>
+                        <p class="experience-entry__role">{entry.data.role}</p>
+                        {entry.data.title && <p class="experience-entry__context">{entry.data.title}</p>}
+                      </div>
+                    </div>
+                    <p class="experience-entry__description">{entry.data.description}</p>
+                    <div class="experience-tags" aria-label={entry.data.tags.join(", ")}>
+                      {entry.data.tags.slice(0, 4).map((tag: string) => <span>{tag}</span>)}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id={panelId("research")}
+        class="experience-panel"
+        role="tabpanel"
+        aria-labelledby={tabId("research")}
+        data-experience-panel="research"
+        hidden
+      >
+        <div class="experience-timeline experience-timeline--research">
+          {researchGroups.map((group) => (
+            <section class="experience-year-group" aria-label={group.year}>
+              <div class="experience-year-column experience-year-column--research">
+                <time>{group.year}</time>
+              </div>
+              <div class="experience-year-entries">
+                {group.items.map((entry) => (
+                  <article id={entryId(entry)} class="experience-entry experience-entry--research">
+                    <div class="experience-entry__header experience-entry__header--research">
+                      <div class="experience-logo experience-logo--research">
+                        <img src={withBase(entry.data.logo)} alt={entry.data.logoAlt ?? ""} loading="lazy" />
+                      </div>
+                      <div class="min-w-0">
+                        <h3>{entry.data.title}</h3>
+                        <p class="experience-entry__institution">{entry.data.company}</p>
+                        <p class="experience-entry__role">{entry.data.role}</p>
+                      </div>
+                    </div>
+                    <p class="experience-entry__description">{entry.data.description}</p>
+                    <div class="experience-tags" aria-label={entry.data.tags.join(", ")}>
+                      {entry.data.tags.slice(0, 4).map((tag: string) => <span>{tag}</span>)}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id={panelId("education")}
+        class="experience-panel"
+        role="tabpanel"
+        aria-labelledby={tabId("education")}
+        data-experience-panel="education"
+        hidden
+      >
+        <div class="experience-timeline experience-timeline--education">
+          {educationGroups.map((group) => (
+            <section class="experience-year-group" aria-label={group.year}>
+              <div class="experience-year-column experience-year-column--education">
+                <time>{group.year}</time>
+              </div>
+              <div class="experience-year-entries">
+                {group.items.map((entry) => {
+                  const education = entry.data.education;
+                  return (
+                    <article
+                      id={entryId(entry)}
+                      class:list={[
+                        "education-profile",
+                        "education-profile--timeline",
+                        { "education-profile--planned": education.planned },
+                      ]}
+                    >
+                      <header class="education-profile__header">
+                        <div class="education-profile__identity">
+                          <div class="experience-logo experience-logo--education">
+                            {entry.data.logo ? (
+                              <img src={withBase(entry.data.logo)} alt={entry.data.logoAlt ?? ""} loading="lazy" />
+                            ) : (
+                              <span class="education-logo-placeholder" aria-label="Institution to be determined">TBD</span>
+                            )}
+                          </div>
+                          <div>
+                            <h3>{education.degree}</h3>
+                            <p>{entry.data.company}</p>
+                            {education.school && <p class="education-profile__school">{education.school}</p>}
+                          </div>
+                        </div>
+                      </header>
+
+                      <div class="education-profile__body">
+                        <div class="education-path">
+                          <div>
+                            <span>{copy.focus}</span>
+                            <strong>{education.fields[0]}</strong>
+                          </div>
+                          {education.fields.length > 1 && (
+                            <div>
+                              <span>{copy.minors}</span>
+                              <strong>{education.fields.slice(1).join(" & ")}</strong>
+                            </div>
+                          )}
+                        </div>
+
+                        <div class="education-record">
+                          <p class="experience-kicker">{education.recordLabel ?? copy.academicRecord}</p>
+                          <div class="education-record__grid">
+                            {education.recognition.map((item: { label: string; value: string }) => (
+                              <div>
+                                <span>{item.label}</span>
+                                <strong>{item.value}</strong>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {education.awards.length > 0 && (
+                          <div class="education-awards">
+                            <p class="experience-kicker">{education.awardsLabel}</p>
+                            <p>{education.awards.join(", ")}</p>
+                          </div>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id={panelId("credentials")}
+        class="experience-panel"
+        role="tabpanel"
+        aria-labelledby={tabId("credentials")}
+        data-experience-panel="credentials"
+        hidden
+      >
+        <div class="experience-timeline experience-timeline--credentials">
+          {credentialGroups.map((group) => (
+            <section class="experience-year-group" aria-label={group.year}>
+              <div class="experience-year-column experience-year-column--credentials">
+                <time>{group.year}</time>
+              </div>
+              <div class="experience-year-entries">
+                {group.items.map((entry) => (
+                  <article id={entryId(entry)} class="experience-entry experience-entry--credential">
+                    <div class="experience-entry__header">
+                      <div class="experience-logo experience-logo--credential">
+                        <img src={withBase(entry.data.logo)} alt={entry.data.logoAlt ?? ""} loading="lazy" />
+                      </div>
+                      <div class="min-w-0">
+                        <h3>{entry.data.title}</h3>
+                        <p class="experience-entry__role">{copy.issuedBy} · {entry.data.company}</p>
+                      </div>
+                    </div>
+                    <p class="experience-entry__description">{entry.data.description}</p>
+                    <div class="experience-tags" aria-label={entry.data.tags.join(", ")}>
+                      {entry.data.tags.slice(0, 4).map((tag: string) => <span>{tag}</span>)}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-stage {
+    background:
+      radial-gradient(ellipse at 16% 18%, rgba(var(--rgb-blue-soft), 0.14), transparent 30rem),
+      radial-gradient(ellipse at 88% 48%, rgba(var(--rgb-cyan-soft), 0.09), transparent 34rem),
+      radial-gradient(ellipse at 52% 92%, rgba(var(--rgb-violet), 0.16), transparent 38rem),
+      linear-gradient(180deg, var(--bg-base), var(--bg-deep) 52%, var(--bg-elevated));
+    border-block: 1px solid var(--line);
+  }
+
+  .experience-atmosphere {
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .experience-atmosphere::before {
+    background: linear-gradient(90deg, transparent, rgba(var(--rgb-cyan-soft), 0.12), transparent);
+    content: "";
+    height: 1px;
+    left: 7%;
+    position: absolute;
+    right: 7%;
+    top: 0;
+  }
+
+  .experience-tab-shell {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .experience-tab-shell::-webkit-scrollbar {
+    display: none;
+  }
+
+  .experience-tabs {
+    display: inline-flex;
+    min-width: max-content;
+  }
+
+  .experience-tab {
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    padding: 0.9rem 1.15rem 0.85rem;
+    position: relative;
+    transition: color 180ms ease, background 180ms ease;
+  }
+
+  .experience-tab::after {
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    border-radius: 999px;
+    bottom: -1px;
+    content: "";
+    height: 2px;
+    left: 1rem;
+    opacity: 0;
+    position: absolute;
+    right: 1rem;
+    transform: scaleX(0.55);
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .experience-tab:hover {
+    color: var(--ink);
+  }
+
+  .experience-tab[aria-selected="true"] {
+    background: linear-gradient(180deg, transparent, rgba(var(--rgb-cyan-soft), 0.06));
+    color: var(--ink);
+  }
+
+  .experience-tab[aria-selected="true"]::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .experience-tab:focus-visible {
+    border-radius: 0.55rem 0.55rem 0 0;
+    outline: 2px solid rgba(var(--rgb-cyan-soft), 0.82);
+    outline-offset: -3px;
+  }
+
+  .experience-panel[hidden] {
+    display: none;
+  }
+
+  .experience-panel.is-entering {
+    animation: experience-panel-enter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .experience-year-group {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .experience-year-group + .experience-year-group {
+    margin-top: 2.25rem;
+  }
+
+  .experience-year-column {
+    align-items: flex-start;
+    display: flex;
+  }
+
+  .experience-year-column time {
+    color: var(--gold);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+  }
+
+  .experience-year-column time {
+    border-top: 1px solid rgba(var(--rgb-warm), 0.46);
+    padding-top: 0.72rem;
+    width: 100%;
+  }
+
+  .experience-year-entries {
+    border-left: 1px solid rgba(var(--rgb-cyan-soft), 0.22);
+    display: grid;
+    gap: 1rem;
+    padding-left: 1.45rem;
+    position: relative;
+  }
+
+  .experience-entry {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+    border: 1px solid rgba(255, 255, 255, 0.105);
+    border-radius: 1.25rem;
+    padding: 1.2rem;
+    position: relative;
+    transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+  }
+
+  .experience-entry,
+  .education-profile {
+    scroll-margin-top: 7rem;
+  }
+
+  .experience-entry:target,
+  .education-profile:target {
+    border-color: rgba(var(--rgb-cyan-soft), 0.72);
+    box-shadow:
+      0 0 0 1px rgba(var(--rgb-cyan-soft), 0.22),
+      0 0 42px rgba(var(--rgb-cyan-soft), 0.16),
+      var(--shadow-card);
+  }
+
+  .experience-entry::before {
+    background: var(--cyan);
+    border: 3px solid var(--bg-deep);
+    border-radius: 999px;
+    box-shadow: 0 0 0 4px rgba(var(--rgb-cyan-soft), 0.11), 0 0 18px rgba(var(--rgb-cyan-soft), 0.32);
+    content: "";
+    height: 0.68rem;
+    left: -1.82rem;
+    position: absolute;
+    top: 1.7rem;
+    width: 0.68rem;
+  }
+
+  .experience-entry--research::before {
+    background: var(--violet);
+    box-shadow: 0 0 0 4px rgba(var(--rgb-violet-soft), 0.11), 0 0 18px rgba(var(--rgb-violet-soft), 0.3);
+  }
+
+  .experience-entry--credential::before {
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(var(--rgb-warm), 0.11), 0 0 18px rgba(var(--rgb-warm), 0.3);
+  }
+
+  .experience-entry:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.035));
+    border-color: rgba(var(--rgb-cyan-soft), 0.3);
+    transform: translateY(-2px);
+  }
+
+  .experience-entry__header,
+  .education-profile__identity {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .experience-logo {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    display: flex;
+    flex: 0 0 auto;
+    height: 4.25rem;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0.32rem;
+    width: 4.25rem;
+  }
+
+  .experience-logo img {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+  }
+
+  .experience-entry h3,
+  .education-profile h3 {
+    color: var(--ink);
+    font-weight: 850;
+    line-height: 1.2;
+  }
+
+  .experience-entry h3 {
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+  }
+
+  .experience-entry__role {
+    color: var(--gold);
+    font-size: 0.86rem;
+    font-weight: 800;
+    margin-top: 0.24rem;
+  }
+
+  .experience-entry__institution {
+    color: var(--body);
+    font-size: 0.84rem;
+    font-weight: 750;
+    line-height: 1.45;
+    margin-top: 0.35rem;
+  }
+
+  .experience-entry__context {
+    color: var(--muted);
+    font-size: 0.76rem;
+    font-weight: 750;
+    letter-spacing: 0.065em;
+    margin-top: 0.32rem;
+    text-transform: uppercase;
+  }
+
+  .experience-entry__description {
+    color: var(--body);
+    font-size: 0.91rem;
+    line-height: 1.75;
+    margin-top: 1rem;
+  }
+
+  .experience-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.42rem;
+    margin-top: 1rem;
+  }
+
+  .experience-tags span {
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 0.32rem 0.6rem;
+  }
+
+  .education-profile {
+    background:
+      radial-gradient(circle at 10% 0%, rgba(var(--rgb-cyan-soft), 0.09), transparent 18rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.028));
+    border: 1px solid rgba(255, 255, 255, 0.115);
+    border-radius: 1.5rem;
+  }
+
+  .education-profile {
+    display: grid;
+    gap: 0;
+    overflow: visible;
+    position: relative;
+  }
+
+  .education-profile--timeline::before {
+    background: var(--cyan);
+    border: 3px solid var(--bg-deep);
+    border-radius: 999px;
+    box-shadow: 0 0 0 4px rgba(var(--rgb-cyan-soft), 0.11), 0 0 18px rgba(var(--rgb-cyan-soft), 0.32);
+    content: "";
+    height: 0.68rem;
+    left: -1.82rem;
+    position: absolute;
+    top: 1.7rem;
+    width: 0.68rem;
+  }
+
+  .education-profile--planned {
+    background:
+      radial-gradient(circle at 10% 0%, rgba(var(--rgb-warm), 0.08), transparent 18rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.022));
+    border-style: dashed;
+  }
+
+  .education-profile--planned::before {
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(var(--rgb-warm), 0.11), 0 0 18px rgba(var(--rgb-warm), 0.3);
+  }
+
+  .education-profile__header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    padding: 1.35rem;
+  }
+
+  .education-profile__identity {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .education-profile__identity > div:last-child {
+    min-width: 0;
+  }
+
+  .experience-logo--education {
+    height: 5.4rem;
+    width: 5.4rem;
+  }
+
+  .education-logo-placeholder {
+    color: var(--gold);
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .education-profile--planned .experience-logo--education {
+    border-style: dashed;
+  }
+
+  .education-profile--planned .education-path {
+    grid-template-columns: 1fr;
+  }
+
+  .education-profile h3 {
+    font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+    letter-spacing: -0.015em;
+    margin-top: 0.38rem;
+    max-width: none;
+  }
+
+  .education-profile__identity > div:last-child > p:not(.education-profile__school) {
+    color: var(--body);
+    font-size: 1rem;
+    font-weight: 800;
+    margin-top: 0.35rem;
+  }
+
+  .education-profile__school {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 0.18rem;
+  }
+
+  .education-profile__body {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.35rem;
+  }
+
+  .education-path {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  }
+
+  .education-path > div,
+  .education-record__grid > div {
+    border-left: 2px solid rgba(var(--rgb-cyan-soft), 0.38);
+    padding-left: 0.85rem;
+  }
+
+  .education-path span,
+  .education-record__grid span {
+    color: var(--muted);
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .education-path strong,
+  .education-record__grid strong {
+    color: var(--ink);
+    display: block;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    margin-top: 0.28rem;
+  }
+
+  .education-record__grid strong {
+    white-space: pre-line;
+  }
+
+  .experience-kicker {
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .education-record__grid {
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    margin-top: 0.78rem;
+  }
+
+  .education-awards {
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    padding-top: 1rem;
+  }
+
+  .education-awards > p:last-child {
+    color: var(--body);
+    font-size: 0.96rem;
+    font-weight: 750;
+    line-height: 1.6;
+    margin-top: 0.42rem;
+  }
+
+  .experience-logo--credential {
+    height: 4.25rem;
+    width: 4.25rem;
+  }
+
+  @keyframes experience-panel-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.55rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 720px) {
+    .experience-year-group {
+      gap: 1.5rem;
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+    }
+
+    .experience-entry {
+      padding: 1.35rem;
+    }
+
+    .education-profile__header {
+      padding: 1.6rem;
+    }
+
+    .education-profile__body {
+      padding: 1.6rem;
+    }
+
+  }
+
+  @media (min-width: 1024px) {
+    .experience-panels {
+      max-width: 66rem;
+    }
+
+    .experience-entry__description {
+      max-width: 54rem;
+    }
+
+    .education-profile h3 {
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 719px) {
+    .experience-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      min-width: 100%;
+      width: 100%;
+    }
+
+    .experience-tab {
+      font-size: 0.74rem;
+      letter-spacing: 0.03em;
+      padding-inline: 0.55rem;
+      white-space: nowrap;
+    }
+
+    .experience-year-column time {
+      width: 4.5rem;
+    }
+
+    .experience-entry__header,
+    .education-profile__identity {
+      align-items: flex-start;
+    }
+
+    .education-profile__identity {
+      grid-template-columns: 1fr;
+    }
+
+    .experience-logo {
+      height: 3.65rem;
+      width: 3.65rem;
+    }
+
+    .education-path,
+    .education-record__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .experience-entry--credential .experience-entry__description {
+      white-space: nowrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .experience-panel.is-entering {
+      animation: none;
+    }
+
+    .experience-entry,
+    .experience-tab,
+    .experience-tab::after {
+      transition: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const initializeExperienceSections = () => {
+      document.querySelectorAll("[data-experience-section]").forEach((section) => {
+        if (section.dataset.experienceReady === "true") return;
+        section.dataset.experienceReady = "true";
+
+        const tabs = [...section.querySelectorAll("[data-experience-tab]")];
+        const panels = [...section.querySelectorAll("[data-experience-panel]")];
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let animationTimer = 0;
+
+        const activate = (nextTab, moveFocus = false, syncUrl = false) => {
+          const track = nextTab.dataset.experienceTab;
+
+          tabs.forEach((tab) => {
+            const selected = tab === nextTab;
+            tab.setAttribute("aria-selected", String(selected));
+            tab.tabIndex = selected ? 0 : -1;
+          });
+
+          panels.forEach((panel) => {
+            const selected = panel.dataset.experiencePanel === track;
+            panel.hidden = !selected;
+            panel.classList.remove("is-entering");
+
+            if (selected && !reducedMotion) {
+              window.clearTimeout(animationTimer);
+              window.requestAnimationFrame(() => {
+                panel.classList.add("is-entering");
+                animationTimer = window.setTimeout(() => panel.classList.remove("is-entering"), 260);
+              });
+            }
+          });
+
+          if (syncUrl) {
+            const nextUrl = new URL(window.location.href);
+            if (track === "professional") nextUrl.searchParams.delete("track");
+            else nextUrl.searchParams.set("track", track);
+            nextUrl.hash = "";
+            window.history.replaceState(window.history.state, "", nextUrl);
+          }
+
+          if (moveFocus) nextTab.focus();
+        };
+
+        tabs.forEach((tab, index) => {
+          tab.addEventListener("click", () => activate(tab, false, true));
+          tab.addEventListener("keydown", (event) => {
+            let nextIndex = index;
+            if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+            else if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+            else if (event.key === "Home") nextIndex = 0;
+            else if (event.key === "End") nextIndex = tabs.length - 1;
+            else return;
+
+            event.preventDefault();
+            activate(tabs[nextIndex], true, true);
+          });
+        });
+
+        const requestedTrack = new URLSearchParams(window.location.search).get("track");
+        const hashTarget = window.location.hash
+          ? document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
+          : null;
+        const targetPanel = hashTarget?.closest("[data-experience-panel]");
+        const initialTrack = targetPanel?.dataset.experiencePanel || requestedTrack;
+        const initialTab = tabs.find((tab) => tab.dataset.experienceTab === initialTrack);
+
+        if (initialTab) {
+          activate(initialTab);
+        }
+
+        if (hashTarget) {
+          window.requestAnimationFrame(() => {
+            hashTarget.scrollIntoView({
+              behavior: reducedMotion ? "auto" : "smooth",
+              block: "center",
+            });
+          });
+        }
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeExperienceSections, { once: true });
+    } else {
+      initializeExperienceSections();
+    }
+    document.addEventListener("astro:page-load", initializeExperienceSections);
+  })();
+</script>

@@ -1,44 +1,28 @@
 ---
-import { withBase, type Language } from "@i18n/routes";
+import { type Language } from "@i18n/routes";
 
 interface Props {
   lang: Language;
 }
 
 const { lang } = Astro.props;
-const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
 const copy = {
-  en: {
-    eyebrow: "Featured soundtrack",
-    title: "Love Story",
-    artist: "Taylor Swift · Local audio",
-    ready: "Press play to begin",
-    loading: "Loading local audio...",
-    playing: "Now playing",
-    permission: "Allow audio in your browser, then press play again",
-    unavailable: "Local audio is temporarily unavailable",
-    play: "Play Love Story by Taylor Swift",
-    pause: "Pause Love Story by Taylor Swift",
-    seek: "Seek through Love Story by Taylor Swift",
-  },
-  zh: {
-    eyebrow: "首页精选音乐",
-    title: "Love Story",
-    artist: "Taylor Swift · 本地音乐",
-    ready: "点击播放，进入我的声音空间",
-    loading: "正在加载本地音乐...",
-    playing: "正在播放",
-    permission: "请允许浏览器播放音频后再次点击",
-    unavailable: "本地音乐暂时无法播放",
-    play: "播放 Taylor Swift 的 Love Story",
-    pause: "暂停 Taylor Swift 的 Love Story",
-    seek: "调整 Taylor Swift 的 Love Story 播放进度",
-  },
-}[lang];
+  eyebrow: "Featured soundtrack",
+  title: "Love Story",
+  artist: "Taylor Swift · Local audio",
+  ready: "Play",
+  loading: "Loading local audio...",
+  playing: "Now playing",
+  permission: "Allow audio in your browser, then press play again",
+  unavailable: "Local audio is temporarily unavailable",
+  play: "Play",
+  pause: "Pause",
+  seek: "Playback progress",
+};
 ---
 
 <section
-  class="hero-music mt-8 max-w-2xl"
+  class="hero-music mt-5 max-w-2xl"
   aria-label={copy.eyebrow}
   data-music-player
   data-ready-message={copy.ready}
@@ -116,7 +100,6 @@ const copy = {
       </div>
     </div>
 
-    <audio preload="metadata" src={audioSrc} data-music-audio></audio>
   </div>
 </section>
 
@@ -128,109 +111,150 @@ const copy = {
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   };
 
-  document.querySelectorAll<HTMLElement>("[data-music-player]").forEach((root) => {
-    if (root.dataset.musicReady === "true") return;
-    root.dataset.musicReady = "true";
+  const initializeMusicPlayers = () => {
+    document.querySelectorAll<HTMLElement>("[data-music-player]").forEach((root) => {
+      if (root.dataset.musicReady === "true") return;
+      root.dataset.musicReady = "true";
 
-    const audio = root.querySelector<HTMLAudioElement>("[data-music-audio]");
-    const toggles = root.querySelectorAll<HTMLButtonElement>("[data-music-toggle]");
-    const playIcon = root.querySelector<SVGElement>("[data-music-play-icon]");
-    const pauseIcon = root.querySelector<SVGElement>("[data-music-pause-icon]");
-    const progress = root.querySelector<HTMLInputElement>("[data-music-progress]");
-    const current = root.querySelector<HTMLElement>("[data-music-current]");
-    const duration = root.querySelector<HTMLElement>("[data-music-duration]");
-    const status = root.querySelector<HTMLElement>("[data-music-status]");
+      const audio = document.querySelector<HTMLAudioElement>("[data-music-audio]");
+      const toggles = root.querySelectorAll<HTMLButtonElement>("[data-music-toggle]");
+      const playIcon = root.querySelector<SVGElement>("[data-music-play-icon]");
+      const pauseIcon = root.querySelector<SVGElement>("[data-music-pause-icon]");
+      const progress = root.querySelector<HTMLInputElement>("[data-music-progress]");
+      const current = root.querySelector<HTMLElement>("[data-music-current]");
+      const duration = root.querySelector<HTMLElement>("[data-music-duration]");
+      const status = root.querySelector<HTMLElement>("[data-music-status]");
 
-    if (!audio || !progress || !current || !duration || !status) return;
+      if (!audio || !progress || !current || !duration || !status) return;
 
-    let hasError = false;
+      const previousController = (audio as HTMLAudioElement & { musicControlController?: AbortController }).musicControlController;
+      previousController?.abort();
+      const listenerController = new AbortController();
+      (audio as HTMLAudioElement & { musicControlController?: AbortController }).musicControlController = listenerController;
+      const listenerOptions = { signal: listenerController.signal };
 
-    const setStatus = (message: string, error = false) => {
-      status.textContent = message;
-      root.classList.toggle("has-error", error);
-    };
+      let hasError = false;
 
-    const setPlaying = (playing: boolean) => {
-      root.classList.toggle("is-playing", playing);
+      const setStatus = (message: string, error = false) => {
+        status.textContent = message;
+        root.classList.toggle("has-error", error);
+      };
+
+      const setPlaying = (playing: boolean) => {
+        root.classList.toggle("is-playing", playing);
+        toggles.forEach((toggle) => {
+          toggle.setAttribute("aria-label", playing ? root.dataset.pauseLabel || "" : root.dataset.playLabel || "");
+        });
+        if (playIcon) playIcon.toggleAttribute("hidden", playing);
+        if (pauseIcon) pauseIcon.toggleAttribute("hidden", !playing);
+      };
+
+      const updateProgress = () => {
+        const percent = Number.isFinite(audio.duration) && audio.duration > 0
+          ? (audio.currentTime / audio.duration) * 100
+          : 0;
+        progress.value = String(percent);
+        progress.style.setProperty("--music-progress", `${percent}%`);
+        current.textContent = formatMusicTime(audio.currentTime);
+      };
+
+      const syncMetadata = () => {
+        if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+        duration.textContent = formatMusicTime(audio.duration);
+        updateProgress();
+      };
+
       toggles.forEach((toggle) => {
-        toggle.setAttribute("aria-label", playing ? root.dataset.pauseLabel || "" : root.dataset.playLabel || "");
-      });
-      if (playIcon) playIcon.toggleAttribute("hidden", playing);
-      if (pauseIcon) pauseIcon.toggleAttribute("hidden", !playing);
-    };
-
-    const updateProgress = () => {
-      const percent = Number.isFinite(audio.duration) && audio.duration > 0
-        ? (audio.currentTime / audio.duration) * 100
-        : 0;
-      progress.value = String(percent);
-      progress.style.setProperty("--music-progress", `${percent}%`);
-      current.textContent = formatMusicTime(audio.currentTime);
-    };
-
-    toggles.forEach((toggle) => {
-      toggle.addEventListener("click", async () => {
-        if (!audio.paused) {
-          audio.pause();
-          return;
-        }
-
-        if (hasError) {
-          setStatus(root.dataset.errorMessage || "Audio unavailable", true);
-          return;
-        }
-
-        setStatus(root.dataset.loadingMessage || "Loading...");
-
-        try {
-          await audio.play();
-        } catch (error) {
-          const errorName = error instanceof Error ? error.name : "";
-          if (errorName === "NotAllowedError") {
-            setPlaying(false);
-            setStatus(root.dataset.permissionMessage || "Allow audio, then try again");
+        toggle.addEventListener("click", async () => {
+          if (!audio.paused) {
+            audio.pause();
             return;
           }
-          hasError = true;
-          setPlaying(false);
-          setStatus(root.dataset.errorMessage || "Audio unavailable", true);
-        }
+
+          if (hasError || audio.error) {
+            hasError = false;
+            root.classList.remove("has-error");
+            audio.load();
+          }
+
+          setStatus(root.dataset.loadingMessage || "Loading...");
+
+          try {
+            await audio.play();
+          } catch (error) {
+            const errorName = error instanceof Error ? error.name : "";
+            setPlaying(false);
+            if (errorName === "NotAllowedError") {
+              setStatus(root.dataset.permissionMessage || "Allow audio, then try again");
+            } else {
+              hasError = true;
+              setStatus(root.dataset.errorMessage || "Audio unavailable", true);
+            }
+          }
+        }, listenerOptions);
       });
-    });
 
-    progress.addEventListener("input", () => {
-      if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
-      audio.currentTime = (Number(progress.value) / 100) * audio.duration;
-      updateProgress();
-    });
+      progress.addEventListener("input", () => {
+        if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+        audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+        updateProgress();
+      }, listenerOptions);
 
-    audio.addEventListener("loadedmetadata", () => {
-      duration.textContent = formatMusicTime(audio.duration);
-      setStatus(root.dataset.readyMessage || "Ready");
-    });
-    audio.addEventListener("timeupdate", updateProgress);
-    audio.addEventListener("play", () => {
-      setPlaying(true);
-      setStatus(root.dataset.playingMessage || "Playing");
-    });
-    audio.addEventListener("pause", () => {
-      setPlaying(false);
-      if (!hasError && !audio.ended) {
+      audio.addEventListener("loadedmetadata", () => {
+        hasError = false;
+        syncMetadata();
         setStatus(root.dataset.readyMessage || "Ready");
+      }, listenerOptions);
+      audio.addEventListener("canplay", () => {
+        hasError = false;
+        root.classList.remove("has-error");
+        syncMetadata();
+        if (audio.paused) setStatus(root.dataset.readyMessage || "Ready");
+      }, listenerOptions);
+      audio.addEventListener("timeupdate", updateProgress, listenerOptions);
+      audio.addEventListener("play", () => {
+        setPlaying(true);
+        setStatus(root.dataset.playingMessage || "Playing");
+      }, listenerOptions);
+      audio.addEventListener("pause", () => {
+        setPlaying(false);
+        if (!hasError && !audio.ended) {
+          setStatus(root.dataset.readyMessage || "Ready");
+        }
+      }, listenerOptions);
+      audio.addEventListener("ended", () => {
+        setPlaying(false);
+        audio.currentTime = 0;
+        updateProgress();
+        setStatus(root.dataset.readyMessage || "Ready");
+      }, listenerOptions);
+      audio.addEventListener("error", () => {
+        hasError = true;
+        setPlaying(false);
+        setStatus(root.dataset.errorMessage || "Audio unavailable", true);
+      }, listenerOptions);
+
+      if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
+        syncMetadata();
+      } else {
+        audio.load();
       }
+
+      setPlaying(!audio.paused);
+      setStatus(
+        audio.paused
+          ? root.dataset.readyMessage || "Ready"
+          : root.dataset.playingMessage || "Playing",
+      );
     });
-    audio.addEventListener("ended", () => {
-      setPlaying(false);
-      audio.currentTime = 0;
-      updateProgress();
-      setStatus(root.dataset.readyMessage || "Ready");
-    });
-    audio.addEventListener("error", () => {
-      hasError = true;
-      setPlaying(false);
-      setStatus(root.dataset.errorMessage || "Audio unavailable", true);
-    });
-  });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeMusicPlayers, { once: true });
+  } else {
+    initializeMusicPlayers();
+  }
+  document.addEventListener("astro:page-load", initializeMusicPlayers);
 </script>
 
 <style>

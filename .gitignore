@@ -9,4 +9,6 @@ yarn-error.log*
 pnpm-debug.log*
 astro-dev.log
 *.log
+*.err
+*.out
 qa/

@@ -2,7 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-const language = z.enum(["en", "zh"]);
+const language = z.literal("en");
 
 const writingSchema = z.object({
   title: z.string(),
@@ -12,27 +12,21 @@ const writingSchema = z.object({
   category: z.string(),
   tags: z.array(z.string()).default([]),
   language,
-  translationKey: z.string(),
   featured: z.boolean().default(false),
   draft: z.boolean().default(false),
 });
 
-// Add new bilingual Thoughts and Notes by placing paired files in
-// src/content/thoughts/{en,zh}/ or src/content/notes/{en,zh}/ with the same translationKey
-const thoughts = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/thoughts" }),
+// Add new approved English essays under the corresponding content directory.
+const writing = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/writing" }),
   schema: writingSchema,
 });
 
-const notes = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/notes" }),
-  schema: writingSchema,
-});
-
-const timeline = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/timeline" }),
+const experience = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/experience" }),
   schema: z.object({
     type: z.enum(["experience", "milestone"]).default("milestone"),
+    track: z.enum(["professional", "research", "education", "credentials"]),
     date: z.string(),
     title: z.string().optional(),
     role: z.string().optional(),
@@ -43,7 +37,6 @@ const timeline = defineCollection({
     context: z.string().optional(),
     tags: z.array(z.string()).default([]),
     language,
-    translationKey: z.string(),
     draft: z.boolean().default(false),
     link: z.string().optional(),
     logo: z.string().optional(),
@@ -54,7 +47,20 @@ const timeline = defineCollection({
     highlight: z.string().optional(),
     featured: z.boolean().default(false),
     order: z.number().optional(),
+    education: z.object({
+      planned: z.boolean().default(false),
+      degree: z.string(),
+      school: z.string().optional(),
+      fields: z.array(z.string()).min(1),
+      recordLabel: z.string().optional(),
+      recognition: z.array(z.object({
+        label: z.string(),
+        value: z.string(),
+      })).default([]),
+      awardsLabel: z.string(),
+      awards: z.array(z.string()).default([]),
+    }).optional(),
   }),
 });
 
-export const collections = { thoughts, notes, timeline };
+export const collections = { writing, experience };

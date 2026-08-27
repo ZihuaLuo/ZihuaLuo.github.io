@@ -1,16 +1,12 @@
 import { getCollection } from "astro:content";
-import { thoughtSeries, thoughtsPerPage, thoughtSeriesPath } from "@data/thoughtSeries";
+import { essaysPerPage, writingSeries, writingSeriesPath } from "@data/writingSeries";
 import { entrySlug, withBase } from "@i18n/routes";
 
 const staticPaths = [
   "/",
-  "/zh/",
-  "/thoughts/",
-  "/zh/thoughts/",
-  "/notes/",
-  "/zh/notes/",
-  "/now/",
-  "/zh/now/",
+  "/experience/",
+  "/writing/",
+  "/credits/",
 ];
 
 function urlFor(path: string, siteUrl: URL) {
@@ -20,32 +16,21 @@ function urlFor(path: string, siteUrl: URL) {
 export async function GET({ site }: { site: URL }) {
   const siteUrl = site ?? new URL("http://127.0.0.1:4321");
   const includeDrafts = !import.meta.env.PROD;
-  const thoughts = await getCollection("thoughts", ({ data }) => includeDrafts || !data.draft);
-  const notes = await getCollection("notes", ({ data }) => includeDrafts || !data.draft);
-  const seriesPaths = thoughtSeries.flatMap((series) => {
-    return (["en", "zh"] as const).flatMap((lang) => {
-      const count = thoughts.filter(
-        (entry) => entry.data.language === lang && entry.data.category === series.category[lang],
-      ).length;
-      const totalPages = Math.ceil(count / thoughtsPerPage);
+  const writing = await getCollection(
+    "writing",
+    ({ data }) => data.language === "en" && (includeDrafts || !data.draft),
+  );
+  const seriesPaths = writingSeries.flatMap((series) => {
+    const count = writing.filter((entry) => entry.data.category === series.category).length;
+    const totalPages = Math.ceil(count / essaysPerPage);
 
-      return Array.from({ length: totalPages }, (_, index) =>
-        thoughtSeriesPath(lang, series.slug, index + 1),
-      );
-    });
+    return Array.from({ length: totalPages }, (_, index) =>
+      writingSeriesPath(series.slug, index + 1),
+    );
   });
   const contentPaths = [
     ...seriesPaths,
-    ...thoughts.map((entry) =>
-      entry.data.language === "zh"
-        ? `/zh/thoughts/${entrySlug(entry.id)}/`
-        : `/thoughts/${entrySlug(entry.id)}/`,
-    ),
-    ...notes.map((entry) =>
-      entry.data.language === "zh"
-        ? `/zh/notes/${entrySlug(entry.id)}/`
-        : `/notes/${entrySlug(entry.id)}/`,
-    ),
+    ...writing.map((entry) => `/writing/${entrySlug(entry.id)}/`),
   ];
 
   const urls = [...staticPaths, ...contentPaths]

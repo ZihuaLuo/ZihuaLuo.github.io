@@ -1,24 +1,22 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Tag from "@components/Tag.astro";
-import { entryDateTime, formatEntryDate, langPath, readingTime, type Language } from "@i18n/routes";
+import { entryDateTime, formatEntryDate, readingTime, withBase, type Language } from "@i18n/routes";
 import { siteInfo, ui } from "@i18n/ui";
 
 interface Props {
   entry: any;
   lang: Language;
-  collection: "thoughts" | "notes";
-  alternateHref: string;
   canonicalPath: string;
 }
 
-const { entry, lang, collection, alternateHref, canonicalPath } = Astro.props;
-const backLabel = collection === "thoughts" ? ui[lang].backToThoughts : ui[lang].backToNotes;
-const backHref = langPath(lang, `/${collection}/`);
-const authorName = lang === "zh" ? siteInfo.zhDisplayName : siteInfo.englishName;
+const { entry, lang, canonicalPath } = Astro.props;
+const backLabel = ui[lang].backToWriting;
+const backHref = withBase("/writing/");
+const authorName = siteInfo.englishName;
 const pageTitle = `${entry.data.title} | ${authorName}`;
 const minutes = readingTime(entry.body ?? "", lang);
-const featuredLabel = lang === "zh" ? "精选文章" : "Featured Essay";
+const featuredLabel = "Featured Essay";
 const displayDate = formatEntryDate(entry.data, lang);
 const dateTime = entryDateTime(entry.data);
 ---
@@ -27,7 +25,6 @@ const dateTime = entryDateTime(entry.data);
   title={pageTitle}
   description={entry.data.description}
   lang={lang}
-  alternateHref={alternateHref}
   canonicalPath={canonicalPath}
   type="article"
 >
@@ -71,9 +68,7 @@ const dateTime = entryDateTime(entry.data);
         <div class="premium-card sticky top-28 rounded-2xl p-5 text-sm leading-7 text-muted">
           <p class="font-bold text-ink">{authorName}</p>
           <p class="mt-4">
-            {lang === "zh"
-              ? "一篇来自长期个人档案的思考记录，关注学习、判断与结构化成长。"
-              : "A record from a long-term personal archive focused on learning, judgment, and structured growth."}
+            A record from a long-term personal archive focused on learning, judgment, and structured growth.
           </p>
         </div>
       </aside>

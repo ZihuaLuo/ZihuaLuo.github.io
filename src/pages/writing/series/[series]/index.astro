@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import WritingSeriesArchive from "@components/WritingSeriesArchive.astro";
+import { essaysPerPage, writingSeries } from "@data/writingSeries";
+
+export async function getStaticPaths() {
+  const lang = "en";
+  const includeDrafts = !import.meta.env.PROD;
+  const allWriting = await getCollection(
+    "writing",
+    ({ data }) => data.language === lang && (includeDrafts || !data.draft),
+  );
+
+  return writingSeries.flatMap((series) => {
+    const entries = allWriting
+      .filter((entry) => entry.data.category === series.category)
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    const totalPages = Math.ceil(entries.length / essaysPerPage);
+
+    if (entries.length === 0) {
+      return [];
+    }
+
+    return [
+      {
+        params: { series: series.slug },
+        props: {
+          currentPage: 1,
+          entries: entries.slice(0, essaysPerPage),
+          lang,
+          series,
+          totalCount: entries.length,
+          totalPages,
+        },
+      },
+    ];
+  });
+}
+---
+
+<WritingSeriesArchive {...Astro.props} />

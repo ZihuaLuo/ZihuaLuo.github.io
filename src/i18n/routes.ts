@@ -1,29 +1,23 @@
-export type Language = "en" | "zh";
+export type Language = "en";
 
-export const defaultLanguage: Language = "en";
-export const languages: Record<Language, string> = {
-  en: "English",
-  zh: "中文",
+export type NavItem = {
+  label: string;
+  href: string;
+  activePrefixes?: string[];
 };
 
-export const navItems: Record<Language, { label: string; href: string }[]> = {
+export const navItems: Record<Language, NavItem[]> = {
   en: [
     { label: "Home", href: "/" },
-    { label: "Thinking", href: "/#thinking" },
-    { label: "Impact", href: "/#impact" },
-    { label: "Credits", href: "/#credit" },
-  ],
-  zh: [
-    { label: "首页", href: "/zh/" },
-    { label: "思考", href: "/zh/#thinking" },
-    { label: "量化成果", href: "/zh/#impact" },
-    { label: "致谢", href: "/zh/#credit" },
+    { label: "Experience", href: "/experience/" },
+    {
+      label: "Writing",
+      href: "/writing/",
+      activePrefixes: ["/writing/"],
+    },
+    { label: "Credits", href: "/credits/" },
   ],
 };
-
-export function otherLanguage(lang: Language): Language {
-  return lang === "en" ? "zh" : "en";
-}
 
 export function stripBase(pathname: string): string {
   const base = import.meta.env.BASE_URL || "/";
@@ -55,14 +49,6 @@ export function withBase(path: string): string {
   return `${normalizedBase}${normalizedPath}`;
 }
 
-export function langPath(lang: Language, englishPath: string): string {
-  const path = englishPath.startsWith("/") ? englishPath : `/${englishPath}`;
-  if (lang === "en") {
-    return withBase(path);
-  }
-  return withBase(path === "/" ? "/zh/" : `/zh${path}`);
-}
-
 export function entrySlug(id: string): string {
   return id
     .replace(/\\/g, "/")
@@ -72,7 +58,7 @@ export function entrySlug(id: string): string {
 }
 
 export function formatDate(date: Date, lang: Language): string {
-  return new Intl.DateTimeFormat(lang === "zh" ? "zh-CN" : "en-US", {
+  return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -94,10 +80,7 @@ export function readingTime(body = "", lang: Language): string {
     .replace(/<[^>]+>/g, "")
     .replace(/[#__*>\-[\]()`]/g, " ")
     .trim();
-  const count =
-    lang === "zh"
-      ? (plain.match(/[\u4e00-\u9fff]/g)?.length ?? 0) + plain.split(/\s+/).filter(Boolean).length
-      : plain.split(/\s+/).filter(Boolean).length;
-  const minutes = Math.max(1, Math.ceil(count / (lang === "zh" ? 500 : 220)));
-  return lang === "zh" ? `${minutes} 分钟阅读` : `${minutes} min read`;
+  const count = plain.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(count / 220));
+  return `${minutes} min read`;
 }
