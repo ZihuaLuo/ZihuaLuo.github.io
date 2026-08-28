@@ -8,9 +8,9 @@ interface Props {
 const { lang } = Astro.props;
 const labels = {
   title: "Search",
-  placeholder: "Search writing and experience",
+  placeholder: "Search the entire site",
   emptyTitle: "Start with a keyword",
-  emptyDescription: "Try CFA, FRM, Research, Education, Risk, Valuation, Analytics, or a company name",
+  emptyDescription: "Try About, My Story, CFA, Research, Love Story, Donation, a person, or an organization",
   noResults: "No results found",
   loading: "Loading search index",
   open: "Open",
@@ -19,8 +19,10 @@ const labels = {
   typeLabels: {
     writing: "Writing",
     experience: "Experience",
+    section: "Site Section",
+    acknowledgement: "Acknowledgement",
   },
-  suggestions: ["CFA", "FRM", "Research", "Education", "Risk", "Analytics"],
+  suggestions: ["About", "My Story", "CFA", "Research", "Love Story", "Donation", "Acknowledgements"],
 };
 
 const serializedLabels = JSON.stringify(labels);
@@ -432,8 +434,10 @@ const titleId = `site-search-title-${lang}`;
     const indexUrl = modal.dataset.indexUrl || "/search-index.json";
     const openButtons = document.querySelectorAll("[data-search-open]");
     const closeButtons = modal.querySelectorAll("[data-search-close]");
+    const cacheKey = `${indexUrl}::${lang}`;
+    const indexCache = window.__siteSearchIndexCache ||= new Map();
     let indexedItems = [];
-    let indexPromise;
+    let indexPromise = indexCache.get(cacheKey);
     let previousFocus;
     let previousOverflow = "";
     let searchFrame = 0;
@@ -451,10 +455,35 @@ const titleId = `site-search-title-${lang}`;
         .toLocaleLowerCase()
         .normalize("NFKD")
         .replace(/\p{M}/gu, "")
-        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/[^\p{L}\p{N}]+/gu, " ")
         .trim();
 
     const prepareSearchItem = (item) => {
+      if (typeof item.searchContent === "string") {
+        const { searchContent, ...resultItem } = item;
+        const fields = {
+          title: normalize(item.title),
+          description: normalize(item.description),
+          category: normalize(item.category),
+          tags: normalize((item.tags || []).join(" ")),
+          content: searchContent,
+          type: normalize(item.type),
+          date: normalize(item.date),
+          track: normalize(item.track),
+          aliases: normalize((item.aliases || []).join(" ")),
+        };
+        return {
+          ...resultItem,
+          _search: {
+            fields,
+            semanticHaystack: Object.entries(fields)
+              .filter(([field]) => field !== "date")
+              .map(([, value]) => value)
+              .join(" "),
+          },
+        };
+      }
+
       const fields = {
         title: normalize(item.title),
         description: normalize(item.description),
@@ -471,7 +500,10 @@ const titleId = `site-search-title-${lang}`;
         ...item,
         _search: {
           fields,
-          haystack: Object.values(fields).join(" "),
+          semanticHaystack: Object.entries(fields)
+            .filter(([field]) => field !== "date")
+            .map(([, value]) => value)
+            .join(" "),
         },
       };
     };
@@ -484,7 +516,7 @@ const titleId = `site-search-title-${lang}`;
 
     const loadIndex = () => {
       if (!indexPromise) {
-        indexPromise = fetch(indexUrl, { cache: "no-store" })
+        indexPromise = fetch(indexUrl)
           .then((response) => {
             if (!response.ok) throw new Error("Search index unavailable");
             return response.json();
@@ -495,22 +527,25 @@ const titleId = `site-search-title-${lang}`;
             return indexedItems;
           })
           .catch((error) => {
+            indexCache.delete(cacheKey);
             indexPromise = undefined;
             throw error;
           });
+        indexCache.set(cacheKey, indexPromise);
       }
-      return indexPromise;
+      return indexPromise.then((items) => {
+        indexedItems = items;
+        return items;
+      });
     };
 
     const tokenScore = (item, query, tokens) => {
-      const { fields, haystack } = item._search;
-      const semanticHaystack = Object.entries(fields)
-        .filter(([field]) => field !== "date")
-        .map(([, value]) => value)
-        .join(" ");
+      const { fields, semanticHaystack } = item._search;
       const missesRequiredToken = tokens.some((token) => {
-        const searchableText = /^\d{4}$/.test(token) ? haystack : semanticHaystack;
-        return !searchableText.includes(token);
+        if (/^\d{4}$/.test(token)) {
+          return !fields.date.includes(token) && !semanticHaystack.includes(token);
+        }
+        return !semanticHaystack.includes(token);
       });
       if (missesRequiredToken) return 0;
 
@@ -677,6 +712,23 @@ const titleId = `site-search-title-${lang}`;
       }
     };
 
+    const scrollToCurrentHash = () => {
+      const hash = window.location.hash.slice(1);
+      const hashTarget = hash ? document.getElementById(decodeURIComponent(hash)) : null;
+      if (!hashTarget) return;
+      if (hashTarget.closest("[data-experience-panel]") || hashTarget.matches("[data-credit-card]")) return;
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          hashTarget.scrollIntoView({
+            behavior: reducedMotion ? "auto" : "smooth",
+            block: "start",
+          });
+        });
+      });
+    };
+
     openButtons.forEach((button) => {
       button.addEventListener("click", openSearch, listenerOptions);
     });
@@ -693,9 +745,35 @@ const titleId = `site-search-title-${lang}`;
         language: lang,
         type: link.dataset.searchResultType || "unknown",
       });
+
+      const destination = new URL(link.href, window.location.href);
+      const sameDocument =
+        destination.origin === window.location.origin &&
+        destination.pathname === window.location.pathname &&
+        destination.search === window.location.search;
+
+      closeSearch();
+
+      if (sameDocument && destination.hash) {
+        const hash = decodeURIComponent(destination.hash.slice(1));
+        const hashTarget = document.getElementById(hash);
+        if (hashTarget) {
+          event.preventDefault();
+          window.history.pushState(window.history.state, "", destination);
+          const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.requestAnimationFrame(() => {
+            hashTarget.scrollIntoView({
+              behavior: reducedMotion ? "auto" : "smooth",
+              block: "start",
+            });
+          });
+        }
+      }
     }, listenerOptions);
 
     input.addEventListener("input", scheduleSearch, listenerOptions);
+    window.addEventListener("hashchange", scrollToCurrentHash, listenerOptions);
+    scrollToCurrentHash();
 
     document.addEventListener("keydown", (event) => {
       const key = event.key.toLowerCase();

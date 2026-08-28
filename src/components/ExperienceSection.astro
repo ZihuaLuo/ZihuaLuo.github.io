@@ -831,6 +831,11 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
 
 <script is:inline>
   (() => {
+    window.__experienceLocationController?.abort();
+    const locationController = new AbortController();
+    window.__experienceLocationController = locationController;
+    const locationOptions = { signal: locationController.signal };
+
     const initializeExperienceSections = () => {
       document.querySelectorAll("[data-experience-section]").forEach((section) => {
         if (section.dataset.experienceReady === "true") return;
@@ -890,26 +895,30 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
           });
         });
 
-        const requestedTrack = new URLSearchParams(window.location.search).get("track");
-        const hashTarget = window.location.hash
-          ? document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
-          : null;
-        const targetPanel = hashTarget?.closest("[data-experience-panel]");
-        const initialTrack = targetPanel?.dataset.experiencePanel || requestedTrack;
-        const initialTab = tabs.find((tab) => tab.dataset.experienceTab === initialTrack);
+        const applyLocationState = () => {
+          const requestedTrack = new URLSearchParams(window.location.search).get("track");
+          const hashTarget = window.location.hash
+            ? document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
+            : null;
+          const targetPanel = hashTarget?.closest("[data-experience-panel]");
+          const requestedPanel = targetPanel?.dataset.experiencePanel || requestedTrack;
+          const requestedTab = tabs.find((tab) => tab.dataset.experienceTab === requestedPanel);
 
-        if (initialTab) {
-          activate(initialTab);
-        }
+          if (requestedTab) activate(requestedTab);
 
-        if (hashTarget) {
-          window.requestAnimationFrame(() => {
-            hashTarget.scrollIntoView({
-              behavior: reducedMotion ? "auto" : "smooth",
-              block: "center",
+          if (hashTarget) {
+            window.requestAnimationFrame(() => {
+              hashTarget.scrollIntoView({
+                behavior: reducedMotion ? "auto" : "smooth",
+                block: "center",
+              });
             });
-          });
-        }
+          }
+        };
+
+        applyLocationState();
+        window.addEventListener("hashchange", applyLocationState, locationOptions);
+        window.addEventListener("popstate", applyLocationState, locationOptions);
       });
     };
 
@@ -918,6 +927,10 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
     } else {
       initializeExperienceSections();
     }
+    if (window.__experienceSectionPageLoad) {
+      document.removeEventListener("astro:page-load", window.__experienceSectionPageLoad);
+    }
+    window.__experienceSectionPageLoad = initializeExperienceSections;
     document.addEventListener("astro:page-load", initializeExperienceSections);
   })();
 </script>

@@ -27,11 +27,8 @@ const configuredSiteUrl =
 const analyticsProvider = normalizeAnalyticsProvider(import.meta.env.PUBLIC_ANALYTICS_PROVIDER);
 
 export const siteConfig = {
-  siteName: "Zihua Luo",
   englishName: "Zihua Luo",
   credentialedEnglishName: "Zihua Luo, FRM",
-  romanizedName: "Zihua Luo",
-  designation: "FRM",
   description:
     "Finance, research analytics, risk-aware thinking, and an archive of learning and reflection",
   siteUrl: normalizeSiteUrl(configuredSiteUrl),

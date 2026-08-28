@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.astro";
+import AboutNarrative from "@components/AboutNarrative.astro";
+import { siteInfo } from "@i18n/ui";
+
+const lang = "en";
+---
+
+<BaseLayout
+  title={`${siteInfo.englishName} | About`}
+  description="About Zihua Luo: finance, research, AI, personal principles, experiences, and the ideas shaping how he thinks."
+  lang={lang}
+  canonicalPath="/about/"
+>
+  <Hero lang={lang} />
+  <AboutNarrative lang={lang} />
+</BaseLayout>

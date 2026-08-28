@@ -12,3 +12,4 @@ astro-dev.log
 *.err
 *.out
 qa/
+design-qa.md

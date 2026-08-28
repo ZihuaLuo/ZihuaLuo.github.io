@@ -33,19 +33,13 @@ const activeSeries = seriesCards.filter((series) => series.count > 0);
   lang={lang}
   canonicalPath="/writing/"
 >
-  <section class="finance-shell py-14 sm:py-20">
-    <div class="container-page relative z-10">
+  <section class="surface-section archive-section archive-section--writing pb-18 pt-12 sm:pb-24 sm:pt-16">
+    <div class="container-page relative z-10 grid gap-10 sm:gap-12">
       <PageHeader
-        eyebrow="Writing"
         title="Personal Writing Archive"
         description="Daily learning, daily reflection. Through each piece of writing, I clarify my ideas; through each return, I witness my growth."
         tone="dark"
       />
-    </div>
-  </section>
-
-  <section class="surface-section archive-section archive-section--writing py-18 sm:py-24">
-    <div class="container-page grid gap-12">
       <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4" aria-label="Writing series">
         {seriesCards.map((item) => (
           <a

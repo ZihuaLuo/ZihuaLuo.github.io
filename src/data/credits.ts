@@ -68,6 +68,15 @@ function toAscii(text: string) {
   return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+export function creditEntryAnchor(name: string) {
+  const slug = toAscii(name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return `credit-${slug}`;
+}
+
 function firstNameOf(name: string) {
   return name.replace(titlePattern, "").trim().split(/\s+/)[0] ?? name;
 }

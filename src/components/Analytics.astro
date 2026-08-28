@@ -32,7 +32,11 @@ const umamiEnabled =
     }
   };
 
-  document.addEventListener("click", function handleTrackedClick(event) {
+  if (window.__siteAnalyticsClickHandler) {
+    document.removeEventListener("click", window.__siteAnalyticsClickHandler);
+  }
+
+  window.__siteAnalyticsClickHandler = function handleTrackedClick(event) {
     const target = event.target instanceof Element ? event.target.closest("[data-track-event]") : null;
     if (!target) return;
 
@@ -50,7 +54,9 @@ const umamiEnabled =
     if (!eventName) return;
 
     window.trackSiteEvent(eventName, props);
-  });
+  };
+
+  document.addEventListener("click", window.__siteAnalyticsClickHandler);
 </script>
 
 {plausibleEnabled && (

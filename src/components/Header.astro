@@ -11,11 +11,10 @@ interface Props {
 const { lang, currentPath } = Astro.props;
 const cleanPath = stripBase(currentPath);
 const nav = navItems.en;
-const homeHref = "/";
+const aboutHref = "/about/";
 const brandName = siteInfo.credentialedEnglishName;
 const brandLine = "Man Proposes, God Disposes";
-const brandHref = withBase(homeHref);
-const rankBadge = "Goal: Top 2%";
+const brandHref = withBase(aboutHref);
 const normalizePath = (path: string) => path === "/" ? path : `${path.replace(/\/+$/, "")}/`;
 const isActive = (item: (typeof nav)[number]) => {
   const current = normalizePath(cleanPath);
@@ -62,9 +61,6 @@ const isActive = (item: (typeof nav)[number]) => {
           </a>
         ))}
       </nav>
-      <span class="absolute left-full top-1/2 ml-3 -translate-y-1/2 whitespace-nowrap rounded-full border border-accent/25 bg-white/[0.07] px-2.5 py-1 text-[0.65rem] font-extrabold uppercase tracking-[0.12em] text-[#C7D2FE] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-white/5">
-        {rankBadge}
-      </span>
     </div>
 
     <div class="hidden items-center gap-2 lg:flex">
@@ -200,11 +196,11 @@ const isActive = (item: (typeof nav)[number]) => {
       });
 
       const closeMenu = () => {
-      if (!button || !menu || !openIcon || !closeIcon) return;
-      button.setAttribute("aria-expanded", "false");
-      menu.hidden = true;
-      openIcon.classList.remove("hidden");
-      closeIcon.classList.add("hidden");
+        if (!button || !menu || !openIcon || !closeIcon) return;
+        button.setAttribute("aria-expanded", "false");
+        menu.hidden = true;
+        openIcon.classList.remove("hidden");
+        closeIcon.classList.add("hidden");
       };
 
       if (header.dataset.siteHeaderReady === "true") return;
@@ -228,6 +224,11 @@ const isActive = (item: (typeof nav)[number]) => {
     } else {
       initializeHeader();
     }
-    document.addEventListener("astro:page-load", initializeHeader);
+    const headerWindow = window as Window & { __siteHeaderPageLoad?: () => void };
+    if (headerWindow.__siteHeaderPageLoad) {
+      document.removeEventListener("astro:page-load", headerWindow.__siteHeaderPageLoad);
+    }
+    headerWindow.__siteHeaderPageLoad = initializeHeader;
+    document.addEventListener("astro:page-load", headerWindow.__siteHeaderPageLoad);
   })();
 </script>

@@ -8,14 +8,14 @@ export type NavItem = {
 
 export const navItems: Record<Language, NavItem[]> = {
   en: [
-    { label: "Home", href: "/" },
+    { label: "About", href: "/about/" },
     { label: "Experience", href: "/experience/" },
     {
       label: "Writing",
       href: "/writing/",
       activePrefixes: ["/writing/"],
     },
-    { label: "Credits", href: "/credits/" },
+    { label: "Acknowledgements", href: "/credits/" },
   ],
 };
 

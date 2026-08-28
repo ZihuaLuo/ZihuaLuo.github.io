@@ -3,7 +3,7 @@ import { essaysPerPage, writingSeries, writingSeriesPath } from "@data/writingSe
 import { entrySlug, withBase } from "@i18n/routes";
 
 const staticPaths = [
-  "/",
+  "/about/",
   "/experience/",
   "/writing/",
   "/credits/",

@@ -1,0 +1,851 @@
+---
+import SocialIconLinks from "@components/SocialIconLinks.astro";
+import HeroMusicPlayer from "@components/HeroMusicPlayer.astro";
+import AvatarCard from "@components/AvatarCard.astro";
+import { withBase, type Language } from "@i18n/routes";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+
+const story = [
+  "When I arrived in Canada, it was 2 a.m. and raining. I was standing in the lobby of Mary Keyes Residence with two suitcases, four bags, and no room key. I had left home believing I was prepared; that first night taught me that preparation cannot remove uncertainty. Sometimes it only gives you enough composure to ask for help, find the next step, and keep moving.",
+  "That lesson has followed me. I like structure and set high standards, but some of the moments that shaped me came when structure failed: a fund-system break collided with a coffee chat I had scheduled too tightly; during a TD Asset Management presentation, I lost my place despite rehearsing every sentence. I learned to leave room for the unexpected, prepare key messages instead of perfect scripts, and judge preparation by how well I can recover—not by whether everything follows the plan.",
+  "I am still ambitious, curious, and happiest when I am learning. But I do not want growth to end with me. As a child, I promised myself that when I became capable of earning, I would give back. My first job offer made that promise real through a donation to UN Women, and a later opportunity led me to support meals for children. The person I am trying to become is simple to describe: someone who keeps his word, stays hopeful without ignoring difficulty, and uses each larger opportunity to become more useful to others.",
+];
+
+const principles = [
+  {
+    title: "Sincerity",
+    description: "I want my words and actions to agree. That means being honest when I do not know, communicating early when something may slip, and following a commitment through after the convenient part is over.",
+  },
+  {
+    title: "Optimism",
+    description: "I do not assume things will work out. I believe there is usually a useful next step—learn the system, ask a better question, seek help when needed, and turn uncertainty into something that can be acted on.",
+  },
+  {
+    title: "Resilience",
+    description: "To me, resilience is not enduring everything in silence. It is protecting priorities, leaving room for the unexpected, and returning with a better plan when the first one breaks.",
+  },
+];
+
+const causes = [
+  {
+    title: "United Nations",
+    description: "After receiving my first job offer, I made my first contribution through the United Nations—turning a promise I had carried since childhood into action.",
+    href: withBase("/documents/un-women-donation-confirmation.pdf"),
+  },
+  {
+    title: "Children’s Nutrition Support",
+    description: "A later opportunity became another chance to act—supporting nutritious meals and a fairer beginning for children.",
+    href: withBase("/documents/children-nutrition-donation-certificate-bilingual.png"),
+  },
+];
+
+const contactLinks = [
+  { label: "Email", description: "Start a conversation directly", icon: "email" as const },
+  { label: "LinkedIn", description: "Connect professionally", icon: "linkedin" as const },
+  { label: "Instagram", description: "Follow personal updates", icon: "instagram" as const },
+];
+
+type PersonalFact =
+  | {
+      kind: "fact";
+      value: string;
+      valueLabel: string;
+      label: string;
+      title: string;
+      description: string;
+    }
+  | {
+      kind: "template";
+      value: string;
+      valueLabel: string;
+      label: string;
+      title: string;
+      description: string;
+      href: string | null;
+    }
+  | { kind: "music" };
+
+const personalFacts: PersonalFact[] = [
+  {
+    kind: "fact",
+    value: "5L of Water Daily",
+    valueLabel: "Five litres of water daily",
+    label: "Fun fact",
+    title: "",
+    description: "I keep hydration simple and consistent.",
+  },
+  {
+    kind: "music",
+  },
+  {
+    kind: "template",
+    value: "Central Task Management System",
+    valueLabel: "Central Task Management System",
+    label: "Personal workflow",
+    title: "",
+    description: "One place for every commitment, task, and to-do.",
+    href: "/documents/Central_Task_Management_System_Template.xlsm",
+  },
+];
+---
+
+<div class="about-narrative">
+  <section class="narrative-section story-section" aria-labelledby="about-story-title">
+    <div class="container-page story-grid">
+      <div class="story-heading">
+        <h2 id="about-story-title" class="display-heading">My Story</h2>
+        <div class="story-portrait">
+          <AvatarCard lang={lang} />
+        </div>
+      </div>
+      <div class="story-copy">
+        {story.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative-section principles-section" aria-labelledby="about-principles-title">
+    <div class="container-page">
+      <header class="section-heading">
+        <h2 id="about-principles-title" class="display-heading">Principles</h2>
+        <p>Three qualities I try to carry into work, relationships, and uncertain outcomes.</p>
+      </header>
+      <div class="principles-grid">
+        {principles.map((principle) => (
+          <article>
+            <h3>{principle.title}</h3>
+            <p>{principle.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative-section values-section" aria-labelledby="about-values-title">
+    <div class="container-page values-grid">
+      <div>
+        <p class="values-belief">The world deserves better.</p>
+        <h2 id="about-values-title" class="display-heading">Donation</h2>
+        <p class="values-intro">
+          I made a promise to myself as a child: when I became capable of earning, I would give something back. I have always
+          believed that action speaks much louder than words, and I try to live by that. These records mark the first times I
+          turned that promise into action—and remind me to keep giving back as I become capable of doing more.
+        </p>
+      </div>
+      <div class="cause-list">
+        {causes.map((cause) => (
+          <article>
+            <div>
+              <h3>{cause.title}</h3>
+              <p>{cause.description}</p>
+            </div>
+            <a href={cause.href} target="_blank" rel="noreferrer">View supporting record <span aria-hidden="true">↗</span></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative-section people-section" aria-labelledby="about-people-title">
+    <div class="container-page people-grid">
+      <div class="people-heading">
+        <h2 id="about-people-title" class="display-heading">People</h2>
+        <p class="people-quote">No journey is built alone.</p>
+      </div>
+      <div class="people-copy">
+        <p>Mentors, professors, colleagues, friends, and family have shaped this journey in different ways. The acknowledgements page preserves those names without pretending every relationship carries the same story.</p>
+        <a class="text-link" href={withBase("/credits/")}>View acknowledgements <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative-section personal-section" aria-labelledby="about-personal-title">
+    <div class="container-page personal-grid">
+      <header>
+        <p class="personal-eyebrow">A personal aside</p>
+        <h2 id="about-personal-title" class="display-heading">A Few Constants</h2>
+      </header>
+      <div class="personal-facts">
+        {personalFacts.map((fact) => fact.kind === "music" ? (
+          <article id="about-love-story" class="personal-fact personal-fact--music">
+            <div class="personal-fact__music-layout">
+              <div class="personal-fact__music-copy">
+                <div class="personal-fact__music-title">
+                  <h3>Love Story</h3>
+                  <span aria-label="Music note">♪</span>
+                </div>
+                <p class="personal-fact__label">Featured soundtrack</p>
+                <p class="personal-fact__description">A song I keep coming back to.</p>
+              </div>
+              <HeroMusicPlayer lang={lang} />
+            </div>
+          </article>
+        ) : fact.kind === "template" ? (
+          <article id="about-task-system" class="personal-fact personal-fact--template">
+            <p class="personal-fact__value" aria-label={fact.valueLabel}>{fact.value}</p>
+            <div>
+              <p class="personal-fact__label">{fact.label}</p>
+              {fact.title && <h3>{fact.title}</h3>}
+              <p class="personal-fact__description">{fact.description}</p>
+              {fact.href ? (
+                <a class="personal-fact__download" href={withBase(fact.href)} download>
+                  View template <span aria-hidden="true">→</span>
+                </a>
+              ) : (
+                <span class="personal-fact__download personal-fact__download--pending">
+                  View template <span aria-hidden="true">→</span>
+                </span>
+              )}
+            </div>
+          </article>
+        ) : (
+          <article id="about-water" class="personal-fact">
+            <p class="personal-fact__value" aria-label={fact.valueLabel}>{fact.value}</p>
+            <div>
+              <p class="personal-fact__label">{fact.label}</p>
+              {fact.title && <h3>{fact.title}</h3>}
+              <p class="personal-fact__description">{fact.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative-section goal-section" aria-labelledby="about-goal-title">
+    <div class="container-page goal-grid">
+      <header>
+        <p class="goal-eyebrow">A standard to grow toward</p>
+        <h2 id="about-goal-title" class="display-heading">Goal</h2>
+      </header>
+      <div class="goal-statement">
+        <p class="goal-value">Top 2%</p>
+        <p class="goal-description">
+          Not a finish line, but a standard that keeps me learning, improving, and doing work that earns its place among the best.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative-section connect-section" aria-labelledby="about-connect-title">
+    <div class="container-page connect-grid">
+      <div>
+        <h2 id="about-connect-title" class="display-heading">Let’s Connect</h2>
+        <p>If you’d like to discuss finance, research, AI, or simply an idea worth examining, I’d be glad to hear from you.</p>
+      </div>
+      <div class="connect-options">
+        <div class="contact-list">
+          {contactLinks.map((item) => (
+            <div class="contact-item">
+              <span>
+                <strong>{item.label}</strong>
+                <small>{item.description}</small>
+              </span>
+              <SocialIconLinks lang={lang} items={[item.icon]} className="contact-row-icon" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrative-section motto-section" aria-labelledby="about-motto-title">
+    <div class="container-page motto-inner">
+      <p class="motto-eyebrow">Personal Motto</p>
+      <h2 id="about-motto-title" class="display-heading">Man Proposes, God Disposes</h2>
+    </div>
+  </section>
+</div>
+
+<style>
+  .about-narrative {
+    color: var(--ink);
+    background: linear-gradient(180deg, rgba(var(--rgb-bg-base), .48), rgba(var(--rgb-bg-deep), .58));
+  }
+
+  .narrative-section {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4.6rem, 8vw, 7.5rem);
+    border-top: 1px solid rgba(255, 255, 255, .085);
+    background:
+      linear-gradient(118deg, transparent 0 34%, rgba(var(--rgb-cyan-soft), .025) 34.1% 34.22%, transparent 34.35%),
+      linear-gradient(52deg, transparent 0 58%, rgba(var(--rgb-violet-soft), .025) 58.1% 58.24%, transparent 58.4%);
+  }
+
+  .narrative-section [id] {
+    scroll-margin-top: 7rem;
+  }
+
+  .narrative-section.story-section {
+    border-top: 0;
+  }
+
+  .narrative-section h2 {
+    color: var(--ink);
+    font-size: clamp(3.2rem, 7vw, 5.4rem);
+    font-weight: 600;
+    line-height: .94;
+  }
+
+  .story-grid,
+  .values-grid,
+  .people-grid,
+  .personal-grid,
+  .goal-grid,
+  .connect-grid {
+    display: grid;
+    gap: clamp(2.5rem, 7vw, 6rem);
+  }
+
+  .story-copy {
+    max-width: 49rem;
+    color: var(--body);
+    font-size: clamp(1rem, 1.7vw, 1.08rem);
+    line-height: 1.9;
+  }
+
+  .story-heading {
+    display: grid;
+    align-content: start;
+    gap: clamp(2.25rem, 3.8vw, 3.5rem);
+  }
+
+  .story-portrait {
+    width: min(100%, 23rem);
+    margin-top: 0.75rem;
+  }
+
+  .story-copy p + p {
+    margin-top: 1.55rem;
+  }
+
+  .motto-section {
+    padding-block: clamp(3.8rem, 6vw, 5.8rem);
+    text-align: center;
+    background-color: rgba(10, 18, 38, .16);
+  }
+
+  .motto-inner {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+  }
+
+  .motto-eyebrow {
+    color: var(--accent);
+    font-size: .82rem;
+    font-weight: 850;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .motto-section h2 {
+    max-width: none;
+    font-size: clamp(2.8rem, 5.2vw, 4.8rem);
+    font-style: italic;
+    font-weight: 520;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .section-heading {
+    max-width: 43rem;
+    margin-bottom: 2.7rem;
+  }
+
+  .section-heading > p,
+  .values-intro,
+  .people-grid p,
+  .connect-grid > div:first-child > p {
+    margin-top: 1.15rem;
+    color: var(--body);
+    line-height: 1.8;
+  }
+
+  .principles-grid {
+    display: grid;
+    border-block: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .principles-grid article {
+    padding: 1.9rem 0;
+  }
+
+  .principles-grid article + article {
+    border-top: 1px solid rgba(255, 255, 255, .11);
+  }
+
+  .principles-grid h3,
+  .cause-list h3 {
+    color: var(--ink);
+    font-family: Newsreader, Georgia, serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+  }
+
+  .principles-grid p,
+  .cause-list p {
+    margin-top: .9rem;
+    color: var(--body);
+    line-height: 1.8;
+  }
+
+  .values-section {
+    background-color: rgba(12, 18, 38, .26);
+  }
+
+  .values-belief {
+    margin-bottom: .9rem;
+    color: var(--gold);
+    font-size: .76rem;
+    font-weight: 850;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  .values-intro {
+    max-width: 34rem;
+  }
+
+  .cause-list {
+    border-top: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .cause-list article {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.55rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .cause-list a,
+  .text-link {
+    color: var(--accent);
+    font-size: .9rem;
+    font-weight: 850;
+  }
+
+  .cause-list a:hover,
+  .text-link:hover {
+    color: var(--ink);
+  }
+
+  .people-copy {
+    max-width: 48rem;
+  }
+
+  .people-copy > p {
+    margin-top: 0;
+    font-size: clamp(1.08rem, 1.65vw, 1.15rem);
+  }
+
+  .people-quote {
+    margin-top: 1.35rem;
+    padding-left: 1.05rem;
+    border-left: 3px solid rgba(var(--rgb-cyan-soft), .58);
+    color: var(--ink);
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.15rem;
+  }
+
+  .text-link span {
+    display: inline-grid;
+    width: 1em;
+    height: 1em;
+    place-items: center;
+    line-height: 1;
+    transform: translateY(1px);
+  }
+
+  .personal-section {
+    padding-block: clamp(2.8rem, 4.5vw, 4.4rem);
+    background-color: rgba(10, 18, 38, .18);
+  }
+
+  .personal-section h2 {
+    font-size: clamp(2.9rem, 5vw, 4.35rem);
+    line-height: .98;
+  }
+
+  .personal-section header {
+    align-self: center;
+  }
+
+  .personal-eyebrow,
+  .personal-fact__label {
+    color: var(--accent);
+    font-size: .7rem;
+    font-weight: 850;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .personal-eyebrow {
+    margin-bottom: .85rem;
+  }
+
+  .personal-facts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    border-block: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .personal-fact {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: .55rem;
+    min-width: 0;
+    padding: clamp(1rem, 1.35vw, 1.3rem) clamp(.7rem, 1vw, .9rem);
+  }
+
+  .personal-fact + .personal-fact {
+    border-top: 1px solid rgba(255, 255, 255, .11);
+  }
+
+  .personal-fact__value {
+    color: var(--ink);
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(2.25rem, 2.8vw, 3rem);
+    font-weight: 600;
+    line-height: .9;
+    white-space: nowrap;
+    text-shadow: 0 0 28px rgba(var(--rgb-cyan-soft), .14);
+  }
+
+  .personal-fact h3 {
+    margin-top: .25rem;
+    color: var(--ink);
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(1.22rem, 1.8vw, 1.55rem);
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .personal-fact__description {
+    margin-top: .35rem;
+    color: var(--body);
+    line-height: 1.48;
+  }
+
+  .personal-fact__download {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    margin-top: .42rem;
+    color: var(--accent);
+    font-size: .82rem;
+    font-weight: 850;
+    letter-spacing: 0;
+  }
+
+  .personal-fact__download span {
+    display: inline-grid;
+    width: 1em;
+    height: 1em;
+    place-items: center;
+    line-height: 1;
+  }
+
+  .personal-fact__download--pending {
+    color: var(--accent);
+    cursor: default;
+  }
+
+  .personal-fact--music {
+    align-content: start;
+  }
+
+  .personal-fact__music-layout {
+    display: grid;
+    grid-template-columns: minmax(14.5rem, .95fr) minmax(18rem, 1.05fr);
+    align-items: center;
+    gap: clamp(.85rem, 1.6vw, 1.35rem);
+    min-width: 0;
+  }
+
+  .personal-fact__music-copy {
+    min-width: 0;
+  }
+
+  .personal-fact__music-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: .55rem;
+    white-space: nowrap;
+  }
+
+  .personal-fact__music-title h3 {
+    margin: 0;
+    font-size: clamp(2.15rem, 2.55vw, 2.75rem);
+    line-height: .95;
+    white-space: nowrap;
+  }
+
+  .personal-fact__music-title span {
+    flex: 0 0 auto;
+    color: var(--accent);
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(1.85rem, 2.15vw, 2.3rem);
+    line-height: 1;
+    text-shadow: 0 0 22px rgba(var(--rgb-cyan-soft), .2);
+  }
+
+  .personal-fact--music .personal-fact__label {
+    margin-top: .55rem;
+  }
+
+  :global(.personal-fact--music .hero-music) {
+    width: min(100%, 18.75rem);
+    max-width: 18.75rem;
+    justify-self: center;
+    position: relative;
+    left: -.45rem;
+    margin-top: 0;
+  }
+
+  .personal-fact--template .personal-fact__value {
+    font-size: clamp(1.65rem, 2.25vw, 2.3rem);
+    line-height: 1.02;
+    white-space: normal;
+  }
+
+  :global(.personal-fact--music .hero-music__aura) {
+    inset: -10%;
+  }
+
+  :global(.personal-fact--music .hero-music__panel) {
+    grid-template-columns: 3.45rem minmax(0, 1fr);
+    gap: .8rem;
+    padding: .76rem .86rem;
+  }
+
+  :global(.personal-fact--music .hero-music__heading) {
+    display: none;
+  }
+
+  :global(.personal-fact--music .hero-music__disc-button) {
+    width: 3.45rem;
+    height: 3.45rem;
+  }
+
+  :global(.personal-fact--music .hero-music__wave) {
+    display: none;
+  }
+
+  :global(.personal-fact--music .hero-music__content) {
+    display: grid;
+    align-content: center;
+  }
+
+  :global(.personal-fact--music .hero-music__controls) {
+    align-items: center;
+    margin-top: 0;
+  }
+
+  :global(.personal-fact--music .hero-music__play) {
+    align-self: center;
+    width: 2.05rem;
+    height: 2.05rem;
+  }
+
+  :global(.personal-fact--music .hero-music__timeline) {
+    align-self: center;
+    transform: translateY(.45rem);
+  }
+
+  .goal-section {
+    padding-block: clamp(3.8rem, 6vw, 5.8rem);
+    background-color: rgba(12, 18, 38, .24);
+  }
+
+  .goal-grid {
+    align-items: center;
+  }
+
+  .goal-eyebrow {
+    margin-bottom: .85rem;
+    color: var(--accent);
+    font-size: .76rem;
+    font-weight: 850;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .goal-section h2 {
+    font-size: clamp(3rem, 5.3vw, 4.7rem);
+  }
+
+  .goal-statement {
+    display: grid;
+    gap: 1rem;
+    padding-block: clamp(1.5rem, 2.4vw, 2.1rem);
+    border-block: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .goal-value {
+    color: var(--ink);
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(3.6rem, 6vw, 5.6rem);
+    font-weight: 600;
+    line-height: .9;
+    letter-spacing: -.025em;
+    text-shadow: 0 0 34px rgba(var(--rgb-cyan-soft), .12);
+  }
+
+  .goal-description {
+    max-width: 42rem;
+    color: var(--body);
+    font-size: clamp(1rem, 1.6vw, 1.08rem);
+    line-height: 1.75;
+  }
+
+  .connect-section {
+    background-color: rgba(9, 16, 34, .26);
+  }
+
+  .connect-grid > div:first-child > p {
+    max-width: 39rem;
+  }
+
+  .connect-options {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  .contact-list {
+    border-top: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .contact-item > span:first-child {
+    display: grid;
+    gap: .2rem;
+  }
+
+  .contact-list strong {
+    color: var(--ink);
+    font-size: .95rem;
+  }
+
+  .contact-list small {
+    color: var(--muted);
+    font-size: .78rem;
+  }
+
+  :global(.contact-row-icon) {
+    flex: 0 0 auto;
+  }
+
+  @media (min-width: 820px) {
+    .story-grid {
+      grid-template-columns: minmax(380px, .68fr) minmax(0, 1fr);
+      column-gap: clamp(4rem, 7vw, 7rem);
+    }
+
+    .story-copy {
+      padding-inline-start: clamp(1rem, 2vw, 2rem);
+    }
+
+    .people-grid {
+      grid-template-columns: minmax(230px, .55fr) minmax(0, 1fr);
+    }
+
+    .personal-grid {
+      grid-template-columns: minmax(360px, .8fr) minmax(0, 1fr);
+      align-items: center;
+    }
+
+    .goal-grid {
+      grid-template-columns: minmax(300px, .72fr) minmax(0, 1fr);
+    }
+
+    .principles-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .principles-grid article {
+      padding: 2rem 1.65rem;
+    }
+
+    .principles-grid article:first-child {
+      padding-left: 0;
+    }
+
+    .principles-grid article:last-child {
+      padding-right: 0;
+    }
+
+    .principles-grid article + article {
+      border-top: 0;
+      border-left: 1px solid rgba(255, 255, 255, .11);
+    }
+
+    .values-grid {
+      grid-template-columns: minmax(300px, .82fr) minmax(0, 1fr);
+    }
+
+    .cause-list article {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+
+    .connect-grid {
+      grid-template-columns: minmax(0, .9fr) minmax(360px, .72fr);
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 819px) {
+    .motto-section h2 {
+      white-space: normal;
+    }
+
+    .narrative-section h2 br {
+      display: none;
+    }
+
+    .story-portrait {
+      width: min(82vw, 23rem);
+    }
+
+  }
+
+  @media (max-width: 1099px) {
+    .personal-fact__music-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    :global(.personal-fact--music .hero-music) {
+      width: 100%;
+      max-width: none;
+      justify-self: stretch;
+      left: 0;
+      margin-top: .35rem;
+    }
+  }
+</style>

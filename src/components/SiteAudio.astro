@@ -2,12 +2,12 @@
 import { withBase } from "@i18n/routes";
 
 const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
-const homePath = withBase("/");
+const aboutPath = withBase("/about/");
 ---
 
 <audio
   hidden
-  preload="auto"
+  preload="metadata"
   aria-hidden="true"
   data-music-audio
   transition:persist="featured-soundtrack"
@@ -18,7 +18,7 @@ const homePath = withBase("/");
 <div
   class="floating-music"
   data-floating-music
-  data-home-path={homePath}
+  data-about-path={aboutPath}
   hidden
 >
   <button
@@ -75,12 +75,12 @@ const homePath = withBase("/");
     const listenerOptions = { signal: controller.signal };
 
     const normalizePath = (value: string) => value === "/" ? value : `${value.replace(/\/+$/, "")}/`;
-    const isHome = normalizePath(window.location.pathname) === normalizePath(root.dataset.homePath || "/");
+    const isAbout = normalizePath(window.location.pathname) === normalizePath(root.dataset.aboutPath || "/about/");
 
     const sync = () => {
       const hasStarted = audio.dataset.musicStarted === "true" || audio.currentTime > 0 || !audio.paused;
       const playing = !audio.paused && !audio.ended;
-      root.hidden = isHome || !hasStarted;
+      root.hidden = isAbout || !hasStarted;
       root.classList.toggle("is-playing", playing);
 
       if (audio.ended) {

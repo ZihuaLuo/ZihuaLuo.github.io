@@ -1,5 +1,5 @@
-# Homepage music
+# About page music
 
-The homepage player uses the local file:
+The About page player uses the local file:
 
 `public/audio/love-story-taylor-swift.mp3`

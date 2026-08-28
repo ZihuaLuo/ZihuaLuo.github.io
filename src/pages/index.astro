@@ -1,16 +1,24 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
-import Hero from "@components/Hero.astro";
-import { siteInfo } from "@i18n/ui";
+import { withBase } from "@i18n/routes";
 
-const lang = "en";
+const aboutUrl = withBase("/about/");
+const canonicalUrl = new URL(aboutUrl, Astro.site ?? Astro.url);
 ---
 
-<BaseLayout
-  title={`${siteInfo.englishName} | Finance, Research & Analytics`}
-  description="Finance, research analytics, risk-aware thinking, and an archive of learning and reflection"
-  lang={lang}
-  canonicalPath="/"
->
-  <Hero lang={lang} />
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="refresh" content={`0;url=${aboutUrl}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>About | Zihua Luo</title>
+    <script is:inline define:vars={{ aboutUrl }}>
+      window.location.replace(aboutUrl);
+    </script>
+  </head>
+  <body>
+    <a href={aboutUrl}>Continue to About</a>
+  </body>
+</html>

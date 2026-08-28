@@ -1,7 +1,9 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import { creditEntries, creditEntryAnchor } from "@data/credits";
+import { writingSeries } from "@data/writingSeries";
 import { entrySlug, withBase, type Language } from "@i18n/routes";
 
-type SearchType = "writing" | "experience";
+type SearchType = "writing" | "experience" | "section" | "acknowledgement";
 
 type SearchItem = {
   title: string;
@@ -12,9 +14,9 @@ type SearchItem = {
   tags: string[];
   language: Language;
   date?: string;
-  content?: string;
   track?: string;
   aliases?: string[];
+  searchContent: string;
 };
 
 function cleanMarkdown(value = "") {
@@ -26,6 +28,25 @@ function cleanMarkdown(value = "") {
     .replace(/[#__*>\-[\]()`]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizeSearchValue(value: unknown) {
+  return String(value ?? "")
+    .toLocaleLowerCase()
+    .normalize("NFKD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
+function prepareSearchItem(
+  item: Omit<SearchItem, "searchContent">,
+  searchableContent = "",
+): SearchItem {
+  return {
+    ...item,
+    searchContent: normalizeSearchValue(searchableContent),
+  };
 }
 
 type ExperienceEntry = CollectionEntry<"experience">;
@@ -104,6 +125,152 @@ function experienceSearchContent(entry: ExperienceEntry) {
     .join(" ");
 }
 
+const siteSections: Array<{
+  title: string;
+  description: string;
+  url: string;
+  category: string;
+  tags: string[];
+  aliases?: string[];
+  content: string;
+}> = [
+  {
+    title: "About",
+    description: "An introduction to Zihua Luo and the ideas, work, and experiences shaping how he thinks.",
+    url: "/about/#about",
+    category: "About",
+    tags: ["Finance", "Research", "AI"],
+    aliases: ["About", "About Zihua Luo", "Zihua Luo", "Personal Website"],
+    content: "Welcome to my personal website. Zihua Luo FRM. Finance, Research, and AI.",
+  },
+  {
+    title: "My Story",
+    description: "The experiences that shaped how I prepare, recover, learn, and try to become useful to others.",
+    url: "/about/#about-story-title",
+    category: "About",
+    tags: ["Story", "Journey", "About"],
+    aliases: ["About Me", "Biography", "Personal Journey"],
+    content: "Canada Mary Keyes Residence preparation uncertainty fund system TD Asset Management presentation learning giving back",
+  },
+  {
+    title: "Principles",
+    description: "Sincerity, optimism, and resilience in work, relationships, and uncertain outcomes.",
+    url: "/about/#about-principles-title",
+    category: "About",
+    tags: ["Sincerity", "Optimism", "Resilience"],
+    aliases: ["Values", "Personal Principles"],
+    content: "honesty commitments communication difficult problems steady progress uncertainty",
+  },
+  {
+    title: "Donation",
+    description: "A record of turning a childhood promise to give back into action.",
+    url: "/about/#about-values-title",
+    category: "About",
+    tags: ["Giving Back", "Community", "Values"],
+    aliases: ["United Nations", "UN Women", "Children's Nutrition Support", "Supporting Records"],
+    content: "action speaks louder than words United Nations children nutrition donation supporting record community",
+  },
+  {
+    title: "People",
+    description: "Mentors, professors, colleagues, friends, and family who shaped the journey.",
+    url: "/about/#about-people-title",
+    category: "About",
+    tags: ["People", "Mentors", "Acknowledgements"],
+    aliases: ["No journey is built alone", "Credits"],
+    content: "mentors professors colleagues friends family acknowledgements guidance trust",
+  },
+  {
+    title: "A Few Constants",
+    description: "A few personal details beyond work and study.",
+    url: "/about/#about-personal-title",
+    category: "About",
+    tags: ["Personal", "Fun Facts"],
+    aliases: ["A Few Things About Me", "Personal Aside", "About Me", "Beyond the Résumé", "Beyond the Resume"],
+    content: "5L water daily Love Story featured soundtrack central task management system personal workflow template",
+  },
+  {
+    title: "Love Story",
+    description: "My featured soundtrack and a song I keep coming back to.",
+    url: "/about/#about-love-story",
+    category: "A Few Constants",
+    tags: ["Music", "Taylor Swift", "Soundtrack"],
+    aliases: ["Featured Soundtrack", "Music Player"],
+    content: "Love Story Taylor Swift local audio music player featured soundtrack",
+  },
+  {
+    title: "Central Task Management System",
+    description: "One place for every commitment, task, and to-do, with a downloadable template.",
+    url: "/about/#about-task-system",
+    category: "A Few Constants",
+    tags: ["Template", "Workflow", "Productivity"],
+    aliases: ["Task Management Template", "To-do List", "Commitments"],
+    content: "central task management system template spreadsheet xlsm workflow commitment task todo download",
+  },
+  {
+    title: "5L of Water Daily",
+    description: "A small personal fun fact: I keep hydration simple and consistent.",
+    url: "/about/#about-water",
+    category: "A Few Constants",
+    tags: ["Fun Fact", "Personal"],
+    aliases: ["5L Water", "Water per day"],
+    content: "five litres liters water daily hydration routine fun fact",
+  },
+  {
+    title: "Goal: Top 2%",
+    description: "A long-term standard for continued learning, improvement, and high-quality work.",
+    url: "/about/#about-goal-title",
+    category: "About",
+    tags: ["Goal", "Top 2%", "Growth"],
+    aliases: ["Top 2 Percent", "Personal Goal", "Long-term Goal"],
+    content: "goal top two percent top 2 percent learning improvement high standards growth best work",
+  },
+  {
+    title: "Let's Connect",
+    description: "Ways to start a conversation through email, LinkedIn, or Instagram.",
+    url: "/about/#about-connect-title",
+    category: "About",
+    tags: ["Contact", "Email", "LinkedIn", "Instagram"],
+    aliases: ["Contact Me", "Social Links"],
+    content: "connect conversation finance research AI ideas email linkedin instagram",
+  },
+  {
+    title: "Personal Motto",
+    description: "Man Proposes, God Disposes",
+    url: "/about/#about-motto-title",
+    category: "About",
+    tags: ["Motto", "Personal"],
+    aliases: ["Man Proposes God Disposes"],
+    content: "personal motto man proposes god disposes",
+  },
+  {
+    title: "Experience",
+    description: "A chronological view of professional work, research, education, and financial credentials.",
+    url: "/experience/#experience",
+    category: "Experience",
+    tags: ["Professional", "Research", "Education", "Credentials"],
+    aliases: ["Timeline", "Career"],
+    content: "professional work research projects academic foundation education credentials career timeline",
+  },
+  {
+    title: "Writing Archive",
+    description: "Essays on cognition, economic thinking, finance, and business cases.",
+    url: "/writing/",
+    category: "Writing",
+    tags: ["Essays", "Ideas", "Learning"],
+    aliases: ["Writing", "Read My Writing", "Personal Writing Archive"],
+    content: "writing archive essays cognition economic thinking finance business cases ideas notes learning",
+  },
+  {
+    title: "Acknowledgements",
+    description: "A searchable directory of people whose guidance, trust, and standards shaped the journey.",
+    url: "/credits/#credit",
+    category: "Acknowledgements",
+    tags: ["People", "Mentors", "Network"],
+    aliases: ["Credits", "Acknowledgements Directory"],
+    content: "people mentors professors colleagues friends family guidance trust acknowledgements credits directory",
+  },
+];
+
 export async function GET() {
   const writing = await getCollection(
     "writing",
@@ -114,7 +281,7 @@ export async function GET() {
     ({ data }) => data.language === "en" && !data.draft,
   );
 
-  const writingItems: SearchItem[] = writing.map((entry) => ({
+  const writingItems: SearchItem[] = writing.map((entry) => prepareSearchItem({
     title: entry.data.title,
     description: entry.data.description,
     url: withBase(`/writing/${entrySlug(entry.id)}/`),
@@ -123,10 +290,9 @@ export async function GET() {
     tags: entry.data.tags,
     language: entry.data.language,
     date: entryDateLabel(entry),
-    content: cleanMarkdown(entry.body),
-  }));
+  }, cleanMarkdown(entry.body)));
 
-  const experienceItems: SearchItem[] = experience.map((entry) => ({
+  const experienceItems: SearchItem[] = experience.map((entry) => prepareSearchItem({
     title: experienceTitle(entry),
     description: entry.data.description,
     url: experienceUrl(entry),
@@ -135,14 +301,48 @@ export async function GET() {
     tags: entry.data.tags,
     language: entry.data.language,
     date: experienceDateLabel(entry),
-    content: experienceSearchContent(entry),
     track: entry.data.track,
     aliases: experienceAliases(entry),
-  }));
+  }, experienceSearchContent(entry)));
+
+  const sectionItems: SearchItem[] = [
+    ...siteSections,
+    ...writingSeries.map((series) => ({
+      title: series.title,
+      description: series.description,
+      url: `/writing/series/${series.slug}/`,
+      category: "Writing Series",
+      tags: [series.category, "Essays"],
+      aliases: [`${series.title} essays`, `${series.title} writing`],
+      content: `${series.category} ${series.description}`,
+    })),
+  ].map((item) => prepareSearchItem({
+    title: item.title,
+    description: item.description,
+    url: withBase(item.url),
+    type: "section",
+    category: item.category,
+    tags: item.tags,
+    language: "en",
+    aliases: item.aliases,
+  }, item.content));
+
+  const acknowledgementItems: SearchItem[] = creditEntries.map((entry) => prepareSearchItem({
+    title: entry.name,
+    description: entry.role,
+    url: withBase(`/credits/?q=${encodeURIComponent(entry.name)}#${creditEntryAnchor(entry.name)}`),
+    type: "acknowledgement",
+    category: entry.tier === "huge" ? "Huge Thanks" : "Acknowledgements",
+    tags: [entry.organization, entry.tier === "huge" ? "Huge Thanks" : "Acknowledgements"],
+    language: "en",
+    aliases: [entry.firstName],
+  }, `${entry.name} ${entry.firstName} ${entry.role} ${entry.organization}`));
 
   const items = [
+    ...sectionItems,
     ...experienceItems,
     ...writingItems,
+    ...acknowledgementItems,
   ];
 
   return new Response(JSON.stringify(items), {

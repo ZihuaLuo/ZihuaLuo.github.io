@@ -4,7 +4,8 @@ An English-only personal website built with Astro and Tailwind CSS. The producti
 
 ## Public routes
 
-- `/` — Home and featured music
+- `/` — Redirects to the canonical About page
+- `/about/` — About landing page, personal story, principles, soundtrack, and contact details
 - `/experience/` — Professional, research, education, and credential records
 - `/writing/` — Full writing archive and series
 - `/credits/` — Searchable acknowledgements directory
@@ -25,9 +26,9 @@ src/
   pages/               Current public routes and generated indexes
   styles/global.css    Global styling
 public/
-  audio/               Homepage soundtrack
-  documents/           Donation evidence linked from Home
-  images/              Profile image
+  audio/               About page soundtrack
+  documents/           Donation records and downloadable task template
+  images/              Profile image and active About hero background
   logos/               Experience logos
 ```
 
@@ -89,7 +90,8 @@ Copy `.env.example` to `.env` for local overrides. Important variables include:
 Before uploading changes:
 
 1. Run `npm run build`.
-2. Confirm the four public navigation destinations work.
-3. Test search results for both Writing and Experience.
-4. Confirm `dist/sitemap.xml` contains only current canonical routes.
-5. Confirm the browser console has no errors.
+2. Confirm `/` redirects to `/about/` and all four navigation destinations work.
+3. Test search results for About, Writing, Experience, and Acknowledgements content.
+4. Validate internal links, section anchors, document downloads, and public assets.
+5. Confirm `dist/sitemap.xml` contains only current canonical routes.
+6. Check desktop and mobile layouts and confirm the browser console has no errors.

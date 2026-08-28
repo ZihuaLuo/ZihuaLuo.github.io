@@ -1,6 +1,6 @@
 ---
 import SectionTitle from "@components/SectionTitle.astro";
-import { creditEntries, type CreditTier } from "@data/credits";
+import { creditEntries, creditEntryAnchor, type CreditTier } from "@data/credits";
 import { type Language } from "@i18n/routes";
 
 interface Props {
@@ -14,18 +14,18 @@ const entries = creditEntries.map((entry) => ({
 }));
 
 const copy = {
-  eyebrow: "Credit",
+  eyebrow: "Acknowledgements",
   title: "A searchable map of the people behind the progress",
   description:
     "Names, roles, and the professional context of people whose guidance, trust, and shared standards shaped this work.",
-  searchLabel: "Search credits",
+  searchLabel: "Search acknowledgements",
   searchPlaceholder: "Search by name, role, or organization...",
-  directoryLabel: "Credit directory",
+  directoryLabel: "Acknowledgements directory",
   hugeTitle: "Huge Thanks",
   hugeDescription: "People whose support, mentorship, and trust sit at the deepest layer of this journey.",
-  creditsTitle: "Credits",
+  creditsTitle: "Acknowledgements",
   creditsDescription: "A broader network of mentors, peers, and professionals who shaped the path forward.",
-  empty: "No matching credits yet. Try another name, role, or organization.",
+  empty: "No matching acknowledgements yet. Try another name, role, or organization.",
   loadMore: "Load more",
   showing: "Showing",
   of: "of",
@@ -101,6 +101,7 @@ const creditGroups = tiers.map((tierConfig) => {
           >
             {group.entries.map((entry) => (
               <article
+                id={creditEntryAnchor(entry.name)}
                 class={`credit-card credit-card--${group.tier} premium-card rounded-2xl p-3.5`}
                 data-credit-card
                 data-credit-tier={group.tier}
@@ -261,6 +262,15 @@ const creditGroups = tiers.map((tierConfig) => {
     overflow: hidden;
     position: relative;
     transition: border-color 220ms ease, box-shadow 220ms ease, opacity 220ms ease, transform 220ms ease;
+    scroll-margin-top: 7rem;
+  }
+
+  .credit-card:target {
+    border-color: rgba(var(--rgb-cyan-soft), 0.68);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 0 0 1px rgba(var(--rgb-cyan-soft), 0.16),
+      0 18px 48px rgba(var(--rgb-cyan-soft), 0.14);
   }
 
   .credit-card::before {
@@ -363,6 +373,11 @@ const creditGroups = tiers.map((tierConfig) => {
 
 <script define:vars={{ copy }}>
   (() => {
+    window.__creditSectionController?.abort();
+    const listenerController = new AbortController();
+    window.__creditSectionController = listenerController;
+    const listenerOptions = { signal: listenerController.signal };
+
     const initializeCreditSections = () => {
       document.querySelectorAll("[data-credit-section]").forEach((section) => {
         if (section.dataset.creditReady === "true") return;
@@ -378,38 +393,54 @@ const creditGroups = tiers.map((tierConfig) => {
         const state = {
           query: "",
         };
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const matchesFilters = (card) => {
-      const query = state.query.trim().toLowerCase();
+    const matchesFilters = (card, query) => {
       const searchText = card.dataset.creditSearchText || "";
       return !query || searchText.includes(query);
     };
 
     const render = () => {
+      const query = state.query.trim().toLowerCase();
       let activeCount = 0;
 
-      lists.forEach((list, tier) => {
+      lists.forEach((_, tier) => {
         const cards = cardsByTier.get(tier) || [];
-        const matchingCards = cards.filter(matchesFilters);
-        const visibleSet = new Set(matchingCards);
         const panel = panels.get(tier);
         const showing = showingLabels.get(tier);
-        const fragment = document.createDocumentFragment();
-
-        activeCount += matchingCards.length;
+        let matchingCount = 0;
 
         cards.forEach((card) => {
-          card.hidden = !visibleSet.has(card);
-          fragment.appendChild(card);
+          const matches = matchesFilters(card, query);
+          card.hidden = !matches;
+          if (matches) matchingCount += 1;
         });
 
-        list.appendChild(fragment);
-        if (panel) panel.classList.toggle("is-hidden", matchingCards.length === 0);
-        if (showing) showing.textContent = `${copy.showing} ${matchingCards.length} ${copy.of} ${matchingCards.length}`;
+        activeCount += matchingCount;
+        if (panel) panel.classList.toggle("is-hidden", matchingCount === 0);
+        if (showing) showing.textContent = `${copy.showing} ${matchingCount} ${copy.of} ${cards.length}`;
       });
 
       if (totalLabel) totalLabel.textContent = String(activeCount);
       if (empty) empty.classList.toggle("hidden", activeCount > 0);
+    };
+
+    const applyLocationState = () => {
+      const requestedQuery = new URLSearchParams(window.location.search).get("q")?.trim() || "";
+      state.query = requestedQuery;
+      if (search) search.value = requestedQuery;
+      render();
+
+      const hash = window.location.hash.slice(1);
+      const target = hash ? document.getElementById(decodeURIComponent(hash)) : null;
+      if (target && section.contains(target) && !target.hidden) {
+        window.requestAnimationFrame(() => {
+          target.scrollIntoView({
+            behavior: reducedMotion ? "auto" : "smooth",
+            block: "center",
+          });
+        });
+      }
     };
 
     let renderQueued = false;
@@ -425,9 +456,11 @@ const creditGroups = tiers.map((tierConfig) => {
     search?.addEventListener("input", (event) => {
       state.query = event.currentTarget.value || "";
       scheduleRender();
-    });
+    }, listenerOptions);
 
-        render();
+        applyLocationState();
+        window.addEventListener("hashchange", applyLocationState, listenerOptions);
+        window.addEventListener("popstate", applyLocationState, listenerOptions);
       });
     };
 
@@ -436,6 +469,10 @@ const creditGroups = tiers.map((tierConfig) => {
     } else {
       initializeCreditSections();
     }
+    if (window.__creditSectionPageLoad) {
+      document.removeEventListener("astro:page-load", window.__creditSectionPageLoad);
+    }
+    window.__creditSectionPageLoad = initializeCreditSections;
     document.addEventListener("astro:page-load", initializeCreditSections);
   })();
 </script>
