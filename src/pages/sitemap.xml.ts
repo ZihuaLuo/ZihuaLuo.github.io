@@ -5,6 +5,7 @@ import { entrySlug, withBase } from "@i18n/routes";
 const staticPaths = [
   "/about/",
   "/experience/",
+  "/ai/",
   "/writing/",
   "/credits/",
 ];

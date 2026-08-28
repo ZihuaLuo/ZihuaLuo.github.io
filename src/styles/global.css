@@ -192,6 +192,20 @@ body::after {
   opacity: 0.48;
 }
 
+/* Keep the About canvas calm: its editorial content does not use the global X-shaped beams. */
+body.about-page::after {
+  background: radial-gradient(
+    circle at 50% 0%,
+    transparent 0,
+    rgba(var(--rgb-bg-base), 0.1) 58%,
+    rgba(var(--rgb-bg-deep), 0.36) 100%
+  );
+}
+
+body.about-page .site-aura::before {
+  display: none;
+}
+
 body > header,
 .site-main,
 body > footer {

@@ -16,6 +16,7 @@ interface Props {
   canonicalPath?: string;
   ogImage?: string;
   type?: "website" | "article";
+  bodyClass?: string;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   canonicalPath,
   ogImage,
   type = "website",
+  bodyClass,
 } = Astro.props;
 ---
 
@@ -39,6 +41,56 @@ const {
       image={ogImage}
       type={type}
     />
+    <script is:inline>
+      (() => {
+        const navigationEntry = performance.getEntriesByType("navigation")[0];
+        const isReload = navigationEntry
+          ? navigationEntry.type === "reload"
+          : performance.navigation?.type === 1;
+
+        if (!isReload) return;
+
+        const root = document.documentElement;
+        const previousScrollBehavior = root.style.scrollBehavior;
+        const resetScroll = () => window.scrollTo(0, 0);
+
+        if ("scrollRestoration" in history) {
+          history.scrollRestoration = "manual";
+        }
+
+        root.style.scrollBehavior = "auto";
+
+        if (window.location.hash) {
+          history.replaceState(
+            history.state,
+            "",
+            `${window.location.pathname}${window.location.search}`,
+          );
+        }
+
+        resetScroll();
+        document.addEventListener("DOMContentLoaded", resetScroll, { once: true });
+        window.addEventListener("pageshow", resetScroll, { once: true });
+        window.addEventListener(
+          "load",
+          () => {
+            resetScroll();
+            requestAnimationFrame(() => {
+              resetScroll();
+              requestAnimationFrame(() => {
+                resetScroll();
+                root.style.scrollBehavior = previousScrollBehavior;
+
+                if ("scrollRestoration" in history) {
+                  history.scrollRestoration = "auto";
+                }
+              });
+            });
+          },
+          { once: true },
+        );
+      })();
+    </script>
     <ClientRouter fallback="animate" />
     <Analytics />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,7 +100,7 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class={bodyClass}>
     <SiteAudio />
     <div class="site-aura" aria-hidden="true">
       <span class="site-aura__orb site-aura__orb--violet"></span>

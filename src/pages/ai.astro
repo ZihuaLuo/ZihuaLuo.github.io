@@ -1,0 +1,16 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import AISection from "@components/AISection.astro";
+import { siteInfo } from "@i18n/ui";
+
+const lang = "en";
+---
+
+<BaseLayout
+  title={`AI | ${siteInfo.englishName}`}
+  description="A future space for selected AI projects, experiments, and applied research by Zihua Luo. Currently in development."
+  lang={lang}
+  canonicalPath="/ai/"
+>
+  <AISection />
+</BaseLayout>

@@ -81,9 +81,28 @@ const copy = {
     overflow: hidden;
   }
 
-  #about.finance-hero::before,
-  #about.finance-hero::after {
+  #about.finance-hero::before {
     display: none;
+  }
+
+  #about.finance-hero::after {
+    position: absolute;
+    inset: auto 0 -1px;
+    z-index: 2;
+    display: block;
+    height: clamp(9rem, 18vh, 13rem);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(var(--rgb-bg-base), 0.18) 24%,
+      rgba(var(--rgb-bg-base), 0.52) 56%,
+      rgba(var(--rgb-bg-base), 0.88) 82%,
+      rgb(var(--rgb-bg-base)) 100%
+    );
+    content: "";
+    filter: none;
+    opacity: 1;
+    pointer-events: none;
   }
 
   .hero-entry__welcome-title {

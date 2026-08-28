@@ -252,6 +252,15 @@ const siteSections: Array<{
     content: "professional work research projects academic foundation education credentials career timeline",
   },
   {
+    title: "AI",
+    description: "A future space for selected AI projects, experiments, and applied research. Currently in development.",
+    url: "/ai/",
+    category: "AI",
+    tags: ["AI", "Projects", "Experiments", "Applied Research"],
+    aliases: ["Artificial Intelligence", "AI Section", "AI Projects", "TBD", "In Development"],
+    content: "artificial intelligence AI projects experiments applied research future work in development TBD coming soon",
+  },
+  {
     title: "Writing Archive",
     description: "Essays on cognition, economic thinking, finance, and business cases.",
     url: "/writing/",

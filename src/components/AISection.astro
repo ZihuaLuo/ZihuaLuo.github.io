@@ -1,0 +1,394 @@
+<section id="ai" class="ai-section" aria-labelledby="ai-title">
+  <div class="ai-section__field" aria-hidden="true">
+    <span class="ai-section__node ai-section__node--one"></span>
+    <span class="ai-section__node ai-section__node--two"></span>
+    <span class="ai-section__node ai-section__node--three"></span>
+    <svg class="ai-section__network" viewBox="0 0 620 420" role="presentation">
+      <g class="ai-section__network-links">
+        <path d="M42 150 186 82M42 150l144 124M42 282l144-8M42 282l144 72" />
+        <path d="M186 82l170-24M186 82l170 112M186 274l170-80M186 274l170 86M186 354l170 6" />
+        <path d="M356 58 526 112M356 58l170 150M356 194l170-82M356 194l170 14M356 194l170 112M356 360l170-54" />
+      </g>
+      <g class="ai-section__network-nodes">
+        <circle cx="42" cy="150" r="4" />
+        <circle cx="42" cy="282" r="4" />
+        <circle cx="186" cy="82" r="4.5" />
+        <circle cx="186" cy="274" r="5" />
+        <circle cx="186" cy="354" r="3.5" />
+        <circle cx="356" cy="58" r="4" />
+        <circle cx="356" cy="194" r="5" />
+        <circle cx="356" cy="360" r="4" />
+        <circle cx="526" cy="112" r="4.5" />
+        <circle cx="526" cy="208" r="4" />
+        <circle cx="526" cy="306" r="4.5" />
+      </g>
+      <g class="ai-section__network-labels">
+        <text x="201" y="68">LLM</text>
+        <text x="371" y="43">VISION</text>
+        <text x="371" y="388">AGENTS</text>
+        <text x="541" y="334">EVAL</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="container-page ai-section__layout">
+    <header class="ai-section__intro">
+      <p class="ai-section__eyebrow">AI LAB</p>
+      <h1 id="ai-title" class="display-heading">In Development</h1>
+      <p class="ai-section__lead">
+        This section is being built as a home for selected AI projects, experiments, and applied research.
+      </p>
+      <p class="ai-section__supporting">
+        The work is still taking shape. It will appear here when it is developed, tested, and ready to share.
+      </p>
+    </header>
+
+    <aside class="ai-section__status" aria-label="AI section development status">
+      <div class="ai-section__processor" aria-hidden="true">
+        <svg viewBox="0 0 64 64" role="presentation">
+          <path d="M22 9v6M32 9v6M42 9v6M22 49v6M32 49v6M42 49v6M9 22h6M9 32h6M9 42h6M49 22h6M49 32h6M49 42h6" />
+          <rect x="15" y="15" width="34" height="34" rx="6" />
+          <path d="M23 24h8l5 7h5M23 32h13M23 40h7l6-8" />
+          <circle cx="23" cy="24" r="2" />
+          <circle cx="23" cy="32" r="2" />
+          <circle cx="23" cy="40" r="2" />
+          <circle cx="41" cy="31" r="2" />
+        </svg>
+      </div>
+      <p class="ai-section__status-label">Research status</p>
+      <p class="ai-section__status-value">TBD</p>
+      <div class="ai-section__status-line" aria-hidden="true"><span></span></div>
+      <p class="ai-section__status-copy">A future chapter of this site.</p>
+      <p class="ai-section__status-meta">Models · Agents · Multimodal</p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .ai-section {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    min-height: calc(100svh - 78px);
+    align-items: center;
+    overflow: hidden;
+    padding-block: clamp(5rem, 10vw, 8.5rem);
+    color: var(--ink);
+    background:
+      radial-gradient(ellipse 48% 42% at 78% 36%, rgba(var(--rgb-cyan-soft), .075), transparent 72%),
+      radial-gradient(ellipse 42% 38% at 18% 70%, rgba(var(--rgb-violet-soft), .06), transparent 74%),
+      linear-gradient(180deg, rgba(var(--rgb-bg-base), .78), rgba(var(--rgb-bg-deep), .9));
+  }
+
+  .ai-section::before {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(rgba(226, 232, 240, .02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(226, 232, 240, .018) 1px, transparent 1px);
+    background-size: 84px 84px;
+    content: "";
+    mask-image: radial-gradient(ellipse at 72% 44%, #000 0%, transparent 72%);
+  }
+
+  .ai-section::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(128deg, transparent 0 57%, rgba(var(--rgb-cyan-soft), .05) 57.08% 57.18%, transparent 57.32%),
+      linear-gradient(43deg, transparent 0 66%, rgba(var(--rgb-violet-soft), .04) 66.08% 66.18%, transparent 66.32%);
+    content: "";
+    opacity: .58;
+  }
+
+  .ai-section__layout {
+    display: grid;
+    align-items: center;
+    gap: clamp(2.75rem, 5vw, 5rem);
+  }
+
+  .ai-section__intro {
+    min-width: 0;
+    max-width: 56rem;
+  }
+
+  .ai-section__eyebrow {
+    color: var(--accent);
+    font-size: 1.05rem;
+    font-weight: 850;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .ai-section__status-label {
+    color: var(--accent);
+    font-size: .84rem;
+    font-weight: 850;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .ai-section h1 {
+    margin-top: 1rem;
+    color: var(--ink);
+    font-size: clamp(2.85rem, 7.4vw, 6.45rem);
+    font-weight: 600;
+    letter-spacing: -.035em;
+    line-height: .96;
+    white-space: nowrap;
+  }
+
+  .ai-section__lead {
+    max-width: 42rem;
+    margin-top: 2rem;
+    color: var(--body-soft);
+    font-size: clamp(1.08rem, 1.8vw, 1.28rem);
+    font-weight: 620;
+    line-height: 1.75;
+  }
+
+  .ai-section__supporting {
+    max-width: 39rem;
+    margin-top: 1.15rem;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .ai-section__status {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 22rem;
+    min-height: 23rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-width: 0;
+    justify-self: center;
+    padding: clamp(2.15rem, 3.5vw, 3rem) clamp(2rem, 3vw, 2.65rem);
+    border: 1px solid rgba(var(--rgb-cyan-soft), .18);
+    border-radius: 1.25rem;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .025)),
+      rgba(var(--rgb-bg-deep), .56);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 24px 70px rgba(var(--rgb-bg-base), .3);
+    backdrop-filter: blur(16px);
+    text-align: center;
+  }
+
+  .ai-section__status::after {
+    position: absolute;
+    inset: auto -18% -45% 24%;
+    height: 12rem;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(var(--rgb-cyan-soft), .09), transparent 68%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .ai-section__status-value {
+    margin-top: .8rem;
+    color: var(--ink);
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(4.5rem, 7vw, 6.6rem);
+    font-weight: 600;
+    letter-spacing: -.035em;
+    line-height: .9;
+  }
+
+  .ai-section__status-line {
+    width: min(100%, 12.5rem);
+    height: 1px;
+    margin-top: 1.65rem;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .1);
+  }
+
+  .ai-section__status-line span {
+    display: block;
+    width: 22%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), rgba(var(--rgb-violet-soft), .75));
+  }
+
+  .ai-section__status-copy {
+    max-width: none;
+    margin-top: 1.15rem;
+    color: var(--muted);
+    line-height: 1.65;
+    white-space: nowrap;
+  }
+
+  .ai-section__processor {
+    display: grid;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 1.25rem;
+    place-items: center;
+    border: 1px solid rgba(var(--rgb-cyan-soft), .22);
+    border-radius: 1.15rem;
+    background: linear-gradient(145deg, rgba(var(--rgb-cyan-soft), .085), rgba(var(--rgb-violet-soft), .04));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07);
+  }
+
+  .ai-section__processor svg {
+    width: 2.8rem;
+    height: 2.8rem;
+    overflow: visible;
+    fill: none;
+    stroke: rgb(var(--rgb-cyan-soft));
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .ai-section__field,
+  .ai-section__node {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .ai-section__field {
+    inset: 0;
+    z-index: -1;
+  }
+
+  .ai-section__field::after {
+    position: absolute;
+    top: 50%;
+    right: clamp(-25rem, -17vw, -14rem);
+    width: clamp(38rem, 58vw, 58rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(var(--rgb-cyan-soft), .035);
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 5rem rgba(var(--rgb-violet-soft), .012),
+      0 0 7rem rgba(var(--rgb-cyan-soft), .014);
+    content: "";
+    transform: translateY(-50%) rotate(-11deg);
+  }
+
+  .ai-section__network {
+    position: absolute;
+    top: 50%;
+    right: clamp(-5rem, -2vw, -1rem);
+    width: min(52vw, 43rem);
+    height: auto;
+    transform: translateY(-50%);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    opacity: .62;
+  }
+
+  .ai-section__network-links {
+    fill: none;
+    stroke: rgba(var(--rgb-cyan-soft), .12);
+    stroke-dasharray: 2 9;
+    stroke-width: 1;
+  }
+
+  .ai-section__network-nodes {
+    fill: rgba(var(--rgb-bg-deep), .88);
+    stroke: rgba(var(--rgb-cyan-soft), .32);
+    stroke-width: 1.2;
+  }
+
+  .ai-section__network-labels {
+    fill: rgba(203, 213, 225, .26);
+    stroke: none;
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: .13em;
+  }
+
+  .ai-section__status-meta {
+    margin-top: 1rem;
+    color: rgba(203, 213, 225, .46);
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: .58rem;
+    font-weight: 650;
+    letter-spacing: .13em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .ai-section__node {
+    width: .34rem;
+    height: .34rem;
+    border: 1px solid rgba(var(--rgb-cyan-soft), .38);
+    border-radius: 50%;
+    background: rgba(var(--rgb-bg-deep), .92);
+    box-shadow: 0 0 16px rgba(var(--rgb-cyan-soft), .13);
+  }
+
+  .ai-section__node--one { top: 22%; right: 18%; }
+  .ai-section__node--two { top: 64%; right: 38%; }
+  .ai-section__node--three { bottom: 18%; left: 12%; }
+
+  @media (min-width: 820px) {
+    .ai-section__layout {
+      grid-template-columns: minmax(0, 1.5fr) minmax(19rem, .62fr);
+    }
+  }
+
+  @media (max-width: 819px) {
+    .ai-section {
+      min-height: auto;
+      padding-block: 4.5rem 5.5rem;
+    }
+
+    .ai-section__layout {
+      gap: 3rem;
+    }
+
+    .ai-section h1 {
+      font-size: clamp(2.85rem, 12vw, 5rem);
+    }
+
+    .ai-section__status {
+      max-width: 31rem;
+      min-height: 21rem;
+    }
+
+    .ai-section__network {
+      top: 63%;
+      right: -11rem;
+      width: 34rem;
+      opacity: .58;
+    }
+
+    .ai-section__field::after {
+      right: -25rem;
+      width: 43rem;
+    }
+
+    .ai-section__network-labels {
+      opacity: .7;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ai-section__status-line span {
+      animation: ai-status-breathe 4.8s ease-in-out infinite alternate;
+    }
+
+    .ai-section__network {
+      animation: ai-network-drift 12s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes ai-status-breathe {
+    to { width: 29%; opacity: .76; }
+  }
+
+  @keyframes ai-network-drift {
+    to { transform: translate(-.45rem, calc(-50% + .35rem)); opacity: .82; }
+  }
+</style>

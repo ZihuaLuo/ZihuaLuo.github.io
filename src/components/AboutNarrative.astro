@@ -264,18 +264,91 @@ const personalFacts: PersonalFact[] = [
 
 <style>
   .about-narrative {
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+    overflow-y: visible;
     color: var(--ink);
-    background: linear-gradient(180deg, rgba(var(--rgb-bg-base), .48), rgba(var(--rgb-bg-deep), .58));
+    background: linear-gradient(
+      180deg,
+      rgb(var(--rgb-bg-base)) 0%,
+      rgba(var(--rgb-bg-base), .98) 16%,
+      rgba(var(--rgb-bg-deep), .93) 66%,
+      rgb(var(--rgb-bg-deep)) 100%
+    );
+  }
+
+  .about-narrative::before,
+  .about-narrative::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    content: "";
+    pointer-events: none;
+  }
+
+  .about-narrative::before {
+    background:
+      radial-gradient(
+        ellipse 78rem 48rem at 108% 58%,
+        transparent 68.7%,
+        rgba(var(--rgb-cyan-soft), .034) 69%,
+        rgba(var(--rgb-violet-soft), .022) 69.32%,
+        transparent 69.7%
+      ),
+      radial-gradient(
+        ellipse 66rem 40rem at -11% 17%,
+        transparent 70.2%,
+        rgba(var(--rgb-blue-soft), .026) 70.5%,
+        transparent 70.85%
+      ),
+      linear-gradient(
+        132deg,
+        transparent 0 43%,
+        rgba(var(--rgb-cyan-soft), .022) 43.08% 43.14%,
+        transparent 43.23% 100%
+      ),
+      linear-gradient(
+        38deg,
+        transparent 0 71%,
+        rgba(var(--rgb-violet-soft), .017) 71.07% 71.13%,
+        transparent 71.22% 100%
+      );
+    opacity: .88;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 66%, transparent 98%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 66%, transparent 98%);
+  }
+
+  .about-narrative::after {
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 88% 12% at 22% 9%, rgba(var(--rgb-cyan-soft), .038), transparent 72%),
+      radial-gradient(ellipse 76% 11% at 76% 24%, rgba(var(--rgb-blue-soft), .026), transparent 74%),
+      radial-gradient(ellipse 82% 11% at 38% 39%, rgba(var(--rgb-warm), .034), transparent 74%),
+      radial-gradient(ellipse 90% 13% at 73% 61%, rgba(var(--rgb-cyan-soft), .036), transparent 72%),
+      radial-gradient(ellipse 72% 10% at 60% 64%, rgba(var(--rgb-violet-soft), .034), transparent 74%),
+      radial-gradient(ellipse 68% 9% at 42% 75%, rgba(var(--rgb-cyan-soft), .025), transparent 76%),
+      radial-gradient(ellipse 58% 8% at 72% 85%, rgba(var(--rgb-blue-soft), .014), transparent 78%);
+    background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 180px 180px, auto, auto, auto, auto, auto, auto, auto;
   }
 
   .narrative-section {
     position: relative;
-    overflow: hidden;
+    z-index: 1;
+    overflow: visible;
+    margin-top: -1px;
     padding-block: clamp(4.6rem, 8vw, 7.5rem);
-    border-top: 1px solid rgba(255, 255, 255, .085);
-    background:
-      linear-gradient(118deg, transparent 0 34%, rgba(var(--rgb-cyan-soft), .025) 34.1% 34.22%, transparent 34.35%),
-      linear-gradient(52deg, transparent 0 58%, rgba(var(--rgb-violet-soft), .025) 58.1% 58.24%, transparent 58.4%);
+    border-block: 1px solid rgba(255, 255, 255, .075);
+    border-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, .035),
+      rgba(var(--rgb-cyan-soft), .06) 34%,
+      rgba(255, 255, 255, .09) 52%,
+      rgba(var(--rgb-violet-soft), .05) 72%,
+      rgba(255, 255, 255, .035)
+    ) 1;
+    background: transparent;
   }
 
   .narrative-section [id] {
@@ -283,7 +356,7 @@ const personalFacts: PersonalFact[] = [
   }
 
   .narrative-section.story-section {
-    border-top: 0;
+    margin-top: 0;
   }
 
   .narrative-section h2 {
@@ -328,7 +401,6 @@ const personalFacts: PersonalFact[] = [
   .motto-section {
     padding-block: clamp(3.8rem, 6vw, 5.8rem);
     text-align: center;
-    background-color: rgba(10, 18, 38, .16);
   }
 
   .motto-inner {
@@ -394,10 +466,6 @@ const personalFacts: PersonalFact[] = [
     margin-top: .9rem;
     color: var(--body);
     line-height: 1.8;
-  }
-
-  .values-section {
-    background-color: rgba(12, 18, 38, .26);
   }
 
   .values-belief {
@@ -474,7 +542,6 @@ const personalFacts: PersonalFact[] = [
 
   .personal-section {
     padding-block: clamp(2.8rem, 4.5vw, 4.4rem);
-    background-color: rgba(10, 18, 38, .18);
   }
 
   .personal-section h2 {
@@ -672,7 +739,6 @@ const personalFacts: PersonalFact[] = [
 
   .goal-section {
     padding-block: clamp(3.8rem, 6vw, 5.8rem);
-    background-color: rgba(12, 18, 38, .24);
   }
 
   .goal-grid {
@@ -714,10 +780,6 @@ const personalFacts: PersonalFact[] = [
     color: var(--body);
     font-size: clamp(1rem, 1.6vw, 1.08rem);
     line-height: 1.75;
-  }
-
-  .connect-section {
-    background-color: rgba(9, 16, 34, .26);
   }
 
   .connect-grid > div:first-child > p {

@@ -16,6 +16,7 @@ export const navItems: Record<Language, NavItem[]> = {
       activePrefixes: ["/writing/"],
     },
     { label: "Acknowledgements", href: "/credits/" },
+    { label: "AI", href: "/ai/" },
   ],
 };
 
