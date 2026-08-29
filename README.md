@@ -9,6 +9,7 @@ An English-only personal website built with Astro and Tailwind CSS. The producti
 - `/experience/` — Professional, research, education, and credential records
 - `/writing/` — Full writing archive and series
 - `/credits/` — Searchable acknowledgements directory
+- `/ai/` — AI Future Console and experimental intelligence interface
 
 Writing articles are published at `/writing/<slug>/`. Writing series use `/writing/series/<series>/`. Retired routes and placeholder Notes are intentionally not generated so they cannot re-enter search or the sitemap.
 
@@ -90,8 +91,8 @@ Copy `.env.example` to `.env` for local overrides. Important variables include:
 Before uploading changes:
 
 1. Run `npm run build`.
-2. Confirm `/` redirects to `/about/` and all four navigation destinations work.
-3. Test search results for About, Writing, Experience, and Acknowledgements content.
+2. Confirm `/` redirects to `/about/` and all five navigation destinations work.
+3. Test search results for About, Experience, Writing, Acknowledgements, and AI content.
 4. Validate internal links, section anchors, document downloads, and public assets.
 5. Confirm `dist/sitemap.xml` contains only current canonical routes.
 6. Check desktop and mobile layouts and confirm the browser console has no errors.

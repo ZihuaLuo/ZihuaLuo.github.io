@@ -2,7 +2,6 @@
 import { withBase } from "@i18n/routes";
 
 const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
-const aboutPath = withBase("/about/");
 ---
 
 <audio
@@ -18,7 +17,6 @@ const aboutPath = withBase("/about/");
 <div
   class="floating-music"
   data-floating-music
-  data-about-path={aboutPath}
   hidden
 >
   <button
@@ -74,13 +72,10 @@ const aboutPath = withBase("/about/");
     musicWindow.__floatingMusicController = controller;
     const listenerOptions = { signal: controller.signal };
 
-    const normalizePath = (value: string) => value === "/" ? value : `${value.replace(/\/+$/, "")}/`;
-    const isAbout = normalizePath(window.location.pathname) === normalizePath(root.dataset.aboutPath || "/about/");
-
     const sync = () => {
       const hasStarted = audio.dataset.musicStarted === "true" || audio.currentTime > 0 || !audio.paused;
       const playing = !audio.paused && !audio.ended;
-      root.hidden = isAbout || !hasStarted;
+      root.hidden = !hasStarted;
       root.classList.toggle("is-playing", playing);
 
       if (audio.ended) {

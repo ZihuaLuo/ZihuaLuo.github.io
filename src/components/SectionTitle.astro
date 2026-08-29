@@ -5,12 +5,14 @@ interface Props {
   description?: string;
   align?: "left" | "center";
   inverse?: boolean;
+  level?: "h1" | "h2";
 }
 
-const { eyebrow, title, description, align = "left", inverse = false } = Astro.props;
+const { eyebrow, title, description, align = "left", inverse = false, level = "h2" } = Astro.props;
 const alignment = align === "center" ? "mx-auto text-center" : "";
 const titleClass = "title-flow title-flow--section bg-[linear-gradient(135deg,#FFFFFF_0%,#DBEAFE_48%,#C4B5FD_100%)] bg-clip-text text-transparent";
 const descClass = "text-muted";
+const Heading = level;
 ---
 
 <div class={`max-w-3xl overflow-visible ${alignment}`}>
@@ -20,6 +22,6 @@ const descClass = "text-muted";
       {eyebrow}
     </p>
   )}
-  <h2 class={`display-heading text-4xl font-semibold leading-[1.12] ${titleClass} sm:text-5xl lg:text-6xl`}>{title}</h2>
+  <Heading class={`display-heading text-4xl font-semibold leading-[1.12] ${titleClass} sm:text-5xl lg:text-6xl`}>{title}</Heading>
   {description && <p class={`mt-4 text-base leading-7 ${descClass} sm:text-lg`}>{description}</p>}
 </div>

@@ -178,7 +178,7 @@ const copy = {
   }
 
   .hero-entry__description {
-    max-width: 42.5rem;
+    max-width: 52rem;
     margin: 2.25rem auto 0;
     color: var(--body);
     font-size: clamp(1.02rem, 1.3vw, 1.12rem);
@@ -190,15 +190,23 @@ const copy = {
   }
 
   .hero-entry__description p + p {
+    max-width: 42.5rem;
+    margin-inline: auto;
     margin-top: 1.15rem;
   }
 
   .hero-entry__description-lead {
-    max-width: 42.5rem;
+    max-width: none;
     color: var(--body-soft);
     font-size: clamp(1.1rem, 1.25vw, 1.18rem);
     font-weight: 650;
     line-height: 1.65;
+  }
+
+  @media (min-width: 900px) {
+    .hero-entry__description-lead {
+      white-space: nowrap;
+    }
   }
 
   .hero-entry__actions {
