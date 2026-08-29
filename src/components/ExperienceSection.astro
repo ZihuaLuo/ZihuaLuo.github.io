@@ -910,7 +910,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
             window.requestAnimationFrame(() => {
               hashTarget.scrollIntoView({
                 behavior: reducedMotion ? "auto" : "smooth",
-                block: "center",
+                block: hashTarget.matches("[data-experience-panel]") ? "start" : "center",
               });
             });
           }

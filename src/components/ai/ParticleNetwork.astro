@@ -1,0 +1,207 @@
+<canvas class="particle-network" data-particle-network aria-hidden="true"></canvas>
+
+<script>
+  type Particle = {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    color: string;
+    alpha: number;
+  };
+
+  type ParticleWindow = Window & {
+    __particleNetworkPageLoad?: () => void;
+    __particleNetworkCleanup?: () => void;
+  };
+
+  const initializeParticleNetwork = () => {
+    const particleWindow = window as ParticleWindow;
+    particleWindow.__particleNetworkCleanup?.();
+    particleWindow.__particleNetworkCleanup = undefined;
+
+    const canvas = document.querySelector<HTMLCanvasElement>("[data-particle-network]");
+    const field = canvas?.closest<HTMLElement>("[data-ai-future]");
+    const context = canvas?.getContext("2d");
+    if (!canvas || !field || !context) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const colors = ["34, 211, 238", "59, 130, 246", "167, 139, 250", "248, 250, 252"];
+    const particles: Particle[] = [];
+    const pointer = { x: -1000, y: -1000, active: false };
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let isMobile = false;
+
+    const createParticles = () => {
+      particles.length = 0;
+      const count = isMobile ? 26 : Math.round(Math.min(90, Math.max(70, width / 18)));
+      for (let index = 0; index < count; index += 1) {
+        const speed = 0.055 + Math.random() * 0.085;
+        const angle = Math.random() * Math.PI * 2;
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: 0.7 + Math.random() * 1.15,
+          color: colors[index % colors.length],
+          alpha: 0.2 + Math.random() * 0.35,
+        });
+      }
+    };
+
+    const resize = () => {
+      const bounds = field.getBoundingClientRect();
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      isMobile = width <= 720;
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.75);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      createParticles();
+      draw(false);
+    };
+
+    const update = () => {
+      particles.forEach((particle) => {
+        if (pointer.active && !isMobile) {
+          const dx = pointer.x - particle.x;
+          const dy = pointer.y - particle.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance > 0 && distance < 175) {
+            const pull = (1 - distance / 175) * 0.0018;
+            particle.vx += (dx / distance) * pull;
+            particle.vy += (dy / distance) * pull;
+          }
+        }
+
+        const speed = Math.hypot(particle.vx, particle.vy);
+        if (speed > 0.18) {
+          particle.vx = (particle.vx / speed) * 0.18;
+          particle.vy = (particle.vy / speed) * 0.18;
+        }
+
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vx *= 0.999;
+        particle.vy *= 0.999;
+
+        if (particle.x < -4) particle.x = width + 4;
+        if (particle.x > width + 4) particle.x = -4;
+        if (particle.y < -4) particle.y = height + 4;
+        if (particle.y > height + 4) particle.y = -4;
+      });
+    };
+
+    function draw(advance = true) {
+      if (advance) update();
+      context.clearRect(0, 0, width, height);
+
+      const linkDistance = isMobile ? 96 : 132;
+      for (let first = 0; first < particles.length; first += 1) {
+        for (let second = first + 1; second < particles.length; second += 1) {
+          const a = particles[first];
+          const b = particles[second];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance >= linkDistance) continue;
+
+          let alpha = (1 - distance / linkDistance) * (isMobile ? 0.055 : 0.078);
+          if (pointer.active && !isMobile) {
+            const midpointDistance = Math.hypot(pointer.x - (a.x + b.x) / 2, pointer.y - (a.y + b.y) / 2);
+            if (midpointDistance < 185) alpha *= 1.85 - midpointDistance / 220;
+          }
+
+          context.beginPath();
+          context.moveTo(a.x, a.y);
+          context.lineTo(b.x, b.y);
+          context.strokeStyle = `rgba(96, 165, 250, ${alpha})`;
+          context.lineWidth = 0.65;
+          context.stroke();
+        }
+      }
+
+      particles.forEach((particle) => {
+        const pointerDistance = pointer.active && !isMobile
+          ? Math.hypot(pointer.x - particle.x, pointer.y - particle.y)
+          : 1000;
+        const nearPointer = Math.max(0, 1 - pointerDistance / 170);
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.radius + nearPointer * 0.55, 0, Math.PI * 2);
+        context.fillStyle = `rgba(${particle.color}, ${particle.alpha + nearPointer * 0.28})`;
+        context.fill();
+      });
+    }
+
+    const animate = () => {
+      draw(true);
+      frame = window.requestAnimationFrame(animate);
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (isMobile || reduceMotion.matches) return;
+      const bounds = field.getBoundingClientRect();
+      pointer.x = event.clientX - bounds.left;
+      pointer.y = event.clientY - bounds.top;
+      pointer.active = pointer.x >= 0 && pointer.x <= bounds.width && pointer.y >= 0 && pointer.y <= bounds.height;
+    };
+
+    const handlePointerLeave = () => {
+      pointer.active = false;
+    };
+
+    resize();
+    if (!reduceMotion.matches) frame = window.requestAnimationFrame(animate);
+    field.addEventListener("pointermove", handlePointerMove, { passive: true });
+    field.addEventListener("pointerleave", handlePointerLeave);
+    window.addEventListener("resize", resize, { passive: true });
+
+    particleWindow.__particleNetworkCleanup = () => {
+      window.cancelAnimationFrame(frame);
+      field.removeEventListener("pointermove", handlePointerMove);
+      field.removeEventListener("pointerleave", handlePointerLeave);
+      window.removeEventListener("resize", resize);
+    };
+  };
+
+  const particleWindow = window as ParticleWindow;
+  if (particleWindow.__particleNetworkPageLoad) {
+    document.removeEventListener("astro:page-load", particleWindow.__particleNetworkPageLoad);
+  }
+  particleWindow.__particleNetworkPageLoad = initializeParticleNetwork;
+  document.addEventListener("astro:page-load", initializeParticleNetwork);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeParticleNetwork, { once: true });
+  } else {
+    initializeParticleNetwork();
+  }
+</script>
+
+<style>
+  .particle-network {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 720ms ease;
+  }
+
+  :global(.ai-future.is-ready) .particle-network { opacity: 0.72; }
+
+  @media (max-width: 720px) {
+    :global(.ai-future.is-ready) .particle-network { opacity: 0.55; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .particle-network { transition: none; }
+  }
+</style>

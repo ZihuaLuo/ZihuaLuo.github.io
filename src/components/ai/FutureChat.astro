@@ -1,0 +1,395 @@
+<section id="future-chat" class="future-chat" aria-labelledby="future-chat-title" data-future-chat>
+  <header class="future-chat__header">
+    <div class="future-chat__identity">
+      <span class="future-chat__mark" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </span>
+      <div>
+        <h2 id="future-chat-title">AI LAB</h2>
+        <p>Experimental Intelligence Interface</p>
+      </div>
+    </div>
+    <p class="future-chat__online"><span aria-hidden="true"></span>Online</p>
+  </header>
+
+  <div class="future-chat__body">
+    <div class="future-chat__transcript" data-chat-transcript aria-live="polite">
+      <article class="future-chat__message future-chat__message--ai">
+        <span class="future-chat__role">AI</span>
+        <p aria-label="Welcome. I’m the interface to Zihua’s AI Lab. What would you like to explore?">
+          <span
+            aria-hidden="true"
+            data-chat-intro
+            data-full-text="Welcome. I’m the interface to Zihua’s AI Lab. What would you like to explore?"
+          >Welcome. I’m the interface to Zihua’s AI Lab.<br />What would you like to explore?</span>
+        </p>
+      </article>
+
+    </div>
+
+    <div class="future-chat__quick" aria-label="Suggested questions">
+      <button type="button" data-chat-prompt="Explore AI projects">Explore AI projects</button>
+      <button type="button" data-chat-prompt="Read current research">Read current research</button>
+      <button type="button" data-chat-prompt="How was this site built?">How was this site built?</button>
+      <button type="button" data-chat-prompt="What is coming next?">What is coming next?</button>
+    </div>
+
+    <form class="future-chat__composer" data-chat-form>
+      <label class="sr-only" for="future-chat-input">Ask the future</label>
+      <input
+        id="future-chat-input"
+        name="question"
+        type="text"
+        autocomplete="off"
+        placeholder="Ask the future..."
+        data-chat-input
+      />
+      <button type="submit" aria-label="Send question">
+        <span aria-hidden="true">↗</span>
+      </button>
+    </form>
+  </div>
+
+  <footer class="future-chat__footer">
+    <span>LOCAL PROTOTYPE</span>
+    <span>MODEL ACCESS / MOCK</span>
+  </footer>
+</section>
+
+<script>
+  type FutureChatWindow = Window & {
+    __futureChatPageLoad?: () => void;
+    __futureChatResponseTimer?: number;
+  };
+
+  const getFutureResponse = (question: string) => {
+    const normalized = question.toLowerCase();
+
+    if (/project|building|build/.test(normalized)) {
+      return "The lab is assembling selected experiments across models, agents, multimodal systems, and applied intelligence. Each project will appear here when it is ready to be examined in public.";
+    }
+    if (/research|current/.test(normalized)) {
+      return "Current research centers on reasoning, uncertainty, agent behavior, and how multimodal systems connect language with perception.";
+    }
+    if (/site|astro|built/.test(normalized)) {
+      return "This interface is built with Astro, semantic HTML, restrained CSS, and a native Canvas particle system—without a heavy 3D framework.";
+    }
+    if (/next|coming|future/.test(normalized)) {
+      return "Next comes a public layer for project notes, experiment records, model observations, and carefully scoped interactive demonstrations.";
+    }
+    return "The interface is still experimental. Ask about AI projects, current research, how the site was built, or what is coming next.";
+  };
+
+  const initializeFutureChats = () => {
+    const futureWindow = window as FutureChatWindow;
+
+    document.querySelectorAll<HTMLElement>("[data-future-chat]").forEach((chat) => {
+      if (chat.dataset.chatReady === "true") return;
+      chat.dataset.chatReady = "true";
+
+      const transcript = chat.querySelector<HTMLElement>("[data-chat-transcript]");
+      const form = chat.querySelector<HTMLFormElement>("[data-chat-form]");
+      const input = chat.querySelector<HTMLInputElement>("[data-chat-input]");
+      const intro = chat.querySelector<HTMLElement>("[data-chat-intro]");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const appendMessage = (role: "AI" | "You", text: string) => {
+        if (!transcript) return;
+        const article = document.createElement("article");
+        article.className = `future-chat__message future-chat__message--${role === "AI" ? "ai" : "user"}`;
+        const label = document.createElement("span");
+        label.className = "future-chat__role";
+        label.textContent = role;
+        const message = document.createElement("p");
+        message.textContent = text;
+        article.append(label, message);
+        transcript.append(article);
+        transcript.scrollTo({ top: transcript.scrollHeight, behavior: reduceMotion ? "auto" : "smooth" });
+      };
+
+      form?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const question = input?.value.trim() ?? "";
+        if (!question || !input) {
+          input?.focus();
+          return;
+        }
+        appendMessage("You", question);
+        input.value = "";
+        if (futureWindow.__futureChatResponseTimer) {
+          window.clearTimeout(futureWindow.__futureChatResponseTimer);
+        }
+        futureWindow.__futureChatResponseTimer = window.setTimeout(() => {
+          appendMessage("AI", getFutureResponse(question));
+        }, reduceMotion ? 0 : 380);
+      });
+
+      chat.querySelectorAll<HTMLButtonElement>("[data-chat-prompt]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!input) return;
+          input.value = button.dataset.chatPrompt ?? "";
+          form?.requestSubmit();
+        });
+      });
+
+      document.querySelectorAll<HTMLElement>("[data-chat-focus]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          chat.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+          window.setTimeout(() => input?.focus(), reduceMotion ? 0 : 420);
+        });
+      });
+
+      document.querySelectorAll<HTMLElement>("[data-chat-projects]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          if (!input) return;
+          chat.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+          input.value = "Explore AI projects";
+          window.setTimeout(() => form?.requestSubmit(), reduceMotion ? 0 : 420);
+        });
+      });
+
+      let hasTyped = true;
+      try {
+        hasTyped = sessionStorage.getItem("zihua-ai-future-chat-typed-v2") === "true";
+        sessionStorage.setItem("zihua-ai-future-chat-typed-v2", "true");
+      } catch {
+        hasTyped = true;
+      }
+
+      if (!hasTyped && !reduceMotion && intro) {
+        const fullText = intro.dataset.fullText ?? "";
+        intro.textContent = "";
+        let index = 0;
+        const typeNextCharacter = () => {
+          index += 1;
+          intro.textContent = fullText.slice(0, index);
+          if (index < fullText.length) {
+            window.setTimeout(typeNextCharacter, 18);
+          }
+        };
+        window.setTimeout(typeNextCharacter, 620);
+      }
+    });
+  };
+
+  const futureWindow = window as FutureChatWindow;
+  if (futureWindow.__futureChatPageLoad) {
+    document.removeEventListener("astro:page-load", futureWindow.__futureChatPageLoad);
+  }
+  futureWindow.__futureChatPageLoad = initializeFutureChats;
+  document.addEventListener("astro:page-load", initializeFutureChats);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeFutureChats, { once: true });
+  } else {
+    initializeFutureChats();
+  }
+</script>
+
+<style is:global>
+  .future-chat {
+    position: relative;
+    width: 100%;
+    min-height: clamp(36rem, 66vh, 44rem);
+    overflow: hidden;
+    border: 1px solid rgba(167, 139, 250, 0.24);
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(ellipse at 84% 0%, rgba(124, 58, 237, 0.1), transparent 21rem),
+      linear-gradient(145deg, rgba(20, 30, 57, 0.78), rgba(5, 8, 22, 0.7));
+    box-shadow:
+      0 34px 90px rgba(0, 2, 12, 0.46),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 0 48px rgba(59, 130, 246, 0.055);
+    backdrop-filter: blur(28px);
+  }
+
+  .future-chat::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(248, 250, 252, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248, 250, 252, 0.014) 1px, transparent 1px);
+    background-size: 72px 72px;
+    content: "";
+    mask-image: linear-gradient(180deg, #000, transparent 72%);
+    pointer-events: none;
+  }
+
+  .future-chat__header,
+  .future-chat__footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem clamp(1.15rem, 3vw, 1.65rem);
+  }
+
+  .future-chat__header { border-bottom: 1px solid rgba(248, 250, 252, 0.09); }
+  .future-chat__identity { display: flex; align-items: center; gap: 0.8rem; }
+  .future-chat__identity h2 {
+    color: #f8fafc;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  }
+  .future-chat__identity p {
+    margin-top: 0.25rem;
+    color: rgba(168, 179, 207, 0.7);
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+  }
+
+  .future-chat__mark {
+    position: relative;
+    display: grid;
+    width: 2.45rem;
+    height: 2.45rem;
+    flex: 0 0 auto;
+    grid-template-columns: repeat(3, 0.24rem);
+    gap: 0.22rem;
+    place-content: center;
+    border: 1px solid rgba(34, 211, 238, 0.24);
+    border-radius: 0.75rem;
+    background: rgba(34, 211, 238, 0.035);
+  }
+  .future-chat__mark i { width: 0.24rem; height: 0.24rem; border-radius: 50%; background: #22d3ee; }
+  .future-chat__mark i:nth-child(2) { background: #3b82f6; }
+  .future-chat__mark i:nth-child(3) { background: #a78bfa; }
+
+  .future-chat__online {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(168, 179, 207, 0.66);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .future-chat__online span { width: 0.36rem; height: 0.36rem; border-radius: 50%; background: #22d3ee; box-shadow: 0 0 0.65rem rgba(34, 211, 238, 0.34); }
+
+  .future-chat__body {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    min-height: calc(clamp(36rem, 66vh, 44rem) - 8.2rem);
+    grid-template-rows: minmax(16rem, 1fr) auto auto;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+  }
+  .future-chat__transcript {
+    min-height: 0;
+    max-height: 24rem;
+    overflow: auto;
+    padding-right: 0.35rem;
+    scrollbar-color: rgba(167, 139, 250, 0.25) transparent;
+    scrollbar-width: thin;
+  }
+  .future-chat__message {
+    display: grid;
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid rgba(248, 250, 252, 0.065);
+  }
+  .future-chat__role {
+    padding-top: 0.1rem;
+    color: rgba(34, 211, 238, 0.86);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .future-chat__message--user .future-chat__role { color: rgba(167, 139, 250, 0.86); }
+  .future-chat__message p { color: #dfe7f7; font-size: 0.9rem; line-height: 1.72; }
+  .future-chat__message--user p { color: rgba(248, 250, 252, 0.74); }
+
+  .future-chat__quick { display: flex; flex-wrap: wrap; gap: 0.45rem; padding-block: 1rem 0.9rem; }
+  .future-chat__quick button {
+    padding: 0.5rem 0.67rem;
+    border: 1px solid rgba(168, 179, 207, 0.13);
+    border-radius: 0.55rem;
+    color: rgba(168, 179, 207, 0.74);
+    background: rgba(248, 250, 252, 0.018);
+    font: inherit;
+    font-size: 0.68rem;
+    cursor: pointer;
+    transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+  }
+  .future-chat__quick button:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+    color: #f8fafc;
+    background: rgba(34, 211, 238, 0.035);
+  }
+
+  .future-chat__composer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 3.1rem;
+    min-height: 3.45rem;
+    overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.24);
+    border-radius: 0.85rem;
+    background: rgba(5, 8, 22, 0.68);
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .future-chat__composer:focus-within {
+    border-color: rgba(34, 211, 238, 0.52);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.055);
+  }
+  .future-chat__composer input {
+    min-width: 0;
+    padding-inline: 1rem;
+    border: 0;
+    outline: 0;
+    color: #f8fafc;
+    background: transparent;
+    font: inherit;
+    font-size: 0.82rem;
+  }
+  .future-chat__composer input::placeholder { color: rgba(168, 179, 207, 0.48); }
+  .future-chat__composer button {
+    border: 0;
+    border-left: 1px solid rgba(168, 179, 207, 0.11);
+    color: #8bdcf2;
+    background: linear-gradient(145deg, rgba(59, 130, 246, 0.085), rgba(124, 58, 237, 0.08));
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .future-chat__footer {
+    border-top: 1px solid rgba(248, 250, 252, 0.075);
+    color: rgba(168, 179, 207, 0.38);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+  .future-chat :is(button, input):focus-visible { outline: 1px solid rgba(34, 211, 238, 0.82); outline-offset: 3px; }
+
+  .ai-future.is-first-visit.is-ready .future-chat__composer { animation: future-input-pulse 1.15s ease 1.05s both; }
+  @keyframes future-input-pulse {
+    0%, 100% { box-shadow: none; }
+    52% { box-shadow: 0 0 1.4rem rgba(59, 130, 246, 0.14); border-color: rgba(34, 211, 238, 0.42); }
+  }
+
+  @media (max-width: 640px) {
+    .future-chat { min-height: 36rem; border-radius: 1.15rem; }
+    .future-chat__identity p { max-width: 12rem; }
+    .future-chat__online { align-self: flex-start; }
+    .future-chat__body { min-height: 28rem; padding-inline: 1rem; }
+    .future-chat__message { grid-template-columns: 2rem minmax(0, 1fr); gap: 0.55rem; }
+    .future-chat__message p { font-size: 0.83rem; }
+    .future-chat__footer { align-items: flex-start; flex-direction: column; gap: 0.35rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .future-chat__quick button,
+    .future-chat__composer { transition: none; }
+    .ai-future.is-first-visit.is-ready .future-chat__composer { animation: none; }
+  }
+</style>

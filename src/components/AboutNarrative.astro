@@ -117,7 +117,7 @@ const personalFacts: PersonalFact[] = [
       </header>
       <div class="principles-grid">
         {principles.map((principle) => (
-          <article>
+          <article id={`principle-${principle.title.toLowerCase()}`}>
             <h3>{principle.title}</h3>
             <p>{principle.description}</p>
           </article>
@@ -138,8 +138,8 @@ const personalFacts: PersonalFact[] = [
         </p>
       </div>
       <div class="cause-list">
-        {causes.map((cause) => (
-          <article>
+        {causes.map((cause, index) => (
+          <article id={index === 0 ? "donation-united-nations" : "donation-childrens-nutrition"}>
             <div>
               <h3>{cause.title}</h3>
               <p>{cause.description}</p>

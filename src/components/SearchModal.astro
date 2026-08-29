@@ -10,7 +10,7 @@ const labels = {
   title: "Search",
   placeholder: "Search the entire site",
   emptyTitle: "Start with a keyword",
-  emptyDescription: "Try About, My Story, CFA, Research, Love Story, Donation, a person, or an organization",
+  emptyDescription: "Try About, AI Lab, Neural Topology, My Story, CFA, Research, Love Story, a person, or an organization",
   noResults: "No results found",
   loading: "Loading search index",
   open: "Open",
@@ -22,18 +22,20 @@ const labels = {
     section: "Site Section",
     acknowledgement: "Acknowledgement",
   },
-  suggestions: ["About", "My Story", "CFA", "Research", "Love Story", "Donation", "Acknowledgements"],
+  suggestions: ["About", "AI Lab", "Neural Topology", "My Story", "CFA", "Research", "Love Story", "Acknowledgements"],
 };
 
 const serializedLabels = JSON.stringify(labels);
 const inputId = `site-search-input-${lang}`;
 const titleId = `site-search-title-${lang}`;
+const searchIndexRevision = "2026-08-29-ai-console-v2";
+const searchIndexUrl = `${withBase("/search-index.json")}?v=${searchIndexRevision}`;
 ---
 
 <div
   class="site-search"
   data-search-modal
-  data-index-url={withBase("/search-index.json")}
+  data-index-url={searchIndexUrl}
   data-labels={serializedLabels}
   data-lang={lang}
   hidden
@@ -440,7 +442,7 @@ const titleId = `site-search-title-${lang}`;
     let indexPromise = indexCache.get(cacheKey);
     let previousFocus;
     let previousOverflow = "";
-    let searchFrame = 0;
+    let searchQueued = false;
 
     const escapeHtml = (value) =>
       String(value ?? "")
@@ -679,9 +681,10 @@ const titleId = `site-search-title-${lang}`;
     };
 
     const scheduleSearch = () => {
-      if (searchFrame) window.cancelAnimationFrame(searchFrame);
-      searchFrame = window.requestAnimationFrame(() => {
-        searchFrame = 0;
+      if (searchQueued) return;
+      searchQueued = true;
+      window.queueMicrotask(() => {
+        searchQueued = false;
         runSearch();
       });
     };

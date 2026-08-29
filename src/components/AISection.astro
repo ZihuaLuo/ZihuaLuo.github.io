@@ -1,394 +1,424 @@
-<section id="ai" class="ai-section" aria-labelledby="ai-title">
-  <div class="ai-section__field" aria-hidden="true">
-    <span class="ai-section__node ai-section__node--one"></span>
-    <span class="ai-section__node ai-section__node--two"></span>
-    <span class="ai-section__node ai-section__node--three"></span>
-    <svg class="ai-section__network" viewBox="0 0 620 420" role="presentation">
-      <g class="ai-section__network-links">
-        <path d="M42 150 186 82M42 150l144 124M42 282l144-8M42 282l144 72" />
-        <path d="M186 82l170-24M186 82l170 112M186 274l170-80M186 274l170 86M186 354l170 6" />
-        <path d="M356 58 526 112M356 58l170 150M356 194l170-82M356 194l170 14M356 194l170 112M356 360l170-54" />
-      </g>
-      <g class="ai-section__network-nodes">
-        <circle cx="42" cy="150" r="4" />
-        <circle cx="42" cy="282" r="4" />
-        <circle cx="186" cy="82" r="4.5" />
-        <circle cx="186" cy="274" r="5" />
-        <circle cx="186" cy="354" r="3.5" />
-        <circle cx="356" cy="58" r="4" />
-        <circle cx="356" cy="194" r="5" />
-        <circle cx="356" cy="360" r="4" />
-        <circle cx="526" cy="112" r="4.5" />
-        <circle cx="526" cy="208" r="4" />
-        <circle cx="526" cy="306" r="4.5" />
-      </g>
-      <g class="ai-section__network-labels">
-        <text x="201" y="68">LLM</text>
-        <text x="371" y="43">VISION</text>
-        <text x="371" y="388">AGENTS</text>
-        <text x="541" y="334">EVAL</text>
-      </g>
-    </svg>
+---
+import FutureChat from "./ai/FutureChat.astro";
+import ParticleNetwork from "./ai/ParticleNetwork.astro";
+---
+
+<section id="ai" class="ai-future" aria-labelledby="ai-future-title" data-ai-future>
+  <ParticleNetwork />
+
+  <div class="ai-future__ambient" aria-hidden="true">
+    <span class="ai-future__glow ai-future__glow--blue"></span>
+    <span class="ai-future__glow ai-future__glow--violet"></span>
+    <span class="ai-future__arc"></span>
   </div>
 
-  <div class="container-page ai-section__layout">
-    <header class="ai-section__intro">
-      <p class="ai-section__eyebrow">AI LAB</p>
-      <h1 id="ai-title" class="display-heading">In Development</h1>
-      <p class="ai-section__lead">
-        This section is being built as a home for selected AI projects, experiments, and applied research.
+  <div class="container-page ai-future__layout">
+    <header class="ai-future__intro">
+      <p class="ai-future__eyebrow" data-future-reveal style="--reveal-delay: 90ms;">
+        <span>AI LAB</span>
+        <i aria-hidden="true">/</i>
+        <span class="ai-future__system"><b aria-hidden="true"></b>System Online</span>
       </p>
-      <p class="ai-section__supporting">
-        The work is still taking shape. It will appear here when it is developed, tested, and ready to share.
-      </p>
+
+      <h1 id="ai-future-title" class="display-heading">
+        <span data-future-reveal style="--reveal-delay: 170ms;">Welcome to</span>
+        <span class="ai-future__title-gradient" data-future-reveal style="--reveal-delay: 270ms;">
+          the Future.
+        </span>
+      </h1>
+
+      <div id="ai-neural-topology" class="ai-future__neural" data-future-reveal style="--reveal-delay: 430ms;">
+        <div class="ai-future__neural-header" aria-hidden="true">
+          <span>NEURAL TOPOLOGY</span>
+          <span><b></b>MODEL FIELD / ACTIVE</span>
+        </div>
+        <svg viewBox="0 0 540 176" role="img" aria-label="Abstract neural network topology">
+          <defs>
+            <linearGradient id="neural-link" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#22d3ee" stop-opacity=".16" />
+              <stop offset=".52" stop-color="#3b82f6" stop-opacity=".38" />
+              <stop offset="1" stop-color="#a78bfa" stop-opacity=".22" />
+            </linearGradient>
+            <radialGradient id="neural-node">
+              <stop offset="0" stop-color="#e8f8ff" stop-opacity=".9" />
+              <stop offset=".35" stop-color="#22d3ee" stop-opacity=".72" />
+              <stop offset="1" stop-color="#3b82f6" stop-opacity=".08" />
+            </radialGradient>
+          </defs>
+          <g class="ai-future__neural-links">
+            <path d="M42 44C94 44 112 30 164 30M42 44c52 0 70 46 122 46M42 88c52 0 70-58 122-58M42 88h122M42 132c52 0 70-42 122-42M42 132c52 0 70 14 122 14" />
+            <path d="M164 30c54 0 72 30 126 30M164 30c54 0 72 74 126 74M164 90c54 0 72-30 126-30M164 90c54 0 72 14 126 14M164 146c54 0 72-42 126-42M164 146c54 0 72-14 126-14" />
+            <path d="M290 60c58 0 78-22 136-22M290 60c58 0 78 28 136 28M290 104c58 0 78-38 136-38M290 104c58 0 78 34 136 34M290 132c58 0 78-32 136-32" />
+            <path d="M426 38c32 0 42 28 74 28M426 66h74M426 100c32 0 42-34 74-34M426 100c32 0 42 34 74 34" />
+          </g>
+          <g class="ai-future__neural-rings">
+            <circle cx="164" cy="90" r="20" />
+            <circle cx="290" cy="104" r="24" />
+            <circle cx="426" cy="66" r="18" />
+          </g>
+          <g class="ai-future__neural-nodes">
+            <circle cx="42" cy="44" r="5" /><circle cx="42" cy="88" r="5" /><circle cx="42" cy="132" r="5" />
+            <circle cx="164" cy="30" r="5" /><circle cx="164" cy="90" r="7" /><circle cx="164" cy="146" r="5" />
+            <circle cx="290" cy="60" r="5" /><circle cx="290" cy="104" r="7" /><circle cx="290" cy="132" r="4" />
+            <circle cx="426" cy="38" r="4" /><circle cx="426" cy="66" r="7" /><circle cx="426" cy="100" r="5" />
+            <circle cx="500" cy="66" r="7" /><circle cx="500" cy="134" r="5" />
+          </g>
+          <g class="ai-future__neural-labels" aria-hidden="true">
+            <text x="26" y="164">INPUT</text>
+            <text x="254" y="164">LATENT SPACE</text>
+            <text x="472" y="164">OUTPUT</text>
+          </g>
+        </svg>
+        <div class="ai-future__neural-footer" aria-hidden="true">
+          <span>MODELS</span><i></i><span>AGENTS</span><i></i><span>MULTIMODAL</span>
+        </div>
+      </div>
+
+      <div id="ai-continuing-status" class="ai-future__actions" data-future-reveal style="--reveal-delay: 570ms;">
+        <button
+          class="ai-future__button ai-future__button--status"
+          type="button"
+          aria-label="Development continuing"
+          disabled
+        >
+          <span>Continuing...</span>
+          <span class="ai-future__button-signal" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+
     </header>
 
-    <aside class="ai-section__status" aria-label="AI section development status">
-      <div class="ai-section__processor" aria-hidden="true">
-        <svg viewBox="0 0 64 64" role="presentation">
-          <path d="M22 9v6M32 9v6M42 9v6M22 49v6M32 49v6M42 49v6M9 22h6M9 32h6M9 42h6M49 22h6M49 32h6M49 42h6" />
-          <rect x="15" y="15" width="34" height="34" rx="6" />
-          <path d="M23 24h8l5 7h5M23 32h13M23 40h7l6-8" />
-          <circle cx="23" cy="24" r="2" />
-          <circle cx="23" cy="32" r="2" />
-          <circle cx="23" cy="40" r="2" />
-          <circle cx="41" cy="31" r="2" />
-        </svg>
-      </div>
-      <p class="ai-section__status-label">Research status</p>
-      <p class="ai-section__status-value">TBD</p>
-      <div class="ai-section__status-line" aria-hidden="true"><span></span></div>
-      <p class="ai-section__status-copy">A future chapter of this site.</p>
-      <p class="ai-section__status-meta">Models · Agents · Multimodal</p>
-    </aside>
+    <div class="ai-future__console" data-future-reveal style="--reveal-delay: 230ms;">
+      <FutureChat />
+    </div>
   </div>
 </section>
 
+<script>
+  type AIFutureWindow = Window & { __aiFuturePageLoad?: () => void };
+
+  const initializeAIFuture = () => {
+    const section = document.querySelector<HTMLElement>("[data-ai-future]");
+    if (!section || section.dataset.futureReady === "true") return;
+    section.dataset.futureReady = "true";
+
+    let hasVisited = true;
+    try {
+      hasVisited = sessionStorage.getItem("zihua-ai-future-seen") === "true";
+      sessionStorage.setItem("zihua-ai-future-seen", "true");
+    } catch {
+      hasVisited = true;
+    }
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!hasVisited && !reduceMotion) section.classList.add("is-first-visit");
+    requestAnimationFrame(() => section.classList.add("is-ready"));
+  };
+
+  const futureWindow = window as AIFutureWindow;
+  if (futureWindow.__aiFuturePageLoad) {
+    document.removeEventListener("astro:page-load", futureWindow.__aiFuturePageLoad);
+  }
+  futureWindow.__aiFuturePageLoad = initializeAIFuture;
+  document.addEventListener("astro:page-load", initializeAIFuture);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeAIFuture, { once: true });
+  } else {
+    initializeAIFuture();
+  }
+</script>
+
 <style>
-  .ai-section {
+  .ai-future {
     position: relative;
     isolation: isolate;
     display: grid;
     min-height: calc(100svh - 78px);
     align-items: center;
     overflow: hidden;
-    padding-block: clamp(5rem, 10vw, 8.5rem);
-    color: var(--ink);
+    padding-block: clamp(3.5rem, 6vw, 6.5rem);
+    color: #f8fafc;
     background:
-      radial-gradient(ellipse 48% 42% at 78% 36%, rgba(var(--rgb-cyan-soft), .075), transparent 72%),
-      radial-gradient(ellipse 42% 38% at 18% 70%, rgba(var(--rgb-violet-soft), .06), transparent 74%),
-      linear-gradient(180deg, rgba(var(--rgb-bg-base), .78), rgba(var(--rgb-bg-deep), .9));
+      radial-gradient(ellipse 52% 48% at 78% 42%, rgba(59, 130, 246, 0.08), transparent 72%),
+      linear-gradient(145deg, #050816 0%, #070a19 46%, #090d1f 100%);
   }
 
-  .ai-section::before {
+  .ai-future::before {
     position: absolute;
     inset: 0;
-    z-index: -2;
+    z-index: 0;
     background:
-      linear-gradient(rgba(226, 232, 240, .02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(226, 232, 240, .018) 1px, transparent 1px);
-    background-size: 84px 84px;
+      linear-gradient(rgba(248, 250, 252, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248, 250, 252, 0.012) 1px, transparent 1px);
+    background-size: 96px 96px;
     content: "";
-    mask-image: radial-gradient(ellipse at 72% 44%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse at 70% 48%, #000 0%, transparent 76%);
+    pointer-events: none;
   }
 
-  .ai-section::after {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      linear-gradient(128deg, transparent 0 57%, rgba(var(--rgb-cyan-soft), .05) 57.08% 57.18%, transparent 57.32%),
-      linear-gradient(43deg, transparent 0 66%, rgba(var(--rgb-violet-soft), .04) 66.08% 66.18%, transparent 66.32%);
-    content: "";
-    opacity: .58;
-  }
-
-  .ai-section__layout {
+  .ai-future__layout {
+    position: relative;
+    z-index: 2;
     display: grid;
-    align-items: center;
-    gap: clamp(2.75rem, 5vw, 5rem);
+    grid-template-columns: minmax(0, 0.92fr) minmax(26rem, 1.08fr);
+    align-items: start;
+    gap: clamp(3rem, 6vw, 7rem);
   }
 
-  .ai-section__intro {
+  .ai-future__intro {
+    position: relative;
     min-width: 0;
-    max-width: 56rem;
+    max-width: 46rem;
   }
 
-  .ai-section__eyebrow {
-    color: var(--accent);
-    font-size: 1.05rem;
-    font-weight: 850;
-    letter-spacing: .18em;
+  .ai-future__eyebrow {
+    position: absolute;
+    top: -3.25rem;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.72rem;
+    color: #22d3ee;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.7rem;
+    font-weight: 780;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
-
-  .ai-section__status-label {
-    color: var(--accent);
-    font-size: .84rem;
-    font-weight: 850;
-    letter-spacing: .18em;
-    text-transform: uppercase;
+  .ai-future__eyebrow i { color: rgba(168, 179, 207, 0.38); font-style: normal; }
+  .ai-future__system { display: inline-flex; align-items: center; gap: 0.55rem; color: rgba(168, 179, 207, 0.68); }
+  .ai-future__system b {
+    width: 0.34rem;
+    height: 0.34rem;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 0.7rem rgba(34, 211, 238, 0.34);
   }
 
-  .ai-section h1 {
-    margin-top: 1rem;
-    color: var(--ink);
-    font-size: clamp(2.85rem, 7.4vw, 6.45rem);
+  .ai-future h1 {
+    margin-top: 0;
+    font-size: clamp(4rem, 5.15vw, 6.25rem);
     font-weight: 600;
-    letter-spacing: -.035em;
-    line-height: .96;
+    letter-spacing: -0.047em;
+    line-height: 0.98;
+  }
+  .ai-future h1 > span {
+    display: block;
     white-space: nowrap;
   }
-
-  .ai-section__lead {
-    max-width: 42rem;
-    margin-top: 2rem;
-    color: var(--body-soft);
-    font-size: clamp(1.08rem, 1.8vw, 1.28rem);
-    font-weight: 620;
-    line-height: 1.75;
+  .ai-future__title-gradient {
+    margin-top: 0.16em;
+    padding-bottom: 0.09em;
+    color: #f8fafc;
+    background: linear-gradient(102deg, #f8fafc 4%, #c7e9ff 48%, #a78bfa 96%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  .ai-section__supporting {
-    max-width: 39rem;
-    margin-top: 1.15rem;
-    color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-
-  .ai-section__status {
+  .ai-future__neural {
     position: relative;
+    width: min(100%, 34rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
+    overflow: hidden;
+    border: 1px solid rgba(107, 151, 199, 0.18);
+    border-radius: 0.9rem;
+    background:
+      linear-gradient(rgba(248, 250, 252, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248, 250, 252, 0.014) 1px, transparent 1px),
+      radial-gradient(circle at 52% 52%, rgba(59, 130, 246, 0.075), transparent 56%),
+      linear-gradient(115deg, rgba(34, 211, 238, 0.035), transparent 38%, rgba(167, 139, 250, 0.04)),
+      rgba(4, 8, 22, 0.62);
+    background-size: 42px 42px, 42px 42px, auto, auto, auto;
+    box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.035), 0 18px 46px rgba(0, 3, 15, 0.18);
+    backdrop-filter: blur(14px);
+  }
+  .ai-future__neural::after {
+    position: absolute;
+    inset: auto 8% 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.34), rgba(167, 139, 250, 0.26), transparent);
+    content: "";
+  }
+  .ai-future__neural-header,
+  .ai-future__neural-footer {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.72rem 0.9rem;
+    color: rgba(168, 179, 207, 0.48);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.51rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .ai-future__neural-header {
+    border-bottom: 1px solid rgba(168, 179, 207, 0.08);
+  }
+  .ai-future__neural-header > span:first-child { color: rgba(194, 238, 255, 0.72); }
+  .ai-future__neural-header > span:last-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .ai-future__neural-header b {
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background: rgba(34, 211, 238, 0.72);
+    box-shadow: 0 0 0.55rem rgba(34, 211, 238, 0.34);
+  }
+  .ai-future__neural svg {
+    display: block;
     width: 100%;
-    max-width: 22rem;
-    min-height: 23rem;
-    flex-direction: column;
+    height: auto;
+    padding: 0.2rem 0.7rem 0;
+    filter: brightness(1.1);
+  }
+  .ai-future__neural-links {
+    fill: none;
+    stroke: url(#neural-link);
+    stroke-width: 1.15;
+    vector-effect: non-scaling-stroke;
+  }
+  .ai-future__neural-rings {
+    fill: none;
+    stroke: rgba(112, 156, 246, 0.15);
+    stroke-dasharray: 2 5;
+    stroke-width: 1;
+  }
+  .ai-future__neural-nodes {
+    fill: url(#neural-node);
+    stroke: rgba(214, 239, 255, 0.54);
+    stroke-width: 0.8;
+  }
+  .ai-future__neural-labels {
+    fill: rgba(168, 179, 207, 0.38);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+  }
+  .ai-future__neural-footer {
+    justify-content: center;
+    padding-top: 0.55rem;
+    border-top: 1px solid rgba(168, 179, 207, 0.07);
+  }
+  .ai-future__neural-footer i {
+    width: 0.18rem;
+    height: 0.18rem;
+    border-radius: 50%;
+    background: rgba(34, 211, 238, 0.42);
+  }
+
+  .ai-future__actions {
+    display: flex;
+    width: min(100%, 34rem);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: clamp(2rem, 4vw, 2.8rem);
+  }
+  .ai-future__button {
+    position: relative;
+    display: inline-flex;
+    min-width: 17rem;
+    height: 3.6rem;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
+    padding: 0 2.15rem;
     overflow: hidden;
-    min-width: 0;
-    justify-self: center;
-    padding: clamp(2.15rem, 3.5vw, 3rem) clamp(2rem, 3vw, 2.65rem);
-    border: 1px solid rgba(var(--rgb-cyan-soft), .18);
-    border-radius: 1.25rem;
+    border: 1px solid rgba(34, 211, 238, 0.32);
+    border-radius: 0.85rem;
+    color: #f8fafc;
     background:
-      linear-gradient(145deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .025)),
-      rgba(var(--rgb-bg-deep), .56);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 24px 70px rgba(var(--rgb-bg-base), .3);
-    backdrop-filter: blur(16px);
-    text-align: center;
+      linear-gradient(110deg, rgba(34, 211, 238, 0.065), transparent 42%, rgba(167, 139, 250, 0.06)),
+      rgba(8, 18, 39, 0.78);
+    box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.045);
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 760;
+    letter-spacing: 0.03em;
+    cursor: default;
+    opacity: 1;
   }
-
-  .ai-section__status::after {
+  .ai-future__button::before {
     position: absolute;
-    inset: auto -18% -45% 24%;
-    height: 12rem;
-    border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(var(--rgb-cyan-soft), .09), transparent 68%);
-    content: "";
-    pointer-events: none;
-  }
-
-  .ai-section__status-value {
-    margin-top: .8rem;
-    color: var(--ink);
-    font-family: Newsreader, Georgia, serif;
-    font-size: clamp(4.5rem, 7vw, 6.6rem);
-    font-weight: 600;
-    letter-spacing: -.035em;
-    line-height: .9;
-  }
-
-  .ai-section__status-line {
-    width: min(100%, 12.5rem);
+    inset: auto 12% 0;
     height: 1px;
-    margin-top: 1.65rem;
-    overflow: hidden;
-    background: rgba(255, 255, 255, .1);
-  }
-
-  .ai-section__status-line span {
-    display: block;
-    width: 22%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), rgba(var(--rgb-violet-soft), .75));
-  }
-
-  .ai-section__status-copy {
-    max-width: none;
-    margin-top: 1.15rem;
-    color: var(--muted);
-    line-height: 1.65;
-    white-space: nowrap;
-  }
-
-  .ai-section__processor {
-    display: grid;
-    width: 4.5rem;
-    height: 4.5rem;
-    margin-bottom: 1.25rem;
-    place-items: center;
-    border: 1px solid rgba(var(--rgb-cyan-soft), .22);
-    border-radius: 1.15rem;
-    background: linear-gradient(145deg, rgba(var(--rgb-cyan-soft), .085), rgba(var(--rgb-violet-soft), .04));
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07);
-  }
-
-  .ai-section__processor svg {
-    width: 2.8rem;
-    height: 2.8rem;
-    overflow: visible;
-    fill: none;
-    stroke: rgb(var(--rgb-cyan-soft));
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.8;
-  }
-
-  .ai-section__field,
-  .ai-section__node {
-    position: absolute;
-    pointer-events: none;
-  }
-
-  .ai-section__field {
-    inset: 0;
-    z-index: -1;
-  }
-
-  .ai-section__field::after {
-    position: absolute;
-    top: 50%;
-    right: clamp(-25rem, -17vw, -14rem);
-    width: clamp(38rem, 58vw, 58rem);
-    aspect-ratio: 1;
-    border: 1px solid rgba(var(--rgb-cyan-soft), .035);
-    border-radius: 50%;
-    box-shadow:
-      inset 0 0 5rem rgba(var(--rgb-violet-soft), .012),
-      0 0 7rem rgba(var(--rgb-cyan-soft), .014);
+    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.54), rgba(167, 139, 250, 0.44), transparent);
     content: "";
+  }
+  .ai-future__button-signal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .ai-future__button-signal i {
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background: rgba(168, 179, 207, 0.34);
+  }
+  .ai-future__button-signal i:first-child { background: rgba(34, 211, 238, 0.76); }
+  .ai-future__button-signal i:nth-child(2) { background: rgba(59, 130, 246, 0.66); }
+  .ai-future__button-signal i:last-child { background: rgba(167, 139, 250, 0.58); }
+
+  .ai-future__console { min-width: 0; width: 100%; max-width: 48rem; justify-self: end; }
+
+  .ai-future__ambient,
+  .ai-future__glow,
+  .ai-future__arc { position: absolute; pointer-events: none; }
+  .ai-future__ambient { inset: 0; z-index: 1; overflow: hidden; }
+  .ai-future__glow { border-radius: 50%; filter: blur(70px); }
+  .ai-future__glow--blue {
+    top: 6%; right: 5%; width: 28rem; height: 28rem;
+    background: rgba(59, 130, 246, 0.075);
+  }
+  .ai-future__glow--violet {
+    right: -7rem; bottom: -10rem; width: 24rem; height: 24rem;
+    background: rgba(124, 58, 237, 0.055);
+  }
+  .ai-future__arc {
+    top: 50%; right: -24rem; width: 60rem; height: 38rem;
+    border: 1px solid rgba(167, 139, 250, 0.045);
+    border-radius: 50%;
     transform: translateY(-50%) rotate(-11deg);
   }
 
-  .ai-section__network {
-    position: absolute;
-    top: 50%;
-    right: clamp(-5rem, -2vw, -1rem);
-    width: min(52vw, 43rem);
-    height: auto;
-    transform: translateY(-50%);
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
-    opacity: .62;
+  .is-first-visit [data-future-reveal] { opacity: 0; transform: translateY(0.85rem); }
+  .is-first-visit .ai-future__console[data-future-reveal] { transform: translate(1.1rem, 0.75rem); }
+  .is-first-visit.is-ready [data-future-reveal] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 460ms ease var(--reveal-delay, 0ms),
+      transform 560ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+  }
+  @media (max-width: 1040px) {
+    .ai-future { min-height: auto; }
+    .ai-future__layout { grid-template-columns: 1fr; }
+    .ai-future__intro { max-width: 48rem; }
+    .ai-future__console { max-width: 52rem; justify-self: stretch; }
+    .ai-future h1 { font-size: clamp(4rem, 10.5vw, 6.4rem); }
   }
 
-  .ai-section__network-links {
-    fill: none;
-    stroke: rgba(var(--rgb-cyan-soft), .12);
-    stroke-dasharray: 2 9;
-    stroke-width: 1;
+  @media (max-width: 640px) {
+    .ai-future { padding-block: 6.25rem 4.5rem; }
+    .ai-future__layout { gap: 3.5rem; }
+    .ai-future__eyebrow { top: -3.15rem; align-items: flex-start; flex-wrap: wrap; line-height: 1.6; }
+    .ai-future h1 { font-size: clamp(3.25rem, 14.5vw, 4.4rem); }
+    .ai-future__neural-header { align-items: flex-start; flex-direction: column; gap: 0.35rem; }
+    .ai-future__actions { display: flex; }
+    .ai-future__button { width: min(100%, 19rem); }
   }
 
-  .ai-section__network-nodes {
-    fill: rgba(var(--rgb-bg-deep), .88);
-    stroke: rgba(var(--rgb-cyan-soft), .32);
-    stroke-width: 1.2;
-  }
-
-  .ai-section__network-labels {
-    fill: rgba(203, 213, 225, .26);
-    stroke: none;
-    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-    font-size: 10px;
-    font-weight: 650;
-    letter-spacing: .13em;
-  }
-
-  .ai-section__status-meta {
-    margin-top: 1rem;
-    color: rgba(203, 213, 225, .46);
-    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-    font-size: .58rem;
-    font-weight: 650;
-    letter-spacing: .13em;
-    line-height: 1.5;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .ai-section__node {
-    width: .34rem;
-    height: .34rem;
-    border: 1px solid rgba(var(--rgb-cyan-soft), .38);
-    border-radius: 50%;
-    background: rgba(var(--rgb-bg-deep), .92);
-    box-shadow: 0 0 16px rgba(var(--rgb-cyan-soft), .13);
-  }
-
-  .ai-section__node--one { top: 22%; right: 18%; }
-  .ai-section__node--two { top: 64%; right: 38%; }
-  .ai-section__node--three { bottom: 18%; left: 12%; }
-
-  @media (min-width: 820px) {
-    .ai-section__layout {
-      grid-template-columns: minmax(0, 1.5fr) minmax(19rem, .62fr);
-    }
-  }
-
-  @media (max-width: 819px) {
-    .ai-section {
-      min-height: auto;
-      padding-block: 4.5rem 5.5rem;
-    }
-
-    .ai-section__layout {
-      gap: 3rem;
-    }
-
-    .ai-section h1 {
-      font-size: clamp(2.85rem, 12vw, 5rem);
-    }
-
-    .ai-section__status {
-      max-width: 31rem;
-      min-height: 21rem;
-    }
-
-    .ai-section__network {
-      top: 63%;
-      right: -11rem;
-      width: 34rem;
-      opacity: .58;
-    }
-
-    .ai-section__field::after {
-      right: -25rem;
-      width: 43rem;
-    }
-
-    .ai-section__network-labels {
-      opacity: .7;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .ai-section__status-line span {
-      animation: ai-status-breathe 4.8s ease-in-out infinite alternate;
-    }
-
-    .ai-section__network {
-      animation: ai-network-drift 12s ease-in-out infinite alternate;
-    }
-  }
-
-  @keyframes ai-status-breathe {
-    to { width: 29%; opacity: .76; }
-  }
-
-  @keyframes ai-network-drift {
-    to { transform: translate(-.45rem, calc(-50% + .35rem)); opacity: .82; }
+  @media (prefers-reduced-motion: reduce) {
+    .ai-future [data-future-reveal] { opacity: 1; transform: none; transition: none; }
+    .ai-future__button { transition: none; }
   }
 </style>

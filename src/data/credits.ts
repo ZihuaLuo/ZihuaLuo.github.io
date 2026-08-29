@@ -40,7 +40,7 @@ const rawCreditEntries: RawCreditEntry[] = [
 
   { tier: "credit", name: "Amy Mok", role: "AVP at TD Asset Management" },
   { tier: "credit", name: "Andrew Niyamuddin", role: "Manager at TD Asset Management" },
-  { tier: "credit", name: "Jack Yang", role: "Manager at TD Asset Management" },
+  { tier: "credit", name: "Jacky Yang", role: "Manager at TD Asset Management" },
   { tier: "credit", name: "Cynthia Nazareth", role: "Manager at TD Asset Management" },
   { tier: "credit", name: "Dr. Yoontae Jeon", role: "Associate Professor at McMaster University" },
   { tier: "credit", name: "Dr. Sudipto Sarkar", role: "Professor at McMaster University" },
