@@ -6,7 +6,7 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { getProjectSpawnState, getProjectSpawnTiming, getScanProgress, LAB_SCAN_DURATION_MS } from "./aiLabSequence";
-import { createProjectFlightPath, getMotionBlend, updateProjectFlightPath } from "./aiLabMotion";
+import { createProjectFlightPath, getAccretionRotation, getMotionBlend, updateProjectFlightPath } from "./aiLabMotion";
 import { createVisibleAnimationLoop, type AnimationFrameState } from "./animationLifecycle";
 import { disposeScene } from "./disposeScene";
 import { initializeLabFallback } from "./aiLabFallback";
@@ -524,11 +524,16 @@ const createSingularity = () => {
   disk.rotation.order = "ZXY";
   disk.rotation.x = THREE.MathUtils.degToRad(-66);
   disk.rotation.z = THREE.MathUtils.degToRad(-12);
+  // Spin inside this fixed plane, not around the screen's Z axis (which would tumble it).
+  const diskFlow = new THREE.Group();
+  diskFlow.name = "RotatingAccretionFlow";
+  disk.add(diskFlow);
   const diskPlaneMaterial = new THREE.ShaderMaterial({
     vertexShader: accretionVertexShader,
     fragmentShader: accretionFragmentShader,
     uniforms: {
       uTime: { value: 0 },
+      uRotation: { value: 0 },
       uCyan: { value: new THREE.Color(0x44bcff) },
       uViolet: { value: new THREE.Color(0x7866ff) },
       uLayerOpacity: { value: 1 },
@@ -541,7 +546,7 @@ const createSingularity = () => {
   });
   const diskPlane = new THREE.Mesh(new THREE.RingGeometry(0.205, 1.16, 384, 64), diskPlaneMaterial);
   diskPlane.position.z = -0.015;
-  disk.add(diskPlane);
+  diskFlow.add(diskPlane);
   const diskMaterials: THREE.MeshBasicMaterial[] = [];
   const random = seededRandom(481516);
   for (let index = 0; index < 7; index += 1) {
@@ -570,7 +575,7 @@ const createSingularity = () => {
     applyOrbitalDepth(material);
     const streak = new THREE.Mesh(geometry, material);
     streak.position.z = (random() - 0.5) * 0.052;
-    disk.add(streak);
+    diskFlow.add(streak);
   }
 
   const streamGroups: THREE.Points[] = [];
@@ -602,7 +607,7 @@ const createSingularity = () => {
     const stream = createPointCloud(positions, colors, sizes, 0.26, 0.82);
     stream.material.uniforms.uOrbitalDepth.value = 1;
     streamGroups.push(stream);
-    disk.add(stream);
+    diskFlow.add(stream);
   }
   root.add(disk);
 
@@ -672,7 +677,7 @@ const createSingularity = () => {
     root.add(lensArc);
   });
 
-  return { root, disk, photonRing, diskPlane, photonMaterial, lensMaterial, diskMaterials, diskPlaneMaterial, rearDiskMaterial, streamGroups };
+  return { root, disk, diskFlow, photonRing, diskPlane, photonMaterial, lensMaterial, diskMaterials, diskPlaneMaterial, rearDiskMaterial, streamGroups };
 };
 
 const initializeLab = (lab: LabElement) => {
@@ -1264,11 +1269,16 @@ const initializeLab = (lab: LabElement) => {
       }
     }
 
-    // Keep the cinematic disk plane fixed; its shader flow already supplies orbital motion.
-    singularity.diskPlaneMaterial.uniforms.uTime.value = time;
-    singularity.rearDiskMaterial.uniforms.uTime.value = time;
+    // The halo keeps orbiting after the one-shot scan; its tilt and event horizon stay fixed.
+    const accretionTime = reduceMotion ? 0 : time;
+    const accretionRotation = getAccretionRotation(time, reduceMotion);
+    singularity.diskFlow.rotation.z = accretionRotation;
+    singularity.diskPlaneMaterial.uniforms.uTime.value = accretionTime;
+    singularity.rearDiskMaterial.uniforms.uTime.value = accretionTime;
+    // The lensed rear silhouette stays put, while its texture follows the same orbit.
+    singularity.rearDiskMaterial.uniforms.uRotation.value = accretionRotation;
     singularity.streamGroups.forEach((stream, index) => {
-      stream.rotation.z += delta * (0.028 + (singularity.streamGroups.length - index) * 0.012);
+      stream.rotation.z = accretionTime * (0.028 + (singularity.streamGroups.length - index) * 0.012);
     });
     singularity.diskMaterials.forEach((material, index) => {
       material.opacity *= 0.997;

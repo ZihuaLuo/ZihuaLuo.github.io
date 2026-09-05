@@ -314,6 +314,7 @@ export const accretionVertexShader = /* glsl */ `
 
 export const accretionFragmentShader = /* glsl */ `
   uniform float uTime;
+  uniform float uRotation;
   uniform vec3 uCyan;
   uniform vec3 uViolet;
   uniform float uLayerOpacity;
@@ -345,7 +346,10 @@ export const accretionFragmentShader = /* glsl */ `
 
   void main() {
     float radius = length(vDiskPosition);
-    float angle = atan(vDiskPosition.y, vDiskPosition.x);
+    float spinCos = cos(uRotation);
+    float spinSin = sin(uRotation);
+    vec2 flowPosition = mat2(spinCos, -spinSin, spinSin, spinCos) * vDiskPosition;
+    float angle = atan(flowPosition.y, flowPosition.x);
     float radialMask = smoothstep(0.205, 0.285, radius) * (1.0 - smoothstep(1.02, 1.155, radius));
     float coarse = fbm(vec2(angle * 1.82 - uTime * 0.018, radius * 8.2 + uTime * 0.025));
     float detail = fbm(vec2(angle * 4.75 + coarse * 1.7, radius * 23.0 - uTime * 0.055));

@@ -1,5 +1,11 @@
 import { CubicBezierCurve3, Vector3 } from "three";
 
+export const ACCRETION_ORBIT_SECONDS = 14;
+
+// Use the shared visible-time clock so refresh rate and hidden tabs cannot change the spin.
+export const getAccretionRotation = (elapsedSeconds: number, reducedMotion = false) =>
+  reducedMotion ? 0 : Math.max(0, elapsedSeconds) * (Math.PI * 2 / ACCRETION_ORBIT_SECONDS);
+
 export const updateProjectFlightPath = (path: CubicBezierCurve3, origin: Vector3, target: Vector3) => {
   const dx = target.x - origin.x;
   const dy = target.y - origin.y;
