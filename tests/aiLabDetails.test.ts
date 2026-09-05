@@ -26,3 +26,10 @@ test("project selection, accessible dialog and close handling remain available",
   assert.match(scene, /closeButton\.addEventListener\("click", closeProject, eventOptions\)/);
   assert.match(scene, /selectProject\(projectIndex, false\)/);
 });
+
+test("closing a pointer-opened card does not reveal clipped keyboard controls", () => {
+  assert.match(scene, /let projectTrigger: HTMLElement = canvas/);
+  assert.match(scene, /selectProject\(index, true, button\)/);
+  assert.match(scene, /projectTrigger\.focus\(\{ preventScroll: true \}\)/);
+  assert.doesNotMatch(scene, /selectedButton\?\.focus/);
+});

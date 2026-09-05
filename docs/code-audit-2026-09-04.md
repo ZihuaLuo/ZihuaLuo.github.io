@@ -41,7 +41,7 @@ The HTML reduction is approximately 2.82 MB / 31.4% (uncompressed). It is a whol
 
 ## Verification
 
-- `npm run validate`: passed — type checking, 55 regression tests, 196-page static build and artifact validation.
+- `npm run validate`: passed — type checking, 56 regression tests, 196-page static build and artifact validation.
 - 357 search entries and 5,287 local URL/asset/anchor references resolve in the generated build; no duplicate HTML IDs detected.
 - 626 unique chatbot queries compared against saved pre-optimization answers: identical response text, topic selection and navigation links.
 - Main-content text comparison across all generated pages: every non-AI page unchanged. AI text changes are removal of obsolete display/comparison labels, as requested earlier.

@@ -828,6 +828,7 @@ const initializeLab = (lab: LabElement) => {
   let sequenceStart = -1;
   let hoveredIndex = -1;
   let selectedIndex = -1;
+  let projectTrigger: HTMLElement = canvas;
   let pointerDownX = 0;
   let pointerDownY = 0;
   let destroyed = false;
@@ -1088,8 +1089,9 @@ const initializeLab = (lab: LabElement) => {
     closeButton.focus({ preventScroll: true });
   };
 
-  const selectProject = (index: number, updateUrl = true) => {
+  const selectProject = (index: number, updateUrl = true, trigger: HTMLElement = canvas) => {
     if (index < 0 || index >= planetSystems.length || planetSystems[index].reveal < 1) return;
+    projectTrigger = trigger;
     selectedIndex = index;
     planetSystems[index].pulse = 1;
     fillDetailPanel(planetSystems[index].definition);
@@ -1119,14 +1121,16 @@ const initializeLab = (lab: LabElement) => {
     const nextUrl = new URL(window.location.href);
     nextUrl.searchParams.delete("project");
     window.history.replaceState(window.history.state, "", nextUrl);
-    const selectedButton = accessibleButtons[selectedIndex];
     accessibleButtons.forEach((button) => button.setAttribute("aria-pressed", "false"));
     selectedIndex = -1;
-    selectedButton?.focus({ preventScroll: true });
+    // Pointer/deep-link entry returns to the canvas; keyboard entry returns to its button.
+    // Focusing a clipped keyboard button after a pointer click would reveal it over the planets.
+    if (projectTrigger === canvas) canvas.tabIndex = -1;
+    projectTrigger.focus({ preventScroll: true });
   };
 
   accessibleButtons.forEach((button, index) => {
-    button.addEventListener("click", () => selectProject(index), eventOptions);
+    button.addEventListener("click", () => selectProject(index, true, button), eventOptions);
     button.addEventListener("focus", () => { hoveredIndex = index; animation?.invalidate(); }, eventOptions);
     button.addEventListener("blur", () => { if (hoveredIndex === index) hoveredIndex = -1; animation?.invalidate(); }, eventOptions);
   });
