@@ -35,7 +35,7 @@ const isActive = (item: (typeof nav)[number]) => {
 <header class="sticky top-0 z-40 border-b border-white/[0.14] bg-[var(--bg-header)] shadow-[0_18px_80px_rgba(56,189,248,0.08),0_14px_48px_rgba(10,16,36,0.34)] ring-1 ring-white/[0.055] backdrop-blur-2xl" data-site-header>
   <div class="container-page relative flex min-h-[70px] items-center justify-between gap-3 sm:min-h-[78px] sm:gap-4">
     <a href={brandHref} class="group flex min-w-0 items-center gap-3" aria-label={brandName}>
-      <BrandMark label={brandName} size="sm" dark />
+      <BrandMark size="sm" dark decorative />
       <span class="hidden leading-tight sm:block">
         <span class="block text-sm font-extrabold text-ink">{brandName}</span>
         <span class="block text-xs font-semibold uppercase tracking-[0.14em] text-muted">{brandLine}</span>
@@ -161,17 +161,17 @@ const isActive = (item: (typeof nav)[number]) => {
       },
     };
 
-    const normalizePath = (path) => path === "/" ? path : `${path.replace(/\/+$/, "")}/`;
+    const normalizePath = (path: string) => path === "/" ? path : `${path.replace(/\/+$/, "")}/`;
 
     const initializeHeader = () => {
-      const header = document.querySelector("[data-site-header]");
+      const header = document.querySelector<HTMLElement>("[data-site-header]");
       if (!header) return;
 
-      const button = header.querySelector("[data-menu-button]");
-      const menu = header.querySelector("[data-mobile-nav]");
+      const button = header.querySelector<HTMLButtonElement>("[data-menu-button]");
+      const menu = header.querySelector<HTMLElement>("[data-mobile-nav]");
       const openIcon = header.querySelector("[data-menu-open-icon]");
       const closeIcon = header.querySelector("[data-menu-close-icon]");
-      const navLinks = header.querySelectorAll("[data-nav-link]");
+      const navLinks = header.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
 
       navLinks.forEach((link) => {
         const variant = link.dataset.navVariant === "mobile" ? "mobile" : "desktop";

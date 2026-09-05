@@ -60,11 +60,12 @@ const umamiEnabled =
 </script>
 
 {plausibleEnabled && (
-  <script defer data-domain={siteConfig.analytics.plausibleDomain} src="https://plausible.io/js/script.js"></script>
+  <script is:inline defer data-domain={siteConfig.analytics.plausibleDomain} src="https://plausible.io/js/script.js"></script>
 )}
 
 {umamiEnabled && (
   <script
+    is:inline
     defer
     src={siteConfig.analytics.umamiScriptUrl}
     data-website-id={siteConfig.analytics.umamiWebsiteId}

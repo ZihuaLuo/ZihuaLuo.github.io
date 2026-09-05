@@ -1,9 +1,10 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import { creditEntries, creditEntryAnchor } from "@data/credits";
+import { profileTopics } from "@data/aiProfile";
 import { writingSeries } from "@data/writingSeries";
 import { entrySlug, withBase, type Language } from "@i18n/routes";
 
-type SearchType = "writing" | "experience" | "section" | "acknowledgement";
+type SearchType = "writing" | "experience" | "section" | "acknowledgement" | "project" | "chatbot";
 
 type SearchItem = {
   title: string;
@@ -49,6 +50,17 @@ function prepareSearchItem(
   };
 }
 
+function topicTitle(label: string) {
+  return label.replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function conciseDescription(value: string, maxLength = 176) {
+  if (value.length <= maxLength) return value;
+  const shortened = value.slice(0, maxLength);
+  const lastBoundary = Math.max(shortened.lastIndexOf(". "), shortened.lastIndexOf(", "), shortened.lastIndexOf(" "));
+  return `${shortened.slice(0, Math.max(90, lastBoundary)).trim()}…`;
+}
+
 type ExperienceEntry = CollectionEntry<"experience">;
 
 function experienceTitle(entry: ExperienceEntry) {
@@ -80,7 +92,7 @@ function entryDateLabel(entry: { data: { date: Date; displayDate?: string } }) {
 }
 
 function experienceDateLabel(entry: ExperienceEntry) {
-  return entry.data.displayDate ?? entry.data.date;
+  return entry.data.date;
 }
 
 function experienceUrl(entry: ExperienceEntry) {
@@ -131,6 +143,7 @@ const siteSections: Array<{
   url: string;
   category: string;
   tags: string[];
+  type?: SearchType;
   aliases?: string[];
   content: string;
 }> = [
@@ -334,39 +347,61 @@ const siteSections: Array<{
   },
   {
     title: "AI Lab",
-    description: "An experimental intelligence interface for models, agents, multimodal systems, and applied AI research.",
+    description: "Zihua's interactive AI section, combining the Project Constellation and APOCALYPSE knowledge assistant.",
     url: "/ai/#ai-future-title",
     category: "AI",
-    tags: ["AI", "AI Lab", "Future Console", "Applied Research"],
-    aliases: ["Artificial Intelligence", "AI Section", "Welcome to the Future", "System Online"],
-    content: "AI lab future console welcome to the future system online artificial intelligence models agents multimodal experiments applied research",
+    tags: ["AI", "AI Lab", "Projects", "Chatbot"],
+    aliases: ["Artificial Intelligence", "AI Section", "Welcome to the Future", "System Online", "AI Page"],
+    content: "AI lab welcome to the future artificial intelligence project constellation APOCALYPSE chatbot knowledge assistant applied AI research",
   },
   {
-    title: "Neural Topology",
-    description: "A layered neural-network field connecting inputs, latent space, agents, models, and outputs.",
-    url: "/ai/#ai-neural-topology",
+    title: "Project Constellation",
+    description: "A cinematic interactive system of project worlds orbiting an AI singularity.",
+    url: "/ai/#ai-lab-title",
     category: "AI Lab",
-    tags: ["Neural Network", "Models", "Latent Space", "Multimodal"],
-    aliases: ["Neural Network", "Model Field", "Network Topology"],
-    content: "neural topology neural network input latent space output models agents multimodal model field active nodes connections",
+    tags: ["Projects", "AI", "Research", "Visualization"],
+    aliases: ["AI Projects", "Project Worlds", "Project Galaxy", "Constellation", "Portfolio Projects"],
+    content: "project constellation AI lab interactive project planets singularity agent research volunteer retention disclosure intelligence",
   },
   {
-    title: "Experimental Intelligence Interface",
-    description: "The AI Lab conversation console for exploring projects, research, and future experiments.",
+    title: "Agent Research Workflow",
+    description: "A validated LLM-agent workflow for cleaning, classifying, and analyzing research data with human review.",
+    url: "/ai/?project=agent-research#ai-lab-title",
+    category: "Project Constellation",
+    type: "project",
+    tags: ["Codex", "LLM Agents", "Python", "Validation"],
+    aliases: ["AI Research Workflow", "Agent Project", "Human Judgment Amplified by Agents"],
+    content: "agent research workflow task specific LLM agents human review data cleaning classification validation audit evidence",
+  },
+  {
+    title: "Volunteer Retention Lab",
+    description: "Interactive cohort analysis for engagement, participation frequency, and volunteer-retention patterns.",
+    url: "/ai/?project=retention-lab#ai-lab-title",
+    category: "Project Constellation",
+    type: "project",
+    tags: ["Data Viz", "Cohort Analysis", "Power BI", "Research"],
+    aliases: ["Volunteer Project", "Retention Dashboard", "Applied Analytics"],
+    content: "volunteer retention lab cohort analysis engagement participation frequency Power BI dashboard 30 visualizations",
+  },
+  {
+    title: "Disclosure Intelligence",
+    description: "Structured SEC filings and corporate-scandal evidence prepared for machine-learning research.",
+    url: "/ai/?project=disclosure-intelligence#ai-lab-title",
+    category: "Project Constellation",
+    type: "project",
+    tags: ["Python", "SEC Filings", "Machine Learning", "Research"],
+    aliases: ["Disclosure Project", "SEC Research", "Data Intelligence"],
+    content: "disclosure intelligence SEC filings corporate scandal evidence Python extraction validation machine learning 30 years filings",
+  },
+  {
+    title: "APOCALYPSE Knowledge Assistant",
+    description: "Ask about Zihua's experience, personality, working style, projects, values, thinking, and approach to AI.",
     url: "/ai/#future-chat",
     category: "AI Lab",
-    tags: ["AI Chat", "Interface", "Research"],
-    aliases: ["Future Chat", "Ask the Future", "AI Lab Console"],
-    content: "experimental intelligence interface AI lab chat ask the future explore projects current research site build coming next",
-  },
-  {
-    title: "Continuing...",
-    description: "The AI Lab remains in active development as new experiments and projects take shape.",
-    url: "/ai/#ai-continuing-status",
-    category: "AI Lab",
-    tags: ["In Development", "Continuing", "Status"],
-    aliases: ["Coming Soon", "Under Development", "Work in Progress"],
-    content: "continuing active development in progress coming soon unfinished future projects experiments",
+    type: "chatbot",
+    tags: ["Chatbot", "AI Assistant", "About Zihua", "FAQ"],
+    aliases: ["Chatbot", "Chatbox", "AI Chat", "Future Chat", "Zihua Assistant", "Ask APOCALYPSE"],
+    content: "APOCALYPSE interactive knowledge interface chatbot chatbox dedicated assistant ask about Zihua experience personality thinking work style projects strengths values AI",
   },
   {
     title: "Writing Archive",
@@ -429,6 +464,7 @@ export async function GET() {
       description: series.description,
       url: `/writing/series/${series.slug}/`,
       category: "Writing Series",
+      type: "section" as const,
       tags: [series.category, "Essays"],
       aliases: [`${series.title} essays`, `${series.title} writing`],
       content: `${series.category} ${series.description}`,
@@ -437,7 +473,7 @@ export async function GET() {
     title: item.title,
     description: item.description,
     url: withBase(item.url),
-    type: "section",
+    type: item.type ?? "section",
     category: item.category,
     tags: item.tags,
     language: "en",
@@ -455,8 +491,20 @@ export async function GET() {
     aliases: [entry.firstName],
   }, `${entry.name} ${entry.firstName} ${entry.role} ${entry.organization}`));
 
+  const chatbotItems: SearchItem[] = profileTopics.map((topic) => prepareSearchItem({
+    title: `Ask about ${topicTitle(topic.label)}`,
+    description: conciseDescription(topic.answer),
+    url: withBase(`/ai/?ask=${encodeURIComponent(topic.id)}#future-chat`),
+    type: "chatbot",
+    category: "APOCALYPSE",
+    tags: ["Chatbot", "About Zihua", ...topic.keywords.slice(0, 2)],
+    language: "en",
+    aliases: [topic.label, ...(topic.phrases ?? []), ...topic.keywords],
+  }, [topic.label, ...topic.keywords, ...(topic.phrases ?? []), topic.answer, topic.detail].join(" ")));
+
   const items = [
     ...sectionItems,
+    ...chatbotItems,
     ...experienceItems,
     ...writingItems,
     ...acknowledgementItems,

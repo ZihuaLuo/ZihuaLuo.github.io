@@ -1,6 +1,7 @@
 ---
 import { withBase, type Language } from "@i18n/routes";
 import { siteInfo } from "@i18n/ui";
+import TheCutLogo from "./TheCutLogo.astro";
 
 interface Props {
   lang: Language;
@@ -18,11 +19,11 @@ const alt = "Portrait of Zihua Luo";
           src={withBase(siteInfo.profilePhoto)}
           alt={alt}
           loading="eager"
-          onerror="this.hidden=true; this.nextElementSibling.classList.remove('hidden');"
+          onerror="this.setAttribute('hidden', ''); this.nextElementSibling?.classList.remove('hidden');"
         />
         <div class="hidden grid h-full place-items-center bg-gradient-to-br from-elevated to-paper px-8 text-center text-ink">
-          <div class="mx-auto grid h-24 w-24 place-items-center rounded-full border border-gold/40 bg-white/[0.06] text-3xl font-semibold">
-            ZL
+          <div class="mx-auto grid h-24 w-24 place-items-center">
+            <TheCutLogo size="100%" />
           </div>
         </div>
       </div>

@@ -135,6 +135,8 @@ const copy = {
       const listenerController = new AbortController();
       (audio as HTMLAudioElement & { musicControlController?: AbortController }).musicControlController = listenerController;
       const listenerOptions = { signal: listenerController.signal };
+      // Audio persists between routes; controls and their DOM references must not.
+      document.addEventListener("astro:before-swap", () => listenerController.abort(), { once: true, ...listenerOptions });
 
       let hasError = false;
 
@@ -185,6 +187,7 @@ const copy = {
           try {
             await audio.play();
           } catch (error) {
+            if (listenerController.signal.aborted) return;
             const errorName = error instanceof Error ? error.name : "";
             setPlaying(false);
             if (errorName === "NotAllowedError") {
@@ -240,6 +243,7 @@ const copy = {
       if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
         syncMetadata();
       } else {
+        audio.preload = "metadata";
         audio.load();
       }
 

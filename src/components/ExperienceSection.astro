@@ -835,6 +835,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
     const locationController = new AbortController();
     window.__experienceLocationController = locationController;
     const locationOptions = { signal: locationController.signal };
+    document.addEventListener("astro:before-swap", () => locationController.abort(), { once: true, ...locationOptions });
 
     const initializeExperienceSections = () => {
       document.querySelectorAll("[data-experience-section]").forEach((section) => {
@@ -845,6 +846,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
         const panels = [...section.querySelectorAll("[data-experience-panel]")];
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         let animationTimer = 0;
+        locationController.signal.addEventListener("abort", () => window.clearTimeout(animationTimer), { once: true });
 
         const activate = (nextTab, moveFocus = false, syncUrl = false) => {
           const track = nextTab.dataset.experienceTab;
@@ -863,6 +865,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
             if (selected && !reducedMotion) {
               window.clearTimeout(animationTimer);
               window.requestAnimationFrame(() => {
+                if (locationController.signal.aborted) return;
                 panel.classList.add("is-entering");
                 animationTimer = window.setTimeout(() => panel.classList.remove("is-entering"), 260);
               });
@@ -908,6 +911,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
 
           if (hashTarget) {
             window.requestAnimationFrame(() => {
+              if (locationController.signal.aborted || !hashTarget.isConnected) return;
               hashTarget.scrollIntoView({
                 behavior: reducedMotion ? "auto" : "smooth",
                 block: hashTarget.matches("[data-experience-panel]") ? "start" : "center",

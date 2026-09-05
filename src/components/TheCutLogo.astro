@@ -1,0 +1,75 @@
+---
+import { randomUUID } from "node:crypto";
+
+interface Props {
+  size?: number | string;
+  className?: string;
+  decorative?: boolean;
+}
+
+const { size = 42, className = "", decorative = false } = Astro.props;
+const id = `the-cut-${randomUUID()}`;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  class={`the-cut-logo ${className}`}
+  width={size}
+  height={size}
+  viewBox="0 0 64 64"
+  fill="none"
+  role={decorative ? undefined : "img"}
+  aria-label={decorative ? undefined : "The Cut logo"}
+  aria-hidden={decorative ? "true" : undefined}
+  focusable="false"
+>
+  <defs>
+    <linearGradient id={`${id}-surface`} x1="9" y1="6" x2="54" y2="62" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1B31" />
+      <stop offset="0.5" stop-color="#071426" />
+      <stop offset="1" stop-color="#030A14" />
+    </linearGradient>
+    <linearGradient id={`${id}-rim`} x1="8" y1="5" x2="53" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DCCFF" stop-opacity="0.42" />
+      <stop offset="0.5" stop-color="#4C78FF" stop-opacity="0.15" />
+      <stop offset="1" stop-color="#7DCCFF" stop-opacity="0.18" />
+    </linearGradient>
+    <linearGradient id={`${id}-light`} x1="14" y1="50" x2="50" y2="14" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4C78FF" />
+      <stop offset="0.28" stop-color="#7DCCFF" />
+      <stop offset="0.58" stop-color="#CFF4FF" />
+      <stop offset="1" stop-color="#7DCCFF" />
+    </linearGradient>
+    <linearGradient id={`${id}-core`} x1="17" y1="47" x2="48" y2="16" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DCCFF" />
+      <stop offset="0.46" stop-color="#F4FCFF" />
+      <stop offset="0.72" stop-color="#F4FCFF" />
+      <stop offset="1" stop-color="#CFF4FF" />
+    </linearGradient>
+    <filter id={`${id}-incision-glow`} x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.5" />
+    </filter>
+  </defs>
+
+  <rect x="1" y="1" width="62" height="62" rx="12" fill={`url(#${id}-surface)`} />
+  <rect class="the-cut-logo__rim" x="1.75" y="1.75" width="60.5" height="60.5" rx="11.25" stroke={`url(#${id}-rim)`} stroke-width="1.5" />
+  <!-- A recessed lower edge gives the opening depth without adding another symbol. -->
+  <path d="M14 50L35.2 34.7L50 14L39 38Z" fill="#010711" opacity="0.9" />
+  <g class="the-cut-logo__light">
+    <path d="M14 50L28.8 29.3L50 14L35.2 34.7Z" fill={`url(#${id}-light)`} opacity="0.24" filter={`url(#${id}-incision-glow)`} />
+    <path data-cut-opening d="M14 50L28.8 29.3L50 14L35.2 34.7Z" fill={`url(#${id}-light)`} />
+    <path data-cut-core d="M16.5 47.5L31.2 30.4L47.5 16.5L32.8 33.6Z" fill={`url(#${id}-core)`} />
+    <path d="M14 50L28.8 29.3L50 14" stroke="#CFF4FF" stroke-width="0.7" stroke-opacity="0.54" stroke-linejoin="miter" />
+  </g>
+</svg>
+
+<style>
+  .the-cut-logo { display: block; flex: 0 0 auto; }
+  .the-cut-logo__light { transition: filter 200ms ease; }
+  .the-cut-logo:hover .the-cut-logo__light,
+  :global(a:hover) .the-cut-logo__light,
+  :global(a:focus-visible) .the-cut-logo__light { filter: brightness(1.1); }
+  @media (prefers-reduced-motion: reduce) {
+    .the-cut-logo__light { transition: none; }
+  }
+</style>

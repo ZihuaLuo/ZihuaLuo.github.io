@@ -1,6 +1,7 @@
 ---
 import FutureChat from "./ai/FutureChat.astro";
 import ParticleNetwork from "./ai/ParticleNetwork.astro";
+import AILabShowcase from "./ai/AILabShowcase.astro";
 ---
 
 <section id="ai" class="ai-future" aria-labelledby="ai-future-title" data-ai-future>
@@ -14,76 +15,19 @@ import ParticleNetwork from "./ai/ParticleNetwork.astro";
 
   <div class="container-page ai-future__layout">
     <header class="ai-future__intro">
-      <p class="ai-future__eyebrow" data-future-reveal style="--reveal-delay: 90ms;">
-        <span>AI LAB</span>
-        <i aria-hidden="true">/</i>
-        <span class="ai-future__system"><b aria-hidden="true"></b>System Online</span>
-      </p>
-
       <h1 id="ai-future-title" class="display-heading">
         <span data-future-reveal style="--reveal-delay: 170ms;">Welcome to</span>
         <span class="ai-future__title-gradient" data-future-reveal style="--reveal-delay: 270ms;">
-          the Future.
+          the Future
         </span>
       </h1>
 
-      <div id="ai-neural-topology" class="ai-future__neural" data-future-reveal style="--reveal-delay: 430ms;">
-        <div class="ai-future__neural-header" aria-hidden="true">
-          <span>NEURAL TOPOLOGY</span>
-          <span><b></b>MODEL FIELD / ACTIVE</span>
-        </div>
-        <svg viewBox="0 0 540 176" role="img" aria-label="Abstract neural network topology">
-          <defs>
-            <linearGradient id="neural-link" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#22d3ee" stop-opacity=".16" />
-              <stop offset=".52" stop-color="#3b82f6" stop-opacity=".38" />
-              <stop offset="1" stop-color="#a78bfa" stop-opacity=".22" />
-            </linearGradient>
-            <radialGradient id="neural-node">
-              <stop offset="0" stop-color="#e8f8ff" stop-opacity=".9" />
-              <stop offset=".35" stop-color="#22d3ee" stop-opacity=".72" />
-              <stop offset="1" stop-color="#3b82f6" stop-opacity=".08" />
-            </radialGradient>
-          </defs>
-          <g class="ai-future__neural-links">
-            <path d="M42 44C94 44 112 30 164 30M42 44c52 0 70 46 122 46M42 88c52 0 70-58 122-58M42 88h122M42 132c52 0 70-42 122-42M42 132c52 0 70 14 122 14" />
-            <path d="M164 30c54 0 72 30 126 30M164 30c54 0 72 74 126 74M164 90c54 0 72-30 126-30M164 90c54 0 72 14 126 14M164 146c54 0 72-42 126-42M164 146c54 0 72-14 126-14" />
-            <path d="M290 60c58 0 78-22 136-22M290 60c58 0 78 28 136 28M290 104c58 0 78-38 136-38M290 104c58 0 78 34 136 34M290 132c58 0 78-32 136-32" />
-            <path d="M426 38c32 0 42 28 74 28M426 66h74M426 100c32 0 42-34 74-34M426 100c32 0 42 34 74 34" />
-          </g>
-          <g class="ai-future__neural-rings">
-            <circle cx="164" cy="90" r="20" />
-            <circle cx="290" cy="104" r="24" />
-            <circle cx="426" cy="66" r="18" />
-          </g>
-          <g class="ai-future__neural-nodes">
-            <circle cx="42" cy="44" r="5" /><circle cx="42" cy="88" r="5" /><circle cx="42" cy="132" r="5" />
-            <circle cx="164" cy="30" r="5" /><circle cx="164" cy="90" r="7" /><circle cx="164" cy="146" r="5" />
-            <circle cx="290" cy="60" r="5" /><circle cx="290" cy="104" r="7" /><circle cx="290" cy="132" r="4" />
-            <circle cx="426" cy="38" r="4" /><circle cx="426" cy="66" r="7" /><circle cx="426" cy="100" r="5" />
-            <circle cx="500" cy="66" r="7" /><circle cx="500" cy="134" r="5" />
-          </g>
-          <g class="ai-future__neural-labels" aria-hidden="true">
-            <text x="26" y="164">INPUT</text>
-            <text x="254" y="164">LATENT SPACE</text>
-            <text x="472" y="164">OUTPUT</text>
-          </g>
-        </svg>
-        <div class="ai-future__neural-footer" aria-hidden="true">
-          <span>MODELS</span><i></i><span>AGENTS</span><i></i><span>MULTIMODAL</span>
-        </div>
-      </div>
+      <p class="ai-future__lede" data-future-reveal style="--reveal-delay: 350ms;">
+        Applied AI, research systems, and analytical tools built around real financial and human questions.
+      </p>
 
-      <div id="ai-continuing-status" class="ai-future__actions" data-future-reveal style="--reveal-delay: 570ms;">
-        <button
-          class="ai-future__button ai-future__button--status"
-          type="button"
-          aria-label="Development continuing"
-          disabled
-        >
-          <span>Continuing...</span>
-          <span class="ai-future__button-signal" aria-hidden="true"><i></i><i></i><i></i></span>
-        </button>
+      <div>
+        <AILabShowcase />
       </div>
 
     </header>
@@ -137,7 +81,7 @@ import ParticleNetwork from "./ai/ParticleNetwork.astro";
     min-height: calc(100svh - 78px);
     align-items: center;
     overflow: hidden;
-    padding-block: clamp(3.5rem, 6vw, 6.5rem);
+    padding-block: clamp(1.25rem, 2.5vw, 2.5rem) clamp(3.5rem, 6vw, 6.5rem);
     color: #f8fafc;
     background:
       radial-gradient(ellipse 52% 48% at 78% 42%, rgba(59, 130, 246, 0.08), transparent 72%),
@@ -164,6 +108,7 @@ import ParticleNetwork from "./ai/ParticleNetwork.astro";
     grid-template-columns: minmax(0, 0.92fr) minmax(26rem, 1.08fr);
     align-items: start;
     gap: clamp(3rem, 6vw, 7rem);
+    transform: translateY(-0.9rem);
   }
 
   .ai-future__intro {
@@ -172,33 +117,9 @@ import ParticleNetwork from "./ai/ParticleNetwork.astro";
     max-width: 46rem;
   }
 
-  .ai-future__eyebrow {
-    position: absolute;
-    top: -3.25rem;
-    left: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.72rem;
-    color: #22d3ee;
-    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-    font-size: 0.7rem;
-    font-weight: 780;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-  .ai-future__eyebrow i { color: rgba(168, 179, 207, 0.38); font-style: normal; }
-  .ai-future__system { display: inline-flex; align-items: center; gap: 0.55rem; color: rgba(168, 179, 207, 0.68); }
-  .ai-future__system b {
-    width: 0.34rem;
-    height: 0.34rem;
-    border-radius: 50%;
-    background: #22d3ee;
-    box-shadow: 0 0 0.7rem rgba(34, 211, 238, 0.34);
-  }
-
   .ai-future h1 {
     margin-top: 0;
-    font-size: clamp(4rem, 5.15vw, 6.25rem);
+    font-size: clamp(3.75rem, 4.75vw, 5.75rem);
     font-weight: 600;
     letter-spacing: -0.047em;
     line-height: 0.98;
@@ -217,156 +138,13 @@ import ParticleNetwork from "./ai/ParticleNetwork.astro";
     -webkit-text-fill-color: transparent;
   }
 
-  .ai-future__neural {
-    position: relative;
+  .ai-future__lede {
     width: min(100%, 34rem);
-    margin-top: clamp(2rem, 4vw, 3rem);
-    overflow: hidden;
-    border: 1px solid rgba(107, 151, 199, 0.18);
-    border-radius: 0.9rem;
-    background:
-      linear-gradient(rgba(248, 250, 252, 0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(248, 250, 252, 0.014) 1px, transparent 1px),
-      radial-gradient(circle at 52% 52%, rgba(59, 130, 246, 0.075), transparent 56%),
-      linear-gradient(115deg, rgba(34, 211, 238, 0.035), transparent 38%, rgba(167, 139, 250, 0.04)),
-      rgba(4, 8, 22, 0.62);
-    background-size: 42px 42px, 42px 42px, auto, auto, auto;
-    box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.035), 0 18px 46px rgba(0, 3, 15, 0.18);
-    backdrop-filter: blur(14px);
+    margin-top: 1.1rem;
+    color: rgba(203, 213, 225, 0.72);
+    font-size: 0.88rem;
+    line-height: 1.65;
   }
-  .ai-future__neural::after {
-    position: absolute;
-    inset: auto 8% 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.34), rgba(167, 139, 250, 0.26), transparent);
-    content: "";
-  }
-  .ai-future__neural-header,
-  .ai-future__neural-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.72rem 0.9rem;
-    color: rgba(168, 179, 207, 0.48);
-    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-    font-size: 0.51rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-  .ai-future__neural-header {
-    border-bottom: 1px solid rgba(168, 179, 207, 0.08);
-  }
-  .ai-future__neural-header > span:first-child { color: rgba(194, 238, 255, 0.72); }
-  .ai-future__neural-header > span:last-child {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .ai-future__neural-header b {
-    width: 0.3rem;
-    height: 0.3rem;
-    border-radius: 50%;
-    background: rgba(34, 211, 238, 0.72);
-    box-shadow: 0 0 0.55rem rgba(34, 211, 238, 0.34);
-  }
-  .ai-future__neural svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    padding: 0.2rem 0.7rem 0;
-    filter: brightness(1.1);
-  }
-  .ai-future__neural-links {
-    fill: none;
-    stroke: url(#neural-link);
-    stroke-width: 1.15;
-    vector-effect: non-scaling-stroke;
-  }
-  .ai-future__neural-rings {
-    fill: none;
-    stroke: rgba(112, 156, 246, 0.15);
-    stroke-dasharray: 2 5;
-    stroke-width: 1;
-  }
-  .ai-future__neural-nodes {
-    fill: url(#neural-node);
-    stroke: rgba(214, 239, 255, 0.54);
-    stroke-width: 0.8;
-  }
-  .ai-future__neural-labels {
-    fill: rgba(168, 179, 207, 0.38);
-    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-  }
-  .ai-future__neural-footer {
-    justify-content: center;
-    padding-top: 0.55rem;
-    border-top: 1px solid rgba(168, 179, 207, 0.07);
-  }
-  .ai-future__neural-footer i {
-    width: 0.18rem;
-    height: 0.18rem;
-    border-radius: 50%;
-    background: rgba(34, 211, 238, 0.42);
-  }
-
-  .ai-future__actions {
-    display: flex;
-    width: min(100%, 34rem);
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.85rem;
-    margin-top: clamp(2rem, 4vw, 2.8rem);
-  }
-  .ai-future__button {
-    position: relative;
-    display: inline-flex;
-    min-width: 17rem;
-    height: 3.6rem;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0 2.15rem;
-    overflow: hidden;
-    border: 1px solid rgba(34, 211, 238, 0.32);
-    border-radius: 0.85rem;
-    color: #f8fafc;
-    background:
-      linear-gradient(110deg, rgba(34, 211, 238, 0.065), transparent 42%, rgba(167, 139, 250, 0.06)),
-      rgba(8, 18, 39, 0.78);
-    box-shadow: inset 0 1px 0 rgba(248, 250, 252, 0.045);
-    font: inherit;
-    font-size: 0.92rem;
-    font-weight: 760;
-    letter-spacing: 0.03em;
-    cursor: default;
-    opacity: 1;
-  }
-  .ai-future__button::before {
-    position: absolute;
-    inset: auto 12% 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.54), rgba(167, 139, 250, 0.44), transparent);
-    content: "";
-  }
-  .ai-future__button-signal {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-  .ai-future__button-signal i {
-    width: 0.3rem;
-    height: 0.3rem;
-    border-radius: 50%;
-    background: rgba(168, 179, 207, 0.34);
-  }
-  .ai-future__button-signal i:first-child { background: rgba(34, 211, 238, 0.76); }
-  .ai-future__button-signal i:nth-child(2) { background: rgba(59, 130, 246, 0.66); }
-  .ai-future__button-signal i:last-child { background: rgba(167, 139, 250, 0.58); }
 
   .ai-future__console { min-width: 0; width: 100%; max-width: 48rem; justify-self: end; }
 
@@ -404,21 +182,16 @@ import ParticleNetwork from "./ai/ParticleNetwork.astro";
     .ai-future__layout { grid-template-columns: 1fr; }
     .ai-future__intro { max-width: 48rem; }
     .ai-future__console { max-width: 52rem; justify-self: stretch; }
-    .ai-future h1 { font-size: clamp(4rem, 10.5vw, 6.4rem); }
+    .ai-future h1 { font-size: clamp(3.65rem, 9.6vw, 5.85rem); }
   }
 
   @media (max-width: 640px) {
     .ai-future { padding-block: 6.25rem 4.5rem; }
     .ai-future__layout { gap: 3.5rem; }
-    .ai-future__eyebrow { top: -3.15rem; align-items: flex-start; flex-wrap: wrap; line-height: 1.6; }
-    .ai-future h1 { font-size: clamp(3.25rem, 14.5vw, 4.4rem); }
-    .ai-future__neural-header { align-items: flex-start; flex-direction: column; gap: 0.35rem; }
-    .ai-future__actions { display: flex; }
-    .ai-future__button { width: min(100%, 19rem); }
+    .ai-future h1 { font-size: clamp(3rem, 13.2vw, 4rem); }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .ai-future [data-future-reveal] { opacity: 1; transform: none; transition: none; }
-    .ai-future__button { transition: none; }
   }
 </style>

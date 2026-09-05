@@ -12,8 +12,8 @@ interface Props {
 
 const { lang, compact = false, includeEmail = false, className = "", items } = Astro.props;
 const sizeClass = compact ? "h-11 w-11" : "h-12 w-12";
-const iconClass = compact ? "h-5 w-5 drop-shadow-[0_0_8px_rgba(125,211,252,0.48)]" : "h-6 w-6 drop-shadow-[0_0_9px_rgba(125,211,252,0.5)]";
-const linkClass = `${sizeClass} social-brand-link inline-flex items-center justify-center rounded-full border border-white/[0.24] bg-[rgba(5,14,31,0.82)] shadow-[0_0_30px_rgba(56,189,248,0.18),0_0_20px_rgba(124,58,237,0.18),inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-accent/10 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-accent/80 hover:bg-[rgba(12,30,58,0.94)] hover:shadow-lift`;
+const iconClass = compact ? "h-5 w-5" : "h-6 w-6";
+const linkClass = `${sizeClass} social-brand-link inline-flex items-center justify-center rounded-full border border-white/[0.24] bg-[rgba(5,14,31,0.82)] backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-accent/80 hover:bg-[rgba(12,30,58,0.94)]`;
 const showLinkedIn = items ? items.includes("linkedin") : true;
 const showInstagram = items ? items.includes("instagram") : true;
 const emailEnabled = Boolean(siteInfo.socials.email) && (items ? items.includes("email") : includeEmail);

@@ -15,7 +15,6 @@ interface Props {
 const {
   title,
   description,
-  lang,
   canonicalPath,
   image,
   type = "website",
@@ -59,4 +58,6 @@ const siteName = siteInfo.englishName;
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageUrl} />
-<link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+<link rel="icon" href={withBase("/favicon-16.png?v=the-cut-1")} type="image/png" sizes="16x16" />
+<link rel="icon" href={withBase("/favicon-32.png?v=the-cut-1")} type="image/png" sizes="32x32" />
+<link rel="icon" href={withBase("/favicon.svg?v=the-cut-1")} type="image/svg+xml" sizes="any" />

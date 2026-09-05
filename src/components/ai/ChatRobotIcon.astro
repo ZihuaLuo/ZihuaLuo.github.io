@@ -1,0 +1,130 @@
+<span class="chat-robot" aria-hidden="true">
+  <span class="chat-robot__float">
+    <img src="/images/chat-super-nono.png" alt="" loading="eager" decoding="async" />
+    <span class="chat-robot__thoughts">
+      <i></i><i></i><i></i>
+    </span>
+  </span>
+  <span class="chat-robot__shadow"></span>
+</span>
+
+<style>
+  .chat-robot {
+    position: relative;
+    display: inline-grid;
+    width: 2.9rem;
+    height: 3.35rem;
+    place-items: center;
+  }
+
+  .chat-robot__float {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    animation: chat-robot-float 2.1s ease-in-out infinite;
+    filter: drop-shadow(0 0.3rem 0.48rem rgba(34, 211, 238, 0.28));
+    transform-origin: 50% 58%;
+    will-change: transform;
+  }
+
+  .chat-robot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .chat-robot__shadow {
+    position: absolute;
+    bottom: -0.08rem;
+    left: 50%;
+    width: 1.5rem;
+    height: 0.2rem;
+    border-radius: 50%;
+    background: rgba(34, 211, 238, 0.22);
+    filter: blur(0.16rem);
+    animation: chat-robot-shadow 2.1s ease-in-out infinite;
+    transform: translateX(-50%);
+    transform-origin: center;
+  }
+
+  .chat-robot__thoughts {
+    position: absolute;
+    top: -0.46rem;
+    right: -0.44rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.18rem;
+    width: 1.22rem;
+    height: 0.4rem;
+  }
+
+  .chat-robot__thoughts i {
+    display: block;
+    width: 0.26rem;
+    height: 0.26rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #67e8f9;
+    box-shadow: 0 0 0.22rem rgba(103, 232, 249, 0.78);
+    opacity: 0.5;
+    animation: chat-robot-thought 1.5s ease-in-out infinite;
+    will-change: opacity, transform, filter;
+  }
+
+  .chat-robot__thoughts i:nth-child(2) {
+    background: #38bdf8;
+    animation-delay: 0.3s;
+  }
+
+  .chat-robot__thoughts i:nth-child(3) {
+    background: #a78bfa;
+    animation-delay: 0.6s;
+  }
+
+  @keyframes chat-robot-float {
+    0%, 100% { transform: translateY(2.28px) rotate(-0.8deg); }
+    50% { transform: translateY(-9.3px) rotate(0.8deg); }
+  }
+
+  @keyframes chat-robot-shadow {
+    0%, 100% { opacity: 0.28; transform: translateX(-50%) scaleX(1); }
+    50% { opacity: 0.07; transform: translateX(-50%) scaleX(0.52); }
+  }
+
+  @keyframes chat-robot-thought {
+    0%, 23%, 100% {
+      opacity: 0.5;
+      filter: brightness(0.72);
+      transform: scale(0.72);
+    }
+    10% {
+      opacity: 1;
+      filter: brightness(1.45);
+      transform: scale(1.18);
+      box-shadow: 0 0 0.42rem rgba(103, 232, 249, 0.95);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .chat-robot {
+      width: 2.65rem;
+      height: 3.1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chat-robot__float,
+    .chat-robot__shadow,
+    .chat-robot__thoughts i { animation: none; }
+    .chat-robot__thoughts i:nth-child(1) { opacity: 0.35; }
+    .chat-robot__thoughts i:nth-child(2) { opacity: 0.62; }
+    .chat-robot__thoughts i:nth-child(3) { opacity: 1; }
+  }
+</style>

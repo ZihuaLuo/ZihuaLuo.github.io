@@ -22,7 +22,9 @@ src/
   content/writing/     Approved essays
   content/experience/  Experience records
   data/credits.ts      Credits directory
+  data/aiProfile.ts    Chatbot topics, keyword matching, and section navigation
   data/writingSeries.ts
+  scripts/            Search, animation lifecycle, and modular AI Lab renderer
   layouts/             Shared page and article layouts
   pages/               Current public routes and generated indexes
   styles/global.css    Global styling
@@ -31,12 +33,17 @@ public/
   documents/           Donation records and downloadable task template
   images/              Profile image and active About hero background
   logos/               Experience logos
+tests/                 Node regression tests (no browser dependency)
+scripts/verify-build.mjs  Built-page, anchor, search URL, and asset validation
+docs/                  Technical audit and maintenance notes
 ```
 
 ## Local development
 
+Use Node.js 24 or newer. Keep `package-lock.json` committed; CI installs the locked dependency graph.
+
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -69,6 +76,12 @@ Do not add placeholder study maps, inferred personal writing, or unpublished Not
 
 Credits are maintained in `src/data/credits.ts`. The visible directory and `/credit-data.json` are generated from the same source.
 
+Chatbot answers and navigation live in `src/data/aiProfile.ts`. Add synonyms to the appropriate topic rather than introducing competing substring handlers. The search index consumes those same topics. Project configuration remains in `AILabShowcase.astro`; the corresponding search entries live in `search-index.json.ts`.
+
+Keep GLSL in `aiLabShaders.ts`, flight mathematics in `aiLabMotion.ts`, and the one-shot scan timeline in `aiLabSequence.ts`. New animated surfaces should use `createVisibleAnimationLoop`; page-local timers should use `createTaskScope`. Abort page-local listeners on `astro:before-swap`. A persisted audio element must not retain handlers referencing a previous page's controls.
+
+The historical `qa/` directory is an ignored local archive, not application source. Do not copy reference screenshots or retired robot variants back into `public/`.
+
 ## Configuration
 
 Copy `.env.example` to `.env` for local overrides. Important variables include:
@@ -90,9 +103,11 @@ Copy `.env.example` to `.env` for local overrides. Important variables include:
 
 Before uploading changes:
 
-1. Run `npm run build`.
+1. Run `npm run validate` (type checks, regression tests, build, and built-link validation).
 2. Confirm `/` redirects to `/about/` and all five navigation destinations work.
 3. Test search results for About, Experience, Writing, Acknowledgements, and AI content.
 4. Validate internal links, section anchors, document downloads, and public assets.
 5. Confirm `dist/sitemap.xml` contains only current canonical routes.
 6. Check desktop and mobile layouts and confirm the browser console has no errors.
+
+The GitHub Pages workflow uses Node 24 and runs this same validation before uploading a deployable artifact. See `docs/code-audit-2026-09-04.md` for the optimization evidence and remaining limits.

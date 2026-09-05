@@ -44,9 +44,7 @@ const {
     <script is:inline>
       (() => {
         const navigationEntry = performance.getEntriesByType("navigation")[0];
-        const isReload = navigationEntry
-          ? navigationEntry.type === "reload"
-          : performance.navigation?.type === 1;
+        const isReload = navigationEntry?.type === "reload";
 
         if (!isReload) return;
 

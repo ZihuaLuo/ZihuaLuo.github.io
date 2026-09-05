@@ -1,0 +1,226 @@
+---
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a class="hero-ai-guide" href={href} aria-label="Explore Zihua's AI lab">
+  <span class="hero-ai-guide__bubble">
+    <span class="hero-ai-guide__eyebrow">AI LAB</span>
+    <span class="hero-ai-guide__message">Click to explore <span aria-hidden="true">→</span></span>
+  </span>
+
+  <span class="hero-ai-guide__figure" aria-hidden="true">
+    <img class="hero-ai-guide__robot" src="/images/chat-super-nono.png" alt="" loading="eager" decoding="async" />
+    <span class="hero-ai-guide__shadow"></span>
+  </span>
+</a>
+
+<style>
+  .hero-ai-guide {
+    position: relative;
+    display: inline-flex;
+    width: fit-content;
+    height: 2.875rem;
+    min-height: 2.875rem;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.15rem 0.1rem;
+    color: var(--ink);
+    text-align: left;
+    text-decoration: none;
+    isolation: isolate;
+  }
+
+  .hero-ai-guide__bubble {
+    position: relative;
+    display: flex;
+    max-width: 10.4rem;
+    flex-direction: column;
+    gap: 0.2rem;
+    border: 1px solid rgba(var(--rgb-cyan-soft), 0.22);
+    border-radius: 0.85rem 0.85rem 0.3rem 0.85rem;
+    padding: 0.58rem 0.7rem 0.62rem;
+    background:
+      linear-gradient(120deg, rgba(var(--rgb-cyan), 0.055), rgba(var(--rgb-violet-soft), 0.06)),
+      rgba(var(--rgb-bg-deep), 0.8);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.045),
+      0 12px 28px rgba(0, 5, 20, 0.2);
+    backdrop-filter: blur(12px);
+    transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+  }
+
+  .hero-ai-guide__bubble::after {
+    position: absolute;
+    right: -0.37rem;
+    bottom: 0.42rem;
+    width: 0.68rem;
+    height: 0.68rem;
+    border-right: 1px solid rgba(var(--rgb-cyan-soft), 0.22);
+    border-bottom: 1px solid rgba(var(--rgb-cyan-soft), 0.22);
+    background: rgba(var(--rgb-bg-deep), 0.92);
+    content: "";
+    transform: rotate(-45deg);
+    transition: border-color 220ms ease;
+  }
+
+  .hero-ai-guide__eyebrow {
+    color: rgba(239, 246, 255, 0.96);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.8rem;
+    font-weight: 850;
+    letter-spacing: 0.16em;
+    line-height: 1.05;
+  }
+
+  .hero-ai-guide__message {
+    color: rgba(var(--rgb-cyan-soft), 0.78);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.52rem;
+    font-weight: 760;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hero-ai-guide__message span {
+    display: inline-block;
+    margin-left: 0.12rem;
+    color: #67e8f9;
+    transition: transform 220ms ease;
+  }
+
+  .hero-ai-guide__figure {
+    position: relative;
+    display: block;
+    width: 4.8rem;
+    height: 5.4rem;
+    flex: 0 0 auto;
+  }
+
+  .hero-ai-guide__robot {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 4.55rem;
+    height: auto;
+    margin-inline: auto;
+    filter: drop-shadow(0 8px 13px rgba(0, 5, 24, 0.3));
+    transform-origin: 50% 68%;
+  }
+
+  .hero-ai-guide__shadow {
+    position: absolute;
+    right: 0.62rem;
+    bottom: -0.05rem;
+    left: 0.62rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.25);
+    filter: blur(3px);
+    transform-origin: center;
+  }
+
+  .hero-ai-guide__arm--wave {
+    transform-box: fill-box;
+    transform-origin: 14% 78%;
+  }
+
+  .hero-ai-guide:hover .hero-ai-guide__bubble,
+  .hero-ai-guide:focus-visible .hero-ai-guide__bubble {
+    border-color: rgba(var(--rgb-cyan-soft), 0.52);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 0 24px rgba(var(--rgb-cyan), 0.09),
+      0 14px 30px rgba(0, 5, 20, 0.24);
+    transform: translateY(-2px);
+  }
+
+  .hero-ai-guide:hover .hero-ai-guide__bubble::after,
+  .hero-ai-guide:focus-visible .hero-ai-guide__bubble::after {
+    border-color: rgba(var(--rgb-cyan-soft), 0.52);
+  }
+
+  .hero-ai-guide:hover .hero-ai-guide__message span,
+  .hero-ai-guide:focus-visible .hero-ai-guide__message span {
+    transform: translateX(3px);
+  }
+
+  .hero-ai-guide:hover .hero-ai-guide__robot,
+  .hero-ai-guide:focus-visible .hero-ai-guide__robot {
+    filter:
+      drop-shadow(0 8px 13px rgba(0, 5, 24, 0.3))
+      drop-shadow(0 0 9px rgba(var(--rgb-cyan), 0.16));
+  }
+
+  .hero-ai-guide:focus-visible {
+    border-radius: 0.9rem;
+    outline: 2px solid rgba(var(--rgb-cyan-soft), 0.8);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 639px) {
+    .hero-ai-guide {
+      height: auto;
+      min-height: 5.4rem;
+      align-self: center;
+      margin-top: 0.15rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-ai-guide__robot {
+      animation: hero-ai-float 4s ease-in-out infinite;
+    }
+
+    .hero-ai-guide__shadow {
+      animation: hero-ai-shadow 4s ease-in-out infinite;
+    }
+
+    .hero-ai-guide__arm--wave {
+      animation: hero-ai-wave 4.8s ease-in-out infinite;
+    }
+
+    .hero-ai-guide__eyes {
+      animation: hero-ai-eyes 5.6s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-ai-guide *,
+    .hero-ai-guide *::before,
+    .hero-ai-guide *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  @keyframes hero-ai-float {
+    0%, 100% { transform: translateY(0) rotate(-0.4deg); }
+    50% { transform: translateY(-4px) rotate(0.7deg); }
+  }
+
+  @keyframes hero-ai-shadow {
+    0%, 100% { opacity: 0.8; transform: scaleX(1); }
+    50% { opacity: 0.45; transform: scaleX(0.78); }
+  }
+
+  @keyframes hero-ai-wave {
+    0%, 58%, 100% { transform: rotate(0); }
+    64% { transform: rotate(-11deg); }
+    71% { transform: rotate(7deg); }
+    78% { transform: rotate(-9deg); }
+    85% { transform: rotate(4deg); }
+  }
+
+  @keyframes hero-ai-eyes {
+    0%, 45%, 49%, 100% { transform: scaleY(1); }
+    47% { transform: scaleY(0.15); }
+  }
+</style>

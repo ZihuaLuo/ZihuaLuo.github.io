@@ -1,6 +1,7 @@
 <canvas class="particle-network" data-particle-network aria-hidden="true"></canvas>
 
 <script>
+  import { createVisibleAnimationLoop } from "../../scripts/animationLifecycle";
   type Particle = {
     x: number;
     y: number;
@@ -23,8 +24,9 @@
 
     const canvas = document.querySelector<HTMLCanvasElement>("[data-particle-network]");
     const field = canvas?.closest<HTMLElement>("[data-ai-future]");
-    const context = canvas?.getContext("2d");
-    if (!canvas || !field || !context) return;
+    const candidateContext = canvas?.getContext("2d");
+    if (!canvas || !field || !candidateContext) return;
+    const context: CanvasRenderingContext2D = candidateContext;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const colors = ["34, 211, 238", "59, 130, 246", "167, 139, 250", "248, 250, 252"];
@@ -32,7 +34,7 @@
     const pointer = { x: -1000, y: -1000, active: false };
     let width = 0;
     let height = 0;
-    let frame = 0;
+    let animation: ReturnType<typeof createVisibleAnimationLoop> | undefined;
     let isMobile = false;
 
     const createParticles = () => {
@@ -68,7 +70,7 @@
       draw(false);
     };
 
-    const update = () => {
+    const update = (frameScale = 1) => {
       particles.forEach((particle) => {
         if (pointer.active && !isMobile) {
           const dx = pointer.x - particle.x;
@@ -76,8 +78,8 @@
           const distance = Math.hypot(dx, dy);
           if (distance > 0 && distance < 175) {
             const pull = (1 - distance / 175) * 0.0018;
-            particle.vx += (dx / distance) * pull;
-            particle.vy += (dy / distance) * pull;
+            particle.vx += (dx / distance) * pull * frameScale;
+            particle.vy += (dy / distance) * pull * frameScale;
           }
         }
 
@@ -87,10 +89,10 @@
           particle.vy = (particle.vy / speed) * 0.18;
         }
 
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.vx *= 0.999;
-        particle.vy *= 0.999;
+        particle.x += particle.vx * frameScale;
+        particle.y += particle.vy * frameScale;
+        particle.vx *= Math.pow(0.999, frameScale);
+        particle.vy *= Math.pow(0.999, frameScale);
 
         if (particle.x < -4) particle.x = width + 4;
         if (particle.x > width + 4) particle.x = -4;
@@ -99,8 +101,8 @@
       });
     };
 
-    function draw(advance = true) {
-      if (advance) update();
+    function draw(advance = true, frameScale = 1) {
+      if (advance) update(frameScale);
       context.clearRect(0, 0, width, height);
 
       const linkDistance = isMobile ? 96 : 132;
@@ -108,8 +110,9 @@
         for (let second = first + 1; second < particles.length; second += 1) {
           const a = particles[first];
           const b = particles[second];
-          const distance = Math.hypot(a.x - b.x, a.y - b.y);
-          if (distance >= linkDistance) continue;
+          const distanceSquared = (a.x - b.x) ** 2 + (a.y - b.y) ** 2;
+          if (distanceSquared >= linkDistance * linkDistance) continue;
+          const distance = Math.sqrt(distanceSquared);
 
           let alpha = (1 - distance / linkDistance) * (isMobile ? 0.055 : 0.078);
           if (pointer.active && !isMobile) {
@@ -138,11 +141,6 @@
       });
     }
 
-    const animate = () => {
-      draw(true);
-      frame = window.requestAnimationFrame(animate);
-    };
-
     const handlePointerMove = (event: PointerEvent) => {
       if (isMobile || reduceMotion.matches) return;
       const bounds = field.getBoundingClientRect();
@@ -156,17 +154,22 @@
     };
 
     resize();
-    if (!reduceMotion.matches) frame = window.requestAnimationFrame(animate);
+    animation = createVisibleAnimationLoop(field, ({ delta }) => draw(!reduceMotion.matches, delta * 60), {
+      continuous: !reduceMotion.matches,
+    });
     field.addEventListener("pointermove", handlePointerMove, { passive: true });
     field.addEventListener("pointerleave", handlePointerLeave);
     window.addEventListener("resize", resize, { passive: true });
 
     particleWindow.__particleNetworkCleanup = () => {
-      window.cancelAnimationFrame(frame);
+      animation?.destroy();
       field.removeEventListener("pointermove", handlePointerMove);
       field.removeEventListener("pointerleave", handlePointerLeave);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("astro:before-swap", cleanup);
     };
+    const cleanup = particleWindow.__particleNetworkCleanup;
+    document.addEventListener("astro:before-swap", cleanup, { once: true });
   };
 
   const particleWindow = window as ParticleWindow;

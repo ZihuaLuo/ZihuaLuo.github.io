@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="The Cut logo">
+  <rect x="0.25" y="0.25" width="15.5" height="15.5" rx="3" fill="#071426" stroke="#26476C" stroke-width="0.375" />
+  <path data-cut-opening="" d="M3.5 12.5L6.9 7.1L12.5 3.5L9.1 8.9Z" fill="#7DCCFF" />
+  <path data-cut-core="" d="M4 12L7.5 7.5L12 4L8.5 8.5Z" fill="#F4FCFF" />
+</svg>

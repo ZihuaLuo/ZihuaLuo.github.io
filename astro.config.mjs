@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import { unified } from "@astrojs/markdown-remark";
 import { fileURLToPath } from "node:url";
 
 const site =
@@ -12,6 +13,8 @@ export default defineConfig({
   site,
   base,
   output: "static",
+  // Preserve the established article renderer and inline spacing across Astro upgrades.
+  compressHTML: true,
   integrations: [mdx()],
   vite: {
     resolve: {
@@ -25,6 +28,7 @@ export default defineConfig({
     },
   },
   markdown: {
+    processor: unified(),
     shikiConfig: {
       theme: "github-light",
     },

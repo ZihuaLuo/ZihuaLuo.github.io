@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" role="img" aria-label="The Cut logo">
+  <defs>
+    <linearGradient id="cut-light" x1="7" y1="25" x2="25" y2="7" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4C78FF" />
+      <stop offset="0.55" stop-color="#CFF4FF" />
+      <stop offset="1" stop-color="#7DCCFF" />
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="31" height="31" rx="6" fill="#071426" stroke="#26476C" stroke-width="0.75" />
+  <path data-cut-opening="" d="M7 25L14.2 14.6L25 7L17.8 17.4Z" fill="url(#cut-light)" />
+  <path data-cut-core="" d="M8 24L15.4 15L24 8L16.6 17Z" fill="#F4FCFF" />
+</svg>

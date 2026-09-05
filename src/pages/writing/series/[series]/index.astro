@@ -4,7 +4,7 @@ import WritingSeriesArchive from "@components/WritingSeriesArchive.astro";
 import { essaysPerPage, writingSeries } from "@data/writingSeries";
 
 export async function getStaticPaths() {
-  const lang = "en";
+  const lang = "en" as const;
   const includeDrafts = !import.meta.env.PROD;
   const allWriting = await getCollection(
     "writing",

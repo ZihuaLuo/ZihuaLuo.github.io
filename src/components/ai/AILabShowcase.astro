@@ -1,0 +1,509 @@
+---
+type ProjectTheme = {
+  color: string;
+  secondaryColor: string;
+  deepColor: string;
+};
+
+type ProjectNode = {
+  id: string;
+  number: string;
+  category: string;
+  title: string;
+  titleLines: string[];
+  icon: string;
+  theme: ProjectTheme;
+  size: number;
+  orbitRadius: number;
+  orbitSpeed: number;
+  ringTiltX: number;
+  ringTiltZ: number;
+  ringDensity: number;
+  lightDirection: [number, number, number];
+  position: [number, number, number?];
+};
+
+// This is the single source of truth for the constellation. New entries are
+// placed by the client-side orbital-shell algorithm; no planet markup is duplicated.
+const projects: ProjectNode[] = [
+  {
+    id: "agent-research",
+    number: "01",
+    category: "AI Research Workflow",
+    title: "Agent Research Workflow",
+    titleLines: ["AGENT", "RESEARCH", "WORKFLOW"],
+    icon: "⌁",
+    theme: {
+      color: "#34BFFF",
+      secondaryColor: "#157BFF",
+      deepColor: "#020916",
+    },
+    size: 0.9,
+    orbitRadius: 2.45,
+    orbitSpeed: 0.92,
+    ringTiltX: -64,
+    ringTiltZ: -22,
+    ringDensity: 1.08,
+    position: [0.27, 0.23, 0.5],
+    lightDirection: [-0.82, 0.72, 0.2],
+  },
+  {
+    id: "retention-lab",
+    number: "02",
+    category: "Applied Analytics",
+    title: "Volunteer Retention Lab",
+    titleLines: ["VOLUNTEER", "RETENTION", "LAB"],
+    icon: "◎",
+    theme: {
+      color: "#AD62FF",
+      secondaryColor: "#7542F8",
+      deepColor: "#11051E",
+    },
+    size: 0.92,
+    orbitRadius: 2.62,
+    orbitSpeed: 0.78,
+    ringTiltX: -62,
+    ringTiltZ: -21,
+    ringDensity: 1.02,
+    position: [0.745, 0.255, -0.35],
+    lightDirection: [0.8, 0.68, 0.18],
+  },
+  {
+    id: "disclosure-intelligence",
+    number: "03",
+    category: "Data Intelligence",
+    title: "Disclosure Intelligence",
+    titleLines: ["DISCLOSURE", "INTELLIGENCE"],
+    icon: "◇",
+    theme: {
+      color: "#10E7DF",
+      secondaryColor: "#19BEDD",
+      deepColor: "#03161F",
+    },
+    size: 0.865,
+    orbitRadius: 2.5,
+    orbitSpeed: 0.84,
+    ringTiltX: -67,
+    ringTiltZ: 14,
+    ringDensity: 1.05,
+    position: [0.42, 0.73, 0.75],
+    lightDirection: [-0.86, -0.38, 0.22],
+  },
+];
+
+const clientProjects = projects.map((project) => ({
+  id: project.id,
+  number: project.number,
+  category: project.category,
+  title: project.title,
+  titleLines: project.titleLines,
+  icon: project.icon,
+  color: project.theme.color,
+  secondaryColor: project.theme.secondaryColor,
+  deepColor: project.theme.deepColor,
+  size: project.size,
+  orbitRadius: project.orbitRadius,
+  orbitSpeed: project.orbitSpeed,
+  ringTiltX: project.ringTiltX,
+  ringTiltZ: project.ringTiltZ,
+  ringDensity: project.ringDensity,
+  lightDirection: project.lightDirection,
+  position: project.position,
+}));
+---
+
+<section class="ai-lab" aria-labelledby="ai-lab-title">
+  <header class="ai-lab__header">
+    <div>
+      <p class="ai-lab__eyebrow"><span aria-hidden="true"></span>AI LAB</p>
+      <h2 id="ai-lab-title">Project Constellation</h2>
+    </div>
+  </header>
+
+  <div class="ai-lab__viewport" data-ai-lab-map data-lab-stage="idle">
+    <canvas
+      class="ai-lab__galaxy"
+      data-ai-lab-canvas
+      aria-label="Interactive three-dimensional project constellation. Choose a project using the controls that follow."
+    ></canvas>
+
+    <div class="ai-lab__scan" aria-hidden="true"></div>
+
+    <div class="ai-lab__telemetry" aria-hidden="true">
+      <span class="ai-lab__status" data-lab-status>STABLE</span>
+    </div>
+
+    <div class="ai-lab__project-controls" aria-label="AI Lab projects">
+      {
+        projects.map((project) => (
+          <button
+            type="button"
+            data-project-node
+            data-project-id={project.id}
+            data-project-title={project.title}
+            aria-pressed="false"
+          >
+            Open project: {project.title}
+          </button>
+        ))
+      }
+    </div>
+
+    <p class="ai-lab__fallback" data-webgl-fallback hidden>
+      This visualization needs WebGL. Use the project controls to open each project file.
+    </p>
+
+    <script is:inline type="application/json" data-ai-projects set:html={JSON.stringify(clientProjects)}></script>
+
+    <section class="ai-lab__detail" data-project-detail-panel role="dialog" aria-modal="true" aria-labelledby="ai-lab-detail-title" hidden>
+      <header class="ai-lab__detail-header">
+        <h3 id="ai-lab-detail-title" data-detail-title>{projects[0].title}</h3>
+        <button type="button" data-detail-close>Close</button>
+      </header>
+      <div class="ai-lab__detail-body">
+        <p class="ai-lab__detail-pending">COMING SOON</p>
+        <p class="ai-lab__detail-summary">Project details will be updated here.</p>
+      </div>
+    </section>
+  </div>
+</section>
+
+<script>
+  import { bindAILabConstellations } from "../../scripts/aiLabConstellation";
+  bindAILabConstellations();
+
+</script>
+
+<style>
+  .ai-lab {
+    position: relative;
+    width: min(108%, 40rem);
+    margin-top: clamp(1.1rem, 1.8vw, 1.5rem);
+    scroll-margin-top: 6rem;
+  }
+
+  #ai-lab-title { scroll-margin-top: 6rem; }
+
+  .ai-lab__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.78rem;
+    padding-inline: 0.08rem;
+  }
+
+  .ai-lab__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #67e8f9;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .ai-lab__eyebrow span {
+    width: 0.34rem;
+    height: 0.34rem;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 0.7rem rgba(34, 211, 238, 0.55);
+  }
+
+  .ai-lab__header h2 {
+    margin-top: 0.32rem;
+    color: rgba(214, 241, 255, 0.94);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 1.18rem;
+    font-weight: 820;
+    letter-spacing: 0.025em;
+    line-height: 1.05;
+    text-shadow: 0 0 0.8rem rgba(56, 189, 248, 0.24);
+    text-transform: uppercase;
+  }
+
+  .ai-lab__telemetry {
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .ai-lab__viewport {
+    position: relative;
+    aspect-ratio: 703 / 609;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(107, 151, 199, 0.28);
+    border-radius: 0.7rem;
+    background:
+      radial-gradient(circle at 52% 52%, rgba(16, 34, 79, 0.2), transparent 38%),
+      radial-gradient(circle at 88% 18%, rgba(95, 45, 152, 0.1), transparent 31%),
+      linear-gradient(145deg, #01030a 0%, #030715 56%, #070617 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(248, 250, 252, 0.04),
+      inset 0 0 5.8rem rgba(15, 23, 62, 0.18),
+      0 24px 58px rgba(0, 3, 15, 0.32);
+    isolation: isolate;
+  }
+
+  .ai-lab__viewport::before,
+  .ai-lab__viewport::after {
+    position: absolute;
+    z-index: 5;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-color: rgba(103, 232, 249, 0.38);
+    pointer-events: none;
+    content: "";
+  }
+
+  .ai-lab__viewport::before {
+    top: 0.55rem;
+    left: 0.55rem;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+
+  .ai-lab__viewport::after {
+    right: 0.55rem;
+    bottom: 0.55rem;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+  }
+
+  .ai-lab__galaxy {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+
+  .ai-lab__scan {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease;
+  }
+
+  .ai-lab__scan::before {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(103, 232, 249, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(103, 232, 249, 0.035) 1px, transparent 1px);
+    background-size: 2.2rem 2.2rem;
+    content: "";
+  }
+
+  .ai-lab__scan::after {
+    position: absolute;
+    top: calc(var(--lab-scan-progress, 0) * 100%);
+    right: 0;
+    left: 0;
+    height: 4.5rem;
+    border-bottom: 1px solid rgba(170, 244, 255, 0.82);
+    background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.12));
+    box-shadow: 0 0.5rem 1.8rem rgba(34, 211, 238, 0.1);
+    content: "";
+    transform: translateY(-100%);
+  }
+
+  .ai-lab__viewport:is([data-lab-stage="scan"], [data-lab-stage="release"]) .ai-lab__scan { opacity: 1; }
+
+  .ai-lab__telemetry {
+    position: absolute;
+    inset: 0.9rem 1rem auto;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    color: rgba(168, 179, 207, 0.48);
+    font-size: 0.43rem;
+    pointer-events: none;
+  }
+
+  .ai-lab__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(103, 232, 249, 0.72);
+    font-size: 0.56rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .ai-lab__status::before {
+    content: "";
+    width: 0.36rem;
+    height: 0.36rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 0.65rem rgba(34, 211, 238, 0.34);
+  }
+
+  .ai-lab__project-controls {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ai-lab__fallback {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    left: 2rem;
+    z-index: 4;
+    color: rgba(203, 226, 255, 0.78);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    text-align: center;
+    transform: translateY(-50%);
+  }
+
+  .ai-lab__viewport[data-render-fallback="true"] .ai-lab__project-controls,
+  .ai-lab__project-controls:has(button:focus-visible) {
+    z-index: 5;
+    inset: auto 1rem 1rem;
+    display: grid;
+    gap: 0.5rem;
+    width: auto;
+    height: auto;
+    padding: 0.75rem;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+    border-radius: 0.5rem;
+    background: rgba(3, 8, 24, 0.95);
+  }
+  .ai-lab__project-controls button { color: #b8edff; text-align: left; }
+  .ai-lab__project-controls button:focus-visible { outline: 1px solid #67e8f9; outline-offset: 3px; }
+
+  .ai-lab__detail {
+    position: absolute;
+    inset: 1.8rem;
+    z-index: 10;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: auto;
+    border: 1px solid rgba(103, 232, 249, 0.34);
+    border-radius: 0.65rem;
+    color: #e8f4ff;
+    background:
+      radial-gradient(circle at 88% 10%, rgba(92, 57, 186, 0.14), transparent 36%),
+      rgba(3, 8, 24, 0.965);
+    box-shadow:
+      0 0 0 999px rgba(1, 4, 14, 0.74),
+      0 0 3rem rgba(37, 99, 235, 0.24),
+      inset 0 1px 0 rgba(248, 250, 252, 0.06);
+    backdrop-filter: blur(20px);
+  }
+
+  .ai-lab__detail[hidden] { display: none; }
+
+  .ai-lab__detail::before {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(103, 232, 249, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(103, 232, 249, 0.025) 1px, transparent 1px);
+    background-size: 2.4rem 2.4rem;
+    mask-image: linear-gradient(to bottom, black, transparent 78%);
+    pointer-events: none;
+    content: "";
+  }
+
+  .ai-lab__detail-header,
+  .ai-lab__detail-body { position: relative; z-index: 1; }
+
+  .ai-lab__detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.2rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  }
+
+  .ai-lab__detail-header h3 {
+    font-family: Newsreader, "Source Serif 4", Georgia, serif;
+    font-size: clamp(1.65rem, 3vw, 2.35rem);
+    font-weight: 560;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+
+  .ai-lab__detail-header button {
+    padding: 0.48rem 0.68rem;
+    border: 1px solid rgba(125, 211, 252, 0.24);
+    border-radius: 0.42rem;
+    color: rgba(226, 239, 255, 0.78);
+    background: rgba(15, 23, 42, 0.68);
+    font: inherit;
+    font-size: 0.62rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .ai-lab__detail-header button:hover,
+  .ai-lab__detail-header button:focus-visible {
+    border-color: rgba(103, 232, 249, 0.58);
+    color: #fff;
+    outline: none;
+  }
+
+  .ai-lab__detail-body {
+    align-self: center;
+    padding: 1.4rem 1.2rem;
+  }
+
+  .ai-lab__detail-pending {
+    color: #67e8f9;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    line-height: 1.4;
+  }
+
+  .ai-lab__detail-summary {
+    margin-top: 0.72rem;
+    color: rgba(203, 226, 255, 0.78);
+    font-size: 0.72rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 1040px) {
+    .ai-lab { width: min(100%, 40rem); }
+  }
+
+  @media (max-width: 560px) {
+    .ai-lab__header { align-items: flex-start; }
+    .ai-lab__header h2 { font-size: 0.92rem; }
+    .ai-lab__viewport { aspect-ratio: 0.84; min-height: 0; }
+    .ai-lab__telemetry { inset-inline: 0.7rem; }
+    .ai-lab__detail { inset: 0.75rem; }
+    .ai-lab__detail-header,
+    .ai-lab__detail-body { padding-inline: 0.9rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-lab__scan { display: none; }
+  }
+</style>

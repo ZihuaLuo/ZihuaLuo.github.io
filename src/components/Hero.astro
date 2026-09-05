@@ -1,5 +1,6 @@
 ---
 import { withBase, type Language } from "@i18n/routes";
+import HeroAIGuide from "./HeroAIGuide.astro";
 
 interface Props {
   lang: Language;
@@ -52,6 +53,7 @@ const copy = {
           <span>{copy.writingCta}</span>
           <span aria-hidden="true">→</span>
         </a>
+        <HeroAIGuide href={withBase("/ai/")} />
       </div>
 
     </div>
@@ -212,6 +214,7 @@ const copy = {
   .hero-entry__actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
     gap: 0.95rem;
     margin-top: 1.45rem;

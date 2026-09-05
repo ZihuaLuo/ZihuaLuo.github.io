@@ -371,12 +371,13 @@ const creditGroups = tiers.map((tierConfig) => {
   }
 </style>
 
-<script define:vars={{ copy }}>
+<script is:inline define:vars={{ copy }}>
   (() => {
     window.__creditSectionController?.abort();
     const listenerController = new AbortController();
     window.__creditSectionController = listenerController;
     const listenerOptions = { signal: listenerController.signal };
+    document.addEventListener("astro:before-swap", () => listenerController.abort(), { once: true, ...listenerOptions });
 
     const initializeCreditSections = () => {
       document.querySelectorAll("[data-credit-section]").forEach((section) => {
@@ -435,6 +436,7 @@ const creditGroups = tiers.map((tierConfig) => {
       const target = hash ? document.getElementById(decodeURIComponent(hash)) : null;
       if (target && section.contains(target) && !target.hidden) {
         window.requestAnimationFrame(() => {
+          if (listenerController.signal.aborted || !target.isConnected) return;
           target.scrollIntoView({
             behavior: reducedMotion ? "auto" : "smooth",
             block: "center",
@@ -448,6 +450,7 @@ const creditGroups = tiers.map((tierConfig) => {
       if (renderQueued) return;
       renderQueued = true;
       window.requestAnimationFrame(() => {
+        if (listenerController.signal.aborted) return;
         renderQueued = false;
         render();
       });

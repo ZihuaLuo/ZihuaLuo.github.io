@@ -6,7 +6,7 @@ const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
 
 <audio
   hidden
-  preload="metadata"
+  preload="none"
   aria-hidden="true"
   data-music-audio
   transition:persist="featured-soundtrack"
@@ -71,6 +71,7 @@ const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
     const controller = new AbortController();
     musicWindow.__floatingMusicController = controller;
     const listenerOptions = { signal: controller.signal };
+    document.addEventListener("astro:before-swap", () => controller.abort(), { once: true, ...listenerOptions });
 
     const sync = () => {
       const hasStarted = audio.dataset.musicStarted === "true" || audio.currentTime > 0 || !audio.paused;
@@ -104,6 +105,7 @@ const audioSrc = withBase("/audio/love-story-taylor-swift.mp3");
       try {
         await audio.play();
       } catch {
+        if (controller.signal.aborted) return;
         status.textContent = "Unavailable";
         button.setAttribute("aria-label", "Love Story is unavailable");
       }
