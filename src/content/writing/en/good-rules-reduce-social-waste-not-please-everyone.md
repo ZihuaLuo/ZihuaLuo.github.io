@@ -1,6 +1,6 @@
 ---
 title: "Good Rules Reduce Social Waste, Not Please Everyone"
-description: "The maturity of an institution is not whether it sounds fair, but whether it reduces needless competitive costs."
+description: "Well-designed rules reduce the resources people waste competing for access and advantage."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> The maturity of an institution is not whether it sounds fair, but whether it reduces needless competitive costs.
+> Well-designed rules reduce the resources people waste competing for access and advantage.
 
 The Week 15 Q&A discusses property rights, competition, and rule design. The topics appear scattered: whether a gold mine belongs to the discoverer or the miner, whether a shipwreck salvage company should have exclusivity, whether state-owned assets count as clear property, whether punishment should be light or heavy, who pays when a boat damages a dock, and even why fairy tales became gentler over time. Behind all of them is one core point: rules are not moral slogans. Rules are arrangements of cost.
 

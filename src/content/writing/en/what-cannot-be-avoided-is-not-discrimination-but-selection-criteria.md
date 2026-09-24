@@ -1,6 +1,6 @@
 ---
 title: "What Cannot Be Avoided Is Not Discrimination, But Selection Criteria"
-description: "As long as resources are limited, selection exists; the real question is not whether distinction can disappear, but who has the right to choose and who bears the consequences"
+description: "Allocating scarce resources requires examining the criteria for selection, the authority to choose, and the consequences of that choice."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> As long as resources are limited, selection exists; the real question is not whether distinction can disappear, but who has the right to choose and who bears the consequences.
+> Allocating scarce resources requires examining the criteria for selection, the authority to choose, and the consequences of that choice.
 
 In Lecture 010, Xue Zhaofeng connects scarcity, choice, distinction, and discrimination. The angle is uncomfortable because discrimination usually means unfairness and harm. But from an economic view, limited resources require choice; choice requires standards; standards create different treatment.
 

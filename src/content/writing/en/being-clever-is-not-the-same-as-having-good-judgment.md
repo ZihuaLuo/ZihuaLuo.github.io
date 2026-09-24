@@ -1,6 +1,6 @@
 ---
 title: "Being Clever Is Not the Same as Having Good Judgment"
-description: "Intelligence helps us find ways around constraints. Judgment tells us which opportunities are not worth exploiting in the first place."
+description: "Cleverness reveals opportunities. Good judgment helps us decide which ones are worth pursuing."
 date: 2026-09-09
 category: "Cognition"
 tags: ["Judgment", "Technology", "Opportunity Cost"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Intelligence helps us find ways around constraints. Judgment tells us which opportunities are not worth exploiting in the first place.
+> Cleverness reveals opportunities. Good judgment helps us decide which ones are worth pursuing.
 
 Technology gives people leverage. A person clicking manually can never compete with a program making thousands of requests automatically. In many competitive environments, this is exactly why technology matters. Companies that learn to use software, automation, and artificial intelligence effectively will outperform those that insist on doing everything manually. But greater capability creates a second question: Just because I can do something more efficiently, should I do it at all? The Alibaba mooncake incident illustrates the distinction.
 

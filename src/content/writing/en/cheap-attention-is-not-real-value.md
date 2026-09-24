@@ -1,6 +1,6 @@
 ---
 title: "Do Not Mistake Cheap Attention For Real Value"
-description: "The place where attention gathers is not necessarily worth following"
+description: "Popularity can draw us toward opportunities whose lasting value deserves a closer look."
 date: 2026-02-12
 category: "Cognition"
 tags: ["Attention", "Value Judgment", "Long-Term Relationships"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> The place where attention gathers is not necessarily worth following.
+> Popularity can draw us toward opportunities whose lasting value deserves a closer look.
 
 After reading Letter 013, "Other People's Attention May Be Worth Very Little," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: in today's age of information overload, attention seems increasingly important, but not all attention has the same value. Many people believe that as long as someone sees them, clicks on them, or watches them, they have influence and value. But this letter reminds me that the important question is not "how many people are paying attention," but "what kind of people are paying attention, and can that attention create real meaning?"
 

@@ -1,6 +1,6 @@
 ---
 title: "Self-Control Fails When the Present Becomes Too Valuable"
-description: "The problem with self-control is not that we do not value the future. It is that the present suddenly becomes disproportionately valuable once it arrives."
+description: "Immediate rewards can gain disproportionate weight when they arrive, weakening commitments we made for the future."
 date: 2026-08-31
 category: "Economic Thinking"
 tags: ["Self-Control", "Present Bias", "Commitment"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> The problem with self-control is not that we do not value the future. It is that the present suddenly becomes disproportionately valuable once it arrives.
+> Immediate rewards can gain disproportionate weight when they arrive, weakening commitments we made for the future.
 
 Most procrastination contains a strange contradiction. Tonight, I decide that tomorrow I will wake up early, exercise, finish my work, eat better, and avoid distractions. Tomorrow arrives, and the person making those decisions suddenly seems to have different priorities. The future plan did not change. The person evaluating it did. This is the intuition behind present bias. Experiments show that people may prefer one reward immediately over a much larger reward only a few minutes later, yet choose the larger reward when both options are pushed into the future.
 

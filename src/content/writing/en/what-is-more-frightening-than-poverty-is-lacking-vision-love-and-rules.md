@@ -1,6 +1,6 @@
 ---
 title: "What Is More Frightening Than Poverty Is Lacking Vision, Love, And Rules"
-description: "What truly changes a person's fate is not only money, but how they see the world, treat people, and do things"
+description: "A person's prospects are shaped by perspective, care for others, and respect for rules as well as material resources."
 date: 2026-03-04
 category: "Cognition"
 tags: ["Family Education", "Vision", "Love And Rules"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> What truly changes a person's fate is not only money, but how they see the world, treat people, and do things.
+> A person's prospects are shaped by perspective, care for others, and respect for rules as well as material resources.
 
 After reading Wu Jun's supplemental letter "What Is More Frightening Than Poverty?" from *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: poverty certainly limits a person's starting point, but what is more frightening than poverty is the lack of vision, lack of love and care, and lack of rule awareness that can form during long-term poverty or scarcity. Material poverty may create temporary difficulty. But if a person lacks vision, they cannot see the larger world. If they lack love, they struggle to build healthy relationships. If they lack rules, they repeatedly hit walls in social cooperation.
 

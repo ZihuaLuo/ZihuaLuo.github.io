@@ -1,6 +1,6 @@
 ---
 title: "Effective Goodwill Must Be Tested By Mechanisms"
-description: "Commerce can become the largest charity not because merchants are kinder, but because markets turn what goodwill struggles to do into sustained cooperation"
+description: "Good intentions become more durable when incentives and exchange give people a reason to keep cooperating."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Commerce can become the largest charity not because merchants are kinder, but because markets turn what goodwill struggles to do into sustained cooperation.
+> Good intentions become more durable when incentives and exchange give people a reason to keep cooperating.
 
 In Lecture 008, Xue Zhaofeng compares charitable poverty relief with commercial mechanisms. The title, that commerce is the largest charity, can easily be misunderstood because people often see charity as kindness and commerce as profit seeking. But if we look at results, many improvements in human life come not from direct sympathy, but from stable and sustainable commercial cooperation.
 

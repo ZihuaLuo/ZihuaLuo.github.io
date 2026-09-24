@@ -1,6 +1,6 @@
 ---
 title: "Cities Are Driven By Opportunity, Not Housing Prices"
-description: "Housing prices are only an echo of urban opportunity. The real object of analysis is the opportunity structure behind the price."
+description: "Understanding a city's housing prices starts with the jobs, resources, and opportunities that draw people there."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> Housing prices are only an echo of urban opportunity. The real object of analysis is the opportunity structure behind the price.
+> Understanding a city's housing prices starts with the jobs, resources, and opportunities that draw people there.
 
 The Week 13 Q&A appears to discuss housing prices, but it is really about why cities rise and why they decline. When people talk about housing prices, their first reaction is usually that prices are high, their second is to push them down, and their third is to blame a specific actor. Economic thinking does not rush to take sides. It first asks what the price is reflecting.
 

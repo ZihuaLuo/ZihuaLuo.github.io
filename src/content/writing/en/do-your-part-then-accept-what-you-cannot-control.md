@@ -1,6 +1,6 @@
 ---
 title: "Do Your Part, Then Accept What You Cannot Control"
-description: "A mature person does what is controllable as well as possible, while accepting that the world contains many uncontrollable variables"
+description: "Give careful attention to what you can influence while making room for uncertainty in the outcome."
 date: 2026-03-18
 category: "Cognition"
 tags: ["Boundaries", "Perspective", "Mindset"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> A mature person does what is controllable as well as possible, while accepting that the world contains many uncontrollable variables.
+> Give careful attention to what you can influence while making room for uncertainty in the outcome.
 
 In Letter 112, "Do Your Part, Then Accept What Heaven Decides," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, the most important idea is not passive fatalism, but recognizing that human ability has boundaries. A person should of course do their part and do the controllable work as well as possible. But if someone believes every result can be decided by personal will, they may become arrogant in success, obsessive in failure, and unclear when judging the situation.
 

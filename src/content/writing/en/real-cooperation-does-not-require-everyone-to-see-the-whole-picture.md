@@ -1,6 +1,6 @@
 ---
 title: "Real Cooperation Does Not Require Everyone To See The Whole Picture"
-description: "The miracle of modern society is not that one person can do everything, but that countless strangers can complete one task without knowing one another"
+description: "Specialization and exchange allow strangers to contribute to shared outcomes without understanding the entire process."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The miracle of modern society is not that one person can do everything, but that countless strangers can complete one task without knowing one another.
+> Specialization and exchange allow strangers to contribute to shared outcomes without understanding the entire process.
 
 In Lecture 007, Xue Zhaofeng uses the story of a pencil to explain the power of markets and division of labor. A pencil looks simple: wood, lead, paint, a metal ring, and an eraser. But once we trace its parts backward, we find timber, mining, transport, metal refining, chemicals, machinery, energy, food supply, and generations of accumulated knowledge.
 

@@ -1,6 +1,6 @@
 ---
 title: "Real Profit And Loss Is About How Future Value Changes"
-description: "Profit and loss truly change the future cost of using a resource"
+description: "Changes in an asset's value alter the opportunity cost of continuing to use or hold it."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Profit and loss truly change the future cost of using a resource.
+> Changes in an asset's value alter the opportunity cost of continuing to use or hold it.
 
 In Lecture 017, Xue Zhaofeng offers a different way to understand profit and loss. Profit and loss are not only records of how much was earned or lost in the past. They show whether people's judgment of a resource's future value has changed. Once a resource is revalued, the future cost of using it changes too.
 

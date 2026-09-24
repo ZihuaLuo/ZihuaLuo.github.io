@@ -1,6 +1,6 @@
 ---
 title: "Real Economic Thinking Judges Consequences, Not Good Intentions"
-description: "Many mistakes do not come from evil intentions, but from trusting wishes without seeing how people will respond"
+description: "Economic reasoning follows how people respond to a decision and what those responses mean for its eventual results."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Many mistakes do not come from evil intentions, but from trusting wishes without seeing how people will respond.
+> Economic reasoning follows how people respond to a decision and what those responses mean for its eventual results.
 
 In Lecture 004, Xue Zhaofeng explains a major difference between economics and ordinary moral judgment. Many people first ask who is good and who is bad. If a result is bad, they assume a bad person must have caused it. Economics asks a harder question: why do good wishes sometimes produce bad results?
 

@@ -1,6 +1,6 @@
 ---
 title: "Being Busier And Poorer Often Means Working In The Wrong Direction"
-description: "Real effort is not filling time, but using limited energy on what truly matters"
+description: "Effort produces better results when we direct our limited time and energy toward work that matters."
 date: 2026-03-22
 category: "Cognition"
 tags: ["Efficiency", "False Diligence", "Prioritization"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Real effort is not filling time, but using limited energy on what truly matters.
+> Effort produces better results when we direct our limited time and energy toward work that matters.
 
 In Letter 124, "Breaking Out Of The Cycle Of Becoming Poorer The Busier You Are," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, the issue most worth warning against is false diligence. Many people look extremely hardworking. They arrive early, leave late, and move from one task to another, yet they never truly improve. The problem is not necessarily insufficient diligence. It is diligence without direction. Heaven does not mistreat those who truly work hard, but it also does not pity those who mistake low-value repetition for effort.
 

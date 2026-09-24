@@ -1,6 +1,6 @@
 ---
 title: "Serious Choice Makes People Less Biased"
-description: "The higher the cost, the more carefully people choose; the lower the cost, the easier it is to indulge bias"
+description: "When a choice carries greater consequences, people have stronger incentives to examine assumptions and weigh the evidence."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The higher the cost, the more carefully people choose; the lower the cost, the easier it is to indulge bias.
+> When a choice carries greater consequences, people have stronger incentives to examine assumptions and weigh the evidence.
 
 In the third-week Q&A, Xue Zhaofeng continues discussing discrimination as selection under scarcity. The key question is not whether people can completely avoid standards, but whether the standards are reasonable, consistent, and connected to consequences.
 

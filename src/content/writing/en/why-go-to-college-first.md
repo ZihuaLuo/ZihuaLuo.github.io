@@ -1,6 +1,6 @@
 ---
 title: "Before Going To College, First Understand Why"
-description: "Effort without purpose can easily leave only form behind"
+description: "A clear purpose helps turn education from a sequence of requirements into a deliberate investment in personal growth."
 date: 2026-02-20
 category: "Cognition"
 tags: ["Education", "Purpose", "Self-Positioning"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Effort without purpose can easily leave only form behind.
+> A clear purpose helps turn education from a sequence of requirements into a deliberate investment in personal growth.
 
 After reading Letter 037, "Do We Really Understand Why We Go To College?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many people treat going to college as something obvious, but rarely truly ask why they want to go. We often assume that going to college leads to a good job, and that attending a famous school leads to a good future. But this letter reminds me that if the purpose is unclear, even the best form can become an empty shell.
 

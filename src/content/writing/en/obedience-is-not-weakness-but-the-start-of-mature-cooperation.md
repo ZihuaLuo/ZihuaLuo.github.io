@@ -1,6 +1,6 @@
 ---
 title: "Obedience Is Not Weakness, But The Start Of Mature Cooperation"
-description: "People who truly get things done know how to cooperate first, then contribute"
+description: "Effective cooperation begins with understanding a shared direction and contributing responsibly within it."
 date: 2026-02-21
 category: "Cognition"
 tags: ["Cooperation", "Rules", "Maturity"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> People who truly get things done know how to cooperate first, then contribute.
+> Effective cooperation begins with understanding a shared direction and contributing responsibly within it.
 
 After reading Reader Q&A 10, "Why Learn To Obey?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: obedience does not mean blind obedience, nor does it mean giving up independent thinking. Truly mature obedience means understanding how to follow rules, understand division of labor, and complete one's responsibility under a shared goal inside an organization or cooperative relationship. If a person only emphasizes the self but cannot cooperate with others, it is very hard to truly accomplish things in society.
 

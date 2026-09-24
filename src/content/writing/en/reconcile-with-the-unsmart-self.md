@@ -1,6 +1,6 @@
 ---
 title: "Reconciling With My Less-Smart Self Is Also A Kind Of Wisdom"
-description: "Being slow is not a reason to give up; it is where steady work begins"
+description: "Accepting a slower pace can make room for patient practice, steady learning, and progress that lasts."
 date: 2026-02-11
 category: "Cognition"
 tags: ["Self-Knowledge", "Sustained Effort", "Reliable Habits"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Being slow is not a reason to give up; it is where steady work begins.
+> Accepting a slower pace can make room for patient practice, steady learning, and progress that lasts.
 
 After reading Letter 009, "God Likes The Slow People, Part I," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: the so-called "slow person" is not someone who has no ability. It is someone who acknowledges the limits of their ability and still chooses to do things carefully and steadily. By contrast, the truly dangerous thing may not be being slow, but believing too much in one's own cleverness.
 

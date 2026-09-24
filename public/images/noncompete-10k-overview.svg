@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Non-Compete 10-K Coding Dashboard overview</title>
+<desc id="desc">Aggregate preview with 130 sampled filing snippets, 1262 annotation rows, a filing year timeline, annotation coverage bars, and Type themes.</desc>
+<rect width="1600" height="900" fill="#f5f6fa"/>
+<rect x="35" y="30" width="1530" height="210" rx="20" fill="#14223e"/>
+<circle cx="1453" cy="131" r="95" fill="#26395e" stroke="#92d9d2" stroke-width="2"/>
+<circle cx="1453" cy="131" r="72" fill="none" stroke="#7285b3" stroke-width="2"/>
+<text x="78" y="75" fill="#a8dfd6" font-family="Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="3">RESEARCH VISUALIZATION  /  10-K ANNOTATIONS</text>
+<text x="78" y="148" fill="#ffffff" font-family="Georgia, serif" font-size="55" font-weight="700" >Non-Compete 10-K</text>
+<text x="78" y="207" fill="#d7c8f1" font-family="Georgia, serif" font-size="53" font-weight="400" >Coding Dashboard</text>
+<text x="1453" y="141" fill="#ffffff" font-family="Georgia, serif" font-size="59" font-weight="700" text-anchor="middle">130</text>
+<text x="1453" y="169" fill="#d5efe9" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">filing snippets</text>
+<rect x="35" y="263" width="367" height="125" rx="12" fill="#fff" stroke="#e0e4ed"/>
+<text x="59" y="300" fill="#6e788b" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2">FILING SNIPPETS</text>
+<text x="59" y="363" fill="#6b50b1" font-family="Georgia, serif" font-size="43" font-weight="700" >130</text>
+<rect x="423" y="263" width="367" height="125" rx="12" fill="#fff" stroke="#e0e4ed"/>
+<text x="447" y="300" fill="#6e788b" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2">ANNOTATION ROWS</text>
+<text x="447" y="363" fill="#6b50b1" font-family="Georgia, serif" font-size="43" font-weight="700" >1,262</text>
+<rect x="811" y="263" width="367" height="125" rx="12" fill="#fff" stroke="#e0e4ed"/>
+<text x="835" y="300" fill="#6e788b" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2">WITH TYPE LABEL</text>
+<text x="835" y="363" fill="#6b50b1" font-family="Georgia, serif" font-size="43" font-weight="700" >84</text>
+<rect x="1199" y="263" width="367" height="125" rx="12" fill="#fff" stroke="#e0e4ed"/>
+<text x="1223" y="300" fill="#6e788b" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2">FILING YEARS</text>
+<text x="1223" y="363" fill="#6b50b1" font-family="Georgia, serif" font-size="36" font-weight="700" >1994–2023</text>
+<rect x="35" y="411" width="943" height="435" rx="14" fill="#fff" stroke="#e0e4ed"/>
+<rect x="997" y="411" width="568" height="435" rx="14" fill="#fff" stroke="#e0e4ed"/>
+<text x="65" y="453" fill="#755ab9" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2">01 / SAMPLE TIMELINE</text>
+<text x="65" y="494" fill="#1e2a43" font-family="Georgia, serif" font-size="29" font-weight="700" >Filing snippets by year</text>
+<text x="1027" y="453" fill="#755ab9" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2">02 / ANNOTATION COVERAGE</text>
+<text x="1027" y="494" fill="#1e2a43" font-family="Georgia, serif" font-size="29" font-weight="700" >Features recorded</text>
+<line x1="77" y1="774.0" x2="923" y2="774.0" stroke="#e5e8f0"/>
+<text x="67" y="779.0" fill="#8590a1" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="end">0</text>
+<line x1="77" y1="699.7" x2="923" y2="699.7" stroke="#e5e8f0"/>
+<text x="67" y="704.6666666666666" fill="#8590a1" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="end">5</text>
+<line x1="77" y1="625.3" x2="923" y2="625.3" stroke="#e5e8f0"/>
+<text x="67" y="630.3333333333334" fill="#8590a1" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="end">10</text>
+<line x1="77" y1="551.0" x2="923" y2="551.0" stroke="#e5e8f0"/>
+<text x="67" y="556.0" fill="#8590a1" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="end">15</text>
+<rect x="80.0" y="744.3" width="22.2" height="29.7" rx="2" fill="#7a5dbd"/>
+<text x="91.1" y="807" fill="#647084" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle">1994</text>
+<rect x="108.2" y="774.0" width="22.2" height="0.0" rx="2" fill="#7a5dbd"/>
+<rect x="136.4" y="759.1" width="22.2" height="14.9" rx="2" fill="#7a5dbd"/>
+<rect x="164.6" y="759.1" width="22.2" height="14.9" rx="2" fill="#7a5dbd"/>
+<rect x="192.8" y="744.3" width="22.2" height="29.7" rx="2" fill="#7a5dbd"/>
+<rect x="221.0" y="729.4" width="22.2" height="44.6" rx="2" fill="#7a5dbd"/>
+<text x="232.1" y="807" fill="#647084" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle">1999</text>
+<rect x="249.2" y="744.3" width="22.2" height="29.7" rx="2" fill="#7a5dbd"/>
+<rect x="277.4" y="699.7" width="22.2" height="74.3" rx="2" fill="#7a5dbd"/>
+<rect x="305.6" y="759.1" width="22.2" height="14.9" rx="2" fill="#7a5dbd"/>
+<rect x="333.8" y="729.4" width="22.2" height="44.6" rx="2" fill="#7a5dbd"/>
+<rect x="362.0" y="744.3" width="22.2" height="29.7" rx="2" fill="#7a5dbd"/>
+<text x="373.1" y="807" fill="#647084" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle">2004</text>
+<rect x="390.2" y="729.4" width="22.2" height="44.6" rx="2" fill="#7a5dbd"/>
+<rect x="418.4" y="640.2" width="22.2" height="133.8" rx="2" fill="#7a5dbd"/>
+<rect x="446.6" y="699.7" width="22.2" height="74.3" rx="2" fill="#7a5dbd"/>
+<rect x="474.8" y="744.3" width="22.2" height="29.7" rx="2" fill="#7a5dbd"/>
+<rect x="503.0" y="699.7" width="22.2" height="74.3" rx="2" fill="#7a5dbd"/>
+<text x="514.1" y="807" fill="#647084" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle">2009</text>
+<rect x="531.2" y="714.5" width="22.2" height="59.5" rx="2" fill="#7a5dbd"/>
+<rect x="559.4" y="729.4" width="22.2" height="44.6" rx="2" fill="#7a5dbd"/>
+<rect x="587.6" y="759.1" width="22.2" height="14.9" rx="2" fill="#7a5dbd"/>
+<rect x="615.8" y="640.2" width="22.2" height="133.8" rx="2" fill="#7a5dbd"/>
+<rect x="644.0" y="774.0" width="22.2" height="0.0" rx="2" fill="#7a5dbd"/>
+<text x="655.1" y="807" fill="#647084" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle">2014</text>
+<rect x="672.2" y="595.6" width="22.2" height="178.4" rx="2" fill="#7a5dbd"/>
+<rect x="700.4" y="684.8" width="22.2" height="89.2" rx="2" fill="#7a5dbd"/>
+<rect x="728.6" y="640.2" width="22.2" height="133.8" rx="2" fill="#7a5dbd"/>
+<rect x="756.8" y="714.5" width="22.2" height="59.5" rx="2" fill="#7a5dbd"/>
+<rect x="785.0" y="640.2" width="22.2" height="133.8" rx="2" fill="#7a5dbd"/>
+<text x="796.1" y="807" fill="#647084" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle">2019</text>
+<rect x="813.2" y="699.7" width="22.2" height="74.3" rx="2" fill="#7a5dbd"/>
+<rect x="841.4" y="714.5" width="22.2" height="59.5" rx="2" fill="#7a5dbd"/>
+<rect x="869.6" y="655.1" width="22.2" height="118.9" rx="2" fill="#7a5dbd"/>
+<rect x="897.8" y="625.3" width="22.2" height="148.7" rx="2" fill="#7a5dbd"/>
+<text x="908.9" y="807" fill="#647084" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle">2023</text>
+<text x="1027" y="531" fill="#26334f" font-family="Arial, sans-serif" font-size="17" font-weight="700" >Restriction</text>
+<rect x="1200" y="516" width="250" height="15" rx="7" fill="#eeeaf5"/>
+<rect x="1200" y="516" width="175.0" height="15" rx="7" fill="#8669c8"/>
+<text x="1519" y="531" fill="#26334f" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="end">91</text>
+<text x="1027" y="577" fill="#26334f" font-family="Arial, sans-serif" font-size="17" font-weight="700" >Type</text>
+<rect x="1200" y="562" width="250" height="15" rx="7" fill="#eeeaf5"/>
+<rect x="1200" y="562" width="161.5" height="15" rx="7" fill="#8669c8"/>
+<text x="1519" y="577" fill="#26334f" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="end">84</text>
+<text x="1027" y="623" fill="#26334f" font-family="Arial, sans-serif" font-size="17" font-weight="700" >Position</text>
+<rect x="1200" y="608" width="250" height="15" rx="7" fill="#eeeaf5"/>
+<rect x="1200" y="608" width="148.1" height="15" rx="7" fill="#8669c8"/>
+<text x="1519" y="623" fill="#26334f" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="end">77</text>
+<text x="1027" y="669" fill="#26334f" font-family="Arial, sans-serif" font-size="17" font-weight="700" >Duration</text>
+<rect x="1200" y="654" width="250" height="15" rx="7" fill="#eeeaf5"/>
+<rect x="1200" y="654" width="138.5" height="15" rx="7" fill="#8669c8"/>
+<text x="1519" y="669" fill="#26334f" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="end">72</text>
+<text x="1027" y="715" fill="#26334f" font-family="Arial, sans-serif" font-size="17" font-weight="700" >Condition</text>
+<rect x="1200" y="700" width="250" height="15" rx="7" fill="#eeeaf5"/>
+<rect x="1200" y="700" width="101.9" height="15" rx="7" fill="#8669c8"/>
+<text x="1519" y="715" fill="#26334f" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="end">53</text>
+<text x="1027" y="761" fill="#26334f" font-family="Arial, sans-serif" font-size="17" font-weight="700" >Non-restriction</text>
+<rect x="1200" y="746" width="250" height="15" rx="7" fill="#eeeaf5"/>
+<rect x="1200" y="746" width="69.2" height="15" rx="7" fill="#8669c8"/>
+<text x="1519" y="761" fill="#26334f" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="end">36</text>
+<text x="1027" y="834" fill="#788396" font-family="Arial, sans-serif" font-size="15" font-weight="600" >Overlapping labels  •  Descriptive sample</text>
+<text x="40" y="883" fill="#768194" font-family="Arial, sans-serif" font-size="15" font-weight="500" >Aggregate preview only. Raw filing passages, identifiers, and research comments are excluded.</text>
+</svg>

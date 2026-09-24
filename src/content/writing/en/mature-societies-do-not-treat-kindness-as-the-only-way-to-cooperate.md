@@ -1,6 +1,6 @@
 ---
 title: "A Mature Society Does Not Treat Kindness As The Only Way To Cooperate"
-description: "Kindness fits small circles, markets fit large societies; a society cannot run only on goodwill, but needs mechanisms for stable cooperation among strangers"
+description: "Cooperation among strangers needs dependable institutions and incentives that can operate beyond personal goodwill."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Kindness fits small circles, markets fit large societies; a society cannot run only on goodwill, but needs mechanisms for stable cooperation among strangers.
+> Cooperation among strangers needs dependable institutions and incentives that can operate beyond personal goodwill.
 
 In Lecture 006 on Adam Smith's view of human nature, Xue Zhaofeng addresses a common misunderstanding. Some people think economics is built on selfishness, so it applies only to selfish people. If people have love and morality, they assume economics no longer applies. This reads Adam Smith too simply.
 

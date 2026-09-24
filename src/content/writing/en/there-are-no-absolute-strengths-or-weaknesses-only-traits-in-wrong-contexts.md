@@ -1,6 +1,6 @@
 ---
 title: "There Are No Absolute Strengths Or Weaknesses, Only Traits In The Wrong Context"
-description: "Mature judgment does not rush to label people good or bad; it asks where their traits can create value"
+description: "Understanding a person's traits requires asking which circumstances allow those traits to contribute value."
 date: 2026-03-11
 category: "Cognition"
 tags: ["Traits", "Context", "Self-Knowledge"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Traits themselves are not good or bad; what matters is whether they are placed in the right context.
+> Understanding a person's traits requires asking which circumstances allow those traits to contribute value.
 
 After reading Letter 091, "Strengths, Weaknesses, And Traits," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many things in the world cannot be simply divided into "strengths" and "weaknesses." Very often, what is called a person's strength may become a weakness in another environment. What is called a person's weakness may also become a unique value when placed in the right context. What truly matters is not rushing to label people or things, but seeing the trait behind them and understanding what kind of environment that trait suits.
 

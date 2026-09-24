@@ -1,6 +1,6 @@
 ---
 title: "Efficiency Is Not Doing More, But Doing Less Ineffective Work"
-description: "Truly efficient people do not spread effort evenly; they first find the key dividing point"
+description: "Better results begin with identifying the work that makes a difference and reducing effort elsewhere."
 date: 2026-02-28
 category: "Cognition"
 tags: ["Efficiency", "Choice", "Ineffective Effort"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Truly efficient people do not spread effort evenly; they first find the key dividing point.
+> Better results begin with identifying the work that makes a difference and reducing effort elsewhere.
 
 After reading Letter 059, "Quicksort: To Improve Efficiency, Do Fewer Things," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: the key to improving efficiency is often not doing things faster or investing more time, but first thinking clearly about which things do not need to be done at all. People often understand efficiency as acceleration, as if more diligence, harder work, and more intensity can get things done well. But this letter reminds me that truly efficient thinking uses reasonable classification and fewer useless comparisons to break complex problems into smaller problems that are easier to handle.
 

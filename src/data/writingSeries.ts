@@ -8,25 +8,25 @@ export const writingSeries = [
     slug: "cognition",
     category: "Cognition",
     title: "Cognition",
-    description: "Reflections on cognitive models, boundaries, trust, attention, and self-training.",
+    description: "How we learn, direct our attention, build trust, and make better decisions.",
   },
   {
     slug: "economic-thinking",
     category: "Economic Thinking",
     title: "Economic Thinking",
-    description: "Thinking through incentives, costs, choices, resource allocation, and long-term returns.",
+    description: "How incentives, opportunity costs, and tradeoffs shape everyday choices and social outcomes.",
   },
   {
     slug: "finance",
     category: "Finance",
     title: "Finance",
-    description: "Frameworks for markets, risk, investment logic, and financial judgment.",
+    description: "Exploring market behavior, investment decisions, and the risks behind potential returns.",
   },
   {
     slug: "business-cases",
     category: "Business Cases",
     title: "Business Cases",
-    description: "Business models, strategy, products, and management judgment through real cases.",
+    description: "Lessons from companies and founders on building products, choosing strategies, and leading teams.",
   },
 ] as const;
 

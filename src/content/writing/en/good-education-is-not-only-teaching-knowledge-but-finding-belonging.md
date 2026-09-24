@@ -1,6 +1,6 @@
 ---
 title: "Good Education Is Not Only Teaching Knowledge, But Helping People Find Belonging"
-description: "The meaning of the college system is turning a university from a place of study into a community of growth"
+description: "A college community helps students grow through shared experiences, personal connections, and a sense of belonging."
 date: 2026-03-03
 category: "Cognition"
 tags: ["Education", "Belonging", "Growth Environment"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> The meaning of the college system is turning a university from a place of study into a community of growth.
+> A college community helps students grow through shared experiences, personal connections, and a sense of belonging.
 
 After reading Letter 072, "The College System at Oxford and Cambridge," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: truly good education is not only passing knowledge to students, nor is it simply providing courses, exams, and diplomas. It should shape and support students inside a long-term and stable community, and ultimately help them grow into people who can enter society. The reason the Oxford and Cambridge college system is special is not only its long history. It is that it truly combines learning and living.
 

@@ -1,6 +1,6 @@
 ---
 title: "Real Upward Mobility Comes From Seeing Change, Not Complaining About Rigidity"
-description: "Opportunities are not evenly distributed, but change constantly revalues people's positions."
+description: "Social and economic change can open new paths for people who recognize where opportunities are emerging."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Opportunities are not evenly distributed, but change constantly revalues people's positions.
+> Social and economic change can open new paths for people who recognize where opportunities are emerging.
 
 Lecture 034 discusses price discrimination and social mobility through a broader point: opportunity is never evenly distributed, but the world is never completely still. A person trapped in the feeling that everything is fixed may miss the places where change is already rewriting the rules.
 

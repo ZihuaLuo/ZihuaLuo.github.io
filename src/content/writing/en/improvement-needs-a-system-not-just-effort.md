@@ -1,6 +1,6 @@
 ---
 title: "Improvement Needs a System, Not Just Effort"
-description: "Real progress requires three things: a direction worth moving toward, the ability to learn from disagreement, and a system that preserves what has already been learned."
+description: "Lasting improvement needs a clear direction, openness to disagreement, and a way to retain what experience teaches us."
 date: 2026-09-04
 category: "Cognition"
 tags: ["Self-Improvement", "Systems", "Learning"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Real progress requires three things: a direction worth moving toward, the ability to learn from disagreement, and a system that preserves what has already been learned.
+> Lasting improvement needs a clear direction, openness to disagreement, and a way to retain what experience teaches us.
 
 If spending 10,000 hours is not enough to create expertise, the obvious question is what should replace simple repetition. The answer in this essay can be reduced to three habits. The first is to connect vision, goals, and actions. A vision gives direction. A software engineer, for example, should not aim merely to become faster at writing a particular programming language. Languages and tools change. A better vision might be to become capable of leading a team that builds a world-class product.
 

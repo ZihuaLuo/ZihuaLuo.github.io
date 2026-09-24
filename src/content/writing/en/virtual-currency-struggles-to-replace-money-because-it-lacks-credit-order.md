@@ -1,6 +1,6 @@
 ---
 title: "Virtual Currency Struggles To Replace Money Because It Lacks Credit Order"
-description: "Money can be transformed by technology, but it cannot detach from stability, circulation, and regulation"
+description: "New forms of currency still face the need for trust, stability, broad acceptance, and workable rules."
 date: 2026-03-08
 category: "Finance"
 tags: ["Virtual Currency", "Credit Order", "Financial Innovation"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Money can be transformed by technology, but it cannot detach from stability, circulation, and regulation.
+> New forms of currency still face the need for trust, stability, broad acceptance, and workable rules.
 
 After reading Letter 084, "Can Virtual Currency Replace Existing Currency?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: whether virtual currency can replace existing currency looks like a technical question on the surface, but it is actually a question of credit, efficiency, and governance. When many people talk about Bitcoin, blockchain, and cryptocurrency, they are easily attracted by ideas such as "decentralization," "immutability," and "freedom from government control," as if sufficiently advanced technology could naturally replace traditional money. But this letter reminds me that money becomes money not merely because it can be recorded, but because it can stably perform exchange, accounting, circulation, and macroeconomic regulation.
 

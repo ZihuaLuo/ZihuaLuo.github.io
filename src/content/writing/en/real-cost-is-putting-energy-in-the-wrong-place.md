@@ -1,6 +1,6 @@
 ---
 title: "Real Cost Is Putting Energy In The Wrong Place"
-description: "A society's deepest waste is not that people do not work hard, but that effort fails to flow toward creating value."
+description: "Effort becomes wasteful when incentives draw people away from productive work and toward competing for advantage."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> A society's deepest waste is not that people do not work hard, but that effort fails to flow toward creating value.
+> Effort becomes wasteful when incentives draw people away from productive work and toward competing for advantage.
 
 The Week 12 Q&A returns to price controls, but the deeper topic is effort. People will always compete. The question is where institutions direct that competition.
 

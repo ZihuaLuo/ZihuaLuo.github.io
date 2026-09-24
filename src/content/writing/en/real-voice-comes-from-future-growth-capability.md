@@ -1,6 +1,6 @@
 ---
 title: "Real Voice Comes From Future Growth Capability"
-description: "When judging a country, organization, or person, do not only ask what they have now; ask whether they can keep creating in the future"
+description: "Lasting influence depends on the ability to keep creating value as circumstances change."
 date: 2026-04-04
 category: "Cognition"
 tags: ["Growth", "Future Potential", "Dynamic Judgment"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> When judging a country, organization, or person, do not only ask what they have now; ask whether they can keep creating in the future.
+> Lasting influence depends on the ability to keep creating value as circumstances change.
 
 Wu Jun's Letter 210 compares the long-term prospects of Russia and India, but the deeper value of the discussion is not the country comparison itself. It offers a method of judgment: do not only look at current stock. Look at future increment.
 

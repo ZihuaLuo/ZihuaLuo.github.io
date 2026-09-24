@@ -1,6 +1,6 @@
 ---
 title: "Real Choice Means Seeing The Costs That Did Not Happen"
-description: "Mature judgment sees not only what has happened, but also the possibilities given up by a choice"
+description: "Evaluating a choice requires considering the alternatives it ruled out as well as the results we can observe."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Mature judgment sees not only what has happened, but also the possibilities given up by a choice.
+> Evaluating a choice requires considering the alternatives it ruled out as well as the results we can observe.
 
 Xue Zhaofeng's third lecture, based on Bastiat's distinction between the seen and the unseen, gives a simple but powerful standard for judgment. A bad economist sees only the immediate consequence. A good economist also sees the consequences that did not appear directly.
 

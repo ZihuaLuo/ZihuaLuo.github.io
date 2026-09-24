@@ -1,6 +1,6 @@
 ---
 title: "Real Cost Awareness Sees What Every Choice Gives Up"
-description: "Judging whether something is worth doing requires looking not only at immediate gains, but also at the opportunities given up"
+description: "A choice becomes clearer when we compare its benefits with the opportunities we must give up to pursue it."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Judging whether something is worth doing requires looking not only at immediate gains, but also at the opportunities given up.
+> A choice becomes clearer when we compare its benefits with the opportunities we must give up to pursue it.
 
 In the fourth-week Q&A, Xue Zhaofeng connects several questions that look unrelated: why building aircraft may cost China more than producing socks, why medicine becomes more expensive, why repeated attempts are not free, and why sunk cost should not keep controlling a decision. The common thread is cost. To understand cost is not to ask only what I want to do, but what I give up by doing it.
 

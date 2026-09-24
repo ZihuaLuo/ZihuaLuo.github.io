@@ -1,6 +1,6 @@
 ---
 title: "True Value Is Not Always Hidden In Cheapness"
-description: "Good investing is not about whether the price is low, but whether the value is large enough"
+description: "An attractive investment depends on the value received for the price paid, even when the price itself looks high."
 date: 2026-02-26
 category: "Finance"
 tags: ["Value Investing", "Valuation", "Fundamentals"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Good investing is not about whether the price is low, but whether the value is large enough.
+> An attractive investment depends on the value received for the price paid, even when the price itself looks high.
 
 After reading Letter 056, "The Secret to Investment Master Bill Miller's Success," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: one of the easiest misunderstandings in investing is mistaking "cheap" for "valuable." Many people think stocks with low PE ratios, falling prices, or poor market sentiment are value investments. But Bill Miller's investment philosophy reminds me that true value is not a low price. It is whether a company has a large enough future space, and whether today's price is worth exchanging for tomorrow's growth.
 

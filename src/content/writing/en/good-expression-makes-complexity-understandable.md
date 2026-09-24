@@ -1,6 +1,6 @@
 ---
 title: "Good Expression Makes Complexity Understandable"
-description: "A good communicator does not tell every detail, but knows how to help others grasp the point"
+description: "Clear communication selects the details that help an audience understand the central idea."
 date: 2026-03-31
 category: "Cognition"
 tags: ["Expression", "Communication", "Simplification"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> A good communicator does not tell every detail, but knows how to help others grasp the point.
+> Clear communication selects the details that help an audience understand the central idea.
 
 After reading Letter 192 from Wu Jun's *Silicon Valley Letters 2*, I understood that good expression is not simply making language vivid. It is making complexity understandable while keeping the logic honest. A metaphor is useful only when it clarifies structure. If it creates a false impression, it may become more harmful than a dry explanation.
 

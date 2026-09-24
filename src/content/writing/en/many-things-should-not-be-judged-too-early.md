@@ -1,6 +1,6 @@
 ---
 title: "Many Things Should Not Be Judged Too Early"
-description: "Understanding something fully often requires time, cost, and historical context to test it together"
+description: "Time, consequences, and historical context can reveal what an early judgment misses."
 date: 2026-03-18
 category: "Cognition"
 tags: ["Judgment", "Historical Context", "Long-Term Risk"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Understanding something fully often requires time, cost, and historical context to test it together.
+> Time, consequences, and historical context can reveal what an early judgment misses.
 
 After reading Letter 107, "A New Understanding Of DDT," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many things cannot be simply judged as good or bad at the beginning. An invention, a choice, or a system may save countless lives in one historical stage, and later reveal serious side effects after long-term use. Mature judgment does not rush to conclude. It admits the complexity of the world and understands that the same thing may look completely different across different times and environments.
 

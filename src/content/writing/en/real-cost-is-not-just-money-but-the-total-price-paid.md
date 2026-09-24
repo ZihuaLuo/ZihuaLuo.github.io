@@ -1,6 +1,6 @@
 ---
 title: "Real Cost Is Not Just Money, But The Total Price Paid"
-description: "Looking only at price leads to misjudgment; real cost includes time, risk, trouble, and opportunities given up"
+description: "The full cost of a choice includes time, risk, inconvenience, and the opportunities left behind."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Looking only at price leads to misjudgment; real cost includes time, risk, trouble, and opportunities given up.
+> The full cost of a choice includes time, risk, inconvenience, and the opportunities left behind.
 
 In Lecture 015, Xue Zhaofeng continues the idea of cost. Many people think economics cares only about money. Good economic thinking does the opposite: it looks at total cost. Money is only one part. Time, energy, risk, information, trouble, and opportunity are also costs.
 

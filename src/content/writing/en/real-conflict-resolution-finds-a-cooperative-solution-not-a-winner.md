@@ -1,6 +1,6 @@
 ---
 title: "Real Conflict Resolution Finds A Cooperative Solution, Not A Winner"
-description: "When reasoning cannot settle a conflict, the key is often to move resources toward higher-value use"
+description: "Resolving a conflict often means finding an agreement that puts resources to better use for those involved."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> When reasoning cannot settle a conflict, the key is often to move resources toward higher-value use.
+> Resolving a conflict often means finding an agreement that puts resources to better use for those involved.
 
 In Lecture 027, Xue Zhaofeng applies the Coase theorem to everyday conflict. Many disputes look like fights over who is right. The deeper question is often how the same resource can be used to create higher value. If each side only argues principle, both can sound right. If needs are translated into costs and compensation, cooperation becomes possible.
 

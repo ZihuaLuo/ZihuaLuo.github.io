@@ -1,0 +1,983 @@
+{
+  "meta": {
+    "source": "Scandals Cases_202512.xlsx",
+    "sheet": "Reset Cases",
+    "codedRecords": 678,
+    "cases": 130,
+    "companies": 94,
+    "classifiedRecords": 651,
+    "datedRecords": 677,
+    "undatedRecords": 1,
+    "firstYear": 1989,
+    "lastYear": 2024,
+    "separateArticleRows": 11642
+  },
+  "categories": [
+    {
+      "name": "Fraud",
+      "cases": 86,
+      "records": 470
+    },
+    {
+      "name": "Discrimination",
+      "cases": 11,
+      "records": 25
+    },
+    {
+      "name": "Safety",
+      "cases": 9,
+      "records": 44
+    },
+    {
+      "name": "Corporate Governance",
+      "cases": 6,
+      "records": 27
+    },
+    {
+      "name": "Fraud (Pollution)",
+      "cases": 6,
+      "records": 54
+    },
+    {
+      "name": "Other",
+      "cases": 3,
+      "records": 15
+    },
+    {
+      "name": "Sexual Harassment",
+      "cases": 3,
+      "records": 17
+    },
+    {
+      "name": "Harassment",
+      "cases": 2,
+      "records": 8
+    },
+    {
+      "name": "Fraud / Safety",
+      "cases": 1,
+      "records": 2
+    },
+    {
+      "name": "Human Rights",
+      "cases": 1,
+      "records": 5
+    },
+    {
+      "name": "Market Manipulation",
+      "cases": 1,
+      "records": 4
+    },
+    {
+      "name": "Unfair Competition",
+      "cases": 1,
+      "records": 7
+    }
+  ],
+  "actions": [
+    {
+      "name": "Settlement",
+      "records": 139
+    },
+    {
+      "name": "Corrective Measures",
+      "records": 126
+    },
+    {
+      "name": "Leadership Changes",
+      "records": 123
+    },
+    {
+      "name": "Settlement & Corrective Measures",
+      "records": 69
+    },
+    {
+      "name": "Public Acknowledgement / Apology",
+      "records": 62
+    },
+    {
+      "name": "Investigation & Audit (Independent Investigator/Auditor Hired)",
+      "records": 52
+    },
+    {
+      "name": "Investigation & Audit (Internal)",
+      "records": 33
+    },
+    {
+      "name": "Initial Accusation",
+      "records": 31
+    },
+    {
+      "name": "Unclassified",
+      "records": 27
+    },
+    {
+      "name": "Employee Training & Cultural Change",
+      "records": 16
+    }
+  ],
+  "annual": [
+    {
+      "year": 1989,
+      "category": "Safety",
+      "records": 1
+    },
+    {
+      "year": 1997,
+      "category": "Safety",
+      "records": 1
+    },
+    {
+      "year": 1998,
+      "category": "Fraud",
+      "records": 1
+    },
+    {
+      "year": 1998,
+      "category": "Unfair Competition",
+      "records": 1
+    },
+    {
+      "year": 1999,
+      "category": "Fraud",
+      "records": 6
+    },
+    {
+      "year": 2000,
+      "category": "Fraud",
+      "records": 1
+    },
+    {
+      "year": 2001,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2001,
+      "category": "Fraud",
+      "records": 4
+    },
+    {
+      "year": 2001,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2001,
+      "category": "Harassment",
+      "records": 1
+    },
+    {
+      "year": 2001,
+      "category": "Unfair Competition",
+      "records": 1
+    },
+    {
+      "year": 2002,
+      "category": "Corporate Governance",
+      "records": 1
+    },
+    {
+      "year": 2002,
+      "category": "Fraud",
+      "records": 19
+    },
+    {
+      "year": 2002,
+      "category": "Fraud (Pollution)",
+      "records": 1
+    },
+    {
+      "year": 2002,
+      "category": "Harassment",
+      "records": 1
+    },
+    {
+      "year": 2002,
+      "category": "Other",
+      "records": 1
+    },
+    {
+      "year": 2002,
+      "category": "Safety",
+      "records": 3
+    },
+    {
+      "year": 2002,
+      "category": "Unfair Competition",
+      "records": 1
+    },
+    {
+      "year": 2003,
+      "category": "Corporate Governance",
+      "records": 1
+    },
+    {
+      "year": 2003,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2003,
+      "category": "Fraud",
+      "records": 19
+    },
+    {
+      "year": 2003,
+      "category": "Other",
+      "records": 4
+    },
+    {
+      "year": 2004,
+      "category": "Discrimination",
+      "records": 5
+    },
+    {
+      "year": 2004,
+      "category": "Fraud",
+      "records": 58
+    },
+    {
+      "year": 2004,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2004,
+      "category": "Fraud / Safety",
+      "records": 1
+    },
+    {
+      "year": 2004,
+      "category": "Other",
+      "records": 7
+    },
+    {
+      "year": 2004,
+      "category": "Safety",
+      "records": 3
+    },
+    {
+      "year": 2004,
+      "category": "Unfair Competition",
+      "records": 3
+    },
+    {
+      "year": 2005,
+      "category": "Corporate Governance",
+      "records": 4
+    },
+    {
+      "year": 2005,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2005,
+      "category": "Fraud",
+      "records": 47
+    },
+    {
+      "year": 2005,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2005,
+      "category": "Market Manipulation",
+      "records": 4
+    },
+    {
+      "year": 2005,
+      "category": "Other",
+      "records": 2
+    },
+    {
+      "year": 2005,
+      "category": "Safety",
+      "records": 9
+    },
+    {
+      "year": 2005,
+      "category": "Unfair Competition",
+      "records": 1
+    },
+    {
+      "year": 2006,
+      "category": "Corporate Governance",
+      "records": 14
+    },
+    {
+      "year": 2006,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2006,
+      "category": "Fraud",
+      "records": 46
+    },
+    {
+      "year": 2006,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2006,
+      "category": "Safety",
+      "records": 2
+    },
+    {
+      "year": 2007,
+      "category": "Corporate Governance",
+      "records": 1
+    },
+    {
+      "year": 2007,
+      "category": "Discrimination",
+      "records": 6
+    },
+    {
+      "year": 2007,
+      "category": "Fraud",
+      "records": 21
+    },
+    {
+      "year": 2007,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2007,
+      "category": "Fraud / Safety",
+      "records": 1
+    },
+    {
+      "year": 2007,
+      "category": "Other",
+      "records": 1
+    },
+    {
+      "year": 2007,
+      "category": "Safety",
+      "records": 18
+    },
+    {
+      "year": 2008,
+      "category": "Fraud",
+      "records": 14
+    },
+    {
+      "year": 2008,
+      "category": "Safety",
+      "records": 1
+    },
+    {
+      "year": 2009,
+      "category": "Fraud",
+      "records": 18
+    },
+    {
+      "year": 2010,
+      "category": "Fraud",
+      "records": 20
+    },
+    {
+      "year": 2010,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2010,
+      "category": "Harassment",
+      "records": 1
+    },
+    {
+      "year": 2011,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2011,
+      "category": "Fraud",
+      "records": 37
+    },
+    {
+      "year": 2011,
+      "category": "Harassment",
+      "records": 1
+    },
+    {
+      "year": 2011,
+      "category": "Safety",
+      "records": 1
+    },
+    {
+      "year": 2012,
+      "category": "Discrimination",
+      "records": 2
+    },
+    {
+      "year": 2012,
+      "category": "Fraud",
+      "records": 21
+    },
+    {
+      "year": 2012,
+      "category": "Fraud (Pollution)",
+      "records": 1
+    },
+    {
+      "year": 2013,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2013,
+      "category": "Fraud",
+      "records": 8
+    },
+    {
+      "year": 2014,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2014,
+      "category": "Fraud",
+      "records": 18
+    },
+    {
+      "year": 2014,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2015,
+      "category": "Corporate Governance",
+      "records": 1
+    },
+    {
+      "year": 2015,
+      "category": "Fraud",
+      "records": 35
+    },
+    {
+      "year": 2015,
+      "category": "Fraud (Pollution)",
+      "records": 1
+    },
+    {
+      "year": 2015,
+      "category": "Safety",
+      "records": 1
+    },
+    {
+      "year": 2016,
+      "category": "Corporate Governance",
+      "records": 5
+    },
+    {
+      "year": 2016,
+      "category": "Discrimination",
+      "records": 3
+    },
+    {
+      "year": 2016,
+      "category": "Fraud",
+      "records": 17
+    },
+    {
+      "year": 2016,
+      "category": "Fraud (Pollution)",
+      "records": 6
+    },
+    {
+      "year": 2016,
+      "category": "Safety",
+      "records": 3
+    },
+    {
+      "year": 2017,
+      "category": "Fraud",
+      "records": 15
+    },
+    {
+      "year": 2017,
+      "category": "Fraud (Pollution)",
+      "records": 9
+    },
+    {
+      "year": 2017,
+      "category": "Harassment",
+      "records": 3
+    },
+    {
+      "year": 2017,
+      "category": "Sexual Harassment",
+      "records": 4
+    },
+    {
+      "year": 2018,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2018,
+      "category": "Fraud",
+      "records": 21
+    },
+    {
+      "year": 2018,
+      "category": "Fraud (Pollution)",
+      "records": 5
+    },
+    {
+      "year": 2018,
+      "category": "Harassment",
+      "records": 1
+    },
+    {
+      "year": 2018,
+      "category": "Human Rights",
+      "records": 5
+    },
+    {
+      "year": 2018,
+      "category": "Safety",
+      "records": 1
+    },
+    {
+      "year": 2018,
+      "category": "Sexual Harassment",
+      "records": 12
+    },
+    {
+      "year": 2019,
+      "category": "Fraud",
+      "records": 10
+    },
+    {
+      "year": 2019,
+      "category": "Fraud (Pollution)",
+      "records": 2
+    },
+    {
+      "year": 2019,
+      "category": "Sexual Harassment",
+      "records": 1
+    },
+    {
+      "year": 2020,
+      "category": "Discrimination",
+      "records": 1
+    },
+    {
+      "year": 2020,
+      "category": "Fraud",
+      "records": 5
+    },
+    {
+      "year": 2020,
+      "category": "Fraud (Pollution)",
+      "records": 1
+    },
+    {
+      "year": 2021,
+      "category": "Fraud",
+      "records": 3
+    },
+    {
+      "year": 2021,
+      "category": "Fraud (Pollution)",
+      "records": 4
+    },
+    {
+      "year": 2022,
+      "category": "Fraud",
+      "records": 3
+    },
+    {
+      "year": 2023,
+      "category": "Fraud",
+      "records": 1
+    },
+    {
+      "year": 2023,
+      "category": "Fraud (Pollution)",
+      "records": 7
+    },
+    {
+      "year": 2024,
+      "category": "Fraud",
+      "records": 1
+    },
+    {
+      "year": 2024,
+      "category": "Fraud (Pollution)",
+      "records": 3
+    }
+  ],
+  "actionCategory": [
+    {
+      "category": "Corporate Governance",
+      "action": "Corrective Measures",
+      "records": 2
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Employee Training & Cultural Change",
+      "records": 1
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Initial Accusation",
+      "records": 2
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Investigation & Audit (Independent Investigator/Auditor Hired)",
+      "records": 3
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Investigation & Audit (Internal)",
+      "records": 2
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Leadership Changes",
+      "records": 9
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Public Acknowledgement / Apology",
+      "records": 1
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Settlement",
+      "records": 4
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Settlement & Corrective Measures",
+      "records": 2
+    },
+    {
+      "category": "Corporate Governance",
+      "action": "Unclassified",
+      "records": 1
+    },
+    {
+      "category": "Discrimination",
+      "action": "Corrective Measures",
+      "records": 3
+    },
+    {
+      "category": "Discrimination",
+      "action": "Employee Training & Cultural Change",
+      "records": 1
+    },
+    {
+      "category": "Discrimination",
+      "action": "Initial Accusation",
+      "records": 2
+    },
+    {
+      "category": "Discrimination",
+      "action": "Investigation & Audit (Internal)",
+      "records": 1
+    },
+    {
+      "category": "Discrimination",
+      "action": "Leadership Changes",
+      "records": 5
+    },
+    {
+      "category": "Discrimination",
+      "action": "Public Acknowledgement / Apology",
+      "records": 1
+    },
+    {
+      "category": "Discrimination",
+      "action": "Settlement",
+      "records": 11
+    },
+    {
+      "category": "Discrimination",
+      "action": "Unclassified",
+      "records": 1
+    },
+    {
+      "category": "Fraud",
+      "action": "Corrective Measures",
+      "records": 88
+    },
+    {
+      "category": "Fraud",
+      "action": "Employee Training & Cultural Change",
+      "records": 12
+    },
+    {
+      "category": "Fraud",
+      "action": "Initial Accusation",
+      "records": 19
+    },
+    {
+      "category": "Fraud",
+      "action": "Investigation & Audit (Independent Investigator/Auditor Hired)",
+      "records": 32
+    },
+    {
+      "category": "Fraud",
+      "action": "Investigation & Audit (Internal)",
+      "records": 20
+    },
+    {
+      "category": "Fraud",
+      "action": "Leadership Changes",
+      "records": 95
+    },
+    {
+      "category": "Fraud",
+      "action": "Public Acknowledgement / Apology",
+      "records": 45
+    },
+    {
+      "category": "Fraud",
+      "action": "Settlement",
+      "records": 94
+    },
+    {
+      "category": "Fraud",
+      "action": "Settlement & Corrective Measures",
+      "records": 53
+    },
+    {
+      "category": "Fraud",
+      "action": "Unclassified",
+      "records": 12
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Corrective Measures",
+      "records": 12
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Employee Training & Cultural Change",
+      "records": 1
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Investigation & Audit (Internal)",
+      "records": 3
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Leadership Changes",
+      "records": 2
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Public Acknowledgement / Apology",
+      "records": 4
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Settlement",
+      "records": 16
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Settlement & Corrective Measures",
+      "records": 11
+    },
+    {
+      "category": "Fraud (Pollution)",
+      "action": "Unclassified",
+      "records": 5
+    },
+    {
+      "category": "Fraud / Safety",
+      "action": "Corrective Measures",
+      "records": 1
+    },
+    {
+      "category": "Fraud / Safety",
+      "action": "Settlement",
+      "records": 1
+    },
+    {
+      "category": "Harassment",
+      "action": "Corrective Measures",
+      "records": 1
+    },
+    {
+      "category": "Harassment",
+      "action": "Investigation & Audit (Internal)",
+      "records": 2
+    },
+    {
+      "category": "Harassment",
+      "action": "Leadership Changes",
+      "records": 1
+    },
+    {
+      "category": "Harassment",
+      "action": "Public Acknowledgement / Apology",
+      "records": 2
+    },
+    {
+      "category": "Harassment",
+      "action": "Settlement & Corrective Measures",
+      "records": 2
+    },
+    {
+      "category": "Human Rights",
+      "action": "Unclassified",
+      "records": 5
+    },
+    {
+      "category": "Market Manipulation",
+      "action": "Corrective Measures",
+      "records": 1
+    },
+    {
+      "category": "Market Manipulation",
+      "action": "Investigation & Audit (Independent Investigator/Auditor Hired)",
+      "records": 1
+    },
+    {
+      "category": "Market Manipulation",
+      "action": "Investigation & Audit (Internal)",
+      "records": 1
+    },
+    {
+      "category": "Market Manipulation",
+      "action": "Settlement",
+      "records": 1
+    },
+    {
+      "category": "Other",
+      "action": "Initial Accusation",
+      "records": 1
+    },
+    {
+      "category": "Other",
+      "action": "Investigation & Audit (Independent Investigator/Auditor Hired)",
+      "records": 7
+    },
+    {
+      "category": "Other",
+      "action": "Investigation & Audit (Internal)",
+      "records": 1
+    },
+    {
+      "category": "Other",
+      "action": "Leadership Changes",
+      "records": 2
+    },
+    {
+      "category": "Other",
+      "action": "Public Acknowledgement / Apology",
+      "records": 1
+    },
+    {
+      "category": "Other",
+      "action": "Settlement",
+      "records": 3
+    },
+    {
+      "category": "Safety",
+      "action": "Corrective Measures",
+      "records": 15
+    },
+    {
+      "category": "Safety",
+      "action": "Initial Accusation",
+      "records": 6
+    },
+    {
+      "category": "Safety",
+      "action": "Investigation & Audit (Independent Investigator/Auditor Hired)",
+      "records": 8
+    },
+    {
+      "category": "Safety",
+      "action": "Investigation & Audit (Internal)",
+      "records": 2
+    },
+    {
+      "category": "Safety",
+      "action": "Leadership Changes",
+      "records": 2
+    },
+    {
+      "category": "Safety",
+      "action": "Public Acknowledgement / Apology",
+      "records": 6
+    },
+    {
+      "category": "Safety",
+      "action": "Settlement",
+      "records": 4
+    },
+    {
+      "category": "Safety",
+      "action": "Settlement & Corrective Measures",
+      "records": 1
+    },
+    {
+      "category": "Sexual Harassment",
+      "action": "Corrective Measures",
+      "records": 3
+    },
+    {
+      "category": "Sexual Harassment",
+      "action": "Employee Training & Cultural Change",
+      "records": 1
+    },
+    {
+      "category": "Sexual Harassment",
+      "action": "Investigation & Audit (Independent Investigator/Auditor Hired)",
+      "records": 1
+    },
+    {
+      "category": "Sexual Harassment",
+      "action": "Investigation & Audit (Internal)",
+      "records": 1
+    },
+    {
+      "category": "Sexual Harassment",
+      "action": "Leadership Changes",
+      "records": 7
+    },
+    {
+      "category": "Sexual Harassment",
+      "action": "Public Acknowledgement / Apology",
+      "records": 1
+    },
+    {
+      "category": "Sexual Harassment",
+      "action": "Unclassified",
+      "records": 3
+    },
+    {
+      "category": "Unfair Competition",
+      "action": "Initial Accusation",
+      "records": 1
+    },
+    {
+      "category": "Unfair Competition",
+      "action": "Public Acknowledgement / Apology",
+      "records": 1
+    },
+    {
+      "category": "Unfair Competition",
+      "action": "Settlement",
+      "records": 5
+    }
+  ]
+}

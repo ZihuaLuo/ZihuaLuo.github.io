@@ -1,6 +1,6 @@
 ---
 title: "Pessimism Is Not Clarity, Action Is Clarity"
-description: "Truly strong people do not fail to see problems; they are not trapped by them"
+description: "Recognizing a problem becomes useful when it helps us choose a practical next step."
 date: 2026-03-01
 category: "Cognition"
 tags: ["Pessimism", "Action", "Clarity"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Truly strong people do not fail to see problems; they are not trapped by them.
+> Recognizing a problem becomes useful when it helps us choose a practical next step.
 
 After reading Letter 065, "Why Does Pessimism Become Popular?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: pessimism becomes popular not only because the world is truly getting worse, but because pessimism often looks deeper, more mature, and more able to capture attention. Compared with optimism, pessimism looks like "seeing through reality." Compared with action, complaint also feels easier. But this letter reminds me that real clarity is not describing problems as severely as possible. It is seeing problems and still believing that people can do something.
 

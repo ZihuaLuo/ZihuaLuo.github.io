@@ -1,6 +1,6 @@
 ---
 title: "Venture Capital Is Not Betting On Luck, But On Cognition"
-description: "Real venture capital does not invest in immediate profit, but in future possibility"
+description: "Venture capital requires informed judgment about future possibilities before a business can demonstrate its full potential."
 date: 2026-02-21
 category: "Finance"
 tags: ["Venture Capital", "Cognition", "Future Judgment"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Real venture capital does not invest in immediate profit, but in future possibility.
+> Venture capital requires informed judgment about future possibilities before a business can demonstrate its full potential.
 
 After reading Letter 050, "The Origin and Myth of Venture Capital," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: on the surface, venture capital seems to invest money, but in reality it invests in a judgment about the future. When many people hear "venture capital," they easily think of sudden wealth, bubbles, and luck, as if one successful bet on a star company can produce astonishing returns. But this letter reminds me that good venture capital is not simple gambling. It is the attempt to turn an uncertain future into a risk that can be carried, based on technical understanding, industry judgment, and institutional design.
 

@@ -1,6 +1,6 @@
 ---
 title: "Life Is Not About Completing Tasks, But Choosing What To Cherish"
-description: "The truly important things often cannot wait until later"
+description: "Relationships, interests, and meaningful commitments need attention now, while there is still time to nurture them."
 date: 2026-02-12
 category: "Cognition"
 tags: ["Life Choices", "Long-Term Meaning", "Value Judgment"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> The truly important things often cannot wait until later.
+> Relationships, interests, and meaningful commitments need attention now, while there is still time to nurture them.
 
 After reading Letter 012, "The Five Things In A Life," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: the things that truly matter in life are not necessarily the most urgent things. We often give our time to work, grades, income, and external evaluation, while repeatedly postponing longer-lasting things such as love, family, interests, giving back, faith, and legacy. But the problem is that life is not a project that can be postponed indefinitely. Some things, once missed at the right stage, are difficult to make up later.
 

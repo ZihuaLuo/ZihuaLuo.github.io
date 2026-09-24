@@ -1,6 +1,6 @@
 ---
 title: "Core Technology Is Not The Same As Core Competitiveness"
-description: "Real competitiveness is not holding everything in your own hands, but creating the most critical value"
+description: "A company's advantage depends on the essential value it creates and its ability to bring that value to customers."
 date: 2026-03-29
 category: "Cognition"
 tags: ["Core Competitiveness", "Business Judgment", "Resource Integration"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> Real competitiveness is not holding everything in your own hands, but creating the most critical value.
+> A company's advantage depends on the essential value it creates and its ability to bring that value to customers.
 
 After reading Letter 186 from Wu Jun's *Silicon Valley Letters 2*, I realized that many people misunderstand the phrase core technology. They treat it as if a company must own every component and every technical detail to be competitive. But in many modern industries, core competitiveness is not the same as doing everything yourself. It is the ability to create the most important value and organize the best resources around that value.
 

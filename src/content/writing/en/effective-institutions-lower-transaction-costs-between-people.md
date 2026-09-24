@@ -1,6 +1,6 @@
 ---
 title: "Effective Institutions Lower Transaction Costs Between People"
-description: "The value of institutions is not to make every decision for people, but to make cooperation easier"
+description: "Effective institutions make cooperation easier by reducing the costs of finding partners, reaching agreements, and working together."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The value of institutions is not to make every decision for people, but to make cooperation easier.
+> Effective institutions make cooperation easier by reducing the costs of finding partners, reaching agreements, and working together.
 
 In Lecture 025, Xue Zhaofeng formally introduces transaction costs. The Coase theorem often says that if transaction costs are zero, resources will end up in the hands of those who value them most regardless of initial ownership. Reality is not like that. People must communicate, negotiate, verify information, build trust, sign contracts, and monitor execution.
 

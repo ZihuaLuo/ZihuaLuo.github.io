@@ -1,6 +1,6 @@
 ---
 title: "What Matters Is Not Being Optimal, But Surviving Through Adaptation"
-description: "In a world full of uncertainty, many outcomes are not decided by the smartest people, but selected by the environment"
+description: "In uncertain environments, the ability to adapt can determine which approaches survive and continue to develop."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> In a world full of uncertainty, many outcomes are not decided by the smartest people, but selected by the environment.
+> In uncertain environments, the ability to adapt can determine which approaches survive and continue to develop.
 
 In Lecture 005, Xue Zhaofeng discusses Armen Alchian's essay on uncertainty, evolution, and economic theory. The question is fundamental: does economics depend on the assumption that people are perfectly rational? If people in reality are not always rational, can economics still explain anything?
 

@@ -1,6 +1,6 @@
 ---
 title: "What People Say When Asked Is Not Always What They Believe"
-description: "The best way to understand people is often not to ask them what they think, but to observe what they reveal when they are not consciously trying to answer a question."
+description: "Everyday behavior can reveal preferences that direct questions miss, especially when people are conscious of how their answers appear."
 date: 2026-09-05
 category: "Cognition"
 tags: ["Behavioral Data", "Survey Design", "Measurement"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> The best way to understand people is often not to ask them what they think, but to observe what they reveal when they are not consciously trying to answer a question.
+> Everyday behavior can reveal preferences that direct questions miss, especially when people are conscious of how their answers appear.
 
 Traditional surveys appear to offer a direct path to understanding public opinion: ask enough people the same question, aggregate the answers, and infer what society thinks. But the act of asking can change the answer. A small change in wording can produce dramatically different responses. Asking whether someone would personally take an extreme action feels different from asking whether another person “deserves” that action, even when the underlying issue is identical. The respondent is no longer answering only the substantive question. They are also responding to the frame in which the question was presented.
 

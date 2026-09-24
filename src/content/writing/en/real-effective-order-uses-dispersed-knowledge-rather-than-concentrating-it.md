@@ -1,6 +1,6 @@
 ---
 title: "Real Effective Order Uses Dispersed Knowledge Rather Than Concentrating It"
-description: "The most important role of price is not labeling cheap or expensive, but transmitting countless dispersed needs, changes, and judgments."
+description: "Prices communicate changing needs and local knowledge, helping people coordinate without a complete view of the economy."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The most important role of price is not labeling cheap or expensive, but transmitting countless dispersed needs, changes, and judgments.
+> Prices communicate changing needs and local knowledge, helping people coordinate without a complete view of the economy.
 
 Lecture 038 turns to Hayek's idea of knowledge in society. The key insight is that knowledge is not concentrated in one place waiting to be collected. Much of what matters is dispersed among countless people in concrete situations.
 

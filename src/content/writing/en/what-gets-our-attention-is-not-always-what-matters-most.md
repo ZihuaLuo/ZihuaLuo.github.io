@@ -1,6 +1,6 @@
 ---
 title: "What Gets Our Attention Is Not Always What Matters Most"
-description: "Limited attention causes us to overweight information that is visible, recent, or easy to process while neglecting information that may matter far more."
+description: "Visible, recent, or easily processed information can dominate our attention while more consequential evidence goes unnoticed."
 date: 2026-08-29
 category: "Economic Thinking"
 tags: ["Attention", "Salience", "Decision-Making"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Limited attention causes us to overweight information that is visible, recent, or easy to process while neglecting information that may matter far more.
+> Visible, recent, or easily processed information can dominate our attention while more consequential evidence goes unnoticed.
 
 We often assume that important information will naturally receive more attention. In reality, the direction of causality can run the other way: something can appear important simply because it has captured our attention. The Mars example makes this surprisingly clear. When NASA's Pathfinder mission landed on Mars, media coverage repeatedly exposed people to the word “Mars.” Nothing about the chocolate itself had changed, yet sales increased. The product became easier to recall, and that small increase in mental availability was enough to influence purchasing behavior.
 

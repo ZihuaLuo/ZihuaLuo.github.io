@@ -1,6 +1,6 @@
 ---
 title: "Do Not Turn Short-Term Cleverness Into Long-Term Foolishness"
-description: "Truly smart people do not overdraw other people's trust"
+description: "Preserving trust requires considering the lasting cost of a shortcut that offers an immediate advantage."
 date: 2026-02-12
 category: "Cognition"
 tags: ["Long-Term Trust", "Reliability", "Repeated Games"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Truly smart people do not overdraw other people's trust.
+> Preserving trust requires considering the lasting cost of a shortcut that offers an immediate advantage.
 
 After reading Wu Jun's weekend interaction piece, "How To Avoid Becoming Someone Who Plays Petty Tricks," from *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: petty cleverness looks like it is helping us fight for our own interests, but in reality it often overdraws other people's trust. If a person only looks at the gain or loss of one single moment, they may think taking a small advantage does no harm. But if life is viewed as a long-term repeated game, it becomes clear that credit is the asset most worth protecting.
 

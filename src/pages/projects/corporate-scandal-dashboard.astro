@@ -1,0 +1,121 @@
+---
+import { withBase } from "@i18n/routes";
+import data from "../../data/corporateScandal.json";
+
+const { meta } = data;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Aggregate visual analysis of corporate scandal cases and response actions coded in a research workbook." />
+    <title>Corporate Scandal Response Dashboard | Zihua Luo</title>
+  </head>
+  <body>
+    <main class="dashboard" data-scandal-dashboard>
+      <nav class="top-nav" aria-label="Dashboard navigation">
+        <a href={withBase("/ai/")}>← AI Lab</a>
+        <span>Research dashboard <span aria-hidden="true">/</span> Corporate Scandal</span>
+      </nav>
+
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow"><span></span> Research visualization</p>
+          <h1>Corporate Scandal<br /><em>Response Dashboard</em></h1>
+          <p class="hero__summary">Explore how scandal categories and organizational response actions appear in a coded research sample. Select a category to inspect its timeline and response mix.</p>
+          <div class="hero__tags">
+            <span>{meta.firstYear}–{meta.lastYear} observed dates</span>
+            <span>Aggregate views only</span>
+          </div>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__orbit hero__orbit--outer"></div>
+          <div class="hero__orbit hero__orbit--inner"></div>
+          <span class="hero__node hero__node--one"></span>
+          <span class="hero__node hero__node--two"></span>
+          <span class="hero__node hero__node--three"></span>
+          <div class="hero__core"><span>CASE</span><strong>{meta.cases}</strong><small>coded cases</small></div>
+        </div>
+      </header>
+
+      <section class="scope" aria-label="Dataset scope">
+        <div><span>Source</span><strong>{meta.source}</strong></div>
+        <div><span>Analysis sheet</span><strong>{meta.sheet}</strong></div>
+        <div><span>Unit of analysis</span><strong>Research-coded records</strong></div>
+      </section>
+
+      <section class="overview" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <div><p class="section-label">01 / Overview</p><h2 id="overview-title">The coded sample at a glance</h2></div>
+          <button class="reset-filter" type="button" data-reset-filter hidden>Show all categories</button>
+        </div>
+        <p class="selection-line" aria-live="polite" data-selection-line>All scandal categories</p>
+        <div class="kpis">
+          <article class="kpi"><span>Cases in view</span><strong data-kpi-cases>{meta.cases}</strong><small>Distinct research case IDs</small></article>
+          <article class="kpi"><span>Coded records in view</span><strong data-kpi-records>{meta.codedRecords}</strong><small>Multiple records may belong to one case</small></article>
+          <article class="kpi"><span>Records with action labels</span><strong data-kpi-classified>{meta.classifiedRecords}</strong><small>Excludes unclassified action entries</small></article>
+          <article class="kpi kpi--context"><span>Company IDs in full sample</span><strong>{meta.companies}</strong><small>Unfiltered workbook coverage</small></article>
+        </div>
+      </section>
+
+      <div class="chart-grid">
+        <section class="chart-card chart-card--wide" aria-labelledby="timeline-title">
+          <div class="chart-card__head"><div><p class="section-label">02 / Time</p><h2 id="timeline-title">Coded records by year</h2></div><span class="chart-key"><i></i> Records</span></div>
+          <p class="chart-description">Dates of coded entries, 1998–2024. Peaks reflect this research sample and its collection process.</p>
+          <div class="timeline-scroll"><svg data-timeline role="img" aria-label="Annual coded record counts from 1998 to 2024" viewBox="0 0 1000 330"></svg></div>
+          <p class="chart-footnote">Two dated entries before 1998 and one entry with an invalid date are included in totals but not placed on this timeline.</p>
+        </section>
+
+        <section class="chart-card" aria-labelledby="category-title">
+          <div class="chart-card__head"><div><p class="section-label">03 / Composition</p><h2 id="category-title">Cases by scandal category</h2></div></div>
+          <p class="chart-description">Distinct cases, classified by the workbook's category field. Select a bar to filter the timeline and action mix.</p>
+          <div class="bar-list" data-categories></div>
+        </section>
+
+        <section class="chart-card" aria-labelledby="action-title">
+          <div class="chart-card__head"><div><p class="section-label">04 / Coding</p><h2 id="action-title">Action and event labels</h2></div></div>
+          <p class="chart-description">Coded entries by the workbook's action field, including initial accusations. One case may contribute several entries or different labels.</p>
+          <div class="bar-list bar-list--actions" data-actions></div>
+        </section>
+
+        <section class="chart-card chart-card--wide" aria-labelledby="matrix-title">
+          <div class="chart-card__head"><div><p class="section-label">05 / Cross-section</p><h2 id="matrix-title">Where responses appear</h2></div></div>
+          <p class="chart-description">Counts for the five largest case categories and six most frequent action labels. This comparison stays on the full sample.</p>
+          <div class="matrix-scroll"><table class="matrix" data-matrix><caption class="sr-only">Coded records by scandal category and response action</caption></table></div>
+          <p class="chart-footnote">A darker cell means more coded records within its category row. Color is scaled within each row, so compare the printed counts across rows.</p>
+        </section>
+      </div>
+
+      <section class="method" aria-labelledby="method-title">
+        <p class="section-label">06 / Reading the data</p>
+        <h2 id="method-title">Definitions and limits</h2>
+        <div class="method__grid">
+          <div><h3>What is counted</h3><p>A case is a distinct ID in the <strong>Reset Cases</strong> sheet. A coded record is one nonempty-ID row. Response counts are records, not unique cases or verified outcomes.</p></div>
+          <div><h3>What is separate</h3><p>The workbook also has an <strong>Article List</strong> with {meta.separateArticleRows.toLocaleString("en-US")} rows. It has a different grain and is not added to these case or response totals. The separate add-cases sheet is outside this view.</p></div>
+          <div><h3>How to interpret</h3><p>These charts describe a research-coded sample. Coverage and coding may vary by year and category. The counts do not estimate the rate of scandals among companies or prove that one response caused another.</p></div>
+          <div><h3>Public view</h3><p>Only aggregates are shipped with this dashboard. The source workbook, company names, case descriptions, article titles, and researcher notes are not published here.</p></div>
+        </div>
+      </section>
+      <footer>Corporate Scandal research dashboard · Source workbook: {meta.source} · Analysis: {meta.sheet}</footer>
+    </main>
+    <script>import "../../scripts/corporateScandalDashboard";</script>
+  </body>
+</html>
+
+<style is:global>
+  :root{color-scheme:light;--ink:#182d3b;--muted:#627581;--line:#d9e3e6;--paper:#f4f7f6;--teal:#087f81;--orange:#e5804e}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Inter,Arial,sans-serif}
+  button{font:inherit}.dashboard{max-width:1440px;margin:auto;padding:0 32px 44px}.top-nav{height:66px;display:flex;justify-content:space-between;align-items:center;gap:16px;color:#5b6d78;font-size:.78rem;font-weight:700;letter-spacing:.03em}.top-nav a{color:#245d67;text-decoration:none}.top-nav a:hover,.top-nav a:focus-visible{text-decoration:underline}.top-nav span span{margin:0 10px;color:#9babb1}
+  .hero{position:relative;min-height:360px;display:grid;grid-template-columns:minmax(0,1fr) 38%;overflow:hidden;border-radius:20px;background:radial-gradient(circle at 78% 46%,#244b5c 0,#102d3a 38%,#0a2531 74%);color:#fff}.hero__copy{position:relative;z-index:1;padding:54px 56px}.eyebrow,.section-label{margin:0;color:#07828a;text-transform:uppercase;letter-spacing:.16em;font-size:.68rem;font-weight:800}.eyebrow{color:#9bdbd3}.eyebrow span{display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:middle;border-radius:50%;background:#e8a878;box-shadow:0 0 9px #e8a878}h1,h2,h3,p{margin-top:0}.hero h1{margin:20px 0 18px;font:700 clamp(2.55rem,4.1vw,4.25rem)/1.02 Georgia,serif;letter-spacing:-.035em}.hero h1 em{font-weight:400;color:#f0c39e}.hero__summary{max-width:650px;margin-bottom:20px;color:#c7d8db;font-size:.96rem}.hero__tags{display:flex;flex-wrap:wrap;gap:8px}.hero__tags span{padding:6px 10px;border:1px solid #60818b;border-radius:20px;color:#d5e5e6;font-size:.7rem;font-weight:700}.hero__visual{position:relative;min-height:340px}.hero__orbit{position:absolute;left:50%;top:50%;width:280px;height:280px;border:1px solid #517689;border-radius:50%;transform:translate(-50%,-50%) rotate(-24deg) scaleX(1.3)}.hero__orbit--inner{width:190px;height:190px;border-color:#477682}.hero__node{position:absolute;width:12px;height:12px;border-radius:50%;background:#f0b681;box-shadow:0 0 18px #f0b681}.hero__node--one{left:18%;top:28%}.hero__node--two{right:12%;top:36%;background:#6bd6c9;box-shadow:0 0 18px #6bd6c9}.hero__node--three{right:22%;bottom:16%;width:8px;height:8px}.hero__core{position:absolute;left:50%;top:50%;width:178px;height:178px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #538b91;border-radius:50%;background:radial-gradient(circle at 38% 30%,#365b62,#102e3d 70%);box-shadow:0 0 60px #48bcb333;transform:translate(-50%,-50%)}.hero__core span{font-size:.67rem;letter-spacing:.22em;color:#9cddcf;font-weight:800}.hero__core strong{font:700 4rem/.95 Georgia,serif}.hero__core small{color:#c7d8db;font-size:.72rem}
+  .scope{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0 42px}.scope div{padding:14px 18px;border:1px solid var(--line);border-radius:10px;background:#fff}.scope span{display:block;color:var(--muted);font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800}.scope strong{display:block;margin-top:3px;font-size:.85rem;overflow-wrap:anywhere}
+  .hero__core strong{margin:0 0 17px}
+  .section-heading,.chart-card__head{display:flex;align-items:end;justify-content:space-between;gap:16px}.section-heading h2,.chart-card h2,.method h2{margin:7px 0 0;font:700 clamp(1.45rem,2.25vw,2.05rem)/1.18 Georgia,serif;letter-spacing:-.02em}.selection-line{margin:12px 0;color:var(--teal);font-size:.78rem;font-weight:800}.reset-filter{padding:8px 12px;border:1px solid #a0ced0;border-radius:8px;background:#e3f3f0;color:#056b6e;font-size:.72rem;font-weight:800;cursor:pointer}.reset-filter[hidden]{display:none}.reset-filter:hover,.reset-filter:focus-visible{background:#d2eae6;outline:2px solid #238b8d;outline-offset:2px}
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:15px 0 26px}.kpi{min-height:130px;padding:20px 22px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 3px 18px #11303b08}.kpi span{display:block;color:#526873;font-size:.77rem;font-weight:750}.kpi strong{display:block;margin:6px 0;color:#097c80;font:700 2.55rem/1 Georgia,serif}.kpi small{color:#6f8088;font-size:.66rem}.kpi--context strong{color:#c56d42}
+  .chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.chart-card{min-width:0;padding:25px 26px 24px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 3px 18px #11303b08}.chart-card--wide{grid-column:1/-1}.chart-card h2{font-size:1.65rem}.chart-description{max-width:780px;margin:11px 0 20px;color:var(--muted);font-size:.8rem}.chart-footnote{margin:14px 0 0;color:#647681;font-size:.73rem}.chart-key{display:flex;align-items:center;gap:6px;color:#5f7480;font-size:.72rem;font-weight:700}.chart-key i{width:10px;height:10px;border-radius:2px;background:#35a6a4}.timeline-scroll,.matrix-scroll{overflow-x:auto}.timeline-scroll svg{display:block;width:100%;min-width:700px;height:auto}.bar-list{display:grid;gap:9px}.bar-row{display:grid;grid-template-columns:minmax(0,170px) minmax(70px,1fr) 36px;align-items:center;gap:10px;width:100%;padding:4px 0;border:0;background:transparent;color:var(--ink);text-align:left}.bar-row--button{cursor:pointer;border-radius:5px}.bar-row--button:hover,.bar-row--button:focus-visible{background:#eff8f6;outline:2px solid #70b9ba;outline-offset:2px}.bar-row--button[aria-pressed="true"] .bar-track{background:#e5d2c4}.bar-row--button[aria-pressed="true"] .bar-fill{background:#dc7e52}.bar-label{font-size:.7rem;font-weight:650;line-height:1.2}.bar-track{height:11px;overflow:hidden;border-radius:10px;background:#e9f0f0}.bar-fill{display:block;height:100%;min-width:2px;border-radius:10px;background:#36a6a5}.bar-row--action .bar-fill{background:#de9771}.bar-value{text-align:right;font-size:.75rem;font-variant-numeric:tabular-nums;font-weight:800}.bar-list--actions .bar-row{grid-template-columns:minmax(0,200px) minmax(55px,1fr) 36px}.empty-state{color:var(--muted);font-size:.8rem}
+  .matrix{width:100%;min-width:860px;border-collapse:separate;border-spacing:5px;font-size:.72rem}.matrix th{padding:7px 5px;color:#526d79;text-align:center;font-weight:800}.matrix th:first-child{text-align:left;min-width:145px}.matrix td{height:44px;border-radius:5px;text-align:center;font-variant-numeric:tabular-nums;font-weight:800}.matrix tr th[scope=row]{font-size:.7rem;color:var(--ink)}
+  .method{margin-top:42px;padding:28px 30px;border:1px solid #cddfdd;border-radius:14px;background:#eaf2f0}.method__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 30px;margin-top:20px}.method h3{margin:0 0 5px;font:700 1.06rem Georgia,serif}.method p{margin-bottom:10px;color:#4d626a;font-size:.8rem}.dashboard footer{margin-top:26px;color:#75858b;font-size:.7rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(max-width:950px){.dashboard{padding-inline:20px}.hero__copy{padding:42px}.hero{grid-template-columns:1fr 30%}.hero__visual{opacity:.65}.hero__orbit{left:20%}.hero__core{left:20%}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-grid{grid-template-columns:1fr}.chart-card--wide{grid-column:auto}}
+  @media(max-width:620px){.dashboard{padding-inline:12px}.top-nav{font-size:.69rem}.top-nav>span{max-width:55%;text-align:right}.hero{display:block;min-height:auto}.hero__copy{padding:34px 25px}.hero__visual{display:none}.hero h1{font-size:2.55rem}.scope{grid-template-columns:1fr;gap:7px;margin-bottom:31px}.scope div{padding:10px 13px}.kpis{gap:9px}.kpi{min-height:116px;padding:15px}.kpi strong{font-size:2rem}.chart-card{padding:19px 16px}.chart-card h2{font-size:1.45rem}.bar-row{grid-template-columns:minmax(0,125px) minmax(50px,1fr) 28px;gap:6px}.bar-list--actions .bar-row{grid-template-columns:minmax(0,145px) minmax(35px,1fr) 28px}.bar-label{font-size:.64rem}.method{padding:23px 19px}.method__grid{grid-template-columns:1fr}}
+</style>

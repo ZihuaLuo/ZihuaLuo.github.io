@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@i18n/routes";
 type ProjectTheme = {
   color: string;
   secondaryColor: string;
@@ -14,37 +15,32 @@ type ProjectNode = {
   icon: string;
   theme: ProjectTheme;
   size: number;
-  orbitRadius: number;
   orbitSpeed: number;
   ringTiltX: number;
   ringTiltZ: number;
   ringDensity: number;
   lightDirection: [number, number, number];
-  position: [number, number, number?];
 };
 
-// This is the single source of truth for the constellation. New entries are
-// placed by the client-side orbital-shell algorithm; no planet markup is duplicated.
+// This is the single source of truth for the constellation.
 const projects: ProjectNode[] = [
   {
-    id: "agent-research",
+    id: "canadian-electricity",
     number: "01",
-    category: "AI Research Workflow",
-    title: "Agent Research Workflow",
-    titleLines: ["AGENT", "RESEARCH", "WORKFLOW"],
+    category: "Research Dashboard",
+    title: "Canadian Electricity Research",
+    titleLines: ["CANADIAN", "ELECTRICITY", "RESEARCH"],
     icon: "⌁",
     theme: {
       color: "#34BFFF",
       secondaryColor: "#157BFF",
       deepColor: "#020916",
     },
-    size: 0.9,
-    orbitRadius: 2.45,
+    size: 0.72,
     orbitSpeed: 0.92,
     ringTiltX: -64,
     ringTiltZ: -22,
     ringDensity: 1.08,
-    position: [0.27, 0.23, 0.5],
     lightDirection: [-0.82, 0.72, 0.2],
   },
   {
@@ -59,13 +55,11 @@ const projects: ProjectNode[] = [
       secondaryColor: "#7542F8",
       deepColor: "#11051E",
     },
-    size: 0.92,
-    orbitRadius: 2.62,
+    size: 0.72,
     orbitSpeed: 0.78,
     ringTiltX: -62,
     ringTiltZ: -21,
     ringDensity: 1.02,
-    position: [0.745, 0.255, -0.35],
     lightDirection: [0.8, 0.68, 0.18],
   },
   {
@@ -80,14 +74,88 @@ const projects: ProjectNode[] = [
       secondaryColor: "#19BEDD",
       deepColor: "#03161F",
     },
-    size: 0.865,
-    orbitRadius: 2.5,
+    size: 0.70,
     orbitSpeed: 0.84,
     ringTiltX: -67,
     ringTiltZ: 14,
     ringDensity: 1.05,
-    position: [0.42, 0.73, 0.75],
     lightDirection: [-0.86, -0.38, 0.22],
+  },
+  {
+    id: "cloudline",
+    number: "04",
+    category: "Interactive Game",
+    title: "Cloudline",
+    titleLines: ["CLOUDLINE", "THE SLOW", "WAY HOME"],
+    icon: "♧",
+    theme: {
+      color: "#F4C988",
+      secondaryColor: "#77BDA2",
+      deepColor: "#122923",
+    },
+    size: 0.72,
+    orbitSpeed: 0.88,
+    ringTiltX: -60,
+    ringTiltZ: 20,
+    ringDensity: 1.04,
+    lightDirection: [0.7, -0.35, 0.4],
+  },
+  {
+    id: "finance-phd-eda",
+    number: "05",
+    category: "Research Dashboard",
+    title: "Finance PhD Time-to-Degree",
+    titleLines: ["FINANCE PHD", "TIME TO", "DEGREE"],
+    icon: "✦",
+    theme: {
+      color: "#49D6BA",
+      secondaryColor: "#E4B863",
+      deepColor: "#062322",
+    },
+    size: 0.69,
+    orbitSpeed: 0.82,
+    ringTiltX: -63,
+    ringTiltZ: 16,
+    ringDensity: 1.02,
+    lightDirection: [0.68, 0.62, 0.35],
+  },
+  {
+    id: "corporate-scandal",
+    number: "06",
+    category: "Research Dashboard",
+    title: "Corporate Scandal Research",
+    titleLines: ["CORPORATE", "SCANDAL"],
+    icon: "◇",
+    theme: {
+      color: "#EFA87A",
+      secondaryColor: "#B66365",
+      deepColor: "#26131B",
+    },
+    size: 0.69,
+    orbitSpeed: 0.8,
+    ringTiltX: -65,
+    ringTiltZ: -16,
+    ringDensity: 1.02,
+    lightDirection: [-0.65, 0.6, 0.38],
+  },
+  {
+    id: "noncompete-10k",
+    number: "07",
+    category: "Research Dashboard",
+    title: "Non-Compete 10-K Research",
+    titleLines: ["NON-COMPETE", "10-K RESEARCH"],
+    icon: "◇",
+    theme: {
+      color: "#BFA0F1",
+      secondaryColor: "#5CBFAF",
+      deepColor: "#171330",
+    },
+    size: 0.71,
+    orbitSpeed: 0.81,
+    ringTiltX: -62,
+    ringTiltZ: 19,
+    ringDensity: 1.04,
+    lightDirection: [0.64, 0.57, 0.36],
   },
 ];
 
@@ -102,13 +170,11 @@ const clientProjects = projects.map((project) => ({
   secondaryColor: project.theme.secondaryColor,
   deepColor: project.theme.deepColor,
   size: project.size,
-  orbitRadius: project.orbitRadius,
   orbitSpeed: project.orbitSpeed,
   ringTiltX: project.ringTiltX,
   ringTiltZ: project.ringTiltZ,
   ringDensity: project.ringDensity,
   lightDirection: project.lightDirection,
-  position: project.position,
 }));
 ---
 
@@ -150,7 +216,7 @@ const clientProjects = projects.map((project) => ({
     </div>
 
     <p class="ai-lab__fallback" data-webgl-fallback hidden>
-      This visualization needs WebGL. Use the project controls to open each project file.
+      This visualization needs WebGL. Use the project controls to explore each project.
     </p>
 
     <script is:inline type="application/json" data-ai-projects set:html={JSON.stringify(clientProjects)}></script>
@@ -161,8 +227,63 @@ const clientProjects = projects.map((project) => ({
         <button type="button" data-detail-close>Close</button>
       </header>
       <div class="ai-lab__detail-body">
-        <p class="ai-lab__detail-pending">COMING SOON</p>
-        <p class="ai-lab__detail-summary">Project details will be updated here.</p>
+        <div class="ai-lab__project-detail" data-detail-project="canadian-electricity" hidden>
+          <p class="ai-lab__detail-pending">RESEARCH PROJECT · CANADA · 2015–2024</p>
+          <p class="ai-lab__detail-summary">A research assistant project exploring how generation, final-user consumption, and electricity flows differ across Canada's provinces.</p>
+          <a class="ai-lab__dashboard-link" href={withBase("/projects/canadian-provincial-electricity-dashboard.html")} target="_blank" rel="noopener">Explore the full interactive dashboard <span aria-hidden="true">↗</span></a>
+          <a class="ai-lab__dashboard-preview" href={withBase("/projects/canadian-provincial-electricity-dashboard.html")} target="_blank" rel="noopener" aria-label="Open the full Canadian Provincial Electricity Dashboard in a new tab">
+            <img src={withBase("/images/canadian-electricity-dashboard-overview.png")} alt="Executive Overview showing 2024 electricity totals, a provincial generation versus consumption chart, and net electricity flows" decoding="async" width="1600" height="940" />
+          </a>
+        </div>
+        <div class="ai-lab__project-detail" data-detail-project="retention-lab" hidden>
+          <p class="ai-lab__detail-pending">RESEARCH DASHBOARD</p>
+          <p class="ai-lab__privacy-badge"><span aria-hidden="true">🔒</span> PRIVATE DATA · OVERVIEW ONLY</p>
+          <p class="ai-lab__detail-summary">An internal research dashboard examining volunteer commitment, onboarding seasonality, early engagement, and the core volunteer group.</p>
+          <div class="ai-lab__dashboard-preview ai-lab__dashboard-preview--static">
+            <img src={withBase("/images/volunteer-retention-overview.svg")} alt="Illustrative volunteer retention dashboard layout with private figures and records omitted" decoding="async" width="1600" height="900" />
+          </div>
+          <p class="ai-lab__privacy-note">Illustrative preview. The source dashboard and underlying data are private, so the full dashboard cannot be shown publicly.</p>
+        </div>
+        <div class="ai-lab__project-detail" data-detail-project="cloudline" hidden>
+          <p class="ai-lab__detail-pending">PLAYABLE 3D TRAM GAME</p>
+          <p class="ai-lab__detail-summary">Drive a vintage tram between floating seaside towns, keep passengers comfortable, and take the slow way home.</p>
+          <a class="ai-lab__dashboard-link" href={withBase("/projects/cloudline.html")} target="_blank" rel="noopener">Play Cloudline <span aria-hidden="true">↗</span></a>
+          <a class="ai-lab__dashboard-preview" href={withBase("/projects/cloudline.html")} target="_blank" rel="noopener" aria-label="Open the playable Cloudline tram game in a new tab">
+            <img src={withBase("/images/cloudline-overview.png")} alt="Cloudline overview showing a vintage tram at Starlight Terminus, floating seaside towns, an elevated railway, and the game controls" decoding="async" width="1600" height="900" />
+          </a>
+          <p class="ai-lab__detail-summary">Use W to accelerate and S to brake, or press R for a scenic autopilot ride. Touch controls are available on mobile.</p>
+        </div>
+        <div class="ai-lab__project-detail" data-detail-project="finance-phd-eda" hidden>
+          <p class="ai-lab__detail-pending">RESEARCH DASHBOARD · FINANCE PHD</p>
+          <p class="ai-lab__detail-summary">An exploratory analysis of Finance PhD time to degree, cohort trends, publication records, placement, and supervision across the 2000–2025 graduation window.</p>
+          <a class="ai-lab__dashboard-link" href={withBase("/projects/finance-phd-eda-report.html")} target="_blank" rel="noopener">Explore the interactive analysis <span aria-hidden="true">↗</span></a>
+          <a class="ai-lab__dashboard-preview" href={withBase("/projects/finance-phd-eda-report.html")} target="_blank" rel="noopener" aria-label="Open the Finance PhD Time-to-Degree interactive report in a new tab">
+            <img src={withBase("/images/finance-phd-eda-overview.svg")} alt="Finance PhD analysis overview showing cohort time-to-degree trend and five summary indicators" decoding="async" width="1600" height="900" />
+          </a>
+          <p class="ai-lab__privacy-note">The linked report contains aggregate charts and tables without student or supervisor names. Findings are descriptive, not causal.</p>
+        </div>
+        <div class="ai-lab__project-detail" data-detail-project="corporate-scandal" hidden>
+          <p class="ai-lab__detail-pending">RESEARCH DASHBOARD · CORPORATE SCANDAL</p>
+          <p class="ai-lab__detail-summary">Explore coded scandal categories, research timelines, and organizational response actions across 130 cases.</p>
+          <a class="ai-lab__dashboard-link" href={withBase("/projects/corporate-scandal-dashboard/")} target="_blank" rel="noopener">Explore the full dashboard <span aria-hidden="true">↗</span></a>
+          <a class="ai-lab__dashboard-preview" href={withBase("/projects/corporate-scandal-dashboard/")} target="_blank" rel="noopener" aria-label="Open the Corporate Scandal Response Dashboard in a new tab">
+            <img src={withBase("/images/corporate-scandal-overview.svg")} alt="Corporate Scandal dashboard overview with 130 cases, 678 coded records, and charts of timeline, categories, and response actions" decoding="async" width="1600" height="900" />
+          </a>
+          <p class="ai-lab__privacy-note">Public dashboard contains aggregate visualizations only. Source records and research notes are not included.</p>
+        </div>
+        <div class="ai-lab__project-detail" data-detail-project="noncompete-10k" hidden>
+          <p class="ai-lab__detail-pending">RESEARCH DASHBOARD · NON-COMPETE 10-K</p>
+          <p class="ai-lab__detail-summary">Explore how non-compete related terms and coding features appear across 130 sampled 10-K filing snippets.</p>
+          <a class="ai-lab__dashboard-link" href={withBase("/projects/noncompete-10k-dashboard/")} target="_blank" rel="noopener">Explore the full dashboard <span aria-hidden="true">↗</span></a>
+          <a class="ai-lab__dashboard-preview" href={withBase("/projects/noncompete-10k-dashboard/")} target="_blank" rel="noopener" aria-label="Open the Non-Compete 10-K Coding Dashboard in a new tab">
+            <img src={withBase("/images/noncompete-10k-overview.svg")} alt="Non-Compete 10-K dashboard overview with sample timeline, annotation coverage, and type themes" decoding="async" width="1600" height="900" />
+          </a>
+          <p class="ai-lab__privacy-note">Aggregate visualizations only. Filing passages, identifiers, and research notes are not included. The sample is descriptive.</p>
+        </div>
+        <div class="ai-lab__project-detail" data-detail-project="pending">
+          <p class="ai-lab__detail-pending">COMING SOON</p>
+          <p class="ai-lab__detail-summary">Project details will be updated here.</p>
+        </div>
       </div>
     </section>
   </div>
@@ -249,6 +370,7 @@ const clientProjects = projects.map((project) => ({
       0 24px 58px rgba(0, 3, 15, 0.32);
     isolation: isolate;
   }
+
 
   .ai-lab__viewport::before,
   .ai-lab__viewport::after {
@@ -397,7 +519,7 @@ const clientProjects = projects.map((project) => ({
 
   .ai-lab__detail {
     position: absolute;
-    inset: 1.8rem;
+    inset: 0.85rem;
     z-index: 10;
     display: grid;
     grid-template-rows: auto 1fr;
@@ -437,7 +559,7 @@ const clientProjects = projects.map((project) => ({
     align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.15rem 1.2rem;
+    padding: 0.9rem 1.2rem;
     border-bottom: 1px solid rgba(148, 163, 184, 0.12);
   }
 
@@ -470,7 +592,56 @@ const clientProjects = projects.map((project) => ({
 
   .ai-lab__detail-body {
     align-self: center;
-    padding: 1.4rem 1.2rem;
+    padding: 0.75rem 1.2rem;
+  }
+
+  .ai-lab__project-detail[hidden] { display: none; }
+
+  .ai-lab__dashboard-preview {
+    display: block;
+    margin-top: 0.6rem;
+    overflow: hidden;
+    border: 1px solid rgba(103, 232, 249, 0.25);
+    border-radius: 0.55rem;
+    background: #111827;
+    transition: border-color 180ms ease, transform 180ms ease;
+  }
+
+  a.ai-lab__dashboard-preview:hover,
+  a.ai-lab__dashboard-preview:focus-visible {
+    border-color: rgba(103, 232, 249, 0.75);
+    outline: none;
+    transform: translateY(-2px);
+  }
+
+  .ai-lab__dashboard-preview img {
+    display: block;
+    width: 100%;
+    height: min(13.5rem, 27vh);
+    object-fit: contain;
+  }
+
+  .ai-lab__dashboard-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid rgba(103, 232, 249, 0.5);
+    border-radius: 0.45rem;
+    color: #071226;
+    background: #8be9ff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+
+  .ai-lab__dashboard-link:hover,
+  .ai-lab__dashboard-link:focus-visible {
+    background: #b9f3ff;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
   }
 
   .ai-lab__detail-pending {
@@ -482,11 +653,34 @@ const clientProjects = projects.map((project) => ({
     line-height: 1.4;
   }
 
+  .ai-lab__privacy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.65rem;
+    padding: 0.42rem 0.65rem;
+    border: 1px solid rgba(214, 163, 255, 0.65);
+    border-radius: 999px;
+    background: rgba(117, 66, 248, 0.18);
+    color: #f4dcff;
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    line-height: 1.2;
+  }
+
   .ai-lab__detail-summary {
     margin-top: 0.72rem;
     color: rgba(203, 226, 255, 0.78);
     font-size: 0.72rem;
     line-height: 1.55;
+  }
+
+  .ai-lab__privacy-note {
+    margin-top: 0.6rem;
+    color: rgba(203, 226, 255, 0.68);
+    font-size: 0.67rem;
+    line-height: 1.45;
   }
 
   @media (max-width: 1040px) {

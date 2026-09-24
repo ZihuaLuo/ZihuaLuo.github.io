@@ -1,6 +1,6 @@
 ---
 title: "Good Investors See Opportunities Others Have Not Yet Seen"
-description: "The hardest part of venture capital is not making a bet, but judging people, timing, and the future inside uncertainty"
+description: "Venture investing requires judgment about founders, timing, and possibilities that remain uncertain to others."
 date: 2026-02-25
 category: "Finance"
 tags: ["Investors", "Opportunity Recognition", "Non-Consensus"]
@@ -10,9 +10,9 @@ draft: false
 ---
 
 
-> The hardest part of venture capital is not making a bet, but judging people, timing, and the future inside uncertainty.
+> Venture investing requires judgment about founders, timing, and possibilities that remain uncertain to others.
 
-After reading Letter 054, "The Investment Philosophy of John Doerr, the King of Venture Capital (Part II)," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: truly excellent venture investors do not simply search for projects that look popular. They judge, while others still cannot see clearly, whether an entrepreneur has the ability to build the future into reality. The core of venture capital is not only investing money. It is judging people, timing, risk, and whether something deserves long-term belief.
+After reading Letter 054, the second part of "The Investment Philosophy of John Doerr, the King of Venture Capital," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: truly excellent venture investors do not simply search for projects that look popular. They judge, while others still cannot see clearly, whether an entrepreneur has the ability to build the future into reality. The core of venture capital is not only investing money. It is judging people, timing, risk, and whether something deserves long-term belief.
 
 In this letter, Wu Jun mentions several abilities Doerr values in entrepreneurs. First, entrepreneurs must be able to design, implement, and operate a business. Many people think starting a company means having a good idea or raising money, but that is far from enough. A real entrepreneur must not only propose an idea, but also build the product, organize the team, control costs, and eventually make the company profitable. If an entrepreneur can only tell stories but cannot make things happen, even the best concept remains only a concept.
 

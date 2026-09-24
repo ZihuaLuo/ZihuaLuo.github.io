@@ -1,6 +1,6 @@
 ---
 title: "Reasonable Choices Must Be Made By Those Who Bear The Consequences"
-description: "Different treatment is unavoidable; what matters is whether the standard is reasonable and who bears the consequences"
+description: "Selection deserves scrutiny of the criteria being used and the responsibility carried by those who make the choice."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Different treatment is unavoidable; what matters is whether the standard is reasonable and who bears the consequences.
+> Selection deserves scrutiny of the criteria being used and the responsibility carried by those who make the choice.
 
 In Lecture 012, Xue Zhaofeng continues the discussion of discrimination. As long as resources are limited, people must choose. Choice requires standards, and standards produce different treatment. The real issue is who sets the standard and who bears its consequences.
 

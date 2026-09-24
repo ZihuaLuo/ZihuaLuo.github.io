@@ -1,6 +1,6 @@
 ---
 title: "Good Universities Are Not Only For Getting A Diploma"
-description: "What truly changes a person is not the degree itself, but perspective, environment, and training"
+description: "A university's lasting influence comes through the perspective, environment, and habits of learning it gives its students."
 date: 2026-02-20
 category: "Cognition"
 tags: ["College", "Perspective", "Ability Training"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> What truly changes a person is not the degree itself, but perspective, environment, and training.
+> A university's lasting influence comes through the perspective, environment, and habits of learning it gives its students.
 
 After reading Letter 039, "Why Go To College, And Why Go To A Good College?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: the meaning of college is not only to obtain a diploma, nor only to study a specific major. It is to give a person the chance to enter a larger world, receive better training, and reshape their perspective among more excellent people.
 

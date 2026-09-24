@@ -1,6 +1,6 @@
 ---
 title: "High Risk Can Earn Less When Mispricing Is Hard to Correct"
-description: "Risk does not determine return by itself. The relationship changes when investor preferences create mispricing and market frictions prevent that mispricing from being corrected."
+description: "Investor preferences and limits on trading can sustain mispricing, leaving riskier assets with disappointing returns."
 date: 2026-09-01
 category: "Economic Thinking"
 tags: ["Risk and Return", "Limits of Arbitrage", "Mispricing"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Risk does not determine return by itself. The relationship changes when investor preferences create mispricing and market frictions prevent that mispricing from being corrected.
+> Investor preferences and limits on trading can sustain mispricing, leaving riskier assets with disappointing returns.
 
 One of the most basic ideas in finance is that higher return should require higher risk. That principle is intuitive. If two investments offer the same expected return, investors should prefer the safer one. The risky asset therefore needs to offer additional compensation before anyone is willing to hold it. Yet one of the most persistent findings in financial markets points in the opposite direction: historically, low-volatility stocks have often produced higher returns than high-volatility stocks. This is the low-volatility anomaly. What makes the result interesting is not simply that a profitable strategy exists. The more important question is why such a relationship can survive when it appears to contradict one of finance's most fundamental principles.
 

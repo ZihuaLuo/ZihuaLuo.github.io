@@ -1,6 +1,6 @@
 ---
 title: "The Future of Medicine May Be Personalization at Scale"
-description: "The real promise of big data in medicine is not finding one treatment that works for everyone, but making individualized treatment scalable enough to work for millions."
+description: "Medical data may help extend individualized treatment to more people by identifying meaningful differences in their needs."
 date: 2026-09-05
 category: "Cognition"
 tags: ["Personalized Medicine", "Big Data", "Machine Learning"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> The real promise of big data in medicine is not finding one treatment that works for everyone, but making individualized treatment scalable enough to work for millions.
+> Medical data may help extend individualized treatment to more people by identifying meaningful differences in their needs.
 
 Cancer is difficult partly because the word itself hides enormous variation. Two patients may receive the same diagnosis while the biological mechanisms driving their diseases are different. Even within one patient, the disease can change over time. A treatment that works initially may become less effective as the underlying cells evolve. This creates a fundamental problem for traditional medicine. Medicine becomes easier to scale when many patients can receive essentially the same treatment. An antibiotic works because physicians can identify a common biological target and use a standardized drug against it.
 

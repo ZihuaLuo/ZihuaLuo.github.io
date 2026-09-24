@@ -1,6 +1,6 @@
 ---
 title: "Delusion Is The Beginning Of Many Failures"
-description: "Reliable judgment does not pursue impossible perfection; it respects rules, risk, and personal boundaries"
+description: "Sound judgment starts with realistic expectations and respect for rules, risks, and personal limits."
 date: 2026-03-24
 category: "Finance"
 tags: ["Investing", "Risk", "Discipline"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> Reliable judgment does not pursue impossible perfection; it respects rules, risk, and personal boundaries.
+> Sound judgment starts with realistic expectations and respect for rules, risks, and personal limits.
 
 After reading Letter 133 from Wu Jun's *Silicon Valley Letters 2*, I felt that many failures begin not with lack of effort, but with delusion. In investing especially, people often want a result that violates basic rules: high return, low risk, stable cash flow, and principal protection all at once. Desire itself is not wrong, but desire that refuses constraints becomes dangerous.
 

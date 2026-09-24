@@ -1,6 +1,6 @@
 ---
 title: "True Long-Termism Can Wait For The Curve To Bend Upward"
-description: "Not every temporary lack of results means the direction is wrong; often the result is simply lagging"
+description: "Results can lag behind sound decisions, so patience requires distinguishing slow progress from a direction that needs to change."
 date: 2026-04-03
 category: "Cognition"
 tags: ["Long-Termism", "Delayed Effects", "Patience"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Not every temporary lack of results means the direction is wrong; often the result is simply lagging.
+> Results can lag behind sound decisions, so patience requires distinguishing slow progress from a direction that needs to change.
 
 After reading Wu Jun's Letter 207 on the winter solstice, summer solstice, and delayed effects, the most important reminder for me is that change does not show itself immediately after action begins. A new force often has to offset the old trend first, accumulate quietly for a while, and only then become visible as a result.
 

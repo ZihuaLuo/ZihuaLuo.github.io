@@ -1,6 +1,6 @@
 ---
 title: "Do Not Guess The Market Or The Will From Above"
-description: "Long-term wins come not from clever flexibility, but from standing on the side of probability, keeping principles, and avoiding fatal mistakes"
+description: "Lasting results depend on sound probabilities, consistent principles, and avoiding mistakes that end the game."
 date: 2026-03-30
 category: "Finance"
 tags: ["Investing", "Long-Termism", "Risk Control"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> Long-term wins come not from clever flexibility, but from standing on the side of probability, keeping principles, and avoiding fatal mistakes.
+> Lasting results depend on sound probabilities, consistent principles, and avoiding mistakes that end the game.
 
 After reading Letter 188 from Wu Jun's *Silicon Valley Letters 2*, I was reminded that long-term competition is often a competition of probability rather than clever prediction. Many investors want to guess the market's next move or infer the intention of leaders and institutions. But this desire to guess often pulls people away from principles and into dangerous games.
 

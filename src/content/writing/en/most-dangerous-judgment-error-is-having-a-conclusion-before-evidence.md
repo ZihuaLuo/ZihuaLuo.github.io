@@ -1,6 +1,6 @@
 ---
 title: "The Most Dangerous Judgment Error Is Having A Conclusion Before Evidence"
-description: "A person is most likely to err not when they lack information, but when they have already been persuaded by their own bias"
+description: "Judgment becomes unreliable when we start with a preferred conclusion and interpret the evidence to fit it."
 date: 2026-04-04
 category: "Cognition"
 tags: ["Judgment", "Bias", "Evidence"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> A person is most likely to err not when they lack information, but when they have already been persuaded by their own bias.
+> Judgment becomes unreliable when we start with a preferred conclusion and interpret the evidence to fit it.
 
 After reading Wu Jun's Letter 209 on faulty logic, sports betting, and self-movement, my strongest takeaway was that many wrong judgments do not begin in the argument itself. They begin at the first assumption. Once a person reaches a conclusion first, the rest of the reasoning often becomes an effort to defend it.
 

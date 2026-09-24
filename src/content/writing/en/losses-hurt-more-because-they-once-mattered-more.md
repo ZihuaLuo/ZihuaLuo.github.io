@@ -1,6 +1,6 @@
 ---
 title: "Losses Hurt More Because They Once Mattered More"
-description: "Loss aversion is not simply an irrational fear of losing. It becomes a problem when an instinct designed to protect survival is attached to reference points that no longer deserve to matter."
+description: "An instinct that once protected survival can distort modern decisions when we attach too much importance to avoiding a loss."
 date: 2026-08-29
 category: "Economic Thinking"
 tags: ["Loss Aversion", "Reference Points", "Risk"]
@@ -9,9 +9,9 @@ featured: false
 draft: false
 ---
 
-> Loss aversion is not simply an irrational fear of losing. It becomes a problem when an instinct designed to protect survival is attached to reference points that no longer deserve to matter.
+> An instinct that once protected survival can distort modern decisions when we attach too much importance to avoiding a loss.
 
-Losing $100 usually hurts more than gaining $100 feels good. This asymmetry is loss aversion. It is often described as another flaw in human decision-making, something rational people should learn to eliminate. But if the same tendency appears so consistently across people — and even in other primates — it is worth asking why it exists in the first place. The answer becomes clearer when viewed through survival rather than modern finance. For our ancestors living close to subsistence, gains and losses were not symmetric. Having twice as much food as necessary might improve life slightly. Having half as much could mean starvation. When the downside threatens survival, reacting more strongly to losses is not irrational at all.
+Losing $100 usually hurts more than gaining $100 feels good. This asymmetry is loss aversion. It is often described as another flaw in human decision-making, something rational people should learn to eliminate. Because the same tendency appears consistently across people and even in other primates, we should ask why it exists in the first place. The answer becomes clearer when viewed through survival rather than modern finance. For our ancestors living close to subsistence, gains and losses were not symmetric. Having twice as much food as necessary might improve life slightly. Having half as much could mean starvation. When the downside threatens survival, reacting more strongly to losses is not irrational at all.
 
 Loss aversion could therefore create useful urgency. If I had failed to find enough food by the end of the week, becoming more motivated and even more willing to take risks might increase my probability of surviving. If someone tried to take resources I already possessed, an unusually strong reaction could also discourage others from doing the same. The asymmetry made sense because the consequences themselves were asymmetric. Modern environments preserve the instinct while changing the stakes. That is where mismatch begins.
 

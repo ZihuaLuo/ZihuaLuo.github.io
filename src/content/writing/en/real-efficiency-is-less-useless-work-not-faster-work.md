@@ -1,6 +1,6 @@
 ---
 title: "Real Efficiency Is Not Working Faster, But Doing Less Useless Work"
-description: "The gap between experts and ordinary people is often not who works harder, but who sees which work does not need to be done"
+description: "Experience improves efficiency by revealing which steps can be simplified or left out altogether."
 date: 2026-03-13
 category: "Cognition"
 tags: ["Efficiency", "Problem Solving", "Focus"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> The gap between experts and ordinary people is often not who works harder, but who sees which work does not need to be done.
+> Experience improves efficiency by revealing which steps can be simplified or left out altogether.
 
 After reading Letter 097, "Another Case For Doing Less: The Median Problem, And Communication Skills," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: the root of efficiency is not making every step faster, but avoiding unnecessary work from the beginning. Many times, a person may look diligent, busy, and strong in execution, but if the direction is wrong, or if they do a large amount of work that did not need to be done, that effort itself becomes a source of inefficiency.
 

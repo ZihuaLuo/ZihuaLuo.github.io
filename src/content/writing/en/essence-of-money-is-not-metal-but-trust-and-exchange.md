@@ -1,6 +1,6 @@
 ---
 title: "The Essence Of Money Is Not Metal, But Trust And Exchange"
-description: "Money is money not because the object itself is precious, but because people are willing to recognize its value together"
+description: "Money works because people trust that others will accept it in exchange for goods and services."
 date: 2026-03-07
 category: "Finance"
 tags: ["Money", "Credit", "Exchange"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Money is money not because the object itself is precious, but because people are willing to recognize its value together.
+> Money works because people trust that others will accept it in exchange for goods and services.
 
 After reading Letter 081, "The Origin And Characteristics Of Money," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: money is not something that exists naturally, and an object does not automatically become money simply because it is precious enough. The true essence of money is that it is a commonly accepted medium of exchange. As long as something can be recognized by people, circulate conveniently, and be used to settle transactions, it has the possibility of becoming money.
 

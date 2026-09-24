@@ -1,6 +1,6 @@
 ---
 title: "Real Responsibility Asks Who Can Avoid Harm At Lower Cost"
-description: "The key to social conflict is not only identifying right and wrong, but finding the lowest-cost solution"
+description: "Assigning responsibility can help prevent harm when it accounts for who can reduce that harm most effectively."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The key to social conflict is not only identifying right and wrong, but finding the lowest-cost solution.
+> Assigning responsibility can help prevent harm when it accounts for who can reduce that harm most effectively.
 
 In Lectures 021 and 022, Xue Zhaofeng discusses Coase's problem of social cost. The cases look at first like one party harming another: cattle eat wheat, a tall hotel blocks sunlight from a pool, train sparks burn flax, a candy maker's noise disturbs a doctor, and a chicken farm's odor bothers residents.
 

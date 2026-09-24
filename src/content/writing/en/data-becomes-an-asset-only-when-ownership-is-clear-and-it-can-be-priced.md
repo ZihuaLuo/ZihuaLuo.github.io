@@ -1,6 +1,6 @@
 ---
 title: "Data Becomes An Asset Only When Ownership Is Clear And It Can Be Priced"
-description: "Data has value only when rights, boundaries, and pricing mechanisms are clear enough to support real transactions"
+description: "Turning data into a tradable asset requires clear ownership, defined rights of use, and a workable basis for pricing."
 date: 2026-04-06
 category: "Cognition"
 tags: ["Data Assets", "Property Rights", "Pricing"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> Data has value only when rights, boundaries, and pricing mechanisms are clear enough to support real transactions.
+> Turning data into a tradable asset requires clear ownership, defined rights of use, and a workable basis for pricing.
 
 The idea that data is an asset sounds obvious today, but Wu Jun's discussion made me realize that data does not automatically become an asset just because it is useful. An asset must have clear ownership, usable rights, boundaries of use, and a way to be priced.
 

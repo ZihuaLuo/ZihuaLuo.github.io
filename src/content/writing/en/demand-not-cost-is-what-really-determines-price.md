@@ -1,6 +1,6 @@
 ---
 title: "Demand, Not Cost, Is What Really Determines Price"
-description: "Raw materials become valuable only when people are willing to buy the final product"
+description: "Demand for a finished product helps determine the value of the materials and resources used to make it."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Raw materials become valuable only when people are willing to buy the final product.
+> Demand for a finished product helps determine the value of the materials and resources used to make it.
 
 In Lecture 018, Xue Zhaofeng addresses a common misunderstanding: does cost determine price, or does price determine cost? Many people say housing is expensive because land is expensive, noodles are expensive because rent is expensive, or concert tickets are expensive because the star's appearance fee is high. Economics reverses the causality.
 

@@ -1,6 +1,6 @@
 ---
 title: "A Mature Way To Work Begins With Seeing Boundaries"
-description: "Boundaries are not merely limits; they are the starting point of rational action"
+description: "Understanding constraints and respecting boundaries provide a sound starting point for action."
 date: 2026-02-11
 category: "Cognition"
 tags: ["Boundaries", "Rational Action", "Career Growth"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Boundaries are not merely limits; they are the starting point of rational action.
+> Understanding constraints and respecting boundaries provide a sound starting point for action.
 
 After reading Letter 006, "Working Within Boundaries," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many failures do not happen because people are not working hard enough. They happen because people have not clearly seen the boundaries of the problem. We often like to talk about "breaking boundaries," as if progress only comes from breaking limits. But this letter reminded me that a truly mature way of working is not to begin by trying to overthrow boundaries. It is to understand where the boundaries are, and then do the best possible work within them.
 

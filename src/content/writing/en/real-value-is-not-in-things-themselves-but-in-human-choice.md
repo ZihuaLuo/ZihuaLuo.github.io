@@ -1,6 +1,6 @@
 ---
 title: "Real Value Is Not In Things Themselves, But In Human Choice"
-description: "Value is not an attribute objects carry by themselves, but what people are willing to give up for them"
+description: "Value depends on what something means to people and what they are willing to give up to obtain it."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Value is not an attribute objects carry by themselves, but what people are willing to give up for them.
+> Value depends on what something means to people and what they are willing to give up to obtain it.
 
 In Lecture 029, Xue Zhaofeng enters the law of demand through subjective value theory. Before understanding demand, we must understand personal valuation. The value of an object to a person is not determined by how much labor or material it contains, but by what that person is willing to give up for it.
 

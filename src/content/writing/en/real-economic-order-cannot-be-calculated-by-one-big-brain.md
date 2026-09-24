@@ -1,6 +1,6 @@
 ---
 title: "Real Economic Order Cannot Be Calculated By One Big Brain"
-description: "The hardest part of society is not only scarce resources, but the fact that every person wants different things."
+description: "Coordinating an economy requires responding to diverse preferences and local knowledge that no single planner fully possesses."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The hardest part of society is not only scarce resources, but the fact that every person wants different things.
+> Coordinating an economy requires responding to diverse preferences and local knowledge that no single planner fully possesses.
 
 Lecture 037 asks why planned economies struggle with economic calculation. The appeal of planning is easy to understand: if a central mind had enough data, rules, and computing power, perhaps it could arrange the whole economy like a physical system.
 

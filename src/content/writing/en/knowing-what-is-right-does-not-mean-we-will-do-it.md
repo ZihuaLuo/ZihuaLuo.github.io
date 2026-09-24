@@ -1,6 +1,6 @@
 ---
 title: "Knowing What Is Right Does Not Mean We Will Do It"
-description: "Many bad decisions do not come from ignorance. They come from the gap between what we understand and what our brain motivates us to do."
+description: "Understanding a good decision does not ensure we will act on it when habits, impulses, and incentives pull us elsewhere."
 date: 2026-08-26
 category: "Economic Thinking"
 tags: ["Decision-Making", "Motivation", "Behavioral Economics"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Many bad decisions do not come from ignorance. They come from the gap between what we understand and what our brain motivates us to do.
+> Understanding a good decision does not ensure we will act on it when habits, impulses, and incentives pull us elsewhere.
 
 A common assumption in economics is that once people know what is best for them, they will act accordingly. If diversification reduces risk, investors should diversify. If an opportunity has a positive expected payoff, people should pursue it. If a decision is logically correct, understanding the logic should be enough. But knowing and doing are not the same process.
 

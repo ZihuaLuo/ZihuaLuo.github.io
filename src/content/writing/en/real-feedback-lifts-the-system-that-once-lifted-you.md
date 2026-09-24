@@ -1,6 +1,6 @@
 ---
 title: "Real Feedback Is Lifting The System That Once Lifted You"
-description: "When someone has benefited from education, platforms, and social systems, they should not treat them merely as background to personal success"
+description: "Giving back strengthens the schools, communities, and institutions that helped make personal achievement possible."
 date: 2026-04-05
 category: "Cognition"
 tags: ["Giving Back", "Education", "Social Systems"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> When someone has benefited from education, platforms, and social systems, they should not treat them merely as background to personal success.
+> Giving back strengthens the schools, communities, and institutions that helped make personal achievement possible.
 
 Wu Jun's supplementary letter about Michael Bloomberg's large donation made me think about what real feedback means. The important point is not only that a wealthy person donated money. It is that a person who benefited from education and institutions chose to help keep those systems alive for others.
 

@@ -1,6 +1,6 @@
 ---
 title: "Freedom Is Never Free"
-description: "A person may have freedom of expression, but that does not mean they may freely occupy other people's venues, platforms, equipment, and attention."
+description: "Exercising freedom of expression also requires respecting other people's property, platforms, resources, and attention."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> A person may have freedom of expression, but that does not mean they may freely occupy other people's venues, platforms, equipment, and attention.
+> Exercising freedom of expression also requires respecting other people's property, platforms, resources, and attention.
 
 Lecture 055 discusses a concept that is often confused: freedom does not mean free of charge. In English, free can mean liberty and also no payment. This overlap often leads people to believe that political freedom naturally includes economic free access. Reality is the opposite. Political freedom matters, but once freedom is expressed in the real world, it often occupies real resources, and resources do not appear out of nowhere.
 

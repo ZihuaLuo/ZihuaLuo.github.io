@@ -1,6 +1,6 @@
 ---
 title: "Do Not Replace Complete Understanding With Out-Of-Context Quotes"
-description: "Many sayings mislead people not because they are necessarily wrong, but because people keep only the half that serves them"
+description: "A familiar saying can become misleading when we keep only the part that supports what we already want to believe."
 date: 2026-03-19
 category: "Cognition"
 tags: ["Context", "Logic", "Rules"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Many sayings mislead people not because they are necessarily wrong, but because people keep only the half that serves them.
+> A familiar saying can become misleading when we keep only the part that supports what we already want to believe.
 
 In Letter 114, "On Context And Logic Through Two Common Sayings," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, what is most worth discussing is not the two sayings themselves, but how people use them. Many popular phrases, proverbs, and so-called famous quotes originally have specific contexts and boundaries. But after they spread for a long time, their premises are often cut away, leaving only the part most easily used. Then a sentence no longer helps people understand the world. It becomes a tool for self-justification.
 

@@ -1,6 +1,6 @@
 ---
 title: "Real Added Costs Make Better Things More Worth Choosing"
-description: "The higher the added cost, the more worthwhile it becomes to transport, publish, or preserve higher-value things."
+description: "When transport, publication, or preservation adds a fixed cost, choosing a higher-quality item can become more worthwhile."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The higher the added cost, the more worthwhile it becomes to transport, publish, or preserve higher-value things.
+> When transport, publication, or preservation adds a fixed cost, choosing a higher-quality item can become more worthwhile.
 
 Lecture 037 discusses the third law of demand: when an added cost is attached to a good, the better version of that good becomes relatively more attractive. Shipping, travel, time, regulation, and entry barriers all change what is worth choosing.
 

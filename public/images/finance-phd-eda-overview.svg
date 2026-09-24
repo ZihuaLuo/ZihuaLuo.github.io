@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Finance PhD Time-to-Degree Analysis overview</title>
+  <desc id="desc">Five summary indicators and the adjusted time-to-degree trend across graduation cohorts from 2000 to 2025.</desc>
+  <defs>
+    <linearGradient id="header" x2="1" y2="1"><stop stop-color="#103d49"/><stop offset="1" stop-color="#0b2630"/></linearGradient>
+    <linearGradient id="line" x2="1" y2="0"><stop stop-color="#237e79"/><stop offset="1" stop-color="#73baa3"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-15%" width="120%" height="140%"><feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#0d2d38" flood-opacity=".08"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#f4f6f2"/>
+  <rect x="0" y="0" width="1600" height="184" fill="url(#header)"/>
+  <rect x="70" y="46" width="6" height="86" rx="3" fill="#5bd2b8"/>
+  <text x="100" y="79" fill="#9fe7d7" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="3">RESEARCH DASHBOARD · EXECUTIVE OVERVIEW</text>
+  <text x="100" y="136" fill="#ffffff" font-family="Georgia,serif" font-size="50">Finance PhD Time-to-Degree Analysis</text>
+  <text x="1474" y="82" text-anchor="end" fill="#c9deda" font-family="Arial,sans-serif" font-size="20">2000–2025</text>
+
+  <g filter="url(#shadow)" fill="#ffffff" stroke="#d7e0db" stroke-width="2">
+    <rect x="70" y="211" width="272" height="152" rx="15"/>
+    <rect x="367" y="211" width="272" height="152" rx="15"/>
+    <rect x="664" y="211" width="272" height="152" rx="15"/>
+    <rect x="961" y="211" width="272" height="152" rx="15"/>
+    <rect x="1258" y="211" width="272" height="152" rx="15"/>
+  </g>
+  <g fill="#177e79" font-family="Georgia,serif" font-size="49" font-weight="700">
+    <text x="92" y="280">1,900</text><text x="389" y="280">80.4%</text><text x="686" y="280">+3.3 mo</text><text x="983" y="280">22.6%</text><text x="1280" y="280">86.2%</text>
+  </g>
+  <g fill="#60757b" font-family="Arial,sans-serif" font-size="19">
+    <text x="92" y="327">Main analysis sample</text>
+    <text x="389" y="327">Completed in 5–6 years</text>
+    <text x="686" y="327">Adjusted TTD / decade</text>
+    <text x="983" y="327">Any publication</text>
+    <text x="1280" y="327">Academic placement</text>
+  </g>
+
+  <rect x="70" y="393" width="1460" height="425" rx="16" fill="#ffffff" stroke="#d7e0db" stroke-width="2" filter="url(#shadow)"/>
+  <text x="105" y="447" fill="#0d2d38" font-family="Georgia,serif" font-size="32">Adjusted time to degree by graduation cohort</text>
+  <text x="105" y="476" fill="#60757b" font-family="Arial,sans-serif" font-size="18">Years · University-adjusted cohort estimate · descriptive association</text>
+  <g stroke="#dce7e3" stroke-width="2">
+    <path d="M196 528H1470M196 590H1470M196 652H1470M196 714H1470"/>
+  </g>
+  <g fill="#60757b" font-family="Arial,sans-serif" font-size="18" text-anchor="end">
+    <text x="176" y="534">5.6</text><text x="176" y="596">5.3</text><text x="176" y="658">5.0</text><text x="176" y="720">4.7</text>
+  </g>
+  <path d="M235 670 L385 652 L535 636 L685 619 L835 601 L985 584 L1135 568 L1285 551 L1435 536" fill="none" stroke="url(#line)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#ffffff" stroke="#177e79" stroke-width="5">
+    <circle cx="235" cy="670" r="8"/><circle cx="385" cy="652" r="8"/><circle cx="535" cy="636" r="8"/><circle cx="685" cy="619" r="8"/><circle cx="835" cy="601" r="8"/><circle cx="985" cy="584" r="8"/><circle cx="1135" cy="568" r="8"/><circle cx="1285" cy="551" r="8"/><circle cx="1435" cy="536" r="8"/>
+  </g>
+  <g fill="#60757b" font-family="Arial,sans-serif" font-size="17" text-anchor="middle">
+    <text x="235" y="758">2000–02</text><text x="385" y="758">2003–05</text><text x="535" y="758">2006–08</text><text x="685" y="758">2009–11</text><text x="835" y="758">2012–14</text><text x="985" y="758">2015–17</text><text x="1135" y="758">2018–20</text><text x="1285" y="758">2021–23</text><text x="1435" y="758">2024–25</text>
+  </g>
+  <text x="70" y="863" fill="#60757b" font-family="Arial,sans-serif" font-size="17">Source: Finance PhD EDA V2.1 aggregate report · Public preview without person-level data</text>
+</svg>

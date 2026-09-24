@@ -1,6 +1,6 @@
 ---
 title: "Real Cost Is The Best Choice Given Up"
-description: "Cost is not the money already spent, but the largest value given up when choosing one path"
+description: "Every choice carries the value of the best alternative we can no longer pursue."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Cost is not the money already spent, but the largest value given up when choosing one path.
+> Every choice carries the value of the best alternative we can no longer pursue.
 
 In Lecture 013, Xue Zhaofeng uses a quarry story to define cost. A quarry owner bought an empty piece of land near the quarry. It had fish ponds and trees and could have become housing, tourism, or another business. But after buying it, he left it empty.
 

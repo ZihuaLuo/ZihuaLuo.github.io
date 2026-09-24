@@ -1,6 +1,6 @@
 ---
 title: "Nostalgia Cannot Solve Problems, Moving Forward Has Answers"
-description: "Real optimism is not believing the past was perfect, but believing the future can be improved"
+description: "Optimism grows from recognizing what can be improved and taking responsibility for shaping the future."
 date: 2026-03-02
 category: "Cognition"
 tags: ["Nostalgia", "Change", "Moving Forward"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Real optimism is not believing the past was perfect, but believing the future can be improved.
+> Optimism grows from recognizing what can be improved and taking responsibility for shaping the future.
 
 After reading Letter 067, "The Future Will Be Better Than the Past: The Confidence Each of Us Should Have," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many people become pessimistic not because they have truly seen the future clearly, but because they imagine the past too beautifully. Nostalgia looks gentle and even carries a sense of romance. But if a person always believes "the past was better than today," they can easily lose the courage to face reality and change the future.
 

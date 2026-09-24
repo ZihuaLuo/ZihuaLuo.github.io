@@ -1,6 +1,6 @@
 ---
 title: "Top Venture Capital Does Not Bet On Companies, But On World-Changing Possibility"
-description: "A truly good investment looks not only at return, but at the direction of the times"
+description: "Ambitious venture investing considers whether a company can help shape the future as well as generate financial returns."
 date: 2026-02-21
 category: "Finance"
 tags: ["Top Venture Capital", "Long-Term Value", "Startups"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> A truly good investment looks not only at return, but at the direction of the times.
+> Ambitious venture investing considers whether a company can help shape the future as well as generate financial returns.
 
 After reading the supplemental letter "The Operating Principles of Three Top Silicon Valley Venture Capital Firms" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: the truly difficult part of venture capital is not putting money into a company that looks profitable. It is judging whether a company may represent the future while it is still early and not yet understood by the public. What makes top venture capital firms powerful is not only that they have abundant capital, but that they can identify trends inside uncertainty and find truly promising people and technologies inside disorder.
 

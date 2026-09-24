@@ -1,6 +1,6 @@
 ---
 title: "Platforms Are Built After a Breakthrough, Not Before It"
-description: "The ambition to build a platform is often premature. Startups earn the right to expand only after solving one narrow problem exceptionally well."
+description: "A startup earns room to expand by first solving a specific problem exceptionally well."
 date: 2026-09-07
 category: "Cognition"
 tags: ["Startups", "Focus", "Platforms"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> The ambition to build a platform is often premature. Startups earn the right to expand only after solving one narrow problem exceptionally well.
+> A startup earns room to expand by first solving a specific problem exceptionally well.
 
 Many startups want to become platforms. The attraction is understandable. Platforms sit at valuable points in an industry, connect multiple sides of a market, and can eventually scale without adding costs at the same rate as revenue. Google, Alibaba, and Tencent all became extraordinarily powerful partly because they evolved into platforms. But looking at what successful companies became can distort how they actually started. Almost none began by building the entire platform. The contrast between two startups illustrates this well.
 

@@ -1,3 +1,5 @@
+import { normalizeSearchValue, prepareSearchItem, rankSearchItems } from "./searchMatcher.js";
+
 // Shared, bundled once and cached across Astro page transitions.
 export const initializeSiteSearch = () => {
 
@@ -36,64 +38,6 @@ export const initializeSiteSearch = () => {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 
-    const normalize = (value) =>
-      String(value ?? "")
-        .toLocaleLowerCase()
-        .normalize("NFKD")
-        .replace(/\p{M}/gu, "")
-        .replace(/[^\p{L}\p{N}]+/gu, " ")
-        .trim();
-
-    const prepareSearchItem = (item) => {
-      if (typeof item.searchContent === "string") {
-        const { searchContent, ...resultItem } = item;
-        const fields = {
-          title: normalize(item.title),
-          description: normalize(item.description),
-          category: normalize(item.category),
-          tags: normalize((item.tags || []).join(" ")),
-          content: searchContent,
-          type: normalize(item.type),
-          date: normalize(item.date),
-          track: normalize(item.track),
-          aliases: normalize((item.aliases || []).join(" ")),
-        };
-        return {
-          ...resultItem,
-          _search: {
-            fields,
-            semanticHaystack: Object.entries(fields)
-              .filter(([field]) => field !== "date")
-              .map(([, value]) => value)
-              .join(" "),
-          },
-        };
-      }
-
-      const fields = {
-        title: normalize(item.title),
-        description: normalize(item.description),
-        category: normalize(item.category),
-        tags: normalize((item.tags || []).join(" ")),
-        content: normalize(item.content || ""),
-        type: normalize(item.type),
-        date: normalize(item.date || ""),
-        track: normalize(item.track || ""),
-        aliases: normalize((item.aliases || []).join(" ")),
-      };
-
-      return {
-        ...item,
-        _search: {
-          fields,
-          semanticHaystack: Object.entries(fields)
-            .filter(([field]) => field !== "date")
-            .map(([, value]) => value)
-            .join(" "),
-        },
-      };
-    };
-
     const track = (eventName, props = {}) => {
       if (typeof window.trackSiteEvent === "function") {
         window.trackSiteEvent(eventName, props);
@@ -123,44 +67,6 @@ export const initializeSiteSearch = () => {
         indexedItems = items;
         return items;
       });
-    };
-
-    const tokenScore = (item, query, tokens) => {
-      const { fields, semanticHaystack } = item._search;
-      const missesRequiredToken = tokens.some((token) => {
-        if (/^\d{4}$/.test(token)) {
-          return !fields.date.includes(token) && !semanticHaystack.includes(token);
-        }
-        return !semanticHaystack.includes(token);
-      });
-      if (missesRequiredToken) return 0;
-
-      let score = 0;
-
-      if (fields.title.includes(query)) score += 34;
-      if (fields.title === query) score += 70;
-      else if (fields.title.startsWith(query)) score += 14;
-      if (fields.tags.includes(query)) score += 22;
-      if (fields.aliases.includes(query)) score += 20;
-      if (fields.category.includes(query)) score += 16;
-      if (fields.track.includes(query)) score += 14;
-      if (fields.track === query) score += 90;
-      if (fields.description.includes(query)) score += 12;
-      if (fields.date.includes(query)) score += 6;
-      if (fields.content.includes(query)) score += 4;
-
-      for (const token of tokens) {
-        if (fields.title.includes(token)) score += 12;
-        if (fields.tags.includes(token)) score += 9;
-        if (fields.aliases.includes(token)) score += 8;
-        if (fields.category.includes(token)) score += 7;
-        if (fields.track.includes(token)) score += 6;
-        if (fields.description.includes(token)) score += 5;
-        if (fields.date.includes(token)) score += 3;
-        if (fields.content.includes(token)) score += 1;
-      }
-
-      return score > 0 ? score : 0;
     };
 
     const renderEmpty = () => {
@@ -199,31 +105,18 @@ export const initializeSiteSearch = () => {
         return;
       }
 
-      const normalizedQuery = normalize(trimmed);
+      const normalizedQuery = normalizeSearchValue(trimmed);
       if (!normalizedQuery) { renderNoResults(); return; }
-      const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
-      const resultYear = (item) => {
-        const match = String(item.date || "").match(/\d{4}/);
-        return match ? +match[0] : 0;
-      };
-      const matches = indexedItems
-        .map((item) => ({ item, score: tokenScore(item, normalizedQuery, tokens) }))
-        .filter((match) => match.score > 0)
-        .sort(
-          (a, b) =>
-            b.score - a.score ||
-            resultYear(b.item) - resultYear(a.item) ||
-            a.item.title.localeCompare(b.item.title),
-        )
-        .slice(0, 12)
-        .map((match) => match.item);
+      const { matches, total } = rankSearchItems(indexedItems, normalizedQuery);
 
       if (!matches.length) {
         renderNoResults();
         return;
       }
 
-      status.textContent = `${matches.length} ${labels.resultCount}`;
+      status.textContent = total > matches.length
+        ? `${labels.showing} ${matches.length} ${labels.of} ${total} ${labels.resultCount}`
+        : `${matches.length} ${matches.length === 1 ? labels.resultSingle : labels.resultCount}`;
       results.innerHTML = matches
         .map((item) => {
           const tags = (item.tags || [])

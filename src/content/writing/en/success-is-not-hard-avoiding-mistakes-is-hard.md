@@ -1,6 +1,6 @@
 ---
 title: "Success Is Not Hard; Avoiding Mistakes Is Hard"
-description: "Life is not about winning every moment, but about not exiting early because of short-sightedness, anxiety, and repeated mistakes"
+description: "Avoiding repeated and irreversible mistakes preserves the time and opportunities needed to build a meaningful life."
 date: 2026-03-24
 category: "Cognition"
 tags: ["Long-Termism", "Mistakes", "Success"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> Life is not about winning every moment, but about not exiting early because of short-sightedness, anxiety, and repeated mistakes.
+> Avoiding repeated and irreversible mistakes preserves the time and opportunities needed to build a meaningful life.
 
 After reading Wu Jun's follow-up letter on why success is not difficult, my strongest impression was that many people understand success in the wrong direction. They imagine success as a spectacular leap, a rare opportunity, or a brilliant decision. But Wu Jun's point is more restrained and more useful: in a long life, the hardest thing is often not creating a miracle, but avoiding repeated mistakes that remove a person from the game too early.
 

@@ -1,6 +1,6 @@
 ---
 title: "If Prices Do Not Screen, Society Will Screen In Other Ways"
-description: "Price is not the only allocation mechanism, but if it is removed, another screening rule will appear."
+description: "When prices cannot allocate a scarce resource, access is decided through other forms of selection and competition."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Price is not the only allocation mechanism, but if it is removed, another screening rule will appear.
+> When prices cannot allocate a scarce resource, access is decided through other forms of selection and competition.
 
 The Week 11 Q&A uses the disappearance of the U.S. oil shortage to make a broader point: when resources are scarce, society must allocate them somehow. If allocation does not happen through money, it will happen through other standards.
 

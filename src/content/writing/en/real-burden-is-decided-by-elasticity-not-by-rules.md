@@ -1,6 +1,6 @@
 ---
 title: "Real Burden Is Decided By Elasticity, Not By Rules"
-description: "The side that needs a transaction more has a harder time shifting the cost away."
+description: "The burden of a cost depends on how easily each side can change its behavior or walk away from a transaction."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The side that needs a transaction more has a harder time shifting the cost away.
+> The burden of a cost depends on how easily each side can change its behavior or walk away from a transaction.
 
 Lecture 036 explains tax incidence through elasticity. A rule can say who pays a tax, fee, or cost on the surface, but that does not necessarily tell us who bears it in the end. The real burden depends on who can leave, who has substitutes, and who needs the transaction more.
 

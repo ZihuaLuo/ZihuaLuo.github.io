@@ -1,6 +1,6 @@
 ---
 title: "Stop Picking Up Pennies When You Should Be Looking for Watermelons"
-description: "The greatest cost of chasing small gains is not the time they consume, but the ambition and capability they prevent us from developing."
+description: "Pursuing small gains can consume the attention and ambition needed to develop more valuable opportunities."
 date: 2026-09-10
 category: "Cognition"
 tags: ["Opportunity Cost", "Focus", "Long-Term Growth"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> The greatest cost of chasing small gains is not the time they consume, but the ambition and capability they prevent us from developing.
+> Pursuing small gains can consume the attention and ambition needed to develop more valuable opportunities.
 
 Most people understand that one large opportunity can be worth thousands of small ones. Yet daily behavior often suggests the opposite. We spend ten minutes to save a dollar, repeatedly check our phones for tiny rewards, devote hours to discounts, take small side jobs during work, or choose easy tasks because they produce immediate visible results. None of these decisions looks disastrous in isolation. The problem is what they train us to optimize. A useful metaphor is the difference between picking up sesame seeds and looking for watermelons. The issue is not simply that a watermelon is worth more. The two activities require completely different ways of thinking.
 

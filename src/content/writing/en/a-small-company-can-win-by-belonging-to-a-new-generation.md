@@ -1,6 +1,6 @@
 ---
 title: "A Small Company Can Win by Belonging to a New Generation"
-description: "When competitors have similar technology, the advantage often comes from something deeper: how people are organized, rewarded, and able to act."
+description: "When technology is similar, a company's advantage may come from how it organizes people, rewards initiative, and makes decisions."
 date: 2026-09-08
 category: "Cognition"
 tags: ["Organizations", "Incentives", "Competitive Advantage"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> When competitors have similar technology, the advantage often comes from something deeper: how people are organized, rewarded, and able to act.
+> When technology is similar, a company's advantage may come from how it organizes people, rewards initiative, and makes decisions.
 
 A startup does not automatically beat a large company simply because it is smaller. If both companies use the same technology, sell similar products, and organize themselves in similar ways, the larger company usually wins. It has more capital, more employees, more customers, and stronger distribution. The startup needs another advantage. Sometimes that advantage is technological. But even when both sides possess comparable technology, they can still belong to completely different generations of organizations. One way to understand the difference is through production relationships: how employees relate to the company, how incentives are distributed, how teams are formed, and how quickly information becomes action.
 

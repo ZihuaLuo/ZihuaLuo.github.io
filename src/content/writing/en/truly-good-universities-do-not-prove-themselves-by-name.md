@@ -1,6 +1,6 @@
 ---
 title: "Truly Good Universities Do Not Prove Themselves By Name"
-description: "A university's value is not its ranking, but whether it shapes a person's future ability, vision, and spirit"
+description: "A university's value becomes visible in the abilities, perspective, and character its students develop."
 date: 2026-03-27
 category: "Cognition"
 tags: ["University Education", "Reputation", "Long-Term Growth"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> A university's value is not its ranking, but whether it shapes a person's future ability, vision, and spirit.
+> A university's value becomes visible in the abilities, perspective, and character its students develop.
 
 After reading Letter 158 from Wu Jun's *Silicon Valley Letters 2*, I felt that many people's understanding of a good university remains too attached to labels. Ivy League, 985, HYPMS, world ranking, admission difficulty: these labels are not meaningless, but they can easily replace real judgment. A truly good university should not need to prove itself only through its name.
 

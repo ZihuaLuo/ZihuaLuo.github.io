@@ -1,6 +1,6 @@
 ---
 title: "The Real Goal of Longevity Is Not Living Forever"
-description: "The most realistic promise of biotechnology is not immortality, but extending the period of life in which the body remains healthy, functional, and independent."
+description: "The practical promise of longevity research lies in extending the years people remain healthy, capable, and independent."
 date: 2026-09-06
 category: "Cognition"
 tags: ["Longevity", "Healthspan", "Biotechnology"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> The most realistic promise of biotechnology is not immortality, but extending the period of life in which the body remains healthy, functional, and independent.
+> The practical promise of longevity research lies in extending the years people remain healthy, capable, and independent.
 
 The idea of living forever is attractive because technological progress makes it increasingly easy to imagine. If we can read the human genome, identify the mutations behind disease, edit faulty genes, grow replacement organs, and use artificial intelligence to discover treatments, it seems natural to ask whether death itself can eventually become optional. But there is a large gap between understanding the code of life and knowing how to rewrite it safely. Reading DNA is increasingly straightforward. Understanding what each part actually does is much harder.
 

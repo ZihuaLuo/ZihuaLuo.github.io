@@ -46,7 +46,8 @@ const {
         const navigationEntry = performance.getEntriesByType("navigation")[0];
         const isReload = navigationEntry?.type === "reload";
 
-        if (!isReload) return;
+        // Search and project deep links rely on the fragment surviving a refresh.
+        if (!isReload || window.location.hash) return;
 
         const root = document.documentElement;
         const previousScrollBehavior = root.style.scrollBehavior;
@@ -57,14 +58,6 @@ const {
         }
 
         root.style.scrollBehavior = "auto";
-
-        if (window.location.hash) {
-          history.replaceState(
-            history.state,
-            "",
-            `${window.location.pathname}${window.location.search}`,
-          );
-        }
 
         resetScroll();
         document.addEventListener("DOMContentLoaded", resetScroll, { once: true });

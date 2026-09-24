@@ -1,6 +1,6 @@
 ---
 title: "What Reduces Bias Is Not Slogans, But Making Bias Expensive"
-description: "Discrimination does not disappear on its own; only when prejudice has a cost do people actively correct it"
+description: "People have stronger reasons to question prejudice when biased decisions carry a meaningful cost."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Discrimination does not disappear on its own; only when prejudice has a cost do people actively correct it.
+> People have stronger reasons to question prejudice when biased decisions carry a meaningful cost.
 
 In Lecture 011, Xue Zhaofeng discusses Gary Becker's economic view of discrimination. People often treat discrimination as one-way harm: the discriminator hurts others and the discriminated person bears the loss. Economics adds that discriminators also pay a price.
 

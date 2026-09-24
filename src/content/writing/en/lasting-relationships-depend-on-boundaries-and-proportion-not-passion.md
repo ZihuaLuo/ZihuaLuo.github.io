@@ -1,6 +1,6 @@
 ---
 title: "Lasting Relationships Depend On Boundaries And Proportion, Not Passion"
-description: "Relationships last not because people are always warm, but because both sides understand boundaries, proportion, and the cost of closeness"
+description: "Lasting relationships need mutual respect for boundaries, realistic expectations, and care in how closeness is maintained."
 date: 2026-04-06
 category: "Cognition"
 tags: ["Relationships", "Boundaries", "Proportion"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Relationships last not because people are always warm, but because both sides understand boundaries, proportion, and the cost of closeness.
+> Lasting relationships need mutual respect for boundaries, realistic expectations, and care in how closeness is maintained.
 
 Wu Jun's discussion of long-lasting relationships reminded me that many people overestimate passion and underestimate boundaries. A relationship that begins warmly may not last, while a relationship that seems restrained may endure for a long time because both sides know how to keep proper proportion.
 

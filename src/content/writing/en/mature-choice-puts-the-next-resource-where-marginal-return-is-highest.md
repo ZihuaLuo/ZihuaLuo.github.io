@@ -1,6 +1,6 @@
 ---
 title: "Mature Choice Puts The Next Resource Where Marginal Return Is Highest"
-description: "When resources are limited, the key is not comparing total importance, but whether the next unit of input is worth it"
+description: "With limited resources, each additional commitment should be judged by the benefit it can bring at the margin."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> When resources are limited, the key is not comparing total importance, but whether the next unit of input is worth it.
+> With limited resources, each additional commitment should be judged by the benefit it can bring at the margin.
 
 In Lecture 030, Xue Zhaofeng explains one of the core concepts of economics: the margin. The margin means the added effect of one more unit. One more bite of food creates marginal utility; one more product creates marginal cost; one more hour of study creates marginal return.
 

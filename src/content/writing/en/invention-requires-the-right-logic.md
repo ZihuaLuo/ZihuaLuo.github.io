@@ -1,6 +1,6 @@
 ---
 title: "Invention Is Not A Sudden Breakthrough, But Finding The Right Logic"
-description: "Real innovation is not copying the surface, but understanding the principle behind it"
+description: "Useful innovation begins with understanding how something works and applying that knowledge to a new problem."
 date: 2026-02-18
 category: "Cognition"
 tags: ["Innovation", "Principles", "Trial And Error"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Real innovation is not copying the surface, but understanding the principle behind it.
+> Useful innovation begins with understanding how something works and applying that knowledge to a new problem.
 
 After reading Letter 029, "The Logic Behind Invention: Flight," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many important human advances did not happen because people found the correct answer from the beginning. They happened because people kept trying, correcting, and re-understanding until they slowly approached the real principle of the thing. The invention of flight is a good example. Humans admired birds very early and hoped to fly into the sky like birds. But the earliest efforts mostly stayed at imitating bird wings, assuming that as long as a similar wing device was made, flight could be achieved.
 

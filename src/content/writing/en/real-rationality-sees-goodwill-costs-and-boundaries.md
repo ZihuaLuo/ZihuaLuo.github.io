@@ -1,6 +1,6 @@
 ---
 title: "Real Rationality Means Seeing Goodwill, Costs, And Boundaries"
-description: "People are not rational at every moment, but when the cost is high enough they naturally become cautious; mature judgment uses different standards in different contexts"
+description: "Sound judgment considers people's motives, the costs they face, and the boundaries that matter in a particular situation."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> People are not rational at every moment, but when the cost is high enough they naturally become cautious; mature judgment uses different standards in different contexts.
+> Sound judgment considers people's motives, the costs they face, and the boundaries that matter in a particular situation.
 
 In the second-week Q&A, Xue Zhaofeng answers several questions that point to the same core idea: people are not abstract moral symbols. They make choices inside costs, incentives, and environments.
 

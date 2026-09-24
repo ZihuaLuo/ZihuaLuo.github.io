@@ -1,6 +1,6 @@
 ---
 title: "Shortage Is Not Simply Not Enough; It Is Rules Making People Compete Differently"
-description: "Scarcity is normal, but shortage and surplus often come from distorted prices that force people into other forms of competition."
+description: "Price restrictions can turn scarcity into shortages or surpluses and shift competition into queues, effort, or personal connections."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: false
 draft: false
 ---
 
-> Scarcity is normal, but shortage and surplus often come from distorted prices that force people into other forms of competition.
+> Price restrictions can turn scarcity into shortages or surpluses and shift competition into queues, effort, or personal connections.
 
 Lecture 043 distinguishes scarcity, shortage, and surplus. Scarcity is the normal condition of human life: good things are limited and people must choose. Shortage and surplus are different. They often appear when prices are pushed below or above the level at which people are willing to trade.
 

@@ -1,6 +1,6 @@
 ---
 title: "Do Not Follow Crowded Gains Or Crowded Competition"
-description: "A mature choice is not going wherever the crowd is, but seeing the risks and costs behind the excitement"
+description: "Popular opportunities deserve a careful look at the competition, costs, and risks behind the excitement."
 date: 2026-03-18
 category: "Cognition"
 tags: ["Choice", "Crowds", "Opportunity Judgment"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> A mature choice is not going wherever the crowd is, but seeing the risks and costs behind the excitement.
+> Popular opportunities deserve a careful look at the competition, costs, and risks behind the excitement.
 
 After reading Letter 109, "Do Not Take Crowded Gains, Do Not Go Where Everyone Competes," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, the point most worth expanding is this: many opportunities that look universally approved and fiercely contested may not be truly worth pursuing. People are easily carried away by consensus. They think that if everyone says something is good, it must be good; if everyone is fighting for it, it must be valuable. But in reality, when something has already been seen by everyone, its best timing has often already passed.
 

@@ -1,6 +1,6 @@
 ---
 title: "What Is Truly Irreplaceable Is Human Imagination, Judgment, And Incentive"
-description: "Technology can process existing data, but society's hardest problems often involve discovering new questions, creating new dimensions, and bearing consequences."
+description: "Solving unfamiliar problems requires imagination, judgment, and people willing to take responsibility for the consequences."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Technology can process existing data, but society's hardest problems often involve discovering new questions, creating new dimensions, and bearing consequences.
+> Solving unfamiliar problems requires imagination, judgment, and people willing to take responsibility for the consequences.
 
 The Week 10 Q&A asks whether artificial intelligence and big data can replace human judgment in predicting future supply and demand. At first glance, stronger computing and larger datasets seem to make prediction easier. But economic life is difficult precisely because future demand is often unknown.
 

@@ -1,6 +1,6 @@
 ---
 title: "People Optimize What the System Rewards"
-description: "If an organization rewards the wrong outcome, no amount of speeches about the right behavior will compensate for the incentive system."
+description: "An organization's incentives shape everyday behavior more powerfully than statements about how people should act."
 date: 2026-09-09
 category: "Cognition"
 tags: ["Incentives", "Management", "Objective Design"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> If an organization rewards the wrong outcome, no amount of speeches about the right behavior will compensate for the incentive system.
+> An organization's incentives shape everyday behavior more powerfully than statements about how people should act.
 
 One of the most useful ideas from optimization theory is surprisingly simple: define an objective, repeatedly move in the direction that improves it, and over time the system will converge toward what that objective rewards. Organizations behave in much the same way. Employees constantly observe what actually produces promotions, bonuses, recognition, and influence. Once they understand the rules, they naturally adjust their behavior to maximize those outcomes. This means that a company's real values are not necessarily the values written on its website.
 

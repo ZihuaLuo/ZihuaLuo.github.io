@@ -1,6 +1,6 @@
 ---
 title: "The Crowd Can Be Informative and Still Be Wrong"
-description: "Following other people is not always irrational. The danger begins when everyone starts treating everyone else’s behavior as information."
+description: "Following others becomes dangerous when shared behavior replaces independent evidence and errors spread through the group."
 date: 2026-08-31
 category: "Economic Thinking"
 tags: ["Herding", "Information Cascades", "Markets"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Following other people is not always irrational. The danger begins when everyone starts treating everyone else’s behavior as information.
+> Following others becomes dangerous when shared behavior replaces independent evidence and errors spread through the group.
 
 Herding is usually described as a failure to think independently. We see other people buying, selling, choosing, or believing something, and we copy them without doing our own analysis. But the more interesting part of herding is that it can begin completely rationally. Suppose I am choosing between two restaurants. I have some private information suggesting that restaurant B is slightly better, but I see several people already eating at restaurant A. Their choices contain information. Perhaps they know something I do not.
 

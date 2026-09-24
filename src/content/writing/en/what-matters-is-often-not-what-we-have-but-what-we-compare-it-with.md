@@ -1,6 +1,6 @@
 ---
 title: "What Matters Is Often Not What We Have, but What We Compare It With"
-description: "We rarely evaluate outcomes in isolation. The reference point we compare them with can change how the exact same outcome feels — and what we choose to do next."
+description: "The reference points we choose shape how an outcome feels and influence the decisions we make afterward."
 date: 2026-08-29
 category: "Economic Thinking"
 tags: ["Reference Points", "Comparison", "Decision-Making"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> We rarely evaluate outcomes in isolation. The reference point we compare them with can change how the exact same outcome feels — and what we choose to do next.
+> The reference points we choose shape how an outcome feels and influence the decisions we make afterward.
 
 Traditional economics often treats utility as something determined by what I have. More income should make me happier. A higher investment return should make me better off. A better product should be more attractive. But people rarely evaluate outcomes in absolute terms. We compare. Earning $100,000 can feel satisfying until someone close to me earns $150,000. Losing 10% can feel terrible, even if my portfolio is still far larger than it was several years ago. A product can suddenly look attractive not because the product changed, but because another option gives me a more favorable point of comparison.
 

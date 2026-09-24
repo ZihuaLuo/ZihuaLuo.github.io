@@ -1,6 +1,6 @@
 ---
 title: "Real Venture Capital Invests In Future Change"
-description: "Great investors look not only at money-making opportunities, but at whether the world will be different because of them"
+description: "Venture investors consider how a company could reshape an industry and create possibilities that do not yet exist."
 date: 2026-02-25
 category: "Finance"
 tags: ["John Doerr", "Future Change", "Investment Philosophy"]
@@ -10,9 +10,9 @@ draft: false
 ---
 
 
-> Great investors look not only at money-making opportunities, but at whether the world will be different because of them.
+> Venture investors consider how a company could reshape an industry and create possibilities that do not yet exist.
 
-After reading Letter 053, "The Investment Philosophy of John Doerr, the King of Venture Capital (Part I)," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: truly top-level venture capital does not merely judge whether a project can make money. It judges whether the project can change the world. Ordinary investors see companies, valuations, and rates of return. Investors like John Doerr care more about whether a project represents the direction of the future, whether it can create a new industry, and whether society will change because it appears.
+After reading Letter 053, the first part of "The Investment Philosophy of John Doerr, the King of Venture Capital," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: truly top-level venture capital does not merely judge whether a project can make money. It judges whether the project can change the world. Ordinary investors see companies, valuations, and rates of return. Investors like John Doerr care more about whether a project represents the direction of the future, whether it can create a new industry, and whether society will change because it appears.
 
 In this letter, Wu Jun introduces John Doerr's investment experience. Doerr invested in Compaq, Netscape, Symantec, Sun Microsystems, Amazon, Google, and other companies, which earned him the title "king of venture capital." But these successes were not because he always chose safe projects. On the contrary, the letter says Doerr's investment style was very bold, and even inside Kleiner Perkins his failure rate was high. This is exactly why venture capital cannot be understood through ordinary investment logic. Venture capital does not seek safety in every deal. It is willing to accept failure as long as a small number of truly great projects can produce enormous returns.
 

@@ -1,6 +1,6 @@
 ---
 title: "Studying Science Gives Us A Method For Judging The World"
-description: "What science truly leaves behind is not knowledge points, but the ability to verify and reason"
+description: "Scientific thinking teaches us to test explanations, examine evidence, and revise our understanding when facts demand it."
 date: 2026-02-21
 category: "Cognition"
 tags: ["Science", "Methodology", "Judgment"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> What science truly leaves behind is not knowledge points, but the ability to verify and reason.
+> Scientific thinking teaches us to test explanations, examine evidence, and revise our understanding when facts demand it.
 
 After reading Letter 044, "Why Study Science?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: studying science is not about making everyone a scientist, nor about memorizing how much physics, chemistry, or biology. It is about giving us a more reliable method for understanding the world. Many scientific facts may be forgotten after graduation, but if a person learns verification, reasoning, skepticism, and respect for facts through studying science, that ability will influence how they see problems for a long time.
 

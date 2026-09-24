@@ -1,6 +1,6 @@
 ---
 title: "Gradual Accumulation Creates Real Discontinuity"
-description: "Real change often does not happen suddenly; it is the result of long-term accumulation"
+description: "What looks like a sudden breakthrough often rests on years of steady learning and accumulated effort."
 date: 2026-03-03
 category: "Cognition"
 tags: ["Accumulation", "Discontinuity", "Long-Termism"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Real change often does not happen suddenly; it is the result of long-term accumulation.
+> What looks like a sudden breakthrough often rests on years of steady learning and accumulated effort.
 
 After reading the reader Q&A "What Is the Relationship Between Gradual Change and Discontinuous Change?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many so-called "sudden" changes are not actually sudden. They are merely seen by us after long accumulation reaches a critical point. People easily pay attention to discontinuity because it is more obvious, more shocking, and easier to remember. But what truly determines whether discontinuity can happen is often the earlier gradual change that is slow, unnoticed, and even neglected.
 

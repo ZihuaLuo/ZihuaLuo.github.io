@@ -1,0 +1,399 @@
+{
+  "meta": {
+    "source": "10K_Noncompete_Extracted Data_0727.xlsx",
+    "sheet": "Sheet1",
+    "filings": 130,
+    "annotationRows": 1262,
+    "firstYear": 1994,
+    "lastYear": 2023,
+    "typeAnnotatedFilings": 84,
+    "exclusionNoteFilings": 40
+  },
+  "periods": [
+    {
+      "name": "1994–2004",
+      "startYear": 1994,
+      "endYear": 2004,
+      "filings": 22,
+      "annotationRows": 228,
+      "typeAnnotatedFilings": 16,
+      "exclusionNoteFilings": 12
+    },
+    {
+      "name": "2005–2014",
+      "startYear": 2005,
+      "endYear": 2014,
+      "filings": 41,
+      "annotationRows": 429,
+      "typeAnnotatedFilings": 27,
+      "exclusionNoteFilings": 15
+    },
+    {
+      "name": "2015–2023",
+      "startYear": 2015,
+      "endYear": 2023,
+      "filings": 67,
+      "annotationRows": 605,
+      "typeAnnotatedFilings": 41,
+      "exclusionNoteFilings": 13
+    }
+  ],
+  "annual": [
+    {
+      "year": 1994,
+      "filings": 2
+    },
+    {
+      "year": 1995,
+      "filings": 0
+    },
+    {
+      "year": 1996,
+      "filings": 1
+    },
+    {
+      "year": 1997,
+      "filings": 1
+    },
+    {
+      "year": 1998,
+      "filings": 2
+    },
+    {
+      "year": 1999,
+      "filings": 3
+    },
+    {
+      "year": 2000,
+      "filings": 2
+    },
+    {
+      "year": 2001,
+      "filings": 5
+    },
+    {
+      "year": 2002,
+      "filings": 1
+    },
+    {
+      "year": 2003,
+      "filings": 3
+    },
+    {
+      "year": 2004,
+      "filings": 2
+    },
+    {
+      "year": 2005,
+      "filings": 3
+    },
+    {
+      "year": 2006,
+      "filings": 9
+    },
+    {
+      "year": 2007,
+      "filings": 5
+    },
+    {
+      "year": 2008,
+      "filings": 2
+    },
+    {
+      "year": 2009,
+      "filings": 5
+    },
+    {
+      "year": 2010,
+      "filings": 4
+    },
+    {
+      "year": 2011,
+      "filings": 3
+    },
+    {
+      "year": 2012,
+      "filings": 1
+    },
+    {
+      "year": 2013,
+      "filings": 9
+    },
+    {
+      "year": 2014,
+      "filings": 0
+    },
+    {
+      "year": 2015,
+      "filings": 12
+    },
+    {
+      "year": 2016,
+      "filings": 6
+    },
+    {
+      "year": 2017,
+      "filings": 9
+    },
+    {
+      "year": 2018,
+      "filings": 4
+    },
+    {
+      "year": 2019,
+      "filings": 9
+    },
+    {
+      "year": 2020,
+      "filings": 5
+    },
+    {
+      "year": 2021,
+      "filings": 4
+    },
+    {
+      "year": 2022,
+      "filings": 8
+    },
+    {
+      "year": 2023,
+      "filings": 10
+    }
+  ],
+  "features": [
+    {
+      "name": "Restriction",
+      "filings": 91
+    },
+    {
+      "name": "Type",
+      "filings": 84
+    },
+    {
+      "name": "Position",
+      "filings": 77
+    },
+    {
+      "name": "Duration",
+      "filings": 72
+    },
+    {
+      "name": "Condition",
+      "filings": 53
+    },
+    {
+      "name": "Non-restriction",
+      "filings": 36
+    },
+    {
+      "name": "Geography",
+      "filings": 30
+    },
+    {
+      "name": "Enforcement",
+      "filings": 21
+    },
+    {
+      "name": "Penalty",
+      "filings": 8
+    }
+  ],
+  "typeThemes": [
+    {
+      "name": "Competition restriction",
+      "filings": 77
+    },
+    {
+      "name": "Non-solicitation",
+      "filings": 40
+    },
+    {
+      "name": "Confidentiality",
+      "filings": 14
+    }
+  ],
+  "periodFeatures": [
+    {
+      "period": "1994–2004",
+      "feature": "Restriction",
+      "filings": 14
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Type",
+      "filings": 16
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Position",
+      "filings": 15
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Duration",
+      "filings": 12
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Condition",
+      "filings": 10
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Non-restriction",
+      "filings": 8
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Geography",
+      "filings": 4
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Enforcement",
+      "filings": 1
+    },
+    {
+      "period": "1994–2004",
+      "feature": "Penalty",
+      "filings": 0
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Restriction",
+      "filings": 33
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Type",
+      "filings": 27
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Position",
+      "filings": 24
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Duration",
+      "filings": 23
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Condition",
+      "filings": 18
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Non-restriction",
+      "filings": 11
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Geography",
+      "filings": 11
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Enforcement",
+      "filings": 7
+    },
+    {
+      "period": "2005–2014",
+      "feature": "Penalty",
+      "filings": 1
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Restriction",
+      "filings": 44
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Type",
+      "filings": 41
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Position",
+      "filings": 38
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Duration",
+      "filings": 37
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Condition",
+      "filings": 25
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Non-restriction",
+      "filings": 17
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Geography",
+      "filings": 15
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Enforcement",
+      "filings": 13
+    },
+    {
+      "period": "2015–2023",
+      "feature": "Penalty",
+      "filings": 7
+    }
+  ],
+  "periodThemes": [
+    {
+      "period": "1994–2004",
+      "theme": "Competition restriction",
+      "filings": 14
+    },
+    {
+      "period": "1994–2004",
+      "theme": "Non-solicitation",
+      "filings": 3
+    },
+    {
+      "period": "1994–2004",
+      "theme": "Confidentiality",
+      "filings": 1
+    },
+    {
+      "period": "2005–2014",
+      "theme": "Competition restriction",
+      "filings": 26
+    },
+    {
+      "period": "2005–2014",
+      "theme": "Non-solicitation",
+      "filings": 10
+    },
+    {
+      "period": "2005–2014",
+      "theme": "Confidentiality",
+      "filings": 1
+    },
+    {
+      "period": "2015–2023",
+      "theme": "Competition restriction",
+      "filings": 37
+    },
+    {
+      "period": "2015–2023",
+      "theme": "Non-solicitation",
+      "filings": 27
+    },
+    {
+      "period": "2015–2023",
+      "theme": "Confidentiality",
+      "filings": 12
+    }
+  ]
+}

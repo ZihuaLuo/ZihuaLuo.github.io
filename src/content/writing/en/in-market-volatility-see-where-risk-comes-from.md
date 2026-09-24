@@ -1,6 +1,6 @@
 ---
 title: "In Market Volatility, The Most Important Thing Is Seeing Where Risk Comes From"
-description: "A truly mature investor does not avoid volatility, but understands it"
+description: "Understanding the sources of market volatility helps investors judge the risks they are actually taking."
 date: 2026-02-27
 category: "Finance"
 tags: ["Market Volatility", "Risk", "Investment Judgment"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> A truly mature investor does not avoid volatility, but understands it.
+> Understanding the sources of market volatility helps investors judge the risks they are actually taking.
 
 After reading the supplemental letter "On Global Stock Market Volatility" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: a market decline itself is not frightening. What is truly frightening is not knowing why the decline happened, and not knowing where the risk in one's own assets lies. Many people believe they have strong judgment when stocks are rising, but once the market fluctuates sharply, they are dominated by fear. Mature investing is not predicting every rise and fall. It is distinguishing, inside volatility, which movements are short-term technical corrections and which are real fundamental risks.
 

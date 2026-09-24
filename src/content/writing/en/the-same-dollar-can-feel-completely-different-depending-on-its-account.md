@@ -1,6 +1,6 @@
 ---
 title: "The Same Dollar Can Feel Completely Different Depending on Its Account"
-description: "Money is economically interchangeable, but mentally we assign it to separate accounts — and those invisible boundaries can change how much we spend, save, and risk."
+description: "The mental categories we assign to money influence how readily we spend it, save it, or put it at risk."
 date: 2026-08-30
 category: "Economic Thinking"
 tags: ["Mental Accounting", "Money", "Decision-Making"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Money is economically interchangeable, but mentally we assign it to separate accounts — and those invisible boundaries can change how much we spend, save, and risk.
+> The mental categories we assign to money influence how readily we spend it, save it, or put it at risk.
 
 Traditional economics treats money as fungible. A dollar earned from salary should be identical to a dollar received from an investment, a gift, or an unexpected saving. Once the money belongs to me, where it came from should not affect what I do with it. Psychologically, this is rarely true. We create mental accounts. A household may have one mental budget for transportation, another for food, another for entertainment, and another for savings. If gasoline prices suddenly fall, the money saved on fuel may remain psychologically inside the “transportation account.” Instead of spending the extra cash on groceries or saving it, someone may simply upgrade to more expensive gasoline.
 

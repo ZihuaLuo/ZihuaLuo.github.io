@@ -1,6 +1,6 @@
 ---
 title: "Real Help Returns The Right To Choose To People Who Need It"
-description: "Goodwill that makes all choices for others may end up helping distributors more than the vulnerable."
+description: "Effective support gives people more control over their own choices and pays attention to whose interests the arrangement serves."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Goodwill that makes all choices for others may end up helping distributors more than the vulnerable.
+> Effective support gives people more control over their own choices and pays attention to whose interests the arrangement serves.
 
 Lecture 048 compares in-kind subsidies and cash subsidies. The question behind it is practical and moral: if prices allocate goods efficiently, what should society do for people who do not have enough money?
 

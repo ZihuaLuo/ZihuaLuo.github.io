@@ -1,6 +1,6 @@
 ---
 title: "Ten Thousand Hours Only Matter If the Hours Compound"
-description: "Expertise does not come from spending more time. It comes from making each hour build on the hours that came before it."
+description: "Practice builds expertise when each session improves on the last and turns experience into better methods."
 date: 2026-09-04
 category: "Cognition"
 tags: ["Learning", "Deliberate Practice", "Compounding"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Expertise does not come from spending more time. It comes from making each hour build on the hours that came before it.
+> Practice builds expertise when each session improves on the last and turns experience into better methods.
 
 The “10,000-hour rule” is attractive because it turns mastery into a simple equation: spend enough time on something and eventually become exceptional. But time alone is a poor measure of progress. Two people can spend the same ten years in the same profession and emerge with completely different abilities. One may have accumulated ten years of experience. The other may have repeated the same year ten times. The difference is whether those hours compound.
 

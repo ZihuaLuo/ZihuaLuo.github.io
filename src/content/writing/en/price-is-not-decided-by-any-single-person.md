@@ -1,6 +1,6 @@
 ---
 title: "Price Is Not Decided By Any Single Person"
-description: "Price is not one person's decision. It is the result of countless choices being aggregated."
+description: "Prices emerge from the combined choices of buyers and sellers responding to one another."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> Price is not one person's decision. It is the result of countless choices being aggregated.
+> Prices emerge from the combined choices of buyers and sellers responding to one another.
 
 Lecture 052 is a summary of the discussion on real estate and price theory. Its most important point is that price is not truly set by any one specific person. It is formed by countless transactions, judgments, needs, and constraints dispersed across society. A landlord can decide whether to sell a home, but cannot decide what the home is truly worth. A merchant can post a price, but cannot force the market to accept it. Price is more like a report than a command.
 

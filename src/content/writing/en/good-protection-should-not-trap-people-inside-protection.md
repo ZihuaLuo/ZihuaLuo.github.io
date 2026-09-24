@@ -1,6 +1,6 @@
 ---
 title: "Good Protection Should Not Trap People Inside Protection"
-description: "Effective protection does not arrange everything for people; it preserves choice and mobility."
+description: "Effective protection preserves people's ability to choose, move, and pursue better opportunities."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Effective protection does not arrange everything for people; it preserves choice and mobility.
+> Effective protection preserves people's ability to choose, move, and pursue better opportunities.
 
 Lecture 050 discusses affordable housing and the unintended costs of protection. A policy may aim to help people by giving them cheaper housing, but if the design is rigid, it can trap people inside the protection.
 

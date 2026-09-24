@@ -1,6 +1,6 @@
 ---
 title: "A Good Story Is Not the Same as a Good Investment"
-description: "Investment returns depend not only on what will happen, but on what the market already expects, what price we pay, and whether the mechanism behind a strategy actually survives in the market where we use it."
+description: "Investment returns depend on the price we pay, the expectations already reflected in it, and whether a strategy works in its market."
 date: 2026-09-03
 category: "Economic Thinking"
 tags: ["Investment Thesis", "Market Expectations", "Valuation"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Investment returns depend not only on what will happen, but on what the market already expects, what price we pay, and whether the mechanism behind a strategy actually survives in the market where we use it.
+> Investment returns depend on the price we pay, the expectations already reflected in it, and whether a strategy works in its market.
 
 The final lecture ends with several investing mistakes, but I think they all point to the same underlying problem: a convincing story is not necessarily a profitable investment thesis. Consider economic growth. It sounds obvious that a country with faster GDP growth should have a better-performing stock market. The same intuition applies to industries. If I correctly identify an industry that will transform the economy over the next fifty years, it seems natural that investing in that industry should generate exceptional returns.
 

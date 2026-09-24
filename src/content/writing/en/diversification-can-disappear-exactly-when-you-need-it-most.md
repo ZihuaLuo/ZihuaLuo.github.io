@@ -1,6 +1,6 @@
 ---
 title: "Diversification Can Disappear Exactly When You Need It Most"
-description: "A quantitative strategy can look diversified, systematic, and statistically robust in normal markets while carrying risks that reveal themselves only when many positions fail together."
+description: "Positions that appear diversified in normal markets may share hidden risks that surface when they fail together."
 date: 2026-09-02
 category: "Economic Thinking"
 tags: ["Diversification", "Quantitative Investing", "Tail Risk"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> A quantitative strategy can look diversified, systematic, and statistically robust in normal markets while carrying risks that reveal themselves only when many positions fail together.
+> Positions that appear diversified in normal markets may share hidden risks that surface when they fail together.
 
 Quantitative investing has an obvious appeal. A systematic strategy can process thousands of companies, react to information quickly, remove some emotional biases, preserve knowledge inside a repeatable process, and test ideas across decades of historical data. Compared with relying entirely on one person's judgment, it can look far more disciplined. But that discipline can create its own form of confidence. Once a strategy has survived decades of backtests, contains hundreds of securities, and is supported by a sophisticated model, it becomes easy to believe that its risks are understood.
 

@@ -1,6 +1,6 @@
 ---
 title: "Sentiment Matters Most Where Valuation Is Least Certain"
-description: "Investor sentiment does not affect every asset equally. Its influence becomes strongest when fundamentals are difficult to anchor and disagreement is hard to correct."
+description: "Investor sentiment has greater influence when fundamental value is uncertain and market forces struggle to correct disagreement."
 date: 2026-09-01
 category: "Economic Thinking"
 tags: ["Investor Sentiment", "Valuation", "Mispricing"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Investor sentiment does not affect every asset equally. Its influence becomes strongest when fundamentals are difficult to anchor and disagreement is hard to correct.
+> Investor sentiment has greater influence when fundamental value is uncertain and market forces struggle to correct disagreement.
 
 Investor sentiment is often described vaguely as optimism or pessimism in the market. A more useful definition is excess demand or expectation that cannot be fully explained by fundamentals. Seen this way, sentiment is not a separate behavioral bias. It is closer to an aggregation of many of them. Limited attention can make investors focus too heavily on exciting stories. Representativeness can lead them to extrapolate recent success. Overconfidence can make them trust those forecasts too much. Herding can amplify the same belief once other investors begin acting on it.
 

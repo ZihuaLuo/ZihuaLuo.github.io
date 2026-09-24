@@ -1,6 +1,6 @@
 ---
 title: "Real Price Order Comes From Concrete Transactions, Not Abstract Averages"
-description: "Price is not a number set by one person, but the result that grows out of countless concrete transactions."
+description: "Understanding prices requires looking at the specific transactions and choices from which they emerge."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Price is not a number set by one person, but the result that grows out of countless concrete transactions.
+> Understanding prices requires looking at the specific transactions and choices from which they emerge.
 
 Lecture 039 emphasizes that price is not an abstract average imposed from outside. It forms through concrete transactions between buyers and sellers under specific conditions.
 

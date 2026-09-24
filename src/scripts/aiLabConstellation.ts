@@ -10,6 +10,7 @@ import { createProjectFlightPath, getAccretionRotation, getMotionBlend, updatePr
 import { createVisibleAnimationLoop, type AnimationFrameState } from "./animationLifecycle";
 import { disposeScene } from "./disposeScene";
 import { initializeLabFallback } from "./aiLabFallback";
+import { computeConstellationLayout } from "./aiLabLayout";
 
 type ProjectDefinition = {
   id: string;
@@ -22,13 +23,11 @@ type ProjectDefinition = {
   secondaryColor: string;
   deepColor: string;
   size: number;
-  orbitRadius: number;
   orbitSpeed: number;
   ringTiltX: number;
   ringTiltZ: number;
   ringDensity: number;
   lightDirection?: [number, number, number];
-  position?: [number, number, number?];
 };
 
 type PlanetSystem = {
@@ -157,7 +156,7 @@ const makeTextTexture = (project: ProjectDefinition, renderer: THREE.WebGLRender
   context.globalAlpha = 0.97;
 
   const iconY = 202;
-  if (project.id === "agent-research") {
+  if (project.id === "canadian-electricity") {
     const radius = 45;
     context.beginPath();
     for (let index = 0; index < 6; index += 1) {
@@ -190,11 +189,48 @@ const makeTextTexture = (project: ProjectDefinition, renderer: THREE.WebGLRender
     }
   } else if (project.id === "retention-lab") {
     context.beginPath();
-    context.moveTo(centerX, iconY + 35);
-    context.bezierCurveTo(centerX - 12, iconY + 23, centerX - 48, iconY - 1, centerX - 43, iconY - 25);
-    context.bezierCurveTo(centerX - 39, iconY - 47, centerX - 10, iconY - 52, centerX, iconY - 29);
-    context.bezierCurveTo(centerX + 10, iconY - 52, centerX + 39, iconY - 47, centerX + 43, iconY - 25);
-    context.bezierCurveTo(centerX + 48, iconY - 1, centerX + 12, iconY + 23, centerX, iconY + 35);
+    context.moveTo(centerX - 27, iconY - 10);
+    context.lineTo(centerX - 27, iconY - 25);
+    context.arc(centerX, iconY - 25, 27, Math.PI, 0);
+    context.lineTo(centerX + 27, iconY - 10);
+    context.stroke();
+    context.beginPath();
+    context.roundRect(centerX - 42, iconY - 10, 84, 62, 10);
+    context.stroke();
+    context.beginPath();
+    context.arc(centerX, iconY + 20, 5, 0, Math.PI * 2);
+    context.fillStyle = "#E9FCFF";
+    context.fill();
+  } else if (project.id === "cloudline") {
+    context.beginPath();
+    context.roundRect(centerX - 43, iconY - 39, 86, 69, 16);
+    context.moveTo(centerX - 43, iconY - 7);
+    context.lineTo(centerX + 43, iconY - 7);
+    context.moveTo(centerX, iconY - 39);
+    context.lineTo(centerX, iconY - 7);
+    context.moveTo(centerX - 28, iconY + 42);
+    context.lineTo(centerX - 16, iconY + 30);
+    context.moveTo(centerX + 28, iconY + 42);
+    context.lineTo(centerX + 16, iconY + 30);
+    context.stroke();
+    context.beginPath();
+    context.arc(centerX - 23, iconY + 15, 3, 0, Math.PI * 2);
+    context.arc(centerX + 23, iconY + 15, 3, 0, Math.PI * 2);
+    context.stroke();
+  } else if (project.id === "corporate-scandal") {
+    context.beginPath();
+    context.roundRect(centerX - 35, iconY - 46, 70, 91, 8);
+    context.moveTo(centerX - 20, iconY - 23);
+    context.lineTo(centerX + 20, iconY - 23);
+    context.moveTo(centerX - 20, iconY - 3);
+    context.lineTo(centerX + 8, iconY - 3);
+    context.moveTo(centerX - 20, iconY + 17);
+    context.lineTo(centerX + 16, iconY + 17);
+    context.stroke();
+    context.beginPath();
+    context.arc(centerX + 25, iconY + 22, 19, 0, Math.PI * 2);
+    context.moveTo(centerX + 38, iconY + 36);
+    context.lineTo(centerX + 53, iconY + 52);
     context.stroke();
   } else {
     context.beginPath();
@@ -236,6 +272,11 @@ const makeTextTexture = (project: ProjectDefinition, renderer: THREE.WebGLRender
     context.fillText(line.toUpperCase(), 0, 0, 520);
     context.restore();
   });
+  if (project.id === "retention-lab") {
+    context.fillStyle = "#F4DCFF";
+    context.font = '800 48px "Arial Narrow", Inter, ui-sans-serif, system-ui, sans-serif';
+    context.fillText("PRIVATE DATA", centerX, 578, 520);
+  }
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -406,60 +447,6 @@ const createDebrisBelt = (project: ProjectDefinition, count: number, layer: numb
   debris.instanceMatrix.needsUpdate = true;
   if (debris.instanceColor) debris.instanceColor.needsUpdate = true;
   return debris;
-};
-
-const computeOrbitalTargets = (definitions: ProjectDefinition[], aspect: number, compact: boolean) => {
-  const count = definitions.length;
-  const worldHeight = compact ? 7.35 : 6.15;
-  const worldWidth = worldHeight * aspect;
-  const halfWidth = (worldHeight * aspect) / 2;
-  const safeX = Math.max(1.45, halfWidth - (compact ? 1.05 : 1.42));
-  const safeY = worldHeight / 2 - (compact ? 1.1 : 1.4);
-  const targets: THREE.Vector3[] = [];
-
-  if (count <= 4) {
-    const presets = [
-      [0.25, 0.27],
-      [0.75, 0.29],
-      [0.42, 0.73],
-      [0.74, 0.75],
-    ];
-    for (let index = 0; index < count; index += 1) {
-      const [normalizedX, normalizedY, z = 0.12 + (index % 2) * 0.04] = definitions[index].position ?? presets[index];
-      targets.push(new THREE.Vector3(
-        (normalizedX - 0.5) * worldWidth,
-        (0.5 - normalizedY) * worldHeight,
-        z,
-      ));
-    }
-    return { targets, worldHeight };
-  }
-
-  if (count <= 8) {
-    for (let index = 0; index < count; index += 1) {
-      const band = index % 2;
-      const angle = index * 2.3999632297 + (band ? 0.34 : -0.16);
-      const orbitScale = THREE.MathUtils.clamp(definitions[index].orbitRadius / 2.5, 0.82, 1.14);
-      const radiusX = safeX * (band ? 0.94 : 0.64) * orbitScale;
-      const radiusY = safeY * (band ? 0.88 : 0.62) * orbitScale;
-      targets.push(new THREE.Vector3(Math.cos(angle) * radiusX, Math.sin(angle) * radiusY, band * 0.08));
-    }
-    return { targets, worldHeight };
-  }
-
-  const shells = Math.ceil(count / 5);
-  for (let index = 0; index < count; index += 1) {
-    const shell = index % shells;
-    const shellScale = 0.5 + (shell / Math.max(1, shells - 1)) * 0.48;
-    const orbitScale = THREE.MathUtils.clamp(definitions[index].orbitRadius / 2.5, 0.8, 1.16);
-    const angle = index * 2.3999632297 + shell * 0.43;
-    targets.push(new THREE.Vector3(
-      Math.cos(angle) * safeX * shellScale * orbitScale,
-      Math.sin(angle) * safeY * shellScale * orbitScale,
-      shell * 0.035,
-    ));
-  }
-  return { targets, worldHeight };
 };
 
 const createBackgroundLayer = (
@@ -813,6 +800,23 @@ const initializeLab = (lab: LabElement) => {
 
   const planetSystems: PlanetSystem[] = [];
   const hitTargets: THREE.Mesh[] = [];
+  const bloomHiddenCandidates: THREE.Object3D[] = [];
+  const bloomOccluderCandidates: Array<{ mesh: THREE.Mesh; material: THREE.Material | THREE.Material[] }> = [];
+  const bloomHidden: THREE.Object3D[] = [];
+  const bloomOccluders: Array<{ mesh: THREE.Mesh; material: THREE.Material | THREE.Material[] }> = [];
+  const cacheBloomPassObjects = () => {
+    bloomHiddenCandidates.length = 0;
+    bloomOccluderCandidates.length = 0;
+    scene.traverse((object) => {
+      const renderable = object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points;
+      if (!renderable || bloomSelection.test(object.layers)) return;
+      if (object instanceof THREE.Mesh && object.userData.bloomOccluder) {
+        bloomOccluderCandidates.push({ mesh: object, material: object.material });
+      } else {
+        bloomHiddenCandidates.push(object);
+      }
+    });
+  };
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   for (const stars of [farStars, midDust, foregroundDust]) {
     stars.material.uniforms.uClearCenter.value.copy(singularity.root.position);
@@ -840,7 +844,7 @@ const initializeLab = (lab: LabElement) => {
   let stableAnnounced = false;
   const deepLinkedProjectId = new URLSearchParams(window.location.search).get("project");
   let deepLinkOpened = false;
-  compact = lab.getBoundingClientRect().width < 520;
+  compact = lab.getBoundingClientRect().width < 560;
 
   const setStatus = (value: "SCANNING" | "STABLE") => {
     if (status && status.textContent !== value) status.textContent = value;
@@ -919,7 +923,7 @@ const initializeLab = (lab: LabElement) => {
     ringRoot.rotation.order = "ZXY";
     ringRoot.rotation.x = THREE.MathUtils.degToRad(project.ringTiltX);
     ringRoot.rotation.z = THREE.MathUtils.degToRad(project.ringTiltZ);
-    ringRoot.scale.setScalar(0.94);
+    ringRoot.scale.setScalar(compact ? 0.78 : 0.87);
     root.add(ringRoot);
     const ringMeshes: THREE.Object3D[] = [];
     const ringMaterials: THREE.Material[] = [];
@@ -1074,10 +1078,12 @@ const initializeLab = (lab: LabElement) => {
   };
 
   projects.forEach((project, index) => spawnProjectPlanet(project, index));
+  cacheBloomPassObjects();
   lab.spawnProjectPlanet = (project) => {
     projects.push(project);
     const system = spawnProjectPlanet(project);
     system.spawnStartedAt = sequenceStart > 0 ? performance.now() - sequenceStart + 80 : 0;
+    cacheBloomPassObjects();
     resize();
   };
 
@@ -1087,6 +1093,9 @@ const initializeLab = (lab: LabElement) => {
     accessibleButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
     const title = panel.querySelector<HTMLElement>("[data-detail-title]");
     if (title) title.textContent = project.title;
+    panel.querySelectorAll<HTMLElement>("[data-detail-project]").forEach((detail) => {
+      detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(project.id) ? project.id : "pending");
+    });
     panel.hidden = false;
     lab.dataset.panelOpen = "true";
     animation?.setPaused(true);
@@ -1141,30 +1150,43 @@ const initializeLab = (lab: LabElement) => {
   });
   closeButton.addEventListener("click", closeProject, eventOptions);
 
+  let renderedWidth = 0;
+  let renderedHeight = 0;
+  let renderedPixelRatio = 0;
+  let renderedProjectCount = 0;
   const resize = () => {
     const bounds = lab.getBoundingClientRect();
     width = Math.max(1, bounds.width);
     height = Math.max(1, bounds.height);
-    compact = width < 520;
+    compact = width < 560;
     const targetPixelRatio = THREE.MathUtils.clamp(window.devicePixelRatio || 1, 1, compact ? 1.75 : 2);
-    renderer.setPixelRatio(targetPixelRatio);
-    renderer.setSize(width, height, false);
-    bloomComposer.setPixelRatio(targetPixelRatio);
-    bloomComposer.setSize(width, height);
-    finalComposer.setPixelRatio(targetPixelRatio);
-    finalComposer.setSize(width, height);
-    const layout = computeOrbitalTargets(projects, width / height, compact);
+    if (width === renderedWidth && height === renderedHeight && targetPixelRatio === renderedPixelRatio && projects.length === renderedProjectCount) return;
+    if (width !== renderedWidth || height !== renderedHeight || targetPixelRatio !== renderedPixelRatio) {
+      renderer.setPixelRatio(targetPixelRatio);
+      renderer.setSize(width, height, false);
+      bloomComposer.setPixelRatio(targetPixelRatio);
+      bloomComposer.setSize(width, height);
+      finalComposer.setPixelRatio(targetPixelRatio);
+      finalComposer.setSize(width, height);
+      renderedWidth = width;
+      renderedHeight = height;
+      renderedPixelRatio = targetPixelRatio;
+    }
+    renderedProjectCount = projects.length;
+    const layout = computeConstellationLayout(projects.length, width, height, compact);
     worldHeight = layout.worldHeight;
     camera.aspect = width / height;
     camera.position.z = worldHeight / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
     camera.updateProjectionMatrix();
-    layout.targets.forEach((target, index) => {
-      // Preserve the triangular screen composition while keeping genuine Z-dependent scale.
+    layout.targets.forEach((position, index) => {
+      const target = new THREE.Vector3(position.x, position.y, position.z);
+      // Preserve Z-dependent scale while keeping each title within its chart cell.
       const depthFraming = (camera.position.z - target.z) / camera.position.z;
       target.x *= depthFraming;
       target.y *= depthFraming;
       const system = planetSystems[index];
       if (!system) return;
+      system.ringRoot.scale.setScalar(compact ? 0.78 : 0.87);
       system.target.copy(target);
       if (sequenceStart < 0 || reduceMotion) {
         system.flightTarget.copy(target);
@@ -1207,8 +1229,19 @@ const initializeLab = (lab: LabElement) => {
   }, eventOptions);
   lab.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !panel.hidden) closeProject();
-    // The placeholder dialog currently has just one interactive control.
-    if (event.key === "Tab" && !panel.hidden) { event.preventDefault(); closeButton.focus({ preventScroll: true }); }
+    if (event.key !== "Tab" || panel.hidden) return;
+    const focusable = [...panel.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]")]
+      .filter((element) => !element.closest("[hidden]"));
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (!first || !last) return;
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }, eventOptions);
 
   const resizeObserver = new ResizeObserver(resize);
@@ -1349,23 +1382,24 @@ const initializeLab = (lab: LabElement) => {
 
     openDeepLinkedProject();
 
-    const bloomHidden: THREE.Object3D[] = [];
-    const bloomOccluders: Array<{ mesh: THREE.Mesh; material: THREE.Material | THREE.Material[] }> = [];
-    scene.traverse((object) => {
-      const renderable = object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points;
-      if (renderable && object.visible && !bloomSelection.test(object.layers)) {
-        if (object instanceof THREE.Mesh && object.userData.bloomOccluder) {
-          bloomOccluders.push({ mesh: object, material: object.material });
-          object.material = bloomOccluderMaterial;
-        } else {
-          bloomHidden.push(object);
-          object.visible = false;
-        }
-      }
-    });
-    bloomComposer.render(delta);
-    bloomOccluders.forEach(({ mesh, material }) => { mesh.material = material; });
-    bloomHidden.forEach((object) => { object.visible = true; });
+    bloomHidden.length = 0;
+    bloomOccluders.length = 0;
+    for (const object of bloomHiddenCandidates) {
+      if (!object.visible) continue;
+      bloomHidden.push(object);
+      object.visible = false;
+    }
+    for (const candidate of bloomOccluderCandidates) {
+      if (!candidate.mesh.visible) continue;
+      bloomOccluders.push(candidate);
+      candidate.mesh.material = bloomOccluderMaterial;
+    }
+    try {
+      bloomComposer.render(delta);
+    } finally {
+      bloomOccluders.forEach(({ mesh, material }) => { mesh.material = material; });
+      bloomHidden.forEach((object) => { object.visible = true; });
+    }
     finalComposer.render(delta);
   };
 

@@ -1,6 +1,6 @@
 ---
 title: "Do Not Save Small Money At The Cost Of Big Efficiency"
-description: "A person's scope is often revealed not in grand claims, but in how they handle seemingly small choices"
+description: "Small savings can become expensive when they consume time, reduce efficiency, or distract us from larger priorities."
 date: 2026-03-24
 category: "Cognition"
 tags: ["Perspective", "Efficiency", "Cost Judgment"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> A person's scope is often revealed not in grand claims, but in how they handle seemingly small choices.
+> Small savings can become expensive when they consume time, reduce efficiency, or distract us from larger priorities.
 
 After reading Letter 130, "A Sheet Of Paper Determines Your Math Score And Efficiency In Making Money," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, the phrase that stayed with me most was generosity of mind. This does not mean spending money carelessly or enjoying waste. It means knowing what is worth saving and what must never be saved. Many people seem frugal and careful, but they are actually using small cleverness to damage larger goals. They appear to save a little cost, while wasting far more valuable time, opportunity, and attention.
 

@@ -1,6 +1,6 @@
 ---
 title: "Pessimism Often Amplifies Fear Rather Than Seeing Reality"
-description: "Truly clear people do not refuse to believe in the future; they are not led by emotion"
+description: "Clear judgment requires separating evidence about the future from the fears that influence how we imagine it."
 date: 2026-03-01
 category: "Cognition"
 tags: ["Pessimism", "Fear", "Reality Judgment"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Truly clear people do not refuse to believe in the future; they are not led by emotion.
+> Clear judgment requires separating evidence about the future from the fears that influence how we imagine it.
 
 After reading Letter 066, "How Does Pessimism Arise?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: pessimism does not arise entirely because the world has truly become worse. It often arises because people overestimate themselves, magnify bad news, and are easily influenced by repeatedly transmitted information. Pessimism looks calm and profound, but in many cases it is not the result of rationality. It is the product of cognitive bias and accumulated emotion.
 

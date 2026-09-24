@@ -1,6 +1,6 @@
 ---
 title: "The First Number We See Can Quietly Shape the Final Answer"
-description: "An anchor does not need to be informative to influence us. Once a reference point enters our thinking, we often adjust away from it far less than the evidence requires."
+description: "An initial number can anchor judgment even when it is irrelevant and later evidence calls for a larger adjustment."
 date: 2026-08-28
 category: "Economic Thinking"
 tags: ["Anchoring", "Reference Points", "Judgment"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> An anchor does not need to be informative to influence us. Once a reference point enters our thinking, we often adjust away from it far less than the evidence requires.
+> An initial number can anchor judgment even when it is irrelevant and later evidence calls for a larger adjustment.
 
 Anchoring is usually explained through discounts. A jacket originally priced at $999 suddenly looks attractive at $666 because the original price gives us a reference point. But the more surprising form of anchoring begins when the reference point contains no useful information at all. In classroom experiments, people can first be shown a number derived from the last digits of their phone number and then asked to estimate an unrelated historical date. Those who happen to begin with larger numbers systematically give larger estimates. Similar experiments using Social Security numbers find that people with higher random numbers are willing to pay substantially more for products such as wine, chocolate, or computer accessories.
 

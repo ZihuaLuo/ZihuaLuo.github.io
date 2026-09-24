@@ -1,6 +1,6 @@
 ---
 title: "Without Real Use, There Is No Long-Term Value"
-description: "Investment is not speculation in the air; what ultimately supports price is use value underneath."
+description: "Lasting investment value depends on the useful role an asset can play beyond expectations of a rising price."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Investment is not speculation in the air; what ultimately supports price is use value underneath.
+> Lasting investment value depends on the useful role an asset can play beyond expectations of a rising price.
 
 Lecture 051 argues that without use demand, there is no investment demand. The discussion may begin with housing, but the principle applies to any asset: long-term value cannot be separated from real use.
 

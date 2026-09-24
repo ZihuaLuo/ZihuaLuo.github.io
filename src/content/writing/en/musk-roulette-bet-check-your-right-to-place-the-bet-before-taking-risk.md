@@ -1,6 +1,6 @@
 ---
 title: "Musk's Roulette Bet: Before Taking Risk, First Ask Whether You Are Qualified To Place The Bet"
-description: "Successful risk taking is not copying another person's boldness, but judging your own resources, capability, and bottom line"
+description: "Before taking a bold risk, assess your resources, abilities, and capacity to live with the consequences."
 date: 2026-04-03
 category: "Business Cases"
 tags: ["Business Cases", "Risk", "Elon Musk"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Successful risk taking is not copying another person's boldness, but judging your own resources, capability, and bottom line.
+> Before taking a bold risk, assess your resources, abilities, and capacity to live with the consequences.
 
 The story of Elon Musk often gives people the impression that great business success comes from daring to place an extreme bet. But the more important lesson is not that risk is always right. It is that before taking risk, a person or company must first ask whether they are qualified to place the bet.
 

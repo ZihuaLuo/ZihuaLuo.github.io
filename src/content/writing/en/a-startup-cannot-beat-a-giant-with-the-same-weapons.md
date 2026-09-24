@@ -1,6 +1,6 @@
 ---
 title: "A Startup Cannot Beat a Giant with the Same Weapons"
-description: "Small companies defeat large incumbents not by executing the same game slightly better, but by entering with a fundamentally different generation of technology or product."
+description: "A new generation of products or technology can give a startup an opening that established competitors struggle to match."
 date: 2026-09-07
 category: "Cognition"
 tags: ["Startups", "Disruption", "Competitive Advantage"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Small companies defeat large incumbents not by executing the same game slightly better, but by entering with a fundamentally different generation of technology or product.
+> A new generation of products or technology can give a startup an opening that established competitors struggle to match.
 
 One of the most fascinating features of technology is how quickly a tiny company can challenge an organization hundreds of times its size. Google had only a few thousand employees when it became a serious threat to Microsoft. Facebook was still relatively small when it disrupted Google's ambitions in social networking. ARM was tiny compared with Intel, yet eventually became dominant in mobile processors. At first glance, these stories seem to celebrate the speed and flexibility of startups.
 
@@ -23,4 +23,4 @@ This gives me a useful way to evaluate startup ideas. Many founders describe the
 
 That is rarely attractive. The advantage does not have to come from a scientific breakthrough. It can come from a new architecture, cost structure, distribution model, data advantage, or way of organizing production. But something important must have changed. Otherwise, scale remains on the incumbent's side. This also explains why fashionable startups can disappear so quickly. During periods of enthusiasm, a compelling narrative can attract funding and create a high valuation. But capital does not automatically create a technological advantage.
 
-When sentiment disappears, the company eventually has to answer the same question every startup faces: What do we have that the existing players genuinely cannot match? **A startup does not win because it is faster, younger, or more ambitious.** **It wins when the rules of the game change — and it is built for the new rules before the incumbent is.**
+When sentiment disappears, the company eventually has to answer the same question every startup faces: What do we have that the existing players genuinely cannot match? **A startup does not win because it is faster, younger, or more ambitious.** **It wins when the rules of the game change and it is built for the new rules before the incumbent is.**

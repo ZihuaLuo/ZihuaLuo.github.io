@@ -1,6 +1,6 @@
 ---
 title: "Real Accidents Are Spread Through Time And Institutions"
-description: "People are not passive receivers of shocks; given time, they find substitutes, transfer risk, and rearrange costs."
+description: "Over time, people respond to shocks by finding alternatives, sharing risks, and adjusting how costs are borne."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> People are not passive receivers of shocks; given time, they find substitutes, transfer risk, and rearrange costs.
+> Over time, people respond to shocks by finding alternatives, sharing risks, and adjusting how costs are borne.
 
 The Week 9 Q&A develops a deeper point behind demand: shocks rarely stay where they first land. Taxes, disasters, sanctions, risks, and price changes move through choices, contracts, insurance, markets, and institutions.
 

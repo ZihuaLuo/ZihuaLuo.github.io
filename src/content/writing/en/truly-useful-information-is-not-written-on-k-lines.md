@@ -1,6 +1,6 @@
 ---
 title: "Truly Useful Information Is Not Written On K-Lines"
-description: "The key to investing is not reading every chart, but knowing that public information is no longer an advantage"
+description: "An investment advantage requires insight beyond public information that market participants already know and use."
 date: 2026-03-25
 category: "Finance"
 tags: ["Investing", "K-Lines", "Information Edge"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> The key to investing is not reading every chart, but knowing that public information is no longer an advantage.
+> An investment advantage requires insight beyond public information that market participants already know and use.
 
 After reading Wu Jun's supplement on investment information, I felt that many retail investors spend too much energy staring at the wrong things. They study K-lines, draw patterns, watch short-term fluctuations, and hope to find certainty in public charts. But if the information is already public and easy to see, it is usually no longer a real advantage.
 

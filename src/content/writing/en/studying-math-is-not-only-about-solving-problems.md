@@ -1,6 +1,6 @@
 ---
 title: "Studying Math Is Not Only About Solving Problems"
-description: "What truly matters is not formulas, but the ability to understand problems and reason"
+description: "Mathematical study develops the ability to define a problem, reason carefully, and test whether a conclusion follows."
 date: 2026-02-21
 category: "Cognition"
 tags: ["Math", "Logic", "Thinking Training"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> What truly matters is not formulas, but the ability to understand problems and reason.
+> Mathematical study develops the ability to define a problem, reason carefully, and test whether a conclusion follows.
 
 After reading Letter 042, "Why Study Mathematics?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many people mistakenly think the purpose of learning math is to calculate, solve exam problems, and take tests. But the real value of math is not whether a formula can still be used later in life. It is that math trains a person to understand problems, build logic, and derive conclusions.
 

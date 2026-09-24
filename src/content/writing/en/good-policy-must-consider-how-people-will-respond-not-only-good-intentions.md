@@ -1,6 +1,6 @@
 ---
 title: "Good Policy Must Consider How People Will Respond, Not Only Good Intentions"
-description: "The real question is not whether a policy sounds kind, but where it directs human behavior."
+description: "A policy's effects depend on the incentives it creates and the choices people make in response."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The real question is not whether a policy sounds kind, but where it directs human behavior.
+> A policy's effects depend on the incentives it creates and the choices people make in response.
 
 Lecture 044 discusses what happens after price controls are imposed. A rule may be designed with good intentions, such as making housing affordable, but economics asks what people will do once that rule changes their incentives.
 

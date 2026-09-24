@@ -14,6 +14,9 @@ export function initializeLabFallback(lab: HTMLElement) {
   const open = (button: HTMLButtonElement) => {
     selected = button;
     title.textContent = button.dataset.projectTitle ?? "Project";
+    panel.querySelectorAll<HTMLElement>("[data-detail-project]").forEach((detail) => {
+      detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(button.dataset.projectId ?? "") ? button.dataset.projectId : "pending");
+    });
     buttons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
     panel.hidden = false;
     lab.dataset.panelOpen = "true";
@@ -36,7 +39,13 @@ export function initializeLabFallback(lab: HTMLElement) {
   lab.addEventListener("keydown", event => {
     if (panel.hidden) return;
     if (event.key === "Escape") dismiss();
-    if (event.key === "Tab") { event.preventDefault(); close.focus({ preventScroll: true }); }
+    if (event.key !== "Tab") return;
+    const focusable = [...panel.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]")]
+      .filter((element) => !element.closest("[hidden]"));
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (!first || !last) return;
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   }, options);
   document.addEventListener("astro:before-swap", () => controller.abort(), { once: true, ...options });
   const projectId = new URL(window.location.href).searchParams.get("project");

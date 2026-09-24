@@ -1,6 +1,6 @@
 ---
 title: "Mature Rules Protect Ownership And Emergency Choice"
-description: "The liability rule does not weaken property rights. It finds a second-best protection when transaction costs make negotiation impossible."
+description: "When negotiation is impractical, liability rules offer an alternative way to protect ownership while allowing necessary action."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> The liability rule does not weaken property rights. It finds a second-best protection when transaction costs make negotiation impossible.
+> When negotiation is impractical, liability rules offer an alternative way to protect ownership while allowing necessary action.
 
 Lecture 060 discusses the second method of protecting property: the liability rule. The previous lecture's property rule emphasized that without my consent, you cannot take my thing. This lecture adds that in the real world, not every situation gives people a chance to negotiate in advance. When time, information, and risk cannot be coordinated, society cannot ask only who owns something. It must also ask which action minimizes loss.
 

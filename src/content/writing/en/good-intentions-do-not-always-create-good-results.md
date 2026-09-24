@@ -1,6 +1,6 @@
 ---
 title: "Good Intentions Do Not Always Create Good Results"
-description: "To judge something, do not only look at its intention; look at the consequences it creates over time"
+description: "Judging an action requires following its consequences over time and considering how people respond to it."
 date: 2026-03-14
 category: "Cognition"
 tags: ["Innovation", "Consequences", "Responsibility"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> To judge something, do not only look at its intention; look at the consequences it creates over time.
+> Judging an action requires following its consequences over time and considering how people respond to it.
 
 After reading Letter 106, "The Other Side Of Invention Through The Invention Of Heroin," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: many human inventions and choices are not necessarily born from malice. Some may even begin with good intentions. But good intentions do not automatically guarantee good results. Mature judgment does not only ask whether someone wanted to do something good. It also asks what long-term effects the action will create, and whether limited understanding, profit incentives, or loss of control in use may eventually create larger problems.
 

@@ -1,6 +1,6 @@
 ---
 title: "Turn Private Understanding Into Public Consensus"
-description: "Many opportunities are missed not because they do not exist, but because no one says the real thought out loud"
+description: "Sharing an unspoken insight can turn private understanding into agreement and coordinated action."
 date: 2026-03-30
 category: "Cognition"
 tags: ["Communication", "Consensus", "Information"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> Many opportunities are missed not because they do not exist, but because no one says the real thought out loud.
+> Sharing an unspoken insight can turn private understanding into agreement and coordinated action.
 
 After reading Letter 187 from Wu Jun's *Silicon Valley Letters 2*, I became more aware of the difference between private understanding and public consensus. Many things are privately understood by many people, but because nobody says them clearly, they never become shared knowledge. As a result, people continue to act as if they do not know what they actually know.
 

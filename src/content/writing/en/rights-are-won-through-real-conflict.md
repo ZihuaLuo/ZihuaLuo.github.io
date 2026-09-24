@@ -1,6 +1,6 @@
 ---
 title: "Rights Are Won Through Real Conflict"
-description: "A mature view of rights does not treat them as sacred and unchanging. It sees how they form through conflict, cost, and bargaining."
+description: "Rights take shape through disputes, negotiation, and the costs people are willing to bear to establish them."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> A mature view of rights does not treat them as sacred and unchanging. It sees how they form through conflict, cost, and bargaining.
+> Rights take shape through disputes, negotiation, and the costs people are willing to bear to establish them.
 
 The Week 14 Q&A revolves around whether rights are natural or created by people. This is an emotionally charged question because the phrase natural rights has great force. It feels solemn, as if declaring rights to be natural makes them automatically legitimate, inviolable, and beyond explanation.
 

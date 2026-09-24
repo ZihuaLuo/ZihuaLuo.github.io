@@ -1,6 +1,6 @@
 ---
 title: "True Managers Dare To Bring In People Stronger Than Themselves"
-description: "Whether an organization can grow does not depend on whether the leader is always strongest, but whether they can bring in stronger people"
+description: "Organizations grow when leaders recruit capable people and give their strengths room to contribute."
 date: 2026-04-02
 category: "Cognition"
 tags: ["Management", "Talent", "Organizational Growth"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Whether an organization can grow does not depend on whether the leader is always strongest, but whether they can bring in stronger people.
+> Organizations grow when leaders recruit capable people and give their strengths room to contribute.
 
 After reading Letter 203 from Wu Jun's *Silicon Valley Letters 2*, I was reminded of Ogilvy's law about hiring people larger than oneself. The image of nested dolls is very direct: if every manager hires people smaller than themselves, the organization becomes smaller and smaller. If every manager dares to hire people stronger than themselves, the organization becomes larger and stronger.
 

@@ -1,6 +1,6 @@
 ---
 title: "Property Rights Grow Where People Crowd Together"
-description: "When resources begin to affect one another and people move closer together, property rights become a necessary tool for reducing conflict."
+description: "As people and resources become more closely connected, clearer property rights help reduce conflict over their use."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> When resources begin to affect one another and people move closer together, property rights become a necessary tool for reducing conflict.
+> As people and resources become more closely connected, clearer property rights help reduce conflict over their use.
 
 Lecture 057 discusses the rise of property rights. On the surface, it is about property. At a deeper level, it asks why human society needs rules, why some things once did not require clear boundaries but later did, and why a more developed civilization often needs more institutionalized relationships among people.
 

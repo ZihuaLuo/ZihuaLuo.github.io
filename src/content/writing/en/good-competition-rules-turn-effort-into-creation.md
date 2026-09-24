@@ -1,6 +1,6 @@
 ---
 title: "Good Competition Rules Turn Effort Into Creation"
-description: "Competition cannot be eliminated; what matters is whether a rule directs effort toward creating wealth or consuming it."
+description: "The rules of competition shape whether people spend their effort creating wealth or fighting over it."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Competition cannot be eliminated; what matters is whether a rule directs effort toward creating wealth or consuming it.
+> The rules of competition shape whether people spend their effort creating wealth or fighting over it.
 
 Lecture 042 compares different competition rules. The key is not whether a rule feels fair in the abstract, because every rule favors some traits over others. The key is where the rule sends people's effort.
 

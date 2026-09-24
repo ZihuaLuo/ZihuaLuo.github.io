@@ -1,6 +1,6 @@
 ---
 title: "Pushing Fairness Onto A Few Ultimately Makes Everyone Pay More"
-description: "Real goodwill does not push prices down by command; it admits costs honestly and lets society bear them transparently."
+description: "Fair arrangements make the costs of helping others visible and consider how those costs are shared."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Real goodwill does not push prices down by command; it admits costs honestly and lets society bear them transparently.
+> Fair arrangements make the costs of helping others visible and consider how those costs are shared.
 
 Lecture 046 examines rent control. Its intention is easy to understand: help tenants, especially lower-income tenants, afford housing. But when rent is pushed below the level that reflects scarcity, the cost does not disappear.
 

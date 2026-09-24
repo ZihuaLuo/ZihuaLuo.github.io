@@ -2,9 +2,10 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { creditEntries, creditEntryAnchor } from "@data/credits";
 import { profileTopics } from "@data/aiProfile";
 import { writingSeries } from "@data/writingSeries";
+import { searchProjects } from "@data/searchProjects";
 import { entrySlug, withBase, type Language } from "@i18n/routes";
 
-type SearchType = "writing" | "experience" | "section" | "acknowledgement" | "project" | "chatbot";
+type SearchType = "writing" | "experience" | "section" | "acknowledgement" | "project" | "dashboard" | "game" | "chatbot";
 
 type SearchItem = {
   title: string;
@@ -356,42 +357,12 @@ const siteSections: Array<{
   },
   {
     title: "Project Constellation",
-    description: "A cinematic interactive system of project worlds orbiting an AI singularity.",
+    description: "Interactive project worlds arranged together around an AI singularity.",
     url: "/ai/#ai-lab-title",
     category: "AI Lab",
     tags: ["Projects", "AI", "Research", "Visualization"],
     aliases: ["AI Projects", "Project Worlds", "Project Galaxy", "Constellation", "Portfolio Projects"],
-    content: "project constellation AI lab interactive project planets singularity agent research volunteer retention disclosure intelligence",
-  },
-  {
-    title: "Agent Research Workflow",
-    description: "A validated LLM-agent workflow for cleaning, classifying, and analyzing research data with human review.",
-    url: "/ai/?project=agent-research#ai-lab-title",
-    category: "Project Constellation",
-    type: "project",
-    tags: ["Codex", "LLM Agents", "Python", "Validation"],
-    aliases: ["AI Research Workflow", "Agent Project", "Human Judgment Amplified by Agents"],
-    content: "agent research workflow task specific LLM agents human review data cleaning classification validation audit evidence",
-  },
-  {
-    title: "Volunteer Retention Lab",
-    description: "Interactive cohort analysis for engagement, participation frequency, and volunteer-retention patterns.",
-    url: "/ai/?project=retention-lab#ai-lab-title",
-    category: "Project Constellation",
-    type: "project",
-    tags: ["Data Viz", "Cohort Analysis", "Power BI", "Research"],
-    aliases: ["Volunteer Project", "Retention Dashboard", "Applied Analytics"],
-    content: "volunteer retention lab cohort analysis engagement participation frequency Power BI dashboard 30 visualizations",
-  },
-  {
-    title: "Disclosure Intelligence",
-    description: "Structured SEC filings and corporate-scandal evidence prepared for machine-learning research.",
-    url: "/ai/?project=disclosure-intelligence#ai-lab-title",
-    category: "Project Constellation",
-    type: "project",
-    tags: ["Python", "SEC Filings", "Machine Learning", "Research"],
-    aliases: ["Disclosure Project", "SEC Research", "Data Intelligence"],
-    content: "disclosure intelligence SEC filings corporate scandal evidence Python extraction validation machine learning 30 years filings",
+    content: `project constellation AI lab interactive planets ${searchProjects.map((project) => project.title).join(" ")}`,
   },
   {
     title: "APOCALYPSE Knowledge Assistant",
@@ -480,6 +451,29 @@ export async function GET() {
     aliases: item.aliases,
   }, item.content));
 
+  const projectItems: SearchItem[] = searchProjects.flatMap((project) => [
+    prepareSearchItem({
+      title: project.title,
+      description: project.description,
+      url: withBase(`/ai/?project=${encodeURIComponent(project.id)}#ai-lab-title`),
+      type: "project",
+      category: "Project Constellation",
+      tags: project.tags,
+      language: "en",
+      aliases: project.aliases,
+    }, project.content),
+    ...(project.direct ? [prepareSearchItem({
+      title: project.direct.title,
+      description: project.direct.description,
+      url: withBase(project.direct.url),
+      type: project.direct.kind,
+      category: project.direct.kind === "game" ? "Playable Project" : "Project Dashboard",
+      tags: project.direct.tags,
+      language: "en",
+      aliases: project.direct.aliases,
+    }, project.direct.content)] : []),
+  ]);
+
   const acknowledgementItems: SearchItem[] = creditEntries.map((entry) => prepareSearchItem({
     title: entry.name,
     description: entry.role,
@@ -504,6 +498,7 @@ export async function GET() {
 
   const items = [
     ...sectionItems,
+    ...projectItems,
     ...chatbotItems,
     ...experienceItems,
     ...writingItems,

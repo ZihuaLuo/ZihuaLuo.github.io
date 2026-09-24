@@ -1,0 +1,112 @@
+---
+import { withBase } from "@i18n/routes";
+import data from "../../data/noncompete.json";
+
+const { meta } = data;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Aggregate visualization of non-compete related annotations in a research sample of 10-K filing snippets." />
+    <title>Non-Compete 10-K Coding Dashboard | Zihua Luo</title>
+  </head>
+  <body>
+    <main class="dashboard" data-noncompete-dashboard>
+      <nav class="top-nav" aria-label="Dashboard navigation">
+        <a href={withBase("/ai/")}>← AI Lab</a>
+        <span>Research dashboard <i>/</i> Non-Compete 10-K</span>
+      </nav>
+
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">RESEARCH VISUALIZATION <span></span> 10-K ANNOTATIONS</p>
+          <h1>Non-Compete<br /><em>Coding Dashboard</em></h1>
+          <p>Explore which clause-related features were annotated in a sample of 10-K filing snippets, how the sample spans filing years, and which type terms were explicitly recorded.</p>
+          <div class="hero__tags"><span>{meta.firstYear}–{meta.lastYear} filing years</span><span>Aggregate views only</span></div>
+        </div>
+        <div class="hero__art" aria-hidden="true">
+          <div class="document document--back"></div>
+          <div class="document document--front"><b>10-K</b><span></span><span></span><span></span><span></span></div>
+          <div class="hero__seal">{meta.filings}<small>filing snippets</small></div>
+        </div>
+      </header>
+
+      <section class="source-strip" aria-label="Source scope">
+        <div><span>Source workbook</span><strong>{meta.source}</strong></div>
+        <div><span>Analysis sheet</span><strong>{meta.sheet}</strong></div>
+        <div><span>Unit of analysis</span><strong>Annotated filing snippet</strong></div>
+      </section>
+
+      <section class="overview" aria-labelledby="overview-title">
+        <div class="section-heading"><div><p class="section-label">01 / Sample</p><h2 id="overview-title">Coding at a glance</h2></div></div>
+        <div class="period-filter" role="group" aria-label="Filter by filing year period" data-period-filter>
+          <button type="button" data-period="all" aria-pressed="true">All years</button>
+          {data.periods.map((period) => <button type="button" data-period={period.name} aria-pressed="false">{period.name}</button>)}
+        </div>
+        <p class="selection-line" aria-live="polite" data-selection-line>All sampled filing years</p>
+        <div class="kpis">
+          <article><span>Filing snippets in view</span><strong data-kpi-filings>{meta.filings}</strong><small>Distinct files in this coding pass</small></article>
+          <article><span>Annotation rows in view</span><strong data-kpi-annotations>{meta.annotationRows.toLocaleString("en-US")}</strong><small>Several rows may describe one filing</small></article>
+          <article><span>Filings with a Type label</span><strong data-kpi-type>{meta.typeAnnotatedFilings}</strong><small>Presence of a Type annotation</small></article>
+          <article><span>Filings with exclusion guidance</span><strong data-kpi-exclusion>{meta.exclusionNoteFilings}</strong><small>Review notes, not clauses</small></article>
+        </div>
+      </section>
+
+      <div class="charts">
+        <section class="chart-card chart-card--wide" aria-labelledby="years-title">
+          <div class="chart-head"><div><p class="section-label">02 / Sample timeline</p><h2 id="years-title">Filing snippets by year</h2></div><span class="key"><i></i> Selected period</span></div>
+          <p class="chart-description">Counts show the filings included in this manually coded sample, not all 10-K filings or the prevalence of non-compete clauses.</p>
+          <div class="timeline-scroll"><svg data-timeline role="img" aria-label="Sampled filing snippets by year from 1994 to 2023" viewBox="0 0 1000 300"></svg></div>
+        </section>
+
+        <section class="chart-card" aria-labelledby="features-title">
+          <div class="chart-head"><div><p class="section-label">03 / Annotation coverage</p><h2 id="features-title">Features recorded in filings</h2></div></div>
+          <p class="chart-description">Number and share of filing snippets with each feature label. A filing can have multiple labels.</p>
+          <div class="bar-list" data-feature-bars></div>
+        </section>
+
+        <section class="chart-card" aria-labelledby="themes-title">
+          <div class="chart-head"><div><p class="section-label">04 / Type annotations</p><h2 id="themes-title">Explicit type terms</h2></div></div>
+          <p class="chart-description">Terms found within the manually coded Type field. Themes can overlap within one filing.</p>
+          <div class="theme-list" data-theme-bars></div>
+          <p class="chart-note">These are text matches in research annotations, not a legal review of the complete agreement.</p>
+        </section>
+
+        <section class="chart-card chart-card--wide" aria-labelledby="matrix-title">
+          <div class="chart-head"><div><p class="section-label">05 / Period comparison</p><h2 id="matrix-title">Feature coverage across filing periods</h2></div></div>
+          <p class="chart-description">Within each period, the share of sampled filings with a feature label. Sample sizes differ by period.</p>
+          <div class="matrix-scroll"><table class="matrix" data-period-matrix><caption class="sr-only">Percent of sampled filings with each feature label by period</caption></table></div>
+        </section>
+      </div>
+
+      <section class="reading" aria-labelledby="reading-title">
+        <p class="section-label">06 / Read with care</p>
+        <h2 id="reading-title">Source and interpretation</h2>
+        <div class="reading-grid">
+          <div><h3>What this shows</h3><p>The dashboard counts distinct filing snippets and the labels assigned to them in the <strong>0727</strong> extraction workbook. Repeated labels in a filing count once in feature coverage.</p></div>
+          <div><h3>What it cannot show</h3><p>A missing annotation does not prove a clause is absent. Sampled years and files are not a representative universe, so period differences are descriptive.</p></div>
+          <div><h3>Separate materials</h3><p>The older <strong>20210608_HS</strong> workbook uses a different coding structure and is not combined with this sample. Full 10-K text and snippet files are not published in this dashboard.</p></div>
+          <div><h3>Public view</h3><p>Only aggregated counts are included. Filing identifiers, company and person names, extracted passages, and researcher comments stay outside the website.</p></div>
+        </div>
+      </section>
+      <footer>Non-Compete 10-K research dashboard · Source: {meta.source} · Analysis: {meta.sheet}</footer>
+    </main>
+    <script>import "../../scripts/noncompeteDashboard";</script>
+  </body>
+</html>
+
+<style is:global>
+  :root{color-scheme:light;--ink:#1b2940;--muted:#647084;--line:#dfe4ed;--paper:#f5f6fa;--violet:#7358be;--mint:#4baea5}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Inter,Arial,sans-serif}button{font:inherit}.dashboard{max-width:1430px;margin:auto;padding:0 30px 46px}.top-nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#647084;font-size:.77rem;font-weight:750}.top-nav a{color:#4b568e;text-decoration:none}.top-nav a:hover,.top-nav a:focus-visible{text-decoration:underline}.top-nav i{padding:0 9px;font-style:normal;color:#a4acb8}
+  .hero{position:relative;display:grid;grid-template-columns:1fr 33%;min-height:325px;overflow:hidden;border-radius:19px;background:radial-gradient(circle at 83% 50%,#344272 0,#1c2b50 35%,#101d36 76%);color:#fff}.hero__copy{z-index:1;padding:43px 52px}.eyebrow,.section-label{margin:0;color:#6851aa;font-size:.67rem;font-weight:850;letter-spacing:.16em;text-transform:uppercase}.eyebrow{color:#b2dfd5}.eyebrow span{display:inline-block;width:5px;height:5px;margin:0 7px 2px;border-radius:50%;background:#f2bd91}h1,h2,h3,p{margin-top:0}.hero h1{margin:16px 0 17px;font:700 clamp(2.6rem,4.2vw,4.2rem)/1.03 Georgia,serif;letter-spacing:-.035em}.hero h1 em{color:#ddcef5;font-weight:400}.hero__copy>p:not(.eyebrow){max-width:690px;margin-bottom:20px;color:#cad3e5;font-size:.94rem}.hero__tags{display:flex;flex-wrap:wrap;gap:8px}.hero__tags span{padding:6px 10px;border:1px solid #6d789d;border-radius:999px;color:#e0e6f1;font-size:.7rem;font-weight:700}.hero__art{position:relative;min-height:305px}.document{position:absolute;width:178px;height:215px;border:1px solid #95a5ce;border-radius:11px;background:#ffffff11;transform:rotate(-14deg);left:23%;top:46px}.document--front{left:34%;top:59px;background:#f1f3fc;transform:rotate(7deg);padding:26px 24px;color:#26395c;box-shadow:0 15px 40px #0a1338bb}.document--front b{display:block;font:700 1.7rem Georgia,serif;margin-bottom:18px}.document--front span{display:block;height:6px;margin:11px 0;border-radius:5px;background:#cbd3e9}.document--front span:nth-last-child(1){width:55%}.hero__seal{position:absolute;right:11%;bottom:30px;width:112px;height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #93ded6;border-radius:50%;background:#263b69;box-shadow:0 0 32px #76d7cf44;color:#fff;font:700 2.6rem/.95 Georgia,serif}.hero__seal small{margin-top:7px;color:#c2ede7;font:700 .61rem Inter,Arial,sans-serif}
+  .source-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:17px 0 38px}.source-strip div{padding:13px 17px;border:1px solid var(--line);border-radius:9px;background:#fff}.source-strip span{display:block;color:var(--muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800}.source-strip strong{display:block;margin-top:3px;font-size:.81rem;overflow-wrap:anywhere}.section-heading,.chart-head{display:flex;align-items:end;justify-content:space-between;gap:14px}.section-heading h2,.chart-head h2,.reading h2{margin:5px 0 0;font:700 clamp(1.55rem,2.3vw,2.05rem)/1.17 Georgia,serif;letter-spacing:-.02em}.period-filter{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.period-filter button{padding:8px 13px;border:1px solid #c9cee0;border-radius:999px;background:#fff;color:#465372;font-size:.73rem;font-weight:750;cursor:pointer}.period-filter button[aria-pressed=true]{border-color:#7056b5;background:#7056b5;color:#fff}.period-filter button:hover,.period-filter button:focus-visible{outline:2px solid #9f87d8;outline-offset:2px}.selection-line{margin:12px 0;color:#6c55ac;font-size:.77rem;font-weight:800}
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:14px 0 24px}.kpis article{min-height:130px;padding:19px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 3px 15px #1b295008}.kpis span{display:block;color:#526079;font-size:.76rem;font-weight:750}.kpis strong{display:block;margin:7px 0;color:#6a50b1;font:700 2.5rem/1 Georgia,serif}.kpis small{color:#7a8495;font-size:.65rem}
+  .charts{display:grid;grid-template-columns:1fr 1fr;gap:17px}.chart-card{min-width:0;padding:24px 26px;border:1px solid var(--line);border-radius:13px;background:#fff;box-shadow:0 3px 15px #1b295008}.chart-card--wide{grid-column:1/-1}.chart-head h2{font-size:1.65rem}.chart-description{max-width:790px;margin:10px 0 19px;color:var(--muted);font-size:.79rem}.key{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:.7rem;font-weight:750}.key i{width:10px;height:10px;border-radius:2px;background:#775bbd}.timeline-scroll,.matrix-scroll{overflow-x:auto}.timeline-scroll svg{display:block;width:100%;min-width:720px;height:auto}.bar-list{display:grid;gap:12px}.bar-row{display:grid;grid-template-columns:minmax(0,135px) minmax(55px,1fr) 77px;align-items:center;gap:10px}.bar-name{color:#2b3854;font-size:.71rem;font-weight:750}.bar-track{height:12px;overflow:hidden;border-radius:10px;background:#eae8f2}.bar-fill{display:block;height:100%;min-width:2px;border-radius:10px;background:#8669c8}.bar-value{text-align:right;color:#24324d;font-size:.75rem;font-weight:800;font-variant-numeric:tabular-nums}.theme-list{display:grid;gap:15px;margin-top:28px}.theme-row{padding:14px 16px;border:1px solid #e2e4ee;border-radius:10px;background:#faf9fd}.theme-row__top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}.theme-row__top strong{font-size:.79rem}.theme-row__top span{color:#63509f;font:700 1.35rem Georgia,serif}.theme-row .bar-fill{background:#5bb9ab}.chart-note{margin:23px 0 0;padding:12px;border-left:3px solid #b6a1e1;background:#f6f2fc;color:#647084;font-size:.72rem}
+  .matrix{width:100%;min-width:820px;border-collapse:separate;border-spacing:6px;font-size:.72rem}.matrix th{padding:7px;color:#526079;text-align:center;font-weight:800}.matrix th:first-child{text-align:left;width:155px}.matrix td{height:56px;border-radius:6px;text-align:center;font-variant-numeric:tabular-nums;font-weight:850}.matrix td small{display:block;font-size:.6rem;font-weight:600;opacity:.86}
+  .reading{margin-top:40px;padding:27px 30px;border:1px solid #d9d7ea;border-radius:13px;background:#eeedf6}.reading-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 30px;margin-top:20px}.reading h3{margin:0 0 6px;font:700 1.04rem Georgia,serif}.reading p{margin-bottom:10px;color:#59657d;font-size:.79rem}.dashboard footer{margin-top:24px;color:#818a9a;font-size:.7rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(max-width:950px){.dashboard{padding-inline:20px}.hero{grid-template-columns:1fr 25%}.hero__copy{padding:36px}.hero__art{opacity:.55}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:1fr}.chart-card--wide{grid-column:auto}}
+  @media(max-width:620px){.dashboard{padding-inline:12px}.top-nav{font-size:.69rem}.top-nav>span{max-width:57%;text-align:right}.hero{display:block}.hero__copy{padding:31px 25px}.hero__art{display:none}.hero h1{font-size:2.55rem}.source-strip{grid-template-columns:1fr;gap:7px;margin-bottom:29px}.source-strip div{padding:10px 13px}.kpis{gap:9px}.kpis article{min-height:113px;padding:14px}.kpis strong{font-size:2rem}.chart-card{padding:19px 16px}.chart-head h2{font-size:1.45rem}.bar-row{grid-template-columns:minmax(0,112px) minmax(40px,1fr) 66px;gap:6px}.bar-name{font-size:.65rem}.reading{padding:22px 18px}.reading-grid{grid-template-columns:1fr}}
+</style>

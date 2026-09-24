@@ -1,6 +1,6 @@
 ---
 title: "Real Cost Is Decided By The Opportunities You Give Up, Not By Your Feelings"
-description: "Cost is not hardship itself, but the best opportunity given up for a choice"
+description: "The cost of a decision is the value of its best alternative, regardless of how difficult the decision feels."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Cost is not hardship itself, but the best opportunity given up for a choice.
+> The cost of a decision is the value of its best alternative, regardless of how difficult the decision feels.
 
 In Lecture 014, Xue Zhaofeng continues explaining cost. Many people think cost means hardship, pain, trouble, or money already spent. In economics, real cost is the largest value given up. This small distinction changes how we understand many choices.
 

@@ -1,6 +1,6 @@
 ---
 title: "Investing Is Not Following The Crowd, But Finding Truly Effective Information"
-description: "Real investment wisdom is maintaining independent judgment inside market noise"
+description: "Independent investment judgment depends on separating useful information from the noise of the market."
 date: 2026-02-25
 category: "Finance"
 tags: ["Effective Information", "Market Judgment", "Investment Decisions"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Real investment wisdom is maintaining independent judgment inside market noise.
+> Independent investment judgment depends on separating useful information from the noise of the market.
 
 After reading Letter 055, "Peter Lynch's Secret Weapon for Success," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: the hardest part of investing is not finding a company that looks good, but still being able to judge a company's real value independently when everyone else is pulled around by market emotion. Peter Lynch's success was not only because he discovered the PEG ratio. It was also because he understood how to filter effective information, insist on cutting losses, and avoid blind conformity.
 

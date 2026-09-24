@@ -1,6 +1,6 @@
 ---
 title: "There Are No Stupid Questions, Only Questions Not Made Clear"
-description: "Effective communication is not about appearing smart, but about understanding the matter and doing it correctly"
+description: "A useful question makes uncertainty specific and helps everyone move toward a shared understanding of the problem."
 date: 2026-03-25
 category: "Cognition"
 tags: ["Communication", "Questions", "Understanding"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Effective communication is not about appearing smart, but about understanding the matter and doing it correctly.
+> A useful question makes uncertainty specific and helps everyone move toward a shared understanding of the problem.
 
 After reading Letter 145 from Wu Jun's *Silicon Valley Letters 2*, I was reminded of a simple but often ignored truth: there are no stupid questions, only questions that have not been made clear. Many people are afraid to ask basic questions because they worry about appearing ignorant. But in real work and real learning, the greater risk is pretending to understand and then moving in the wrong direction.
 

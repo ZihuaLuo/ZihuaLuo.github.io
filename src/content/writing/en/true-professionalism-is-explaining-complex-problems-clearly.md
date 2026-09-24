@@ -1,6 +1,6 @@
 ---
 title: "True Professionalism Is Explaining Complex Problems Clearly"
-description: "Expression is not making words sound profound, but helping people from different backgrounds understand the essence"
+description: "Professional communication helps people with different backgrounds understand a complex problem and its essential implications."
 date: 2026-03-31
 category: "Cognition"
 tags: ["Professionalism", "Expression", "Complex Problems"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Expression is not making words sound profound, but helping people from different backgrounds understand the essence.
+> Professional communication helps people with different backgrounds understand a complex problem and its essential implications.
 
 After reading Letter 191 from Wu Jun's *Silicon Valley Letters 2*, I felt that true professionalism is often shown in explanation. Many people think being professional means using complex terms and sounding difficult to understand. But a stronger professional can explain complex problems clearly to people outside the field without distorting the essence.
 

@@ -1,6 +1,6 @@
 ---
 title: "Better Treatment Begins by Identifying the Actual Cause"
-description: "Personalized medicine is powerful not because it creates more treatments, but because it helps us stop treating different causes as if they were the same problem."
+description: "Personalized medicine begins by distinguishing the causes behind similar symptoms so treatment can address the underlying problem."
 date: 2026-09-06
 category: "Cognition"
 tags: ["Diagnosis", "Genomics", "Causal Reasoning"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Personalized medicine is powerful not because it creates more treatments, but because it helps us stop treating different causes as if they were the same problem.
+> Personalized medicine begins by distinguishing the causes behind similar symptoms so treatment can address the underlying problem.
 
 Many medical decisions begin with symptoms. A patient has a sore throat, fever, or cough. The doctor observes the symptoms, looks at a few indirect indicators, and chooses a treatment that works reasonably well for the average patient. For many common illnesses, this approach is good enough. But “good enough” can hide an important problem: the same symptom can be produced by very different causes. A sore throat may come from a bacterial infection, a viral infection, or several pathogens acting together. Two patients can therefore walk into a hospital with almost identical symptoms while requiring completely different treatments.
 

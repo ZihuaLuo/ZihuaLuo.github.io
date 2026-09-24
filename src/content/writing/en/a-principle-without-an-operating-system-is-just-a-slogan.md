@@ -1,6 +1,6 @@
 ---
 title: "A Principle Without an Operating System Is Just a Slogan"
-description: "Good management turns abstract principles into specific actions that ordinary people can repeat, measure, and improve."
+description: "Good management gives principles a practical form through actions that people can repeat, measure, and improve."
 date: 2026-09-08
 category: "Cognition"
 tags: ["Management", "Systems", "Execution"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Good management turns abstract principles into specific actions that ordinary people can repeat, measure, and improve.
+> Good management gives principles a practical form through actions that people can repeat, measure, and improve.
 
 Many ideas sound correct but are difficult to use.
 

@@ -5,10 +5,11 @@ import test from "node:test";
 const scene = readFileSync(new URL("../src/scripts/aiLabConstellation.ts", import.meta.url), "utf8") + readFileSync(new URL("../src/scripts/aiLabShaders.ts", import.meta.url), "utf8");
 const showcase = readFileSync(new URL("../src/components/ai/AILabShowcase.astro", import.meta.url), "utf8");
 
-test("card grows one size into the desktop gutter and stays within mobile width", () => {
+test("the original star chart dimensions stay fixed while planet positions change", () => {
   assert.match(showcase, /width: min\(108%, 40rem\)/);
-  assert.match(showcase, /@media \(max-width: 1040px\) \{\s*\.ai-lab \{ width: min\(100%, 40rem\);/);
-  assert.match(showcase, /\.ai-lab__viewport \{ aspect-ratio: 0\.84;/);
+  assert.match(showcase, /aspect-ratio: 703 \/ 609/);
+  assert.match(showcase, /\.ai-lab__viewport \{ aspect-ratio: 0\.84; min-height: 0; \}/);
+  assert.doesNotMatch(showcase, /--lab-desktop-height|--lab-mobile-height|ai-lab__chart/);
 });
 
 test("sparse distant stars twinkle independently without adding particles or foreground flashes", () => {

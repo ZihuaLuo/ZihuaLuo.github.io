@@ -1,6 +1,6 @@
 ---
 title: "A Strength in One Environment Can Become a Weakness in Another"
-description: "Traits do not have fixed economic value. The same instinct that improves performance in one environment can become a source of error when the environment changes."
+description: "An instinct that helps us succeed in one setting can lead us astray when the conditions change."
 date: 2026-08-27
 category: "Economic Thinking"
 tags: ["Adaptation", "Environment", "Behavior"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Traits do not have fixed economic value. The same instinct that improves performance in one environment can become a source of error when the environment changes.
+> An instinct that helps us succeed in one setting can lead us astray when the conditions change.
 
 This lecture appears to be about hormones, but the more interesting idea is not whether testosterone makes people more aggressive or whether oxytocin makes people more trusting. It is that human characteristics are rarely simply “good” or “bad.” Their value depends on the situation in which they operate. Testosterone provides a useful example. It is tempting to think of it as a hormone that mechanically produces aggression. A better interpretation is that it can amplify tendencies that are already present. An individual does not suddenly behave without regard to context. Existing competitive, emotional, or risk-taking responses can simply become stronger.
 
@@ -21,4 +21,4 @@ A trait that helped under one time horizon becomes harmful under another. This d
 
 The mistake is judging a trait without first asking what environment rewards it. This is especially important in finance because success itself can reinforce the wrong behavior. A trader who takes aggressive risks and happens to succeed may interpret the outcome as evidence that greater aggression is always better. But the behavior may only have been well suited to one particular market, strategy, or time horizon. When the environment changes, the strength remains while its usefulness disappears. The broader lesson is therefore not that we should eliminate emotion, hormones, or instinct and become perfectly rational decision-makers. These mechanisms exist because they have often been useful.
 
-The real challenge is alignment. A strength is valuable only when the environment rewards the behavior it produces. Good judgment begins with knowing not only what my tendencies are, but also when those tendencies should be trusted — and when they should be restrained.
+The real challenge is alignment. A strength is valuable only when the environment rewards the behavior it produces. Good judgment begins with knowing not only what my tendencies are, but also when those tendencies should be trusted and when they should be restrained.

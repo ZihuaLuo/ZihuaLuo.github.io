@@ -1,6 +1,6 @@
 ---
 title: "Mature Rules Balance Tradition, Property Rights, And Real Costs"
-description: "Many customs that look unreasonable may exist because they save transaction costs"
+description: "Seemingly unusual customs may persist because they reduce the practical costs of reaching agreements and living together."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Many customs that look unreasonable may exist because they save transaction costs.
+> Seemingly unusual customs may persist because they reduce the practical costs of reaching agreements and living together.
 
 In the seventh-week Q&A, Xue Zhaofeng continues discussing Coase, transaction costs, and institutions. The real world is not a zero-transaction-cost world. As long as people must negotiate, allocate resources, and coordinate action, information asymmetry, communication cost, enforcement cost, and trust cost exist.
 

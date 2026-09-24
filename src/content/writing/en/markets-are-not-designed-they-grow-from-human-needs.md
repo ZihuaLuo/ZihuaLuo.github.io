@@ -1,6 +1,6 @@
 ---
 title: "Markets Are Not Designed; They Grow Out Of Human Needs"
-description: "Markets are not institutions designed by force, but orders that grow from people's behavior under real constraints"
+description: "Markets develop as people respond to one another's needs and find ways to exchange under real constraints."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Markets are not institutions designed by force, but orders that grow from people's behavior under real constraints.
+> Markets develop as people respond to one another's needs and find ways to exchange under real constraints.
 
 After studying Xue Zhaofeng's first economics lecture on the economic organization of prisoner-of-war camps, I realized that a market is not a decoration that appears only in prosperous societies. It grows wherever resources are scarce, preferences differ, and people have room to exchange.
 

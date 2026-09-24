@@ -1,6 +1,6 @@
 ---
 title: "Reform Is Not Slogans, But Balance Between Courage And Order"
-description: "The hard part is not knowing the right direction, but moving toward it without letting the system lose control."
+description: "Effective reform combines the courage to change direction with attention to the stability needed to make change work."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The hard part is not knowing the right direction, but moving toward it without letting the system lose control.
+> Effective reform combines the courage to change direction with attention to the stability needed to make change work.
 
 Lecture 047 discusses the difficulty of removing price controls. It is one thing to know that controls create shortages and hidden competition. It is another thing to remove them without causing panic, disorder, or unbearable short-term pain.
 

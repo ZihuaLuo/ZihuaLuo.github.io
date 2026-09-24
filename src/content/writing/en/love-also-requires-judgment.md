@@ -1,6 +1,6 @@
 ---
 title: "Love Is Not Only Impulse; It Is Also Judgment"
-description: "What is truly worth choosing is not always the most dazzling thing"
+description: "Choosing well in a relationship requires looking beyond immediate attraction to the qualities that sustain a shared life."
 date: 2026-02-15
 category: "Cognition"
 tags: ["Love", "Judgment", "Responsibility"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> What is truly worth choosing is not always the most dazzling thing.
+> Choosing well in a relationship requires looking beyond immediate attraction to the qualities that sustain a shared life.
 
 After reading Letter 021, "Shakespeare's Wisdom, Part II," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: love and marriage are not only emotional matters. They also require reason, judgment, and responsibility. Many times, we think love is intense attraction, love at first sight, or being drawn to the light on someone. But through *The Merchant of Venice*, this letter reminds me that the more intense the emotion, the easier it is for a person to lose judgment. Mature love is not only being attracted. It is seeing the other person clearly, choosing them, and being willing to bear the cost after that choice.
 

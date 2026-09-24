@@ -2,6 +2,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { parse } from 'parse5';
+import { searchProjects } from '../src/data/searchProjects.ts';
 
 // Validate the deployable artifact, not merely the source templates.
 const root = path.resolve('dist');
@@ -50,7 +51,32 @@ function validateLink(link, source) {
 }
 for (const [file, page] of pages) for (const link of page.links) validateLink(link, file);
 const index = JSON.parse(await readFile(path.join(root, 'search-index.json'), 'utf8'));
-for (const item of index) validateLink(item.url, 'search-index.json');
+for (const item of index) {
+  validateLink(item.url, 'search-index.json');
+  if (typeof item.searchContent !== 'string') errors.push(`search-index.json: missing searchContent for ${item.url}`);
+}
+const writingPages = [...pages.keys()]
+  .filter(file => /^writing\/[^/]+\/index\.html$/.test(file))
+  .map(file => `${base}/${file.replace(/index\.html$/, '')}`);
+const indexedWritingPages = new Set(index.filter(item => item.type === 'writing').map(item => item.url));
+for (const url of writingPages) {
+  if (!indexedWritingPages.has(url)) errors.push(`search-index.json: missing writing page ${url}`);
+}
+if (indexedWritingPages.size !== writingPages.length) {
+  errors.push(`search-index.json: writing coverage ${indexedWritingPages.size}/${writingPages.length}`);
+}
+for (const project of searchProjects) {
+  const planetUrl = `${base}/ai/?project=${encodeURIComponent(project.id)}#ai-lab-title`;
+  if (!index.some(item => item.type === 'project' && item.title === project.title && item.url === planetUrl)) {
+    errors.push(`search-index.json: missing planet ${project.id}`);
+  }
+  if (project.direct) {
+    const directUrl = `${base}${project.direct.url}`;
+    if (!index.some(item => item.type === project.direct.kind && item.url === directUrl)) {
+      errors.push(`search-index.json: missing direct page ${project.direct.url}`);
+    }
+  }
+}
 for (const retired of ['images/chat-super-nono-smile.png', 'images/project-constellation-reference.png']) {
   if (allPaths.has(retired)) errors.push(`Retired development asset shipped: ${retired}`);
 }

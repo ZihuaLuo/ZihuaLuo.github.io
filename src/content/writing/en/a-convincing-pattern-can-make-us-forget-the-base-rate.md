@@ -1,6 +1,6 @@
 ---
 title: "A Convincing Pattern Can Make Us Forget the Base Rate"
-description: "When a story looks representative, we often mistake resemblance for probability and recent performance for persistent ability."
+description: "A convincing story can lead us to confuse resemblance with probability and recent success with lasting ability."
 date: 2026-08-27
 category: "Economic Thinking"
 tags: ["Base Rates", "Representativeness", "Probability"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> When a story looks representative, we often mistake resemblance for probability and recent performance for persistent ability.
+> A convincing story can lead us to confuse resemblance with probability and recent success with lasting ability.
 
 Representativeness bias begins with a simple mistake: something feels likely because it looks like the kind of thing we expect to see. If a quiet, organized, detail-oriented person sounds like a librarian, our intuition immediately places him in a library. What we forget is the base rate. If there are vastly more farmers than librarians, the person may still be more likely to be a farmer even if his personality sounds less “representative.” The description captures our attention. The population underneath it disappears.
 

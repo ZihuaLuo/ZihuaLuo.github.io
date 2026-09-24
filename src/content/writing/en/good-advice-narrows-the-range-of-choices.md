@@ -1,6 +1,6 @@
 ---
 title: "Good Advice Narrows The Range Of Choices"
-description: "Listening to advice is not about who speaks loudest, but who can truly reduce uncertainty"
+description: "Useful advice reduces uncertainty and helps us identify which choices deserve serious consideration."
 date: 2026-03-31
 category: "Cognition"
 tags: ["Advice", "Decision-Making", "Uncertainty"]
@@ -9,7 +9,7 @@ featured: true
 draft: false
 ---
 
-> Listening to advice is not about who speaks loudest, but who can truly reduce uncertainty.
+> Useful advice reduces uncertainty and helps us identify which choices deserve serious consideration.
 
 After reading Letter 193 from Wu Jun's *Silicon Valley Letters 2*, I gained a clearer standard for judging advice. Good advice does not simply add one more opinion. It narrows the range of wrong choices. A person who gives useful advice helps us remove paths that look attractive but are unlikely to work under the current conditions.
 

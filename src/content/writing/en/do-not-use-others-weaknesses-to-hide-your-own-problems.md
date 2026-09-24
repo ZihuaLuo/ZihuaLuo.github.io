@@ -1,6 +1,6 @@
 ---
 title: "Do Not Use Others' Weaknesses To Hide Your Own Problems"
-description: "Mature people do not prove themselves right by comparing others' mistakes, or prove excellence by defeating others' weaknesses"
+description: "Personal growth requires examining our own shortcomings without using other people's mistakes as an excuse."
 date: 2026-03-18
 category: "Cognition"
 tags: ["Responsibility", "Comparison", "Core Ability"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Mature people do not prove themselves right by comparing others' mistakes, or prove excellence by defeating others' weaknesses.
+> Personal growth requires examining our own shortcomings without using other people's mistakes as an excuse.
 
 In Letter 111, "Do Not Use Others' Shortcomings To Defend Your Own, And Do Not Use Others' Shortcomings To Show Off Your Strengths," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, the most important warning is about a very common mentality: when people make mistakes, their first reaction is often not to face the problem, but to look for evidence that others have made mistakes too. When they gain a small advantage, they may not pursue a higher standard, but compare their strength against someone else's weakness.
 

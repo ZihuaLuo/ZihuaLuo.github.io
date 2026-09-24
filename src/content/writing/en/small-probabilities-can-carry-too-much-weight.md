@@ -1,6 +1,6 @@
 ---
 title: "Small Probabilities Can Carry Too Much Weight"
-description: "We do not always treat probability according to its numerical size. A vivid possibility can receive far more weight in our decisions than its actual likelihood deserves."
+description: "A vivid but unlikely outcome can exert more influence on a decision than its probability justifies."
 date: 2026-08-30
 category: "Economic Thinking"
 tags: ["Probability Weighting", "Risk", "Decision-Making"]
@@ -9,9 +9,9 @@ featured: false
 draft: false
 ---
 
-> We do not always treat probability according to its numerical size. A vivid possibility can receive far more weight in our decisions than its actual likelihood deserves.
+> A vivid but unlikely outcome can exert more influence on a decision than its probability justifies.
 
-Buying lottery tickets and buying insurance seem like opposite behaviors. A lottery ticket pays off only if an extremely unlikely good event occurs. Insurance protects us from an extremely unlikely bad event. If people simply disliked risk, buying lottery tickets would be difficult to explain. If they simply liked risk, buying insurance would be equally difficult to explain. Both behaviors make more sense once we recognize that people tend to overweight small, vivid probabilities. A one-in-a-million chance does not always feel one million times less important than certainty. When the outcome is sufficiently striking — becoming suddenly wealthy, losing a house, suffering a major accident — the possibility itself can occupy a disproportionate amount of mental space.
+Buying lottery tickets and buying insurance seem like opposite behaviors. A lottery ticket pays off only if an extremely unlikely good event occurs. Insurance protects us from an extremely unlikely bad event. If people simply disliked risk, buying lottery tickets would be difficult to explain. If they simply liked risk, buying insurance would be equally difficult to explain. Both behaviors make more sense once we recognize that people tend to overweight small, vivid probabilities. A one-in-a-million chance does not always feel one million times less important than certainty. The prospect of sudden wealth, losing a house, or suffering a major accident can be so striking that the possibility occupies a disproportionate amount of mental space.
 
 This is different from simply misestimating probability. Someone may know perfectly well that the probability of winning a lottery is tiny and still buy a ticket. The error is not necessarily believing that the probability is higher than it really is. The person may simply give that tiny probability too much weight when choosing. That distinction matters. It means that correcting people's factual estimates does not automatically correct their decisions. The same preference appears in financial markets. Some stocks resemble lotteries. They are cheap, volatile, close to bankruptcy, newly listed, or surrounded by a story that creates enormous upside imagination. Most of these outcomes will never materialize, but there is always a visible possibility that one company becomes the next extraordinary winner.
 

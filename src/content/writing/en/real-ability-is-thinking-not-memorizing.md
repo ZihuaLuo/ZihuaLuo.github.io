@@ -1,6 +1,6 @@
 ---
 title: "Real Ability Is Not Remembering Answers, But Learning To Think"
-description: "An interview tests not the standard answer, but the process of solving a problem"
+description: "A demanding interview reveals how someone reasons through a problem and responds when a familiar answer is unavailable."
 date: 2026-02-17
 category: "Cognition"
 tags: ["Thinking Ability", "Interviews", "Problem Solving"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> An interview tests not the standard answer, but the process of solving a problem.
+> A demanding interview reveals how someone reasons through a problem and responds when a familiar answer is unavailable.
 
 After reading Letter 026, "Why Microsoft Asked This Interview Question: Should Manhole Covers Be Round Or Square?" from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: real ability is not about how many answers a person has memorized. It is about whether, when facing an unfamiliar problem, they can analyze it in an orderly way, explain it, and form their own judgment. Many people are used to understanding learning as "memorizing answers," but this letter reminds me that what the real world values is often not the answer itself, but a person's thinking process.
 

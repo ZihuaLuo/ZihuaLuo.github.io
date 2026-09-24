@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { computeConstellationLayout } from "../src/scripts/aiLabLayout.ts";
 
 // Structural regression guards complement the browser's real WebGL shader/interaction checks.
 const scene = readFileSync(new URL("../src/scripts/aiLabConstellation.ts", import.meta.url), "utf8") + readFileSync(new URL("../src/scripts/aiLabShaders.ts", import.meta.url), "utf8");
@@ -37,10 +38,10 @@ test("background keeps scattered stars without decorative orbital fields or scan
 test("celestial camera uses moderate perspective, with distinct project Z planes", () => {
   assert.match(scene, /new THREE\.PerspectiveCamera\(36, 1, 0\.1, 100\)/);
   assert.doesNotMatch(scene, /new THREE\.OrthographicCamera/);
-  const depths = [...projects.matchAll(/position: \[[-\d.]+, [-\d.]+, ([-\d.]+)\]/g)].map((match) => Number(match[1]));
-  assert.equal(depths.length, 3);
-  assert.equal(new Set(depths).size, 3);
-  assert.ok(Math.max(...depths) - Math.min(...depths) >= 1);
+  const depths = computeConstellationLayout(4, 600, 520, false).targets.map((target) => target.z);
+  assert.equal(depths.length, 4);
+  assert.equal(new Set(depths).size, 4);
+  assert.ok(Math.max(...depths) - Math.min(...depths) >= 0.4);
 });
 
 test("planet and horizon stay opaque and occlude the selective bloom pass", () => {
@@ -52,8 +53,9 @@ test("planet and horizon stay opaque and occlude the selective bloom pass", () =
   const horizon = scene.slice(scene.indexOf("new THREE.SphereGeometry(0.3,"), scene.indexOf("const photonMaterial"));
   assert.match(horizon, /transparent: false/);
   assert.match(horizon, /depthWrite: true/);
-  assert.match(scene, /object\.material = bloomOccluderMaterial/);
+  assert.match(scene, /candidate\.mesh\.material = bloomOccluderMaterial/);
   assert.match(scene, /bloomOccluders\.forEach/);
+  assert.equal((scene.match(/scene\.traverse\(/g) ?? []).length, 1);
 });
 
 test("depth pass preserves the restrained particle and bloom budgets", () => {

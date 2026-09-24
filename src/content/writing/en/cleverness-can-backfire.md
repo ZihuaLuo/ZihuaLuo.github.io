@@ -1,6 +1,6 @@
 ---
 title: "Cleverness Can Backfire"
-description: "Real intelligence means being willing to become a reliable 'fool'"
+description: "Reliability and the willingness to do straightforward work can prove wiser than chasing clever shortcuts."
 date: 2026-02-11
 category: "Cognition"
 tags: ["Long-Term Trust", "Reliability", "Short-Term Cleverness"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Real intelligence means being willing to become a reliable "fool."
+> Reliability and the willingness to do straightforward work can prove wiser than chasing clever shortcuts.
 
 After reading Letter 010, "God Likes The Slow People, Part II," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: people often overestimate the value of small clever tricks and underestimate the power of reliability, kindness, and focus. "God likes the slow people" does not mean that the slower a person is, the better. It means that in real life and long-term cooperation, people who do not play tricks, do not chase petty advantages, and do not try to win at every point often go farther.
 

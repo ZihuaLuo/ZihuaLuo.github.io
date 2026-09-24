@@ -1,6 +1,6 @@
 ---
 title: "Valuable Effort Creates Wealth Instead Of Fighting For Privilege"
-description: "Busyness does not equal value creation; the key is whether effort increases wealth or fights over distribution"
+description: "The value of effort depends on whether it expands what society can produce or merely competes for a larger share."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Busyness does not equal value creation; the key is whether effort increases wealth or fights over distribution.
+> The value of effort depends on whether it expands what society can produce or merely competes for a larger share.
 
 In Lecture 020, Xue Zhaofeng explains rent seeking. Many people assume that if everyone works hard, a country naturally becomes richer. Economics asks a sharper question: is the effort creating new value, or merely fighting over benefits that already exist?
 

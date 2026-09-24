@@ -1,6 +1,6 @@
 ---
 title: "Good Opportunities Are Eventually Repriced By Competition"
-description: "There are no permanently easy benefits; competition turns extra returns into new costs"
+description: "As competition grows, the costs of pursuing an attractive opportunity tend to rise and reduce its extra returns."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> There are no permanently easy benefits; competition turns extra returns into new costs.
+> As competition grows, the costs of pursuing an attractive opportunity tend to rise and reduce its extra returns.
 
 In the fifth-week Q&A, one central idea stands out: many opportunities that look stable and easy stop being easy once more people see them. Competition rushes in and turns extra returns into entry barriers, effort costs, and higher resource prices.
 

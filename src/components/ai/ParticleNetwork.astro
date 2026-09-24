@@ -34,6 +34,7 @@
     const pointer = { x: -1000, y: -1000, active: false };
     let width = 0;
     let height = 0;
+    let pixelRatio = 0;
     let animation: ReturnType<typeof createVisibleAnimationLoop> | undefined;
     let isMobile = false;
 
@@ -57,10 +58,14 @@
 
     const resize = () => {
       const bounds = field.getBoundingClientRect();
-      width = Math.max(1, bounds.width);
-      height = Math.max(1, bounds.height);
-      isMobile = width <= 720;
+      const nextWidth = Math.max(1, bounds.width);
+      const nextHeight = Math.max(1, bounds.height);
       const ratio = Math.min(window.devicePixelRatio || 1, 1.75);
+      if (nextWidth === width && nextHeight === height && ratio === pixelRatio) return;
+      width = nextWidth;
+      height = nextHeight;
+      pixelRatio = ratio;
+      isMobile = width <= 720;
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       canvas.style.width = `${width}px`;

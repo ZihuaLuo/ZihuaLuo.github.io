@@ -1,6 +1,6 @@
 ---
 title: "True Objectivity Is Not Having No Viewpoint, But Understanding Where Viewpoints Come From"
-description: "Do not worship so-called absolute objectivity; what matters is seeing the logic behind different positions and forming your own judgment"
+description: "Independent judgment develops by comparing perspectives and understanding the reasoning and assumptions behind them."
 date: 2026-03-12
 category: "Cognition"
 tags: ["Objectivity", "Subjectivity", "Standards Of Judgment"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> Mature judgment does not eliminate subjectivity; it sees the standards, evidence, and positions behind it.
+> Independent judgment develops by comparing perspectives and understanding the reasoning and assumptions behind them.
 
 After reading Letter 092, "On Subjectivity And Objectivity," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: we often assume that "objective" means correct and "subjective" means biased, but reality is not that simple. Many supposedly objective conclusions are actually built on certain subjective standards. Many truly valuable insights come precisely from a person's subjective judgment, shaped by position, experience, and thought. Mature thinking does not completely eliminate subjectivity. It understands where a viewpoint comes from, what it is based on, and where its limits are.
 

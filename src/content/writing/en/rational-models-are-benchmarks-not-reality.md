@@ -1,6 +1,6 @@
 ---
 title: "Rational Models Are Benchmarks, Not Reality"
-description: "A model becomes dangerous not when it simplifies reality, but when we forget what it has simplified away."
+description: "Models are useful guides when we remember their assumptions and the parts of reality they leave out."
 date: 2026-08-24
 category: "Economic Thinking"
 tags: ["Economic Models", "Rationality", "Behavioral Economics"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> A model becomes dangerous not when it simplifies reality, but when we forget what it has simplified away.
+> Models are useful guides when we remember their assumptions and the parts of reality they leave out.
 
 The first lecture of Behavioral Economics appears to be an introduction to the debate between rational and behavioral economics. But the more important question behind that debate is how we should use models. Economics needs simplification. The problem begins only when a useful simplification is mistaken for reality itself. Traditional economics often starts with a rational individual: someone who understands incentives, processes information correctly, and chooses what maximizes personal utility. This assumption creates elegant models and gives us a clean benchmark for thinking about decisions. But real outcomes depend not only on what is rational in theory, but also on how actual people behave.
 

@@ -1,6 +1,6 @@
 ---
 title: "Rights Are Recognized, Not Seized"
-description: "A right is not what one person can occupy. It is what society is willing to help that person protect."
+description: "A right becomes meaningful when others recognize the claim and institutions help protect it."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> A right is not what one person can occupy. It is what society is willing to help that person protect.
+> A right becomes meaningful when others recognize the claim and institutions help protect it.
 
 Lecture 053 discusses the difference between rights and abilities. This sounds like a legal or political distinction, but it points to the most basic order of civilized society: why humans do not need to fight with claws, fists, and violence every day to obtain resources, yet can still get what they need.
 

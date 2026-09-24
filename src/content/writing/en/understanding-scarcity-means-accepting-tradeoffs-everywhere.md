@@ -1,6 +1,6 @@
 ---
 title: "Understanding Scarcity Means Accepting Trade-Offs Everywhere"
-description: "Scarcity is not pessimism, but a basic fact of how the world works; as human wants keep growing, choice and trade-off never disappear"
+description: "Limited resources and expanding wants make tradeoffs a continuing part of individual and collective decisions."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Scarcity is not pessimism, but a basic fact of how the world works; as human wants keep growing, choice and trade-off never disappear.
+> Limited resources and expanding wants make tradeoffs a continuing part of individual and collective decisions.
 
 In Lecture 009, Xue Zhaofeng places economics on the most basic fact: scarcity. Economics does not have to depend on assumptions that people are always rational or always selfish. People vary. Scarcity is different. It is not an assumption; it is a reality everyone faces every day.
 

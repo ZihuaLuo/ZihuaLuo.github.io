@@ -1,6 +1,6 @@
 ---
 title: "When Work Never Ends, Progress Depends on What You Refuse to Do"
-description: "Productivity is not about completing more tasks. It is about repeatedly choosing the few tasks whose completion actually changes the outcome."
+description: "Meaningful progress requires choosing the few tasks that change an outcome and declining work that competes for the same attention."
 date: 2026-09-03
 category: "Cognition"
 tags: ["Priority Management", "Productivity", "Opportunity Cost"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Productivity is not about completing more tasks. It is about repeatedly choosing the few tasks whose completion actually changes the outcome.
+> Meaningful progress requires choosing the few tasks that change an outcome and declining work that competes for the same attention.
 
 One of the easiest ways to feel productive is to stay busy. Emails are answered. Meetings are attended. Small problems are resolved. A long to-do list becomes slightly shorter. At the end of the day, there is plenty of evidence that work happened. But none of this proves that meaningful progress was made. The distinction becomes especially important in environments where work can never truly be finished.
 

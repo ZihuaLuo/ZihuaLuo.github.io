@@ -1,6 +1,6 @@
 ---
 title: "Effort Cannot Solve Cognitive Lag"
-description: "The real career ceiling is not a lack of effort, but an outdated way of thinking"
+description: "An outdated way of thinking can limit a career even when the effort behind it remains strong."
 date: 2026-02-10
 category: "Cognition"
 tags: ["Career Growth", "Cognitive Models", "Computational Thinking"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> The real career ceiling is not a lack of effort, but an outdated way of thinking.
+> An outdated way of thinking can limit a career even when the effort behind it remains strong.
 
 After reading the first letter in Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, my strongest takeaway was this: what people often call a career ceiling is not only caused by insufficient ability or insufficient effort. It is often caused by using an old way of thinking to face problems that belong to a new era.
 

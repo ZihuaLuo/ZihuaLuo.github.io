@@ -1,6 +1,6 @@
 ---
 title: "Scarcity Does Not Disappear; Competition Only Changes Rules"
-description: "A society never chooses whether to have competition, but what rules people will compete under."
+description: "Scarcity makes competition unavoidable, while social rules determine the forms that competition takes."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> A society never chooses whether to have competition, but what rules people will compete under.
+> Scarcity makes competition unavoidable, while social rules determine the forms that competition takes.
 
 Lecture 041 lists different rules of competition, but its deeper point is simpler: as long as resources are scarce, competition cannot be abolished. Society can only choose the rules under which people compete.
 

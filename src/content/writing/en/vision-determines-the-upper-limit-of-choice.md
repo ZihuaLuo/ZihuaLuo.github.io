@@ -1,6 +1,6 @@
 ---
 title: "Vision Determines The Upper Limit Of Choice"
-description: "Cleverness can help people do things faster, but vision determines what they choose to do"
+description: "A broader perspective changes which opportunities we recognize and which goals we consider worth pursuing."
 date: 2026-03-27
 category: "Cognition"
 tags: ["Vision", "Decision-Making", "Long-Term Value"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Cleverness can help people do things faster, but vision determines what they choose to do.
+> A broader perspective changes which opportunities we recognize and which goals we consider worth pursuing.
 
 After reading Wu Jun's supplement to *Attitude*, I was struck by the difference between cleverness and vision. Cleverness helps people optimize within a known frame. Vision determines whether the frame is worth entering at all. Many people are capable, diligent, and technically strong, but they still choose problems with limited future because they only see the immediate payoff.
 

@@ -1,6 +1,6 @@
 ---
 title: "Real Economic Thinking Reframes Choice Through Margin And Personal Valuation"
-description: "To judge whether something is worth it, look not at slogans or totals, but at the real cost of the next choice."
+description: "Better choices compare the additional benefit of the next step with its cost and the value it holds for the person deciding."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> To judge whether something is worth it, look not at slogans or totals, but at the real cost of the next choice.
+> Better choices compare the additional benefit of the next step with its cost and the value it holds for the person deciding.
 
 Lecture 033 brings several earlier ideas together: marginal thinking, subjective value, and the value of time. The common thread is that economic thinking does not ask whether something is important in the abstract. It asks what the next unit of choice costs and what that choice is worth to a specific person.
 

@@ -1,6 +1,6 @@
 ---
 title: "Clear-Minded Choice Asks Only Whether The Future Is Still Worth It"
-description: "What has already been paid should not hold future decisions hostage"
+description: "Past spending cannot be recovered. The next decision should depend on the value still available ahead."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> What has already been paid should not hold future decisions hostage.
+> Past spending cannot be recovered. The next decision should depend on the value still available ahead.
 
 In Lecture 016, Xue Zhaofeng discusses sunk cost and marginal cost. A sunk cost is a payment already made and impossible to recover. Because it cannot be changed, it should not continue to control future choices. What should matter is how much must be invested from now on and what return that new investment can bring.
 

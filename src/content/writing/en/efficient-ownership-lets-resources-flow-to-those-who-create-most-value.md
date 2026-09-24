@@ -1,6 +1,6 @@
 ---
 title: "Efficient Ownership Lets Resources Flow To Those Who Create The Most Value"
-description: "Who owns a resource should depend not only on where it came from, but also on who can use it best"
+description: "Ownership arrangements shape whether resources can reach the people best able to put them to productive use."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Who owns a resource should depend not only on where it came from, but also on who can use it best.
+> Ownership arrangements shape whether resources can reach the people best able to put them to productive use.
 
 In Lecture 023, Xue Zhaofeng extends the Coase theorem. The earlier social-cost discussion focused on conflicts over scarce resources. This lecture goes further: the initial owner of a resource may not be the most important issue. What matters is whether the resource can eventually flow to the person who uses it best.
 

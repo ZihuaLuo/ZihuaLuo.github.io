@@ -1,6 +1,6 @@
 ---
 title: "Property Rights Protect Boundaries, Not Value"
-description: "Property rights protect a person's boundary from invasion, but they do not guarantee that assets will always remain valuable."
+description: "Property rights protect control over an asset while leaving its value exposed to changing demand and competition."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> Property rights protect a person's boundary from invasion, but they do not guarantee that assets will always remain valuable.
+> Property rights protect control over an asset while leaving its value exposed to changing demand and competition.
 
 Lecture 056 contains a judgment that is easy to miss but extremely important: property rights protect the physical attributes of an asset, not its economic value. In other words, property institutions protect the rule that others cannot destroy your things. They do not protect the rule that your things must keep making money forever.
 

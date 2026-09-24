@@ -1,6 +1,6 @@
 ---
 title: "Only By Admitting I Am Ordinary Can I Truly Improve"
-description: "What creates distance is not only intelligence, but direction, training, and persistence"
+description: "Direction, deliberate practice, and persistence can turn an ordinary starting point into meaningful progress."
 date: 2026-02-17
 category: "Cognition"
 tags: ["Self-Knowledge", "Training", "Long-Term Progress"]
@@ -11,7 +11,7 @@ draft: false
 
 
 
-> What creates distance is not only intelligence, but direction, training, and persistence.
+> Direction, deliberate practice, and persistence can turn an ordinary starting point into meaningful progress.
 
 After reading Wu Jun's Reader Q&A 07, "Smart People And Slow People," from *Silicon Valley Letters 2: The Google Methodology*, my biggest reflection was this: whether a person can do something well does not depend entirely on whether they are naturally smart. It depends on whether they find the right direction, receive training, and are willing to keep making up for their weaknesses over the long term. Many times, we are too quick to attribute success to talent and failure to not being smart enough, while ignoring that ability itself can be trained.
 

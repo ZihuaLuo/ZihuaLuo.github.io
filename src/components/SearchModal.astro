@@ -10,31 +10,38 @@ const labels = {
   title: "Search",
   placeholder: "Search the entire site",
   emptyTitle: "Start with a keyword",
-  emptyDescription: "Try Project Constellation, APOCALYPSE, strengths, AI approach, research, CFA, a person, or an organization",
+  emptyDescription: "Search projects, dashboards, experience, writing, people, and APOCALYPSE answers",
   noResults: "No results found",
   loading: "Loading search index",
   open: "Open",
   close: "Close search",
   resultCount: "results",
+  resultSingle: "result",
+  showing: "Showing",
+  of: "of",
   typeLabels: {
     writing: "Writing",
     experience: "Experience",
     section: "Site Section",
     acknowledgement: "Acknowledgement",
     project: "AI Project",
+    dashboard: "Dashboard",
+    game: "Playable Game",
     chatbot: "Chatbot Answer",
   },
   openLabels: {
     project: "Open project",
+    dashboard: "Open dashboard",
+    game: "Play game",
     chatbot: "Ask APOCALYPSE",
   },
-  suggestions: ["Project Constellation", "APOCALYPSE", "Strengths", "Approach to AI", "Research", "CFA", "Writing", "Acknowledgements"],
+  suggestions: ["Canadian Electricity", "Corporate Scandal", "Non-Compete", "Cloudline", "Finance PhD", "Volunteer Retention", "Writing", "Experience"],
 };
 
 const serializedLabels = JSON.stringify(labels);
 const inputId = `site-search-input-${lang}`;
 const titleId = `site-search-title-${lang}`;
-const searchIndexRevision = "2026-09-03-ai-navigation-v3";
+const searchIndexRevision = "2026-09-24-project-search-v1";
 const searchIndexUrl = `${withBase("/search-index.json")}?v=${searchIndexRevision}`;
 ---
 

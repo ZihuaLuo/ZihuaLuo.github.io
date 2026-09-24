@@ -1,6 +1,6 @@
 ---
 title: "Share Interests, Decide Independently"
-description: "Mature collaboration means sharing credit with others while carrying responsibility and judgment yourself"
+description: "Strong collaboration combines generous credit sharing with independent judgment and personal responsibility."
 date: 2026-03-18
 category: "Cognition"
 tags: ["Collaboration", "Credit Sharing", "Decision-Making"]
@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-> Mature collaboration means sharing credit with others while carrying responsibility and judgment yourself.
+> Strong collaboration combines generous credit sharing with independent judgment and personal responsibility.
 
 In Letter 110, "Share Interests, Decide Independently," from Wu Jun's *Silicon Valley Letters 2: The Google Methodology*, the most valuable point is that it places two seemingly opposite abilities together: interests should be shared, while decisions should be independent. The first concerns breadth of mind, and the second concerns responsibility. If a person can decide independently but is unwilling to share interests, they may become an isolated strong person. If they only care for everyone's feelings but dare not make decisions, they may become an inefficient nice person.
 

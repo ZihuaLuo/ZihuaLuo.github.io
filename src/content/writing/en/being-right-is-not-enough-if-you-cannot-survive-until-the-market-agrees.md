@@ -1,6 +1,6 @@
 ---
 title: "Being Right Is Not Enough If You Cannot Survive Until the Market Agrees"
-description: "Recognizing that a market is irrational is very different from being able to profit from that irrationality."
+description: "Profiting from a market error requires enough time and capital to withstand the period before prices adjust."
 date: 2026-08-25
 category: "Economic Thinking"
 tags: ["Market Irrationality", "Limits of Arbitrage", "Risk"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Recognizing that a market is irrational is very different from being able to profit from that irrationality.
+> Profiting from a market error requires enough time and capital to withstand the period before prices adjust.
 
 The second lecture of Behavioral Economics appears to ask a practical question: if markets contain systematic mistakes, can a smarter investor simply identify them and make money? The historical examples suggest something less comfortable. Knowing that a price is wrong does not tell us when it will become right. Newton understood that the South Sea Company had moved far beyond what its fundamentals could justify. He sold early and made a profit. The problem came afterward. Prices continued rising, people around him became richer, and eventually even Newton returned near the top. His failure was not an inability to calculate value. It was an inability to predict how long collective enthusiasm could continue.
 

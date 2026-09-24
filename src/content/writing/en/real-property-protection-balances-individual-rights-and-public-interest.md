@@ -1,6 +1,6 @@
 ---
 title: "Real Property Protection Balances Individual Rights And Public Interest"
-description: "Property cannot be violated lightly, but resources should not remain in low-value uses forever because transaction costs are too high"
+description: "Property rules must weigh individual control against the costs that can prevent resources from reaching more valuable uses."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Property cannot be violated lightly, but resources should not remain in low-value uses forever because transaction costs are too high.
+> Property rules must weigh individual control against the costs that can prevent resources from reaching more valuable uses.
 
 In Lecture 026, Xue Zhaofeng applies the Coase theorem to land acquisition. The issue is difficult because it involves two important values: private property must be protected, while social development sometimes needs a way through individual negotiation barriers.
 

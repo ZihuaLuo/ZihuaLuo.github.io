@@ -1,6 +1,6 @@
 ---
 title: "Real Environmentalism Weighs Whether The Cost Is Worth It"
-description: "Environmental protection is not rejecting all pollution, but finding a better balance among different costs"
+description: "Environmental decisions require comparing the benefits of protection with the costs and tradeoffs of different approaches."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Environmental protection is not rejecting all pollution, but finding a better balance among different costs.
+> Environmental decisions require comparing the benefits of protection with the costs and tradeoffs of different approaches.
 
 In Lecture 024, Xue Zhaofeng uses the Coase theorem to reinterpret environmental protection. Many people assume that if something protects the environment, it should be pursued at any cost. Economics asks who bears the cost, whether the effect is truly better, and whether reducing one kind of pollution creates a larger cost elsewhere.
 

@@ -1,6 +1,6 @@
 ---
 title: "Difficulty Is Not An Obstacle, But The Source Of Value"
-description: "Truly valuable people are not those with the most information, but those who turn information into consensus, cooperation, and results"
+description: "Value comes from turning information into shared understanding, practical cooperation, and results."
 date: 2026-03-31
 category: "Cognition"
 tags: ["Cooperation", "Intermediaries", "Value"]
@@ -9,7 +9,7 @@ featured: false
 draft: false
 ---
 
-> Truly valuable people are not those with the most information, but those who turn information into consensus, cooperation, and results.
+> Value comes from turning information into shared understanding, practical cooperation, and results.
 
 After reading Letter 189 from Wu Jun's *Silicon Valley Letters 2*, I understood more clearly why difficulty itself is often the source of value. Many people dislike complicated coordination, unclear interests, and hard communication. But precisely because these things are difficult, the people who can solve them become valuable.
 

@@ -1,6 +1,6 @@
 ---
 title: "Real Fairness Keeps Wealth Creators Willing To Create"
-description: "Whether a rule is fair depends not only on who receives something now, but on whether it encourages future creation or competition over wealth"
+description: "A fair rule should consider both how wealth is shared today and how it affects people's willingness to create more."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Whether a rule is fair depends not only on who receives something now, but on whether it encourages future creation or competition over wealth.
+> A fair rule should consider both how wealth is shared today and how it affects people's willingness to create more.
 
 Xue Zhaofeng's lecture on the manure dispute seems at first like a small legal story, but it reveals a larger economic principle: fairness is not only about who wins in the current moment. It is also about what behavior the rule will encourage in the future.
 

@@ -1,6 +1,6 @@
 ---
 title: "Rights Do Not Fall From The Sky"
-description: "Rights do not become real just because they are spoken. Real rights are institutional arrangements that society recognizes, enforces, and protects."
+description: "Rights depend on the institutions and shared commitments that make recognition, enforcement, and protection possible."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> Rights do not become real just because they are spoken. Real rights are institutional arrangements that society recognizes, enforces, and protects.
+> Rights depend on the institutions and shared commitments that make recognition, enforcement, and protection possible.
 
 Lecture 054 argues that rights are created by people, not bestowed by heaven. At first this sounds unattractive, because natural rights is a much more moving phrase. It has moral force. It tells every person that they are born with dignity, that their freedom cannot be violated, and that they do not need anyone's gift to deserve rights.
 

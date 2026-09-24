@@ -1,6 +1,6 @@
 ---
 title: "Suppressed Prices Eventually Become More Expensive Costs"
-description: "A Spring Festival train ticket tests whether we can admit that when price cannot adjust scarcity, scarcity adjusts people in other ways."
+description: "When ticket prices cannot respond to scarcity, travelers may pay through waiting, uncertainty, and other hidden costs."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> A Spring Festival train ticket tests whether we can admit that when price cannot adjust scarcity, scarcity adjusts people in other ways.
+> When ticket prices cannot respond to scarcity, travelers may pay through waiting, uncertainty, and other hidden costs.
 
 Lecture 045 discusses Spring Festival train tickets, a topic that easily triggers emotion because it is tied to going home. But the economic problem remains: when demand greatly exceeds supply, someone must decide who gets the ticket.
 

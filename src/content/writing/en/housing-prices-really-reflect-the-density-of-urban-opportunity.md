@@ -1,6 +1,6 @@
 ---
 title: "Housing Prices Really Reflect The Density Of Urban Opportunity"
-description: "Housing price is not an isolated number; behind it are people's judgments about opportunity, resources, and the future."
+description: "Housing prices reflect how people value a city's opportunities, resources, and prospects for the future."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> Housing price is not an isolated number; behind it are people's judgments about opportunity, resources, and the future.
+> Housing prices reflect how people value a city's opportunities, resources, and prospects for the future.
 
 Lecture 049 asks whether rising housing prices are good or bad. The question seems to be about real estate, but it is really about how we understand price. Price is not the cause by itself; it is a signal of underlying conditions.
 

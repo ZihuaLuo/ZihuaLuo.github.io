@@ -1,6 +1,6 @@
 ---
 title: "Real Systematic Learning Turns Knowledge Into Thinking Habits"
-description: "The value of learning is not how much one understands once, but whether it changes the way one sees the world over time."
+description: "Learning becomes lasting when new ideas change the habits through which we interpret problems and make decisions."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> The value of learning is not how much one understands once, but whether it changes the way one sees the world over time.
+> Learning becomes lasting when new ideas change the habits through which we interpret problems and make decisions.
 
 Lecture 040 reflects on what real learning means in an age of fragmented information. Hearing a useful idea once is not the same as owning it. Real learning happens when knowledge becomes a stable habit of judgment.
 

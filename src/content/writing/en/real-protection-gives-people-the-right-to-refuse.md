@@ -1,6 +1,6 @@
 ---
 title: "Real Protection Gives People The Right To Refuse"
-description: "The core of property protection is not keeping resources unchanged forever, but making change happen through voluntary consent as much as possible."
+description: "Protecting property gives owners a meaningful right to refuse and makes voluntary agreement central to change."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -9,7 +9,7 @@ language: "en"
 featured: false
 draft: false
 ---
-> The core of property protection is not keeping resources unchanged forever, but making change happen through voluntary consent as much as possible.
+> Protecting property gives owners a meaningful right to refuse and makes voluntary agreement central to change.
 
 Lecture 059 discusses the first principle of property protection: the property rule. In its simplest form, the rule says that if you want to take someone else's thing, the only legitimate way is to offer a price high enough that the owner is willing to accept.
 

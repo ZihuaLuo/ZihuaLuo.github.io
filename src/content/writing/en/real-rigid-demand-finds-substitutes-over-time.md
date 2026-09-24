@@ -1,6 +1,6 @@
 ---
 title: "Real Rigid Demand Also Finds Substitutes Over Time"
-description: "What looks choice-less in the short term often creates new choices in the long term."
+description: "A need that leaves little choice today may become easier to meet as people develop alternatives over time."
 date: "2023"
 displayDate: "2023"
 category: "Economic Thinking"
@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-> What looks choice-less in the short term often creates new choices in the long term.
+> A need that leaves little choice today may become easier to meet as people develop alternatives over time.
 
 Lecture 035 is about elasticity. People often call something a rigid demand when they feel they have no choice: housing, medicine, education, transportation, or basic services. In the short run, this feeling can be true. But over time, even rigid demand often finds substitutes.
 
