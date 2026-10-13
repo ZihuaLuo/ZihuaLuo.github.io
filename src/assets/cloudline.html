@@ -82,7 +82,6 @@
 <div id="sceneFade" class="scene-fade"></div>
 <div id="loader" class="loader"><div class="load-mark"><svg><use href="#i-tram"/></svg></div><h2 id="loadTitle">Cloudline</h2><p id="loadText">Opening the Coastal Line. The evening is almost yours.</p><div id="loadSpinner" class="spinner"></div><button class="retry" onclick="location.reload()">Try again</button><div class="load-foot">THE SLOW WAY HOME</div></div>
 <noscript><div class="noscript">Please enable JavaScript to play Cloudline.</div></noscript>
-<!-- Three.js r160, MIT license. Loaded on demand below. -->
 <!--
 Three.js r160.1
 Copyright 2010-2023 Three.js Authors
@@ -860,11 +859,8 @@ if(new URLSearchParams(location.search).get('test')==='1')window.cloudlineTest={
   function boot(){try{const s=document.createElement('script');s.textContent=document.getElementById('cloudline-game').textContent;document.body.appendChild(s);}catch(e){failed(e.message);}}
   function failed(detail){document.getElementById('loader').classList.add('failed');document.getElementById('loadTitle').textContent='The line is not quite open.';document.getElementById('loadText').textContent=detail||'Three.js could not load. Reload the page or try a browser with WebGL support.';document.getElementById('loadSpinner').hidden=true;}
   window.addEventListener('error',function(e){if(!document.getElementById('loader').classList.contains('gone')&&e.message)failed('The game could not start: '+e.message);});
-  if(window.THREE){boot();return;}
-  const sources=[];
-  let index=0;
-  function load(){if(index>=sources.length){failed();return;}const script=document.createElement('script');script.src=sources[index++];script.crossOrigin='anonymous';let settled=false;const timer=setTimeout(function(){if(settled)return;settled=true;script.remove();load();},13000);script.onload=function(){if(settled)return;settled=true;clearTimeout(timer);window.THREE?boot():load();};script.onerror=function(){if(settled)return;settled=true;clearTimeout(timer);script.remove();load();};document.head.appendChild(script);}
-  load();
+  if(!window.THREE){failed();return;}
+  boot();
 })();
 </script>
 </body></html>

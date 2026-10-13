@@ -1,6 +1,6 @@
 export const normalizeSearchValue = (value) =>
   String(value ?? "")
-    .toLocaleLowerCase()
+    .toLowerCase()
     .normalize("NFKD")
     .replace(/\p{M}/gu, "")
     .replace(/[^\p{L}\p{N}]+/gu, " ")

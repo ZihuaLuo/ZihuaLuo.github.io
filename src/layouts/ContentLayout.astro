@@ -15,9 +15,9 @@ const backLabel = ui[lang].backToWriting;
 const backHref = withBase("/writing/");
 const authorName = siteInfo.englishName;
 const pageTitle = `${entry.data.title} | ${authorName}`;
-const minutes = readingTime(entry.body ?? "", lang);
+const minutes = readingTime(entry.body ?? "");
 const featuredLabel = "Featured Essay";
-const displayDate = formatEntryDate(entry.data, lang);
+const displayDate = formatEntryDate(entry.data);
 const dateTime = entryDateTime(entry.data);
 ---
 

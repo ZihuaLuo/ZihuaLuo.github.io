@@ -1,20 +1,10 @@
 ---
 import SectionTitle from "@components/SectionTitle.astro";
 import { creditEntries, creditEntryAnchor, type CreditTier } from "@data/credits";
-import { type Language } from "@i18n/routes";
 
-interface Props {
-  lang: Language;
-}
-
-const entries = creditEntries.map((entry) => ({
-  ...entry,
-  roleLabel: entry.role,
-  roleLines: [{ text: entry.role, kind: "single" }],
-}));
+const entries = creditEntries;
 
 const copy = {
-  eyebrow: "Acknowledgements",
   title: "A searchable map of the people behind the progress",
   description:
     "Names, roles, and the professional context of people whose guidance, trust, and shared standards shaped this work.",
@@ -26,7 +16,6 @@ const copy = {
   creditsTitle: "Acknowledgements",
   creditsDescription: "A broader network of mentors, peers, and professionals who shaped the path forward.",
   empty: "No matching acknowledgements yet. Try another name, role, or organization.",
-  loadMore: "Load more",
   showing: "Showing",
   of: "of",
   people: "people",
@@ -41,7 +30,6 @@ const creditGroups = tiers.map((tierConfig) => {
   return {
     ...tierConfig,
     entries: entriesForTier,
-    initialVisibleCount: entriesForTier.length,
   };
 });
 ---
@@ -89,7 +77,7 @@ const creditGroups = tiers.map((tierConfig) => {
               <p class="mt-3 max-w-2xl text-sm leading-7 text-body">{group.description}</p>
             </div>
             <p class="credit-showing text-sm font-extrabold text-gold" data-credit-showing={group.tier}>
-              {copy.showing} {group.initialVisibleCount} {copy.of} {group.entries.length}
+              {copy.showing} {group.entries.length} {copy.of} {group.entries.length}
             </p>
           </div>
 
@@ -110,11 +98,9 @@ const creditGroups = tiers.map((tierConfig) => {
               >
                 <div class="credit-card__glow" aria-hidden="true"></div>
                 <h4 class="credit-card__name display-heading text-[1.58rem] font-semibold leading-[1.05] text-ink sm:text-[1.7rem]">{entry.name}</h4>
-                {entry.roleLabel && (
+                {entry.role && (
                   <p class="credit-card__role-label mt-2 text-[0.8rem] font-bold text-body">
-                    {entry.roleLines.map((line) => (
-                      <span class={`credit-card__role-line credit-card__role-line--${line.kind}`}>{line.text}</span>
-                    ))}
+                    {entry.role}
                   </p>
                 )}
               </article>
@@ -341,26 +327,8 @@ const creditGroups = tiers.map((tierConfig) => {
   }
 
   .credit-card__role-label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.08rem;
     line-height: 1.42;
     overflow-wrap: anywhere;
-  }
-
-  .credit-card__role-line {
-    display: block;
-    max-width: 100%;
-  }
-
-  .credit-card__role-line--org {
-    color: rgba(var(--rgb-body), 0.92);
-    text-wrap: balance;
-  }
-
-  .credit-card__role-line--role {
-    color: var(--ink);
-    word-break: keep-all;
   }
 
   @media (max-width: 640px) {

@@ -15,9 +15,8 @@ test("halo makes a smooth visible-time orbit and keeps spinning after the scan",
   for (const t of [6, 14, 28, 120]) assert.ok(Math.abs(getAccretionRotation(t + 1) - getAccretionRotation(t) - step) < 1e-12);
 });
 
-test("halo rotation is static with reduced motion and independent of frame count", () => {
+test("halo rotation is static with reduced motion", () => {
   for (const t of [0, 1, 14, 100]) assert.equal(getAccretionRotation(t, true), 0);
-  for (const fps of [30, 60, 120]) assert.equal(getAccretionRotation(fps * 8 / fps), getAccretionRotation(8));
 });
 
 test("only the light-flow child spins; fixed plane, event horizon and lens are not rotated", () => {

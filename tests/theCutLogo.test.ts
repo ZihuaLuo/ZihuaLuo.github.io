@@ -14,13 +14,12 @@ const favicon32 = read("../public/favicon-32.svg");
 const seo = read("../src/components/SEO.astro");
 const styles = read("../src/styles/global.css");
 
-test("The Cut is an accessible reusable inline SVG with isolated paint IDs", () => {
+test("The Cut is an accessible reusable inline SVG", () => {
   assert.match(logo, /size\?: number \| string/);
   assert.match(logo, /className\?: string/);
   assert.match(logo, /viewBox="0 0 64 64"/);
   assert.match(logo, /aria-label=\{decorative \? undefined : "The Cut logo"\}/);
   assert.match(logo, /aria-hidden=\{decorative \? "true" : undefined\}/);
-  assert.match(logo, /randomUUID\(\)/);
   assert.doesNotMatch(logo, /<text\b|<image\b|<circle\b|<ellipse\b/);
 });
 

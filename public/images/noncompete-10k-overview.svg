@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
 <title id="title">Non-Compete 10-K Coding Dashboard overview</title>
-<desc id="desc">Aggregate preview with 130 sampled filing snippets, 1262 annotation rows, a filing year timeline, annotation coverage bars, and Type themes.</desc>
+<desc id="desc">Aggregate preview of 130 sampled filing snippets and 1,262 annotation rows, with a filing-year timeline and annotation coverage bars.</desc>
 <rect width="1600" height="900" fill="#f5f6fa"/>
 <rect x="35" y="30" width="1530" height="210" rx="20" fill="#14223e"/>
 <circle cx="1453" cy="131" r="95" fill="#26395e" stroke="#92d9d2" stroke-width="2"/>

@@ -1,12 +1,10 @@
 ---
-import { siteConfig } from "@config/site";
-import { withBase, type Language } from "@i18n/routes";
+import { withBase } from "@i18n/routes";
 import { siteInfo } from "@i18n/ui";
 
 interface Props {
   title: string;
   description: string;
-  lang: Language;
   canonicalPath?: string;
   image?: string;
   type?: "website" | "article";
@@ -20,7 +18,7 @@ const {
   type = "website",
 } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL(siteConfig.siteUrl);
+const siteUrl = Astro.site!;
 const defaultImage = siteInfo.ogImage;
 const resolvedImage = image ?? defaultImage;
 const canonicalUrl =

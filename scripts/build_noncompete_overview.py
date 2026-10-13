@@ -6,7 +6,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 data = json.loads((ROOT / "src/data/noncompete.json").read_text(encoding="utf-8"))
+meta = data["meta"]
 output = ROOT / "public/images/noncompete-10k-overview.svg"
+
+preview_description = (
+    f'Aggregate preview of {meta["filings"]:,} sampled filing snippets and '
+    f'{meta["annotationRows"]:,} annotation rows, with a filing-year timeline '
+    'and annotation coverage bars.'
+)
 
 
 def txt(x, y, value, size=22, color="#1e2a43", weight=500, family="Arial, sans-serif", extra=""):
@@ -16,7 +23,7 @@ def txt(x, y, value, size=22, color="#1e2a43", weight=500, family="Arial, sans-s
 parts = [
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">',
     '<title id="title">Non-Compete 10-K Coding Dashboard overview</title>',
-    '<desc id="desc">Aggregate preview with 130 sampled filing snippets, 1262 annotation rows, a filing year timeline, annotation coverage bars, and Type themes.</desc>',
+    f'<desc id="desc">{html.escape(preview_description)}</desc>',
     '<rect width="1600" height="900" fill="#f5f6fa"/>',
     '<rect x="35" y="30" width="1530" height="210" rx="20" fill="#14223e"/>',
     '<circle cx="1453" cy="131" r="95" fill="#26395e" stroke="#92d9d2" stroke-width="2"/>',
@@ -24,7 +31,7 @@ parts = [
     txt(78, 75, "RESEARCH VISUALIZATION  /  10-K ANNOTATIONS", 17, "#a8dfd6", 800, extra='letter-spacing="3"'),
     txt(78, 148, "Non-Compete 10-K", 55, "#ffffff", 700, "Georgia, serif"),
     txt(78, 207, "Coding Dashboard", 53, "#d7c8f1", 400, "Georgia, serif"),
-    txt(1453, 141, "130", 59, "#ffffff", 700, "Georgia, serif", 'text-anchor="middle"'),
+    txt(1453, 141, meta["filings"], 59, "#ffffff", 700, "Georgia, serif", 'text-anchor="middle"'),
     txt(1453, 169, "filing snippets", 16, "#d5efe9", 700, extra='text-anchor="middle"'),
 ]
 

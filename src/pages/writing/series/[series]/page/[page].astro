@@ -1,22 +1,11 @@
 ---
-import { getCollection } from "astro:content";
 import WritingSeriesArchive from "@components/WritingSeriesArchive.astro";
-import { essaysPerPage, writingSeries } from "@data/writingSeries";
+import { essaysPerPage } from "@data/writingSeries";
+import { getWritingSeriesArchives } from "@data/writingSeriesArchives";
 
 export async function getStaticPaths() {
-  const lang = "en" as const;
-  const includeDrafts = !import.meta.env.PROD;
-  const allWriting = await getCollection(
-    "writing",
-    ({ data }) => data.language === lang && (includeDrafts || !data.draft),
-  );
-
-  return writingSeries.flatMap((series) => {
-    const entries = allWriting
-      .filter((entry) => entry.data.category === series.category)
-      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-    const totalPages = Math.ceil(entries.length / essaysPerPage);
-
+  const archives = await getWritingSeriesArchives();
+  return archives.flatMap(({ entries, lang, series, totalCount, totalPages }) => {
     if (totalPages <= 1) {
       return [];
     }
@@ -35,7 +24,7 @@ export async function getStaticPaths() {
           entries: entries.slice(start, start + essaysPerPage),
           lang,
           series,
-          totalCount: entries.length,
+          totalCount,
           totalPages,
         },
       };

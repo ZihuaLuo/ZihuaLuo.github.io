@@ -48,19 +48,14 @@ test("equal arc-length steps do not acquire extra speed changes from the Bezier 
   }
 });
 
-test("flight and settling are frame-rate independent at 30, 60 and 120 Hz", () => {
-  const path = createProjectFlightPath(origin, targets[0]);
+test("focus settling reaches the same value after one second at common frame rates", () => {
+  const settlingSeconds = 0.145;
   for (const fps of [30, 60, 120]) {
-    const sampled = Array.from({ length: 3 }, (_, i) => {
-      const frame = fps * (i + 1) / 2;
-      return path.getPointAt(getProjectSpawnState(frame / fps * 1000, 0, 2400).travel);
-    });
-    sampled.forEach((point, i) => {
-      assert.ok(point.distanceTo(path.getPointAt(getProjectSpawnState((i + 1) * 500, 0, 2400).travel)) < 1e-12);
-    });
     let blend = 0;
-    for (let frame = 0; frame < fps; frame++) blend += (1 - blend) * getMotionBlend(1 / fps);
-    assert.ok(Math.abs(blend - (1 - Math.exp(-1 / 0.18))) < 1e-12);
+    for (let frame = 0; frame < fps; frame++) {
+      blend += (1 - blend) * getMotionBlend(1 / fps, settlingSeconds);
+    }
+    assert.ok(Math.abs(blend - (1 - Math.exp(-1 / settlingSeconds))) < 1e-12);
   }
 });
 

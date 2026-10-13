@@ -1,4 +1,4 @@
-import { normalizeSearchValue, prepareSearchItem, rankSearchItems } from "./searchMatcher.js";
+import { prepareSearchItem, rankSearchItems } from "./searchMatcher.js";
 
 // Shared, bundled once and cached across Astro page transitions.
 export const initializeSiteSearch = () => {
@@ -105,9 +105,7 @@ export const initializeSiteSearch = () => {
         return;
       }
 
-      const normalizedQuery = normalizeSearchValue(trimmed);
-      if (!normalizedQuery) { renderNoResults(); return; }
-      const { matches, total } = rankSearchItems(indexedItems, normalizedQuery);
+      const { matches, total } = rankSearchItems(indexedItems, trimmed);
 
       if (!matches.length) {
         renderNoResults();

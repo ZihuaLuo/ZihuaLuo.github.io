@@ -1,5 +1,6 @@
 ---
 import { withBase } from "@i18n/routes";
+import noncompete from "../../data/noncompete.json";
 type ProjectTheme = {
   color: string;
   secondaryColor: string;
@@ -273,10 +274,10 @@ const clientProjects = projects.map((project) => ({
         </div>
         <div class="ai-lab__project-detail" data-detail-project="noncompete-10k" hidden>
           <p class="ai-lab__detail-pending">RESEARCH DASHBOARD · NON-COMPETE 10-K</p>
-          <p class="ai-lab__detail-summary">Explore how non-compete related terms and coding features appear across 130 sampled 10-K filing snippets.</p>
+          <p class="ai-lab__detail-summary">Explore how non-compete related terms and coding features appear across {noncompete.meta.filings} sampled 10-K filing snippets.</p>
           <a class="ai-lab__dashboard-link" href={withBase("/projects/noncompete-10k-dashboard/")} target="_blank" rel="noopener">Explore the full dashboard <span aria-hidden="true">↗</span></a>
           <a class="ai-lab__dashboard-preview" href={withBase("/projects/noncompete-10k-dashboard/")} target="_blank" rel="noopener" aria-label="Open the Non-Compete 10-K Coding Dashboard in a new tab">
-            <img src={withBase("/images/noncompete-10k-overview.svg")} alt="Non-Compete 10-K dashboard overview with sample timeline, annotation coverage, and type themes" decoding="async" width="1600" height="900" />
+            <img src={withBase("/images/noncompete-10k-overview.svg")} alt="Non-Compete 10-K dashboard overview with a sample timeline and annotation coverage chart" decoding="async" width="1600" height="900" />
           </a>
           <p class="ai-lab__privacy-note">Aggregate visualizations only. Filing passages, identifiers, and research notes are not included. The sample is descriptive.</p>
         </div>

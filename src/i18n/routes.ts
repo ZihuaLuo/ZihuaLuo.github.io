@@ -58,7 +58,7 @@ export function entrySlug(id: string): string {
     .pop() as string;
 }
 
-export function formatDate(date: Date, _lang: Language): string {
+export function formatDate(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
@@ -67,15 +67,15 @@ export function formatDate(date: Date, _lang: Language): string {
   }).format(date);
 }
 
-export function formatEntryDate(entry: { date: Date; displayDate?: string }, lang: Language): string {
-  return entry.displayDate ?? formatDate(entry.date, lang);
+export function formatEntryDate(entry: { date: Date; displayDate?: string }): string {
+  return entry.displayDate ?? formatDate(entry.date);
 }
 
 export function entryDateTime(entry: { date: Date; displayDate?: string }): string {
   return entry.displayDate?.match(/^\d{4}/)?.[0] ?? entry.date.toISOString();
 }
 
-export function readingTime(body = "", _lang: Language): string {
+export function readingTime(body = ""): string {
   const plain = body
     .replace(/```[\s\S]*?```/g, "")
     .replace(/<[^>]+>/g, "")

@@ -34,14 +34,11 @@ type PlanetSystem = {
   definition: ProjectDefinition;
   root: THREE.Group;
   core: THREE.Mesh<THREE.SphereGeometry, THREE.ShaderMaterial>;
-  hitTarget: THREE.Mesh;
   textShell: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>;
   atmosphere: THREE.Mesh<THREE.SphereGeometry, THREE.ShaderMaterial>;
   ringRoot: THREE.Group;
-  ringMeshes: THREE.Object3D[];
   ringMaterials: THREE.Material[];
   particleLayers: THREE.Points[];
-  particleMaterials: THREE.ShaderMaterial[];
   selectionArc: THREE.Line;
   target: THREE.Vector3;
   flightTarget: THREE.Vector3;
@@ -664,7 +661,7 @@ const createSingularity = () => {
     root.add(lensArc);
   });
 
-  return { root, disk, diskFlow, photonRing, diskPlane, photonMaterial, lensMaterial, diskMaterials, diskPlaneMaterial, rearDiskMaterial, streamGroups };
+  return { root, diskFlow, photonRing, photonMaterial, lensMaterial, diskMaterials, diskPlaneMaterial, rearDiskMaterial, streamGroups };
 };
 
 const initializeLab = (lab: LabElement) => {
@@ -925,7 +922,6 @@ const initializeLab = (lab: LabElement) => {
     ringRoot.rotation.z = THREE.MathUtils.degToRad(project.ringTiltZ);
     ringRoot.scale.setScalar(compact ? 0.78 : 0.87);
     root.add(ringRoot);
-    const ringMeshes: THREE.Object3D[] = [];
     const ringMaterials: THREE.Material[] = [];
 
     const ribbonMaterial = new THREE.ShaderMaterial({
@@ -949,7 +945,6 @@ const initializeLab = (lab: LabElement) => {
     const ribbon = new THREE.Mesh(ribbonGeometry, ribbonMaterial);
     ribbon.layers.enable(BLOOM_LAYER);
     ringRoot.add(ribbon);
-    ringMeshes.push(ribbon);
     ringMaterials.push(ribbonMaterial);
 
     [
@@ -969,7 +964,6 @@ const initializeLab = (lab: LabElement) => {
       const ring = new THREE.Mesh(createIrregularRing(layer.radius, index * 503 + ringIndex * 71, layer.tube), material);
       ring.position.z = (ringIndex - 0.5) * 0.006;
       ringRoot.add(ring);
-      ringMeshes.push(ring);
       ringMaterials.push(material);
     });
 
@@ -977,7 +971,6 @@ const initializeLab = (lab: LabElement) => {
     (dashedOrbit.material as THREE.LineDashedMaterial).opacity = reduceMotion ? 0.12 : 0;
     (dashedOrbit.material as THREE.LineDashedMaterial).userData.baseOpacity = 0.12;
     ringRoot.add(dashedOrbit);
-    ringMeshes.push(dashedOrbit);
     ringMaterials.push(dashedOrbit.material as THREE.Material);
 
     const arcRandom = seededRandom(8800 + index * 223);
@@ -999,12 +992,10 @@ const initializeLab = (lab: LabElement) => {
       );
       arc.position.z = (arcRandom() - 0.5) * 0.035;
       ringRoot.add(arc);
-      ringMeshes.push(arc);
       ringMaterials.push(material);
     }
 
     const particleLayers: THREE.Points[] = [];
-    const particleMaterials: THREE.ShaderMaterial[] = [];
     [0, 1].forEach((layer) => {
       const count = Math.round((project.ringDensity * (layer === 0 ? 34 : 22)) * (compact ? 0.78 : 1));
       const belt = createParticleBelt(project, count, layer);
@@ -1014,7 +1005,6 @@ const initializeLab = (lab: LabElement) => {
       belt.position.z = (layer - 0.5) * 0.018;
       ringRoot.add(belt);
       particleLayers.push(belt);
-      particleMaterials.push(material);
     });
 
     [0, 1].forEach((layer) => {
@@ -1022,7 +1012,6 @@ const initializeLab = (lab: LabElement) => {
       if (reduceMotion) debris.material.opacity = debris.material.userData.baseOpacity;
       debris.position.z = (layer - 0.5) * 0.025;
       ringRoot.add(debris);
-      ringMeshes.push(debris);
       ringMaterials.push(debris.material);
     });
 
@@ -1045,8 +1034,7 @@ const initializeLab = (lab: LabElement) => {
       if (material instanceof THREE.MeshBasicMaterial || material instanceof THREE.LineBasicMaterial) applyOrbitalDepth(material);
     });
 
-    const hitTarget = core;
-    hitTargets.push(hitTarget);
+    hitTargets.push(core);
     worldLayer.add(root);
 
     const spawnTiming = getProjectSpawnTiming(index, projects.length);
@@ -1054,14 +1042,11 @@ const initializeLab = (lab: LabElement) => {
       definition: project,
       root,
       core,
-      hitTarget,
       textShell,
       atmosphere,
       ringRoot,
-      ringMeshes,
       ringMaterials,
       particleLayers,
-      particleMaterials,
       selectionArc,
       target: new THREE.Vector3(),
       flightTarget: singularity.root.position.clone(),
@@ -1320,6 +1305,7 @@ const initializeLab = (lab: LabElement) => {
     singularity.photonMaterial.opacity = 0.83 + Math.sin(time * 1.35) * 0.07;
     singularity.lensMaterial.opacity = 0.25 + Math.sin(time * 0.62) * 0.06;
 
+    const focusBlend = getMotionBlend(frameDelta, 0.145);
     planetSystems.forEach((system, index) => {
       const spawn = reduceMotion
         ? { visible: true, progress: 1, travel: 1, appearance: 1 }
@@ -1330,7 +1316,7 @@ const initializeLab = (lab: LabElement) => {
       const active = ready && (hoveredIndex === index || selectedIndex === index);
       const distant = ready && hoveredIndex >= 0 && planetSystems[hoveredIndex]?.reveal >= 1 && hoveredIndex !== index && selectedIndex !== index;
       system.focusTarget = active ? 1 : distant ? -0.78 : 0;
-      system.focus = THREE.MathUtils.lerp(system.focus, system.focusTarget, getMotionBlend(frameDelta, 0.145));
+      system.focus = THREE.MathUtils.lerp(system.focus, system.focusTarget, focusBlend);
       const positiveFocus = Math.max(0, system.focus);
       const visibility = system.focus < 0 ? 1 + system.focus * 0.36 : 1;
       const hoverScale = 1 + positiveFocus * 0.035;

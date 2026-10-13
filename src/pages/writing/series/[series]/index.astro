@@ -1,40 +1,21 @@
 ---
-import { getCollection } from "astro:content";
 import WritingSeriesArchive from "@components/WritingSeriesArchive.astro";
-import { essaysPerPage, writingSeries } from "@data/writingSeries";
+import { essaysPerPage } from "@data/writingSeries";
+import { getWritingSeriesArchives } from "@data/writingSeriesArchives";
 
 export async function getStaticPaths() {
-  const lang = "en" as const;
-  const includeDrafts = !import.meta.env.PROD;
-  const allWriting = await getCollection(
-    "writing",
-    ({ data }) => data.language === lang && (includeDrafts || !data.draft),
-  );
-
-  return writingSeries.flatMap((series) => {
-    const entries = allWriting
-      .filter((entry) => entry.data.category === series.category)
-      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-    const totalPages = Math.ceil(entries.length / essaysPerPage);
-
-    if (entries.length === 0) {
-      return [];
-    }
-
-    return [
-      {
-        params: { series: series.slug },
-        props: {
-          currentPage: 1,
-          entries: entries.slice(0, essaysPerPage),
-          lang,
-          series,
-          totalCount: entries.length,
-          totalPages,
-        },
-      },
-    ];
-  });
+  const archives = await getWritingSeriesArchives();
+  return archives.map(({ entries, lang, series, totalCount, totalPages }) => ({
+    params: { series: series.slug },
+    props: {
+      currentPage: 1,
+      entries: entries.slice(0, essaysPerPage),
+      lang,
+      series,
+      totalCount,
+      totalPages,
+    },
+  }));
 }
 ---
 

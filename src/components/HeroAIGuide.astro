@@ -125,11 +125,6 @@ const { href } = Astro.props;
     transform-origin: center;
   }
 
-  .hero-ai-guide__arm--wave {
-    transform-box: fill-box;
-    transform-origin: 14% 78%;
-  }
-
   .hero-ai-guide:hover .hero-ai-guide__bubble,
   .hero-ai-guide:focus-visible .hero-ai-guide__bubble {
     border-color: rgba(var(--rgb-cyan-soft), 0.52);
@@ -181,15 +176,6 @@ const { href } = Astro.props;
       animation: hero-ai-shadow 4s ease-in-out infinite;
     }
 
-    .hero-ai-guide__arm--wave {
-      animation: hero-ai-wave 4.8s ease-in-out infinite;
-    }
-
-    .hero-ai-guide__eyes {
-      animation: hero-ai-eyes 5.6s ease-in-out infinite;
-      transform-box: fill-box;
-      transform-origin: center;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -211,16 +197,4 @@ const { href } = Astro.props;
     50% { opacity: 0.45; transform: scaleX(0.78); }
   }
 
-  @keyframes hero-ai-wave {
-    0%, 58%, 100% { transform: rotate(0); }
-    64% { transform: rotate(-11deg); }
-    71% { transform: rotate(7deg); }
-    78% { transform: rotate(-9deg); }
-    85% { transform: rotate(4deg); }
-  }
-
-  @keyframes hero-ai-eyes {
-    0%, 45%, 49%, 100% { transform: scaleY(1); }
-    47% { transform: scaleY(0.15); }
-  }
 </style>

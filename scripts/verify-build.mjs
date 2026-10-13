@@ -2,6 +2,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { parse } from 'parse5';
+import { profileTopics } from '../src/data/aiProfile.ts';
 import { searchProjects } from '../src/data/searchProjects.ts';
 
 // Validate the deployable artifact, not merely the source templates.
@@ -18,6 +19,8 @@ const visit = (node, fn) => { fn(node); for (const child of node.childNodes || [
 for (const file of files.filter(file => file.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
   const ids = new Set();
+  const experienceCards = new Set();
+  const creditCards = new Set();
   const links = [];
   let canonical;
   visit(parse(html), node => {
@@ -25,11 +28,14 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
     if (attrs.id) {
       if (ids.has(attrs.id)) errors.push(`${relative(file)}: duplicate id ${attrs.id}`);
       ids.add(attrs.id);
+      const classes = attrs.class?.split(/\s+/) || [];
+      if (classes.includes('experience-entry') || classes.includes('education-profile--timeline')) experienceCards.add(attrs.id);
+      if ('data-credit-card' in attrs) creditCards.add(attrs.id);
     }
     if (attrs.rel === 'canonical') canonical = attrs.href;
     for (const attr of ['href', 'src', 'poster']) if (attrs[attr]) links.push(attrs[attr]);
   });
-  pages.set(relative(file), {ids, links, canonical});
+  pages.set(relative(file), {ids, links, canonical, experienceCards, creditCards});
 }
 const origin = new URL([...pages.values()].find(page => page.canonical)?.canonical || 'http://127.0.0.1:4321').origin;
 let checkedLinks = 0;
@@ -77,6 +83,22 @@ for (const project of searchProjects) {
     }
   }
 }
+for (const [type, file, cardKey] of [
+  ['experience', 'experience/index.html', 'experienceCards'],
+  ['acknowledgement', 'credits/index.html', 'creditCards'],
+]) {
+  const expected = pages.get(file)?.[cardKey];
+  if (!expected) {
+    errors.push(`search-index.json: missing ${file} for ${type} coverage`);
+    continue;
+  }
+  const indexed = new Set(index.filter(item => item.type === type).map(item => new URL(item.url, origin).hash.slice(1)));
+  for (const id of expected) if (!indexed.has(id)) errors.push(`search-index.json: missing ${type} card ${id}`);
+  for (const id of indexed) if (!expected.has(id)) errors.push(`search-index.json: extra ${type} card ${id}`);
+}
+const indexedChatTopics = new Set(index.filter(item => item.type === 'chatbot').map(item => new URL(item.url, origin).searchParams.get('ask')).filter(Boolean));
+for (const topic of profileTopics) if (!indexedChatTopics.has(topic.id)) errors.push(`search-index.json: missing chatbot topic ${topic.id}`);
+for (const id of indexedChatTopics) if (!profileTopics.some(topic => topic.id === id)) errors.push(`search-index.json: extra chatbot topic ${id}`);
 for (const retired of ['images/chat-super-nono-smile.png', 'images/project-constellation-reference.png']) {
   if (allPaths.has(retired)) errors.push(`Retired development asset shipped: ${retired}`);
 }

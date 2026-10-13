@@ -34,7 +34,7 @@ function cleanMarkdown(value = "") {
 
 function normalizeSearchValue(value: unknown) {
   return String(value ?? "")
-    .toLocaleLowerCase()
+    .toLowerCase()
     .normalize("NFKD")
     .replace(/\p{M}/gu, "")
     .replace(/[^\p{L}\p{N}]+/gu, " ")
@@ -414,6 +414,7 @@ export async function GET() {
     language: entry.data.language,
     date: entryDateLabel(entry),
   }, cleanMarkdown(entry.body)));
+  const writingCategories = new Set(writing.map((entry) => entry.data.category));
 
   const experienceItems: SearchItem[] = experience.map((entry) => prepareSearchItem({
     title: experienceTitle(entry),
@@ -430,7 +431,7 @@ export async function GET() {
 
   const sectionItems: SearchItem[] = [
     ...siteSections,
-    ...writingSeries.map((series) => ({
+    ...writingSeries.filter((series) => writingCategories.has(series.category)).map((series) => ({
       title: series.title,
       description: series.description,
       url: `/writing/series/${series.slug}/`,

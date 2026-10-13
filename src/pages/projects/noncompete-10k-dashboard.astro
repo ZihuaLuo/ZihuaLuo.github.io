@@ -42,7 +42,7 @@ const { meta } = data;
 
       <section class="overview" aria-labelledby="overview-title">
         <div class="section-heading"><div><p class="section-label">01 / Sample</p><h2 id="overview-title">Coding at a glance</h2></div></div>
-        <div class="period-filter" role="group" aria-label="Filter by filing year period" data-period-filter>
+        <div class="period-filter" role="group" aria-label="Filter by filing year period">
           <button type="button" data-period="all" aria-pressed="true">All years</button>
           {data.periods.map((period) => <button type="button" data-period={period.name} aria-pressed="false">{period.name}</button>)}
         </div>
@@ -59,7 +59,7 @@ const { meta } = data;
         <section class="chart-card chart-card--wide" aria-labelledby="years-title">
           <div class="chart-head"><div><p class="section-label">02 / Sample timeline</p><h2 id="years-title">Filing snippets by year</h2></div><span class="key"><i></i> Selected period</span></div>
           <p class="chart-description">Counts show the filings included in this manually coded sample, not all 10-K filings or the prevalence of non-compete clauses.</p>
-          <div class="timeline-scroll"><svg data-timeline role="img" aria-label="Sampled filing snippets by year from 1994 to 2023" viewBox="0 0 1000 300"></svg></div>
+          <div class="timeline-scroll"><svg data-timeline role="img" aria-label={`Sampled filing snippets by year from ${meta.firstYear} to ${meta.lastYear}`} viewBox="0 0 1000 300"></svg></div>
         </section>
 
         <section class="chart-card" aria-labelledby="features-title">

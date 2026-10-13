@@ -15,7 +15,6 @@ function urlFor(path: string, siteUrl: URL) {
 }
 
 export async function GET({ site }: { site: URL }) {
-  const siteUrl = site ?? new URL("http://127.0.0.1:4321");
   const includeDrafts = !import.meta.env.PROD;
   const writing = await getCollection(
     "writing",
@@ -35,7 +34,7 @@ export async function GET({ site }: { site: URL }) {
   ];
 
   const urls = [...staticPaths, ...contentPaths]
-    .map((path) => `  <url><loc>${urlFor(path, siteUrl)}</loc></url>`)
+    .map((path) => `  <url><loc>${urlFor(path, site)}</loc></url>`)
     .join("\n");
 
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`, {

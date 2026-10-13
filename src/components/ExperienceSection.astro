@@ -266,7 +266,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
                 {group.items.map((entry) => (
                   <article id={entryId(entry)} class="experience-entry experience-entry--credential">
                     <div class="experience-entry__header">
-                      <div class="experience-logo experience-logo--credential">
+                      <div class="experience-logo">
                         <img src={withBase(entry.data.logo)} alt={entry.data.logoAlt ?? ""} loading="lazy" />
                       </div>
                       <div class="min-w-0">
@@ -719,11 +719,6 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
     font-weight: 750;
     line-height: 1.6;
     margin-top: 0.42rem;
-  }
-
-  .experience-logo--credential {
-    height: 4.25rem;
-    width: 4.25rem;
   }
 
   @keyframes experience-panel-enter {

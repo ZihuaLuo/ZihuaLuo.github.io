@@ -38,7 +38,6 @@ const activeSeries = seriesCards.filter((series) => series.count > 0);
       <PageHeader
         title="Personal Writing Archive"
         description="Essays on learning, economics, finance, and business. I write to clarify what I learn and revisit my ideas as my understanding grows."
-        tone="dark"
       />
       <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4" aria-label="Writing series">
         {seriesCards.map((item) => (
@@ -76,7 +75,7 @@ const activeSeries = seriesCards.filter((series) => series.count > 0);
           </div>
           <div class="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
             {item.entries.slice(0, essayPreviewLimit).map((entry) => (
-              <WritingCard entry={entry} lang={lang} href={withBase(`/writing/${entrySlug(entry.id)}/`)} />
+              <WritingCard entry={entry} href={withBase(`/writing/${entrySlug(entry.id)}/`)} />
             ))}
           </div>
         </section>

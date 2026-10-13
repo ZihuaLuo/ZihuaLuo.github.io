@@ -1,28 +1,9 @@
 export type AnalyticsProvider = "" | "plausible" | "umami";
 
-const trimTrailingSlash = (value: string) => value.replace(/\/+$/, "");
-const fallbackSiteUrl = "http://127.0.0.1:4321";
-
-function normalizeSiteUrl(value: string | undefined) {
-  const trimmed = value?.trim();
-  if (!trimmed) {
-    return fallbackSiteUrl;
-  }
-
-  const withoutTrailingSlash = trimTrailingSlash(trimmed);
-  return withoutTrailingSlash || fallbackSiteUrl;
-}
-
 function normalizeAnalyticsProvider(value: string | undefined): AnalyticsProvider {
   const provider = value?.trim().toLowerCase();
   return provider === "plausible" || provider === "umami" ? provider : "";
 }
-
-// Set PUBLIC_SITE_URL only when the site is ready for public deployment.
-const configuredSiteUrl =
-  import.meta.env.PUBLIC_SITE_URL ||
-  import.meta.env.SITE_URL ||
-  fallbackSiteUrl;
 
 const analyticsProvider = normalizeAnalyticsProvider(import.meta.env.PUBLIC_ANALYTICS_PROVIDER);
 
@@ -31,7 +12,6 @@ export const siteConfig = {
   credentialedEnglishName: "Zihua Luo, FRM",
   description:
     "Finance, research analytics, risk-aware thinking, and an archive of learning and reflection",
-  siteUrl: normalizeSiteUrl(configuredSiteUrl),
   profilePhoto: "/images/zihua-profile.jpg",
   ogImages: {
     en: "/og-image.png",

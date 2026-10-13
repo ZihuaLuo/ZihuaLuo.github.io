@@ -36,7 +36,6 @@ const {
     <SEO
       title={title}
       description={description}
-      lang={lang}
       canonicalPath={canonicalPath}
       image={ogImage}
       type={type}
@@ -102,7 +101,7 @@ const {
     <main id="main" class="site-main">
       <slot />
     </main>
-    <Footer lang={lang} />
+    <Footer />
     <SearchModal lang={lang} />
   </body>
 </html>
