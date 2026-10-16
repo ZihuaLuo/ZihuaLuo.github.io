@@ -1059,8 +1059,8 @@ const isFollowUp = (question: string) =>
   /\b(tell me more|more detail|another example|example|evidence|expand|go deeper|why is that)\b/i.test(question);
 
 const sectionLinks = {
-  about: { href: "/about/#about", label: "Explore Zihua's story" },
-  connect: { href: "/about/#about-connect-title", label: "Go to Let's Connect" },
+  about: { href: "/#about", label: "Explore Zihua's story" },
+  connect: { href: "/#about-connect-title", label: "Go to Let's Connect" },
   writing: { href: "/writing/", label: "Explore the Writing section" },
   experience: { href: "/experience/#experience", label: "Explore Zihua's experience" },
   professional: {

@@ -11,17 +11,16 @@ interface Props {
 const { lang, currentPath } = Astro.props;
 const cleanPath = stripBase(currentPath);
 const nav = navItems.en;
-const aboutHref = "/about/";
+const aboutHref = "/";
 const brandName = siteInfo.credentialedEnglishName;
 const brandLine = "Man Proposes, God Disposes";
 const brandHref = withBase(aboutHref);
 const normalizePath = (path: string) => path === "/" ? path : `${path.replace(/\/+$/, "")}/`;
 const isActive = (item: (typeof nav)[number]) => {
   const current = normalizePath(cleanPath);
-  const href = normalizePath(item.href);
-  if (href === "/") return current === href;
-  return [href, ...(item.activePrefixes ?? []).map(normalizePath)]
-    .some((prefix) => current === prefix || current.startsWith(prefix));
+  return [item.href, ...(item.activePrefixes ?? [])]
+    .map(normalizePath)
+    .some((prefix) => prefix === "/" ? current === prefix : current === prefix || current.startsWith(prefix));
 };
 ---
 

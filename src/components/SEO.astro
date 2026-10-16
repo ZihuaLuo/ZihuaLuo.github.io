@@ -30,6 +30,15 @@ const ogImageUrl = resolvedImage.startsWith("http")
   : new URL(withBase(resolvedImage), siteUrl).toString();
 const locale = "en_US";
 const siteName = siteInfo.englishName;
+const homePath = withBase("/");
+const websiteStructuredData = Astro.url.pathname === homePath
+  ? JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: siteName,
+      url: new URL(homePath, siteUrl).toString(),
+    })
+  : null;
 ---
 
 <meta charset="utf-8" />
@@ -56,6 +65,7 @@ const siteName = siteInfo.englishName;
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageUrl} />
+{websiteStructuredData && <script is:inline type="application/ld+json" set:html={websiteStructuredData} />}
 <link rel="icon" href={withBase("/favicon-16.png?v=the-cut-1")} type="image/png" sizes="16x16" />
 <link rel="icon" href={withBase("/favicon-32.png?v=the-cut-1")} type="image/png" sizes="32x32" />
 <link rel="icon" href={withBase("/favicon.svg?v=the-cut-1")} type="image/svg+xml" sizes="any" />

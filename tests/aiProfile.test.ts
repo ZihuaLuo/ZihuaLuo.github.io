@@ -32,7 +32,7 @@ test('suggested questions resolve to their intended topics; FAQ answers are dist
 });
 test('thinking and public contact queries retain the expected section navigation', () => {
   assert.equal(getProfileAnswer('thinking').link?.href, '/writing/');
-  for (const query of ['email', 'linkedin', 'ins']) assert.equal(getProfileAnswer(query).link?.href, '/about/#about-connect-title');
+  for (const query of ['email', 'linkedin', 'ins']) assert.equal(getProfileAnswer(query).link?.href, '/#about-connect-title');
   assert.match(getProfileAnswer('year').text, /2026.*Year 5.*McMaster/);
 });
 

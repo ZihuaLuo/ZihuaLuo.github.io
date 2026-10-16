@@ -38,6 +38,27 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
   pages.set(relative(file), {ids, links, canonical, experienceCards, creditCards});
 }
 const origin = new URL([...pages.values()].find(page => page.canonical)?.canonical || 'http://127.0.0.1:4321').origin;
+const homeUrl = `${origin}${base}/`;
+const homePage = pages.get('index.html');
+if (homePage?.canonical !== homeUrl) errors.push(`index.html: expected canonical ${homeUrl}`);
+if (pages.get('about/index.html')?.canonical !== homeUrl) errors.push('about/index.html: expected canonical home URL');
+const homeHtml = await readFile(path.join(root, 'index.html'), 'utf8');
+let homeRobots;
+const homeSchemas = [];
+visit(parse(homeHtml), node => {
+  const attrs = Object.fromEntries((node.attrs || []).map(attr => [attr.name, attr.value]));
+  if (node.tagName === 'meta' && attrs.name === 'robots') homeRobots = attrs.content;
+  if (node.tagName === 'script' && attrs.type === 'application/ld+json') {
+    try { homeSchemas.push(JSON.parse((node.childNodes || []).map(child => child.value || '').join(''))); }
+    catch { errors.push('index.html: invalid JSON-LD'); }
+  }
+});
+if (homeRobots?.split(',').map(value => value.trim()).includes('noindex')) errors.push('index.html: noindex blocks the home page');
+if (!homeSchemas.some(schema => schema['@type'] === 'WebSite' && schema.name === 'Zihua Luo' && schema.url === homeUrl)) {
+  errors.push('index.html: missing WebSite identity markup');
+}
+const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
+if (!sitemap.includes(`<loc>${homeUrl}</loc>`)) errors.push('sitemap.xml: missing canonical home URL');
 let checkedLinks = 0;
 function validateLink(link, source) {
   let url;

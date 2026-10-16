@@ -151,7 +151,7 @@ const siteSections: Array<{
   {
     title: "About",
     description: "An introduction to Zihua Luo and the ideas, work, and experiences shaping how he thinks.",
-    url: "/about/#about",
+    url: "/#about",
     category: "About",
     tags: ["Finance", "Research", "AI"],
     aliases: ["About", "About Zihua Luo", "Zihua Luo", "Personal Website"],
@@ -160,7 +160,7 @@ const siteSections: Array<{
   {
     title: "My Story",
     description: "The experiences that shaped how I prepare, recover, learn, and try to become useful to others.",
-    url: "/about/#about-story-title",
+    url: "/#about-story-title",
     category: "About",
     tags: ["Story", "Journey", "About"],
     aliases: ["About Me", "Biography", "Personal Journey"],
@@ -169,7 +169,7 @@ const siteSections: Array<{
   {
     title: "Principles",
     description: "Sincerity, optimism, and resilience in work, relationships, and uncertain outcomes.",
-    url: "/about/#about-principles-title",
+    url: "/#about-principles-title",
     category: "About",
     tags: ["Sincerity", "Optimism", "Resilience"],
     aliases: ["Values", "Personal Principles"],
@@ -178,7 +178,7 @@ const siteSections: Array<{
   {
     title: "Sincerity",
     description: "Keeping words and actions aligned through honesty, early communication, and follow-through.",
-    url: "/about/#principle-sincerity",
+    url: "/#principle-sincerity",
     category: "Principles",
     tags: ["Sincerity", "Honesty", "Commitment"],
     aliases: ["Personal Principle", "Honest Communication"],
@@ -187,7 +187,7 @@ const siteSections: Array<{
   {
     title: "Optimism",
     description: "Looking for a useful next step without ignoring uncertainty or difficulty.",
-    url: "/about/#principle-optimism",
+    url: "/#principle-optimism",
     category: "Principles",
     tags: ["Optimism", "Learning", "Action"],
     aliases: ["Personal Principle", "Useful Next Step"],
@@ -196,7 +196,7 @@ const siteSections: Array<{
   {
     title: "Resilience",
     description: "Protecting priorities and returning with a better plan when the first one breaks.",
-    url: "/about/#principle-resilience",
+    url: "/#principle-resilience",
     category: "Principles",
     tags: ["Resilience", "Recovery", "Priorities"],
     aliases: ["Personal Principle", "Better Plan"],
@@ -205,7 +205,7 @@ const siteSections: Array<{
   {
     title: "Donation",
     description: "A record of turning a childhood promise to give back into action.",
-    url: "/about/#about-values-title",
+    url: "/#about-values-title",
     category: "About",
     tags: ["Giving Back", "Community", "Values"],
     aliases: ["United Nations", "UN Women", "Children's Nutrition Support", "Supporting Records"],
@@ -214,7 +214,7 @@ const siteSections: Array<{
   {
     title: "People",
     description: "Mentors, professors, colleagues, friends, and family who shaped the journey.",
-    url: "/about/#about-people-title",
+    url: "/#about-people-title",
     category: "About",
     tags: ["People", "Mentors", "Acknowledgements"],
     aliases: ["No journey is built alone", "Credits"],
@@ -223,7 +223,7 @@ const siteSections: Array<{
   {
     title: "United Nations",
     description: "The first contribution that turned a childhood promise to give back into action.",
-    url: "/about/#donation-united-nations",
+    url: "/#donation-united-nations",
     category: "Donation",
     tags: ["United Nations", "UN Women", "Giving Back"],
     aliases: ["UN Donation", "UN Women Donation", "Supporting Record"],
@@ -232,7 +232,7 @@ const siteSections: Array<{
   {
     title: "Children’s Nutrition Support",
     description: "Supporting nutritious meals and a fairer beginning for children.",
-    url: "/about/#donation-childrens-nutrition",
+    url: "/#donation-childrens-nutrition",
     category: "Donation",
     tags: ["Children", "Nutrition", "Giving Back"],
     aliases: ["Children Nutrition Donation", "Meals for Children", "Supporting Record"],
@@ -241,7 +241,7 @@ const siteSections: Array<{
   {
     title: "A Few Constants",
     description: "A few personal details beyond work and study.",
-    url: "/about/#about-personal-title",
+    url: "/#about-personal-title",
     category: "About",
     tags: ["Personal", "Fun Facts"],
     aliases: ["A Few Things About Me", "Personal Aside", "About Me", "Beyond the Résumé", "Beyond the Resume"],
@@ -250,7 +250,7 @@ const siteSections: Array<{
   {
     title: "Love Story",
     description: "My featured soundtrack and a song I keep coming back to.",
-    url: "/about/#about-love-story",
+    url: "/#about-love-story",
     category: "A Few Constants",
     tags: ["Music", "Taylor Swift", "Soundtrack"],
     aliases: ["Featured Soundtrack", "Music Player"],
@@ -259,7 +259,7 @@ const siteSections: Array<{
   {
     title: "Central Task Management System",
     description: "One place for every commitment, task, and to-do, with a downloadable template.",
-    url: "/about/#about-task-system",
+    url: "/#about-task-system",
     category: "A Few Constants",
     tags: ["Template", "Workflow", "Productivity"],
     aliases: ["Task Management Template", "To-do List", "Commitments"],
@@ -268,7 +268,7 @@ const siteSections: Array<{
   {
     title: "5L of Water Daily",
     description: "A small personal fun fact: I keep hydration simple and consistent.",
-    url: "/about/#about-water",
+    url: "/#about-water",
     category: "A Few Constants",
     tags: ["Fun Fact", "Personal"],
     aliases: ["5L Water", "Water per day"],
@@ -277,7 +277,7 @@ const siteSections: Array<{
   {
     title: "Goal: Top 2%",
     description: "A long-term standard for continued learning, improvement, and high-quality work.",
-    url: "/about/#about-goal-title",
+    url: "/#about-goal-title",
     category: "About",
     tags: ["Goal", "Top 2%", "Growth"],
     aliases: ["Top 2 Percent", "Personal Goal", "Long-term Goal"],
@@ -286,7 +286,7 @@ const siteSections: Array<{
   {
     title: "Let's Connect",
     description: "Ways to start a conversation through email, LinkedIn, or Instagram.",
-    url: "/about/#about-connect-title",
+    url: "/#about-connect-title",
     category: "About",
     tags: ["Contact", "Email", "LinkedIn", "Instagram"],
     aliases: ["Contact Me", "Social Links"],
@@ -295,7 +295,7 @@ const siteSections: Array<{
   {
     title: "Personal Motto",
     description: "Man Proposes, God Disposes",
-    url: "/about/#about-motto-title",
+    url: "/#about-motto-title",
     category: "About",
     tags: ["Motto", "Personal"],
     aliases: ["Man Proposes God Disposes"],
