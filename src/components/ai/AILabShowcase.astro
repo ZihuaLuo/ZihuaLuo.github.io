@@ -64,11 +64,11 @@ const projects: ProjectNode[] = [
     lightDirection: [0.8, 0.68, 0.18],
   },
   {
-    id: "disclosure-intelligence",
+    id: "fund-similarity",
     number: "03",
-    category: "Data Intelligence",
-    title: "Disclosure Intelligence",
-    titleLines: ["DISCLOSURE", "INTELLIGENCE"],
+    category: "Research Dashboard",
+    title: "Fund Similarity Research",
+    titleLines: ["FUND", "SIMILARITY", "RESEARCH"],
     icon: "◇",
     theme: {
       color: "#10E7DF",
@@ -244,6 +244,15 @@ const clientProjects = projects.map((project) => ({
             <img src={withBase("/images/volunteer-retention-overview.svg")} alt="Illustrative volunteer retention dashboard layout with private figures and records omitted" decoding="async" width="1600" height="900" />
           </div>
           <p class="ai-lab__privacy-note">Illustrative preview. The source dashboard and underlying data are private, so the full dashboard cannot be shown publicly.</p>
+        </div>
+        <div class="ai-lab__project-detail" data-detail-project="fund-similarity" hidden>
+          <p class="ai-lab__detail-pending">RESEARCH DASHBOARD · MUTUAL FUNDS &amp; ETFS</p>
+          <p class="ai-lab__detail-summary">A research assistant project exploring historical similarities among mutual funds and ETFs through clustering, return profiles, and calendar sensitivity.</p>
+          <a class="ai-lab__dashboard-link" href={withBase("/projects/fund-similarity-dashboard/")} target="_blank" rel="noopener">Explore the interactive dashboard <span aria-hidden="true">↗</span></a>
+          <a class="ai-lab__dashboard-preview" href={withBase("/projects/fund-similarity-dashboard/")} target="_blank" rel="noopener" aria-label="Open the Fund Similarity Research Dashboard in a new tab">
+            <img src={withBase("/images/fund-similarity-overview.webp")} alt="Fund Similarity dashboard overview showing the 6,863-record common sample, group return and volatility profiles, historical MVR distributions, vehicle composition, and calendar sensitivity" decoding="async" width="1393" height="1472" />
+          </a>
+          <p class="ai-lab__privacy-note">Aggregate research outputs only. Fund identities and raw return histories are excluded. Findings describe the historical sample.</p>
         </div>
         <div class="ai-lab__project-detail" data-detail-project="cloudline" hidden>
           <p class="ai-lab__detail-pending">PLAYABLE 3D TRAM GAME</p>
@@ -620,6 +629,10 @@ const clientProjects = projects.map((project) => ({
     width: 100%;
     height: min(13.5rem, 27vh);
     object-fit: contain;
+  }
+
+  [data-detail-project="fund-similarity"] .ai-lab__dashboard-preview img {
+    height: auto;
   }
 
   .ai-lab__dashboard-link {

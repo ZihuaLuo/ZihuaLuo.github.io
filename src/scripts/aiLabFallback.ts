@@ -15,7 +15,7 @@ export function initializeLabFallback(lab: HTMLElement) {
     selected = button;
     title.textContent = button.dataset.projectTitle ?? "Project";
     panel.querySelectorAll<HTMLElement>("[data-detail-project]").forEach((detail) => {
-      detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(button.dataset.projectId ?? "") ? button.dataset.projectId : "pending");
+      detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "fund-similarity", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(button.dataset.projectId ?? "") ? button.dataset.projectId : "pending");
     });
     buttons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
     panel.hidden = false;

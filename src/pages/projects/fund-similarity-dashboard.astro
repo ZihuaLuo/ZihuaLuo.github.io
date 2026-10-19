@@ -1,0 +1,187 @@
+---
+import { withBase } from "@i18n/routes";
+import data from "../../data/fundSimilarity.json";
+
+const { meta, models, stability } = data;
+const number = (value: number) => value.toLocaleString("en-US");
+const percent = (value: number) => `${(value * 100).toFixed(2)}%`;
+const colors = ["#087f81", "#cf8052", "#5585b4", "#8b73a2"];
+// Shared axes across both representations. Coordinates are group medians, not centroids.
+const clusters = models.flatMap((model) => model.clusters);
+const sdMax = Math.ceil(Math.max(...clusters.map((c) => c.sd)) * 100) / 100;
+const meanMax = Math.ceil(Math.max(...clusters.map((c) => c.mean)) * 1000) / 1000;
+const mvrMax = Math.ceil(Math.max(...clusters.map((c) => c.mvr.p90)) * 10) / 10;
+const largestGroup = Math.max(...clusters.map((c) => c.records));
+const sx = (value: number) => 57 + value / sdMax * 408;
+const sy = (value: number) => 190 - value / meanMax * 160;
+const mx = (value: number) => 57 + value / mvrMax * 408;
+const ticks = [0, 0.25, 0.5, 0.75, 1];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Explore historical mutual fund and ETF similarity through aggregate cluster profiles, vehicle composition, and calendar-block sensitivity." />
+    <title>Fund Similarity Research Dashboard | Zihua Luo</title>
+  </head>
+  <body>
+    <main class="dashboard">
+      <nav class="top-nav" aria-label="Dashboard navigation">
+        <a href={withBase("/ai/?project=fund-similarity#ai-lab-title")}>← AI Lab</a>
+        <span>Research dashboard <span aria-hidden="true">/</span> Fund Similarity</span>
+      </nav>
+
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">RA5 · Research visualization</p>
+          <h1>Historical Fund Similarity<br /><em>Mutual Funds &amp; ETFs</em></h1>
+          <p>Explore how historical return profiles form groups, how their vehicle mix differs, and how sensitive those groups are to the sampled calendar.</p>
+          <div class="hero__tags"><span>Jul 2016–Jun 2026 common window</span><span>Aggregate views only</span></div>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+          <div class="orbit"></div><div class="orbit orbit--inner"></div>
+          <i></i><i></i><i></i>
+          <div class="core"><span>COMMON SAMPLE</span><strong>{number(meta.commonRecords)}</strong><small>fund records</small></div>
+        </div>
+      </header>
+
+      <section class="kpis" aria-label="Research coverage">
+        <article><span>Historical fund records</span><strong>{number(meta.historicalRecords)}</strong><small>Jan 2005–Jun 2026 panel</small></article>
+        <article><span>Observed monthly returns</span><strong>2.56m</strong><small>{number(meta.observedReturns)} nonmissing observations</small></article>
+        <article><span>Common-window records</span><strong>{number(meta.commonRecords)}</strong><small>{number(meta.vehicles.MF)} mutual funds · {number(meta.vehicles.ETF)} ETFs</small></article>
+        <article><span>Identical calendar months</span><strong>{meta.commonMonths}</strong><small>Selected complete-history sample</small></article>
+      </section>
+
+      <div class="section-heading">
+        <div><p class="section-label">01 / Conditional group profiles</p><h2>One sample, two representations</h2></div>
+        <div class="model-control" role="group" aria-label="Cluster representation">
+          {models.map((model, index) => <button type="button" data-model-button={model.id} aria-pressed={index === 0}>{model.label}</button>)}
+        </div>
+      </div>
+      <p class="scope" data-model-status aria-live="polite">Mean &amp; volatility · Four groups · 6,863 records · Jul 2016–Jun 2026</p>
+
+      <div class="chart-grid">
+        {models.map((model, modelIndex) => <div class="model-panel" data-model-panel={model.id} hidden={modelIndex !== 0}>
+          <section class="chart-card" aria-labelledby={`${model.id}-risk-title`}>
+            <p class="section-label">Return / Risk</p><h2 id={`${model.id}-risk-title`}>Where the group profiles sit</h2>
+            <p class="chart-description">Member medians of monthly mean return and volatility. Bubble area represents group size.</p>
+            <div class="chart-scroll"><svg viewBox="0 0 510 238" role="img" aria-label={`${model.label}: group median monthly return versus volatility`}>
+              <text x="57" y="14" class="axis-title">Median monthly mean return (%)</text>
+              {ticks.map((t) => <g>
+                <line x1="57" x2="465" y1={sy(t * meanMax)} y2={sy(t * meanMax)} class="grid-line" />
+                <text x="47" y={sy(t * meanMax) + 4} text-anchor="end">{(t * meanMax * 100).toFixed(2)}</text>
+                <text x={sx(t * sdMax)} y="209" text-anchor="middle">{(t * sdMax * 100).toFixed(1)}</text>
+              </g>)}
+              {model.clusters.map((c, index) => <g>
+                <circle cx={sx(c.sd)} cy={sy(c.mean)} r={Math.sqrt(c.records / largestGroup) * 23} fill={colors[index]} fill-opacity=".68" stroke={colors[index]} stroke-width="1.5">
+                  <title>{c.label}: {number(c.records)} records; median monthly mean {percent(c.mean)}; median monthly SD {percent(c.sd)}</title>
+                </circle>
+                <text x={sx(c.sd)} y={sy(c.mean) - Math.sqrt(c.records / largestGroup) * 23 - 7} text-anchor="middle" class="group-label">{c.label}</text>
+              </g>)}
+              <text x="261" y="231" text-anchor="middle" class="axis-title">Median monthly standard deviation (%)</text>
+            </svg></div>
+            <details><summary>Group values and sizes</summary><div class="table-scroll"><table><caption class="sr-only">Group profile medians, {model.label}</caption><thead><tr><th>Group</th><th>Records</th><th>Mean / month</th><th>SD / month</th></tr></thead><tbody>{model.clusters.map((c) => <tr><th>{c.label}</th><td>{number(c.records)}</td><td>{percent(c.mean)}</td><td>{percent(c.sd)}</td></tr>)}</tbody></table></div></details>
+          </section>
+
+          <section class="chart-card" aria-labelledby={`${model.id}-mvr-title`}>
+            <p class="section-label">Historical performance</p><h2 id={`${model.id}-mvr-title`}>Within-group MVR spread</h2>
+            <p class="chart-description">Boxes show the 25th–75th percentiles, lines the 10th–90th, and dark ticks the member median.</p>
+            <div class="chart-scroll"><svg viewBox="0 0 510 238" role="img" aria-label={`${model.label}: historical mean-to-volatility ratio distributions`}>
+              {ticks.map((t) => <g><line x1={mx(t * mvrMax)} x2={mx(t * mvrMax)} y1="24" y2="190" class="grid-line" /><text x={mx(t * mvrMax)} y="209" text-anchor="middle">{(t * mvrMax).toFixed(2)}</text></g>)}
+              {model.clusters.map((c, index) => {
+                const y = 44 + index * 42;
+                return <g>
+                  <title>{c.label}: MVR median {c.mvr.median.toFixed(4)}, 10th–90th percentiles {c.mvr.p10.toFixed(4)} to {c.mvr.p90.toFixed(4)}</title>
+                  <text x="44" y={y + 4} text-anchor="end" class="group-label">{c.label}</text>
+                  <line x1={mx(c.mvr.p10)} x2={mx(c.mvr.p90)} y1={y} y2={y} stroke={colors[index]} stroke-width="2" />
+                  {[c.mvr.p10, c.mvr.p90].map((v) => <line x1={mx(v)} x2={mx(v)} y1={y - 5} y2={y + 5} stroke={colors[index]} />)}
+                  <rect x={mx(c.mvr.p25)} y={y - 10} width={mx(c.mvr.p75) - mx(c.mvr.p25)} height="20" rx="3" fill={colors[index]} fill-opacity=".35" />
+                  <line x1={mx(c.mvr.median)} x2={mx(c.mvr.median)} y1={y - 11} y2={y + 11} stroke="#18333f" stroke-width="2.5" />
+                </g>;
+              })}
+              <text x="261" y="231" text-anchor="middle" class="axis-title">Monthly mean / monthly sample standard deviation</text>
+            </svg></div>
+            <p class="chart-footnote">Descriptive MVR, without risk-free adjustment or annualization. These are historical member distributions.</p>
+          </section>
+
+          <section class="chart-card" aria-labelledby={`${model.id}-vehicle-title`}>
+            <p class="section-label">Vehicle composition</p><h2 id={`${model.id}-vehicle-title`}>Who makes up each group?</h2>
+            <p class="chart-description">Shares use each group's fund records as the denominator. Full sample: 87.1% mutual funds and 12.9% ETFs.</p>
+            <div class="legend"><span><i class="mf"></i>Mutual funds</span><span><i class="etf"></i>ETFs</span></div>
+            <div class="composition">{model.clusters.map((c) => <div class="composition-row">
+              <div><strong>{c.label}</strong><span>{number(c.records)} records</span></div>
+              <div class="stack" role="img" aria-label={`${c.label}: ${number(c.vehicles.MF)} mutual funds, ${(c.vehicles.MF / c.records * 100).toFixed(1)}%; ${number(c.vehicles.ETF)} ETFs, ${(c.vehicles.ETF / c.records * 100).toFixed(1)}%`}><span class="mf" style={`width:${c.vehicles.MF / c.records * 100}%`}></span><span class="etf" style={`width:${c.vehicles.ETF / c.records * 100}%`}></span></div>
+              <small>{number(c.vehicles.MF)} MF <span>·</span> {number(c.vehicles.ETF)} ETF <span>·</span> {(c.vehicles.ETF / c.records * 100).toFixed(1)}% ETF</small>
+            </div>)}</div>
+            <p class="chart-footnote">A descriptive composition comparison; it does not establish a vehicle-type performance advantage.</p>
+          </section>
+        </div>)}
+
+        <section class="chart-card" aria-labelledby="stability-title">
+          <p class="section-label">02 / Calendar sensitivity</p><h2 id="stability-title">How stable are the memberships?</h2>
+          <p class="chart-description">Agreement with original groups across 100 synchronous calendar-block resamples per setting.</p>
+          <div class="legend"><span><i class="mf"></i>Mean &amp; volatility</span><span><i class="etf"></i>With quantile shape</span></div>
+          <div class="chart-scroll"><svg viewBox="0 0 510 238" role="img" aria-label="Adjusted Rand Index medians and 10th to 90th percentile ranges by block length for both representations">
+            {ticks.map((t) => <g><line x1="57" x2="465" y1={185 - t * 160} y2={185 - t * 160} class="grid-line" /><text x="45" y={189 - t * 160} text-anchor="end">{t.toFixed(2)}</text></g>)}
+            <text x="57" y="14" class="axis-title">Adjusted Rand Index (higher = more agreement)</text>
+            {stability.map((row) => {
+              const x = 125 + [3, 6, 12].indexOf(row.blockMonths) * 140 + (row.scheme === "M2" ? -14 : 14);
+              const color = row.scheme === "M2" ? "#087f81" : "#cf8052";
+              return <g><title>{row.blockMonths}-month blocks, {row.scheme}: median ARI {row.median.toFixed(4)}, 10th–90th percentiles {row.p10.toFixed(4)} to {row.p90.toFixed(4)}</title>
+                <line x1={x} x2={x} y1={185 - row.p10 * 160} y2={185 - row.p90 * 160} stroke={color} stroke-width="2.5" />
+                {[row.p10, row.p90].map((v) => <line x1={x - 5} x2={x + 5} y1={185 - v * 160} y2={185 - v * 160} stroke={color} stroke-width="1.5" />)}
+                <circle cx={x} cy={185 - row.median * 160} r="5" fill={color} />
+              </g>;
+            })}
+            {[3, 6, 12].map((block, index) => <text x={125 + index * 140} y="205" text-anchor="middle" class="group-label">{block} months{block === 6 ? " *" : ""}</text>)}
+            <text x="261" y="229" text-anchor="middle" class="axis-title">Resampling block length · * primary specification</text>
+          </svg></div>
+          <p class="chart-footnote">Dots are medians; bars are empirical 10th–90th percentiles, not confidence intervals. Both representations stay visible for comparison.</p>
+          <details><summary>Inspect the six saved comparisons</summary><div class="table-scroll"><table><caption class="sr-only">Calendar-block resampling results</caption><thead><tr><th>Months</th><th>View</th><th>10th</th><th>Median</th><th>90th</th></tr></thead><tbody>{stability.map((r) => <tr><td>{r.blockMonths}</td><th>{r.scheme === "M2" ? "Mean / SD" : "+ Shape"}</th><td>{r.p10.toFixed(3)}</td><td>{r.median.toFixed(3)}</td><td>{r.p90.toFixed(3)}</td></tr>)}</tbody></table></div></details>
+        </section>
+      </div>
+
+      <section class="method" aria-labelledby="method-title">
+        <p class="section-label">03 / Reading the research</p><h2 id="method-title">Definitions, scope &amp; sources</h2>
+        <div class="method-grid">
+          <div><h3>A selected historical window</h3><p>The four charts use 6,863 records with the same 120 observed months. This complete-history sensitivity sample is not the entire fund universe. The wider 17,970-record panel has different history lengths and missing observations.</p></div>
+          <div><h3>Conditional groups, not a fixed taxonomy</h3><p>Both views use four-group K-means. The second adds normalized quantile-shape features. C and Q labels belong to separate solutions and do not identify matching groups. The axes remain fixed when switching views.</p></div>
+          <div><h3>Historical ratios, not forecasts</h3><p>MVR is mean monthly return divided by sample monthly standard deviation. Each box summarizes individual member ratios, not a ratio of group medians. Historical group profiles do not identify future winners or demonstrate causality.</p></div>
+          <div><h3>Source-backed public excerpt</h3><p>Charts use completed aggregate research outputs, not newly fitted models. Fund names, identifiers, raw return histories, licensed datasets, source attachments, and downloads from the local dashboard are excluded.</p></div>
+        </div>
+        <details><summary>Source files and extraction provenance</summary>
+          <p>Research: {meta.title}. Completed 18 October 2026. Profiles and composition come from the delivered CSVs; vehicle totals and resampling summaries come from their embedded CSVs in Maheu_Research_Dashboard.htm.</p>
+          <ul>{data.sources.map((source) => <li><strong>{source.filename}</strong> · {source.rows} aggregate rows <code>SHA-256 {source.sha256}</code></li>)}</ul>
+          <p>Coverage figures follow the supplied dashboard's sample-coverage and population tables. All published charts are record-weighted. Portfolio-label weighting and the broader model archive remain outside this excerpt.</p>
+        </details>
+      </section>
+      <footer>RA5 · Historical Similarity among Mutual Funds and ETFs · Research overview by Zihua Luo</footer>
+    </main>
+    <script>
+      const buttons = document.querySelectorAll<HTMLButtonElement>("[data-model-button]");
+      const panels = document.querySelectorAll<HTMLElement>("[data-model-panel]");
+      const status = document.querySelector<HTMLElement>("[data-model-status]");
+      buttons.forEach((button) => button.addEventListener("click", () => {
+        buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        panels.forEach((panel) => { panel.hidden = panel.dataset.modelPanel !== button.dataset.modelButton; });
+        if (status) status.textContent = `${button.textContent} · Four groups · 6,863 records · Jul 2016–Jun 2026`;
+      }));
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root{color-scheme:light;--ink:#182d3b;--muted:#627581;--line:#d9e3e6;--paper:#f4f7f6;--teal:#087f81;--orange:#cf8052}
+  *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Inter,Arial,sans-serif}button{font:inherit}h1,h2,h3,p{margin-top:0}.dashboard{max-width:1440px;margin:auto;padding:0 32px 36px}.top-nav{height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:.76rem;color:var(--muted);font-weight:700}.top-nav a{color:#245d67;text-decoration:none}.top-nav a:hover{text-decoration:underline}.top-nav span span{padding:0 10px;color:#8f9da4}
+  .hero{display:grid;grid-template-columns:1fr 31%;position:relative;overflow:hidden;border-radius:20px;background:radial-gradient(circle at 80% 44%,#244b5c,#102d3a 45%,#0a2531);color:white}.hero__copy{padding:31px 40px 29px;position:relative;z-index:1}.eyebrow,.section-label{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--teal);margin:0}.eyebrow{color:#9bdbd3}.hero h1{font:700 clamp(2rem,3.15vw,3.1rem)/1.08 Georgia,serif;letter-spacing:-.025em;margin:13px 0}.hero h1 em{color:#f0c39e;font-weight:400}.hero__copy>p:not(.eyebrow){max-width:750px;color:#c7d8db;font-size:.85rem;margin-bottom:16px}.hero__tags{display:flex;gap:8px;flex-wrap:wrap}.hero__tags span{font-size:.65rem;padding:4px 9px;border:1px solid #60818b;border-radius:20px;color:#d5e5e6;font-weight:700}.hero__visual{position:relative}.orbit{position:absolute;left:45%;top:50%;width:225px;height:225px;border:1px solid #517689;border-radius:50%;transform:translate(-50%,-50%) rotate(-24deg) scaleX(1.3)}.orbit--inner{width:160px;height:160px}.core{position:absolute;left:45%;top:50%;transform:translate(-50%,-50%);width:165px;height:165px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border:1px solid #538b91;border-radius:50%;background:radial-gradient(circle at 38% 30%,#365b62,#102e3d 70%);box-shadow:0 0 60px #48bcb333}.core span{font-size:.58rem;letter-spacing:.17em;color:#9cddcf;font-weight:800}.core strong{font:700 3.2rem/1 Georgia,serif}.core small{font-size:.7rem;color:#c7d8db}.hero__visual i{position:absolute;left:13%;top:27%;width:9px;height:9px;border-radius:50%;background:#f0b681;box-shadow:0 0 16px #f0b681}.hero__visual i:nth-of-type(2){left:83%;top:43%;background:#6bd6c9}.hero__visual i:nth-of-type(3){left:62%;top:88%;width:6px;height:6px}
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:16px 0 25px}.kpis article{padding:17px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 3px 18px #11303b08}.kpis span{display:block;font-size:.72rem;color:#526873;font-weight:750}.kpis strong{display:block;margin:5px 0;color:var(--teal);font:700 2.25rem/1 Georgia,serif}.kpis small{font-size:.63rem;color:#6f8088;display:block}
+  .section-heading{display:flex;justify-content:space-between;align-items:end;gap:15px}.section-heading h2,.method h2{font:700 1.8rem/1.2 Georgia,serif;letter-spacing:-.02em;margin:5px 0 0}.model-control{display:flex;gap:4px;padding:4px;background:#e5eeed;border-radius:10px}.model-control button{border:0;border-radius:7px;background:transparent;color:#4d6771;padding:9px 13px;font-size:.72rem;font-weight:750;cursor:pointer}.model-control button[aria-pressed=true]{background:#fff;color:#066c70;box-shadow:0 2px 7px #11303b15}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #28888c;outline-offset:3px}.scope{margin:9px 0 15px;font-size:.72rem;color:#4d7276}
+  .chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.model-panel{display:contents}[hidden]{display:none!important}.chart-card{min-width:0;padding:22px 24px 17px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 18px #11303b08}.chart-card h2{font:700 1.5rem/1.2 Georgia,serif;letter-spacing:-.02em;margin:5px 0 9px}.chart-description{font-size:.75rem;color:var(--muted);margin-bottom:9px;min-height:36px}.chart-scroll{overflow-x:auto}.chart-scroll svg{display:block;width:100%;height:auto;min-width:370px}.chart-scroll text{font:11px Inter,Arial,sans-serif;fill:#627581}.chart-scroll .group-label{font-weight:800;fill:#274753}.chart-scroll .axis-title{font-size:10px}.grid-line{stroke:#e3ebed;stroke-width:1}.chart-footnote{font-size:.67rem;color:var(--muted);margin:9px 0 0}.legend{display:flex;flex-wrap:wrap;gap:16px;margin:9px 0;font-size:.66rem;color:#526873}.legend span{display:flex;align-items:center;gap:6px}.legend i{width:9px;height:9px;border-radius:2px}.mf{background:var(--teal)}.etf{background:var(--orange)}
+  .composition{display:grid;gap:13px;margin:18px 0 14px}.composition-row>div:first-child{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;font-size:.7rem}.composition-row>div:first-child>span{color:var(--muted);font-size:.64rem}.stack{height:13px;width:100%;display:flex;border-radius:4px;overflow:hidden}.stack span{display:block;height:100%}.composition-row small{display:block;margin-top:4px;font-size:.62rem;color:#637782}.composition-row small span{padding:0 5px;color:#acb9bf}details{font-size:.7rem;margin-top:11px}summary{cursor:pointer;color:#236c73;font-weight:750}.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;margin-top:10px;font-size:.69rem;text-align:right;font-variant-numeric:tabular-nums}td,th{padding:6px 7px;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child{text-align:left}.method{margin-top:28px;padding:26px 29px;background:#eaf2f0;border:1px solid #cddfdd;border-radius:14px}.method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 30px;margin-top:20px}.method h3{font:700 1.05rem Georgia,serif;margin:0 0 6px}.method p{font-size:.77rem;color:#4d626a;margin-bottom:9px}.method details p{margin-top:10px}.method li{margin:8px 0}.method code{display:block;color:#627581;overflow-wrap:anywhere;font-size:.65rem}.dashboard footer{font-size:.67rem;color:#75858b;margin-top:22px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(min-width:1450px){.chart-scroll svg{max-height:244px}.composition{gap:15px}}
+  @media(max-width:1000px){.dashboard{padding-inline:20px}.hero__copy{padding:30px}.hero{grid-template-columns:1fr 26%}.hero__visual{opacity:.7}.core,.orbit{left:35%}.section-heading{align-items:start;flex-direction:column}.kpis article{padding:15px}.chart-card{padding:20px 17px}.chart-card h2{font-size:1.35rem}}
+  @media(max-width:760px){.chart-grid{grid-template-columns:1fr}.hero{display:block}.hero__visual{display:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.method-grid{grid-template-columns:1fr}.top-nav{font-size:.68rem}.chart-description{min-height:0}.chart-scroll svg{min-width:350px}}
+  @media(max-width:440px){.dashboard{padding-inline:12px}.hero__copy{padding:28px 23px}.hero h1{font-size:2rem}.kpis{gap:9px}.kpis article{padding:14px 12px}.kpis strong{font-size:2rem}.kpis span{font-size:.66rem}.kpis small{font-size:.59rem}.model-control{width:100%}.model-control button{flex:1;padding:10px 7px;font-size:.67rem}.section-heading h2{font-size:1.6rem}.chart-card{padding:20px 15px 16px}.method{padding:23px 19px}.top-nav>span{max-width:67%;text-align:right}.chart-scroll svg{min-width:315px}}
+</style>

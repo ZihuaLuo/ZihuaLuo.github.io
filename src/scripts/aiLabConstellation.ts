@@ -1081,7 +1081,7 @@ const initializeLab = (lab: LabElement) => {
     const title = panel.querySelector<HTMLElement>("[data-detail-title]");
     if (title) title.textContent = project.title;
     panel.querySelectorAll<HTMLElement>("[data-detail-project]").forEach((detail) => {
-      detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(project.id) ? project.id : "pending");
+      detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "fund-similarity", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(project.id) ? project.id : "pending");
     });
     panel.hidden = false;
     lab.dataset.panelOpen = "true";

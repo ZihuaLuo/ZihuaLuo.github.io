@@ -10,7 +10,7 @@ test("search covers every visible AI Lab planet and only public direct pages", (
   assert.deepEqual(searchProjects.map((project) => project.id), visibleIds);
   assert.equal(new Set(searchProjects.map((project) => project.id)).size, visibleIds.length);
   const direct = searchProjects.flatMap((project) => project.direct ? [project.direct] : []);
-  assert.equal(direct.length, 5);
+  assert.equal(direct.length, 6);
   assert.equal(new Set(direct.map((page) => page.url)).size, direct.length);
   assert.equal(searchProjects.find((project) => project.id === "retention-lab")?.direct, undefined);
   assert.doesNotMatch(JSON.stringify(searchProjects), /Data Dashboard\.html|RA2 - Nooshin|\\Users\\/i);

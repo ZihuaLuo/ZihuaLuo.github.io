@@ -7,14 +7,14 @@ const scene = readFileSync(new URL("../src/scripts/aiLabConstellation.ts", impor
 
 test("the Canadian electricity planet shows one overview preview and links to the full dashboard", () => {
   assert.deepEqual([...showcase.matchAll(/title: "([^"]+)"/g)].map((match) => match[1]),
-    ["Canadian Electricity Research", "Volunteer Retention Lab", "Disclosure Intelligence", "Cloudline", "Finance PhD Time-to-Degree", "Corporate Scandal Research", "Non-Compete 10-K Research"]);
+    ["Canadian Electricity Research", "Volunteer Retention Lab", "Fund Similarity Research", "Cloudline", "Finance PhD Time-to-Degree", "Corporate Scandal Research", "Non-Compete 10-K Research"]);
   assert.match(showcase, /data-detail-title>\{projects\[0\]\.title\}/);
   assert.match(scene, /if \(title\) title\.textContent = project\.title/);
   assert.match(showcase, /data-detail-project="canadian-electricity"/);
   assert.match(showcase, /canadian-electricity-dashboard-overview\.png/);
-  assert.equal((showcase.match(/<img\b/g) || []).length, 6);
+  assert.equal((showcase.match(/<img\b/g) || []).length, 7);
   assert.match(showcase, /\/projects\/canadian-provincial-electricity-dashboard\.html/);
-  assert.match(scene, /detail\.dataset\.detailProject !== \(\["canadian-electricity", "retention-lab", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"\]/);
+  assert.match(scene, /detail\.dataset\.detailProject !== \(\["canadian-electricity", "retention-lab", "fund-similarity", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"\]/);
   assert.match(showcase, />COMING SOON<\/p>/);
   assert.match(showcase, />Project details will be updated here\.<\/p>/);
 });
@@ -66,7 +66,7 @@ test("Finance PhD planet links to the standalone public-safe analysis report", (
 
 test("volunteer retention exposes only an illustrative overview without access to private data", () => {
   const preview = readFileSync(new URL("../public/images/volunteer-retention-overview.svg", import.meta.url), "utf8");
-  const detail = showcase.match(/data-detail-project="retention-lab"[\s\S]*?(?=<div class="ai-lab__project-detail" data-detail-project="cloudline")/)?.[0];
+  const detail = showcase.match(/data-detail-project="retention-lab"[\s\S]*?(?=<div class="ai-lab__project-detail")/)?.[0];
   assert.ok(detail);
   assert.match(detail, /volunteer-retention-overview\.svg/);
   assert.match(detail, /PRIVATE DATA · OVERVIEW ONLY/);
