@@ -23,21 +23,21 @@ test("four readable planets fit the original chart at desktop and mobile widths"
   }
 });
 
-test("all seven planets occupy distinct readable positions around the black hole", () => {
-  const sizes = [0.72, 0.72, 0.70, 0.72, 0.69, 0.69, 0.71];
-  for (const [width, height, compact] of [[540, 467, false], [351, 418, true], [320, 381, true]] as const) {
-    const { targets, worldHeight } = computeConstellationLayout(7, width, height, compact);
+test("the seven star-map planets keep readable titles and distinct positions", () => {
+  const sizes = [0.86, 0.70, 0.67, 0.80, 0.66, 0.64, 0.68];
+  for (const [width, height, compact] of [[640, 554, false], [548, 475, true], [351, 418, true], [284, 338, true]] as const) {
+    const { targets, worldHeight } = computeConstellationLayout(7, width, height, compact, sizes);
     assert.equal(targets.length, 7);
     assert.equal(worldHeight, compact ? 7.35 : 6.15);
     for (let a = 0; a < targets.length; a += 1) {
       const first = targets[a];
-      const radius = 0.908 * 1.22 * sizes[a] * height / worldHeight;
+      const radius = first.pixelRadius;
       assert.ok(first.pixelX - radius > 0 && first.pixelX + radius < width);
       assert.ok(first.pixelY - radius > 0 && first.pixelY + radius < height);
       assert.ok(Math.hypot(first.pixelX - width / 2, first.pixelY - height * 0.47) > radius + height * 0.08);
       for (let b = a + 1; b < targets.length; b += 1) {
         const second = targets[b];
-        const otherRadius = 0.908 * 1.22 * sizes[b] * height / worldHeight;
+        const otherRadius = second.pixelRadius;
         assert.ok(Math.hypot(first.pixelX - second.pixelX, first.pixelY - second.pixelY) > radius + otherRadius + 5);
       }
     }
@@ -46,4 +46,22 @@ test("all seven planets occupy distinct readable positions around the black hole
   const scene = readFileSync(new URL("../src/scripts/aiLabConstellation.ts", import.meta.url), "utf8");
   assert.doesNotMatch(showcase + scene, /data-lab-sectors|data-sector-(?:previous|next|status)|activeSector|getConstellationSectorIndex/);
   assert.match(scene, /system\.root\.visible = spawn\.visible/);
+});
+
+test("additional projects share one chart without repeating or overlapping title discs", () => {
+  for (const count of [8, 9, 12]) {
+    const sizes = Array.from({ length: count }, (_, index) => [0.86, 0.70, 0.67, 0.80, 0.66, 0.64, 0.68][index % 7]);
+    for (const [width, height, compact] of [[640, 554, false], [548, 475, true], [351, 418, true], [284, 338, true]] as const) {
+      const { targets } = computeConstellationLayout(count, width, height, compact, sizes);
+      assert.equal(targets.length, count);
+      for (let a = 0; a < targets.length; a += 1) {
+        const first = targets[a];
+        assert.ok(Math.min(first.pixelX, width - first.pixelX, first.pixelY, height - first.pixelY) > first.pixelRadius + 5);
+        for (const second of targets.slice(a + 1)) {
+          assert.ok(Math.hypot(first.pixelX - second.pixelX, first.pixelY - second.pixelY) > first.pixelRadius + second.pixelRadius + 4,
+            `${count} projects collide at ${width}px`);
+        }
+      }
+    }
+  }
 });

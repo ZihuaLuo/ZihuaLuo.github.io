@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { computeConstellationLayout } from "../src/scripts/aiLabLayout.ts";
+import { computeConstellationLayout, CONSTELLATION_CAMERA_FOV } from "../src/scripts/aiLabLayout.ts";
 
 // Structural regression guards complement the browser's real WebGL shader/interaction checks.
 const scene = readFileSync(new URL("../src/scripts/aiLabConstellation.ts", import.meta.url), "utf8") + readFileSync(new URL("../src/scripts/aiLabShaders.ts", import.meta.url), "utf8");
@@ -35,7 +35,8 @@ test("background keeps scattered stars without decorative orbital fields or scan
 });
 
 test("celestial camera uses moderate perspective, with distinct project Z planes", () => {
-  assert.match(scene, /new THREE\.PerspectiveCamera\(36, 1, 0\.1, 100\)/);
+  assert.ok(CONSTELLATION_CAMERA_FOV >= 30 && CONSTELLATION_CAMERA_FOV <= 45);
+  assert.match(scene, /new THREE\.PerspectiveCamera\(CONSTELLATION_CAMERA_FOV, 1, 0\.1, 100\)/);
   assert.doesNotMatch(scene, /new THREE\.OrthographicCamera/);
   const depths = computeConstellationLayout(4, 600, 520, false).targets.map((target) => target.z);
   assert.equal(depths.length, 4);

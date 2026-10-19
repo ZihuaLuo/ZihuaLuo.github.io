@@ -10,7 +10,7 @@ import { createProjectFlightPath, getAccretionRotation, getMotionBlend, updatePr
 import { createVisibleAnimationLoop, type AnimationFrameState } from "./animationLifecycle";
 import { disposeScene } from "./disposeScene";
 import { initializeLabFallback } from "./aiLabFallback";
-import { computeConstellationLayout } from "./aiLabLayout";
+import { computeConstellationLayout, CONSTELLATION_CAMERA_FOV } from "./aiLabLayout";
 
 type ProjectDefinition = {
   id: string;
@@ -49,6 +49,7 @@ type PlanetSystem = {
   focus: number;
   focusTarget: number;
   pulse: number;
+  layoutScale: number;
 };
 
 type LabElement = HTMLElement & {
@@ -704,7 +705,7 @@ const initializeLab = (lab: LabElement) => {
   renderer.setClearColor(0x02040d, 0);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(CONSTELLATION_CAMERA_FOV, 1, 0.1, 100);
   camera.position.set(0, 0, 12);
   camera.lookAt(0, 0, 0);
 
@@ -1040,6 +1041,7 @@ const initializeLab = (lab: LabElement) => {
     const spawnTiming = getProjectSpawnTiming(index, projects.length);
     const system: PlanetSystem = {
       definition: project,
+      layoutScale: 1,
       root,
       core,
       textShell,
@@ -1158,19 +1160,20 @@ const initializeLab = (lab: LabElement) => {
       renderedPixelRatio = targetPixelRatio;
     }
     renderedProjectCount = projects.length;
-    const layout = computeConstellationLayout(projects.length, width, height, compact);
+    const layout = computeConstellationLayout(projects.length, width, height, compact, projects.map((project) => project.size));
     worldHeight = layout.worldHeight;
     camera.aspect = width / height;
     camera.position.z = worldHeight / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
     camera.updateProjectionMatrix();
     layout.targets.forEach((position, index) => {
       const target = new THREE.Vector3(position.x, position.y, position.z);
-      // Preserve Z-dependent scale while keeping each title within its chart cell.
+      // Keep the authored star-map positions while preserving perspective depth.
       const depthFraming = (camera.position.z - target.z) / camera.position.z;
       target.x *= depthFraming;
       target.y *= depthFraming;
       const system = planetSystems[index];
       if (!system) return;
+      system.layoutScale = position.scale;
       system.ringRoot.scale.setScalar(compact ? 0.78 : 0.87);
       system.target.copy(target);
       if (sequenceStart < 0 || reduceMotion) {
@@ -1329,7 +1332,7 @@ const initializeLab = (lab: LabElement) => {
       // One pose writer for departure, flight, arrival, and hover. Arc-length sampling
       // keeps curvature from introducing speed bumps; the shared clock is frame-rate independent.
       system.flightPath.getPointAt(travel, system.root.position);
-      system.root.scale.setScalar(system.definition.size * Math.max(0.0001, appearance) * hoverScale);
+      system.root.scale.setScalar(system.definition.size * system.layoutScale * Math.max(0.0001, appearance) * hoverScale);
       system.core.material.uniforms.uTime.value = time + index * 7.3;
       system.core.material.uniforms.uCenter.value.copy(system.root.position);
       // Keep the curved lettering centered on the camera-facing hemisphere, not a flat sprite.
