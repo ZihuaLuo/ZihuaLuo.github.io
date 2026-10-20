@@ -61,8 +61,11 @@ const dateTime = entryDateTime(entry.data);
     </header>
 
     <div class="container-page mt-[-24px] grid gap-10 pb-16 lg:grid-cols-[minmax(0,760px)_1fr]">
-      <div class="prose-article premium-card rounded-2xl p-6 sm:p-9">
-        <slot />
+      <div class="min-w-0">
+        <div class="prose-article premium-card rounded-2xl p-6 sm:p-9">
+          <slot />
+        </div>
+        <slot name="continuation" />
       </div>
       <aside class="hidden lg:block">
         <div class="premium-card sticky top-28 rounded-2xl p-5 text-sm leading-7 text-muted">

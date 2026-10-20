@@ -7,6 +7,9 @@ tags: ["Diversification", "Quantitative Investing", "Tail Risk"]
 language: "en"
 featured: false
 draft: false
+relatedProject:
+  id: "fund-similarity"
+  context: "A related research project on historical fund similarity, calendar sensitivity, and the limits of comparisons based on past returns."
 ---
 
 > Positions that appear diversified in normal markets may share hidden risks that surface when they fail together.

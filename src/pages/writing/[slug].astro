@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import ContentLayout from "@layouts/ContentLayout.astro";
+import ArticleContinuation from "@components/ArticleContinuation.astro";
+import { getWritingContinuation } from "@data/writingContinuation";
 import { entrySlug } from "@i18n/routes";
 
 export async function getStaticPaths() {
@@ -17,13 +19,14 @@ export async function getStaticPaths() {
       params: { slug },
       props: {
         entry,
+        continuation: getWritingContinuation(entry, entries),
         canonicalPath: `/writing/${slug}/`,
       },
     };
   });
 }
 
-const { entry, canonicalPath } = Astro.props;
+const { entry, canonicalPath, continuation } = Astro.props;
 const { Content } = await render(entry);
 ---
 
@@ -33,4 +36,5 @@ const { Content } = await render(entry);
   canonicalPath={canonicalPath}
 >
   <Content />
+  <ArticleContinuation slot="continuation" entry={entry} continuation={continuation} />
 </ContentLayout>

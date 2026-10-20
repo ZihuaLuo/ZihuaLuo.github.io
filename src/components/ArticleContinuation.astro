@@ -1,0 +1,83 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { getWritingContinuation } from "@data/writingContinuation";
+import { writingSeries, writingSeriesHref } from "@data/writingSeries";
+import { searchProjects } from "@data/searchProjects";
+import { entrySlug, withBase } from "@i18n/routes";
+
+interface Props {
+  entry: CollectionEntry<"writing">;
+  continuation: ReturnType<typeof getWritingContinuation<CollectionEntry<"writing">>>;
+}
+
+const { entry, continuation } = Astro.props;
+const { adjacent, direction, related } = continuation;
+const series = writingSeries.find((series) => series.category === entry.data.category);
+const projectReference = entry.data.relatedProject;
+const project = projectReference ? searchProjects.find((project) => project.id === projectReference.id) : undefined;
+if (projectReference && !project) throw new Error(`Unknown related project in ${entry.id}: ${projectReference.id}`);
+const projectHref = project?.direct?.url ?? (project ? `/ai/?project=${project.id}#ai-lab-title` : undefined);
+const essayHref = (essay: CollectionEntry<"writing">) => withBase(`/writing/${entrySlug(essay.id)}/`);
+---
+
+<section class="article-continuation mt-10 border-t border-line pt-8" aria-labelledby="continue-reading-title" data-article-continuation>
+  <header class="mb-5 flex flex-wrap items-center justify-between gap-3">
+    <h2 id="continue-reading-title" class="display-heading text-3xl font-semibold text-ink">Continue reading</h2>
+    <a class="continuation-archive text-sm font-bold text-accent" href={series ? writingSeriesHref(series.slug) : withBase("/writing/")}>
+      {series ? `Explore ${series.title}` : "Explore Writing"} <span aria-hidden="true">→</span>
+    </a>
+  </header>
+
+  {adjacent && (
+    <a class="continuation-card premium-card block rounded-2xl p-6" href={essayHref(adjacent)} data-series-continuation>
+      <div class="mb-3 flex items-center justify-between gap-4 text-xs font-extrabold uppercase tracking-[0.12em] text-accent">
+        <span>{direction === "next" ? "Next" : "Previous"} in {entry.data.category}</span>
+        <span class="text-xl" aria-hidden="true">→</span>
+      </div>
+      <h3 class="display-heading text-2xl font-semibold leading-tight text-ink">{adjacent.data.title}</h3>
+      <p class="mt-3 text-sm leading-7 text-body">{adjacent.data.description}</p>
+    </a>
+  )}
+
+  {related.length > 0 && (
+    <div class="mt-7">
+      <h3 class="mb-4 text-base font-bold text-ink">Related reflections</h3>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {related.map(({ entry: essay, sharedTags }) => (
+          <a class="continuation-card premium-card block rounded-2xl p-5" href={essayHref(essay)} data-related-reflection>
+            <p class="mb-3 text-xs font-bold leading-5 text-gold">
+              {sharedTags.length ? `Shared theme: ${sharedTags.slice(0, 2).join(", ")}` : `More from ${essay.data.category}`}
+            </p>
+            <h4 class="display-heading text-xl font-semibold leading-tight text-ink">{essay.data.title}</h4>
+            <p class="mt-3 text-sm leading-7 text-body">{essay.data.description}</p>
+            <span class="mt-4 inline-block text-xs font-extrabold text-accent">Read reflection <span aria-hidden="true">→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {project && projectReference && projectHref && (
+    <a class="continuation-card premium-card mt-7 block rounded-2xl p-6" href={withBase(projectHref)} data-related-project>
+      <p class="mb-3 text-xs font-extrabold uppercase tracking-[0.12em] text-accent">Explore a related project</p>
+      <h3 class="display-heading text-2xl font-semibold leading-tight text-ink">{project.title}</h3>
+      <p class="mt-3 text-sm leading-7 text-body">{projectReference.context}</p>
+      <span class="mt-4 inline-block text-sm font-extrabold text-accent">
+        {project.direct?.kind === "game" ? "Play in browser" : project.direct ? "Open dashboard" : "View public overview"} <span aria-hidden="true">→</span>
+      </span>
+    </a>
+  )}
+</section>
+
+<style>
+  .continuation-card:focus-visible,
+  .continuation-archive:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .continuation-card:hover h3,
+  .continuation-card:hover h4 {
+    color: var(--accent);
+  }
+</style>

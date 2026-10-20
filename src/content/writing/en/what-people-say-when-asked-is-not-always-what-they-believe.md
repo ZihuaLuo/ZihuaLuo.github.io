@@ -7,6 +7,9 @@ tags: ["Behavioral Data", "Survey Design", "Measurement"]
 language: "en"
 featured: false
 draft: false
+relatedProject:
+  id: "retention-lab"
+  context: "Explore a public overview of volunteer participation research, where observed engagement and fair cohort comparisons matter. The underlying dashboard remains private."
 ---
 
 > Everyday behavior can reveal preferences that direct questions miss, especially when people are conscious of how their answers appear.

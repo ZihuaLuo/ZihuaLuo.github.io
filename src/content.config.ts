@@ -14,6 +14,10 @@ const writingSchema = z.object({
   language,
   featured: z.boolean().default(false),
   draft: z.boolean().default(false),
+  relatedProject: z.object({
+    id: z.string().min(1),
+    context: z.string().min(1),
+  }).optional(),
 });
 
 // Add new approved English essays under the corresponding content directory.
