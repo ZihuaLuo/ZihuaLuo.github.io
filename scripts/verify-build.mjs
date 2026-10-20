@@ -22,9 +22,17 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
   const experienceCards = new Set();
   const creditCards = new Set();
   const links = [];
+  const headings = [];
+  const controls = [];
   let canonical;
   visit(parse(html), node => {
     const attrs = Object.fromEntries((node.attrs || []).map(attr => [attr.name, attr.value]));
+    if (/^h[1-6]$/.test(node.tagName || '')) headings.push(Number(node.tagName.slice(1)));
+    if (['button', 'input', 'dialog'].includes(node.tagName) || ['tab', 'tabpanel', 'radiogroup'].includes(attrs.role)) {
+      let label = node.parentNode;
+      while (label && label.tagName !== 'label') label = label.parentNode;
+      controls.push({tag: node.tagName, attrs, labelled: Boolean(label)});
+    }
     if (attrs.id) {
       if (ids.has(attrs.id)) errors.push(`${relative(file)}: duplicate id ${attrs.id}`);
       ids.add(attrs.id);
@@ -35,7 +43,7 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
     if (attrs.rel === 'canonical') canonical = attrs.href;
     for (const attr of ['href', 'src', 'poster']) if (attrs[attr]) links.push(attrs[attr]);
   });
-  pages.set(relative(file), {ids, links, canonical, experienceCards, creditCards});
+  pages.set(relative(file), {ids, links, canonical, experienceCards, creditCards, headings, controls});
 }
 const origin = new URL([...pages.values()].find(page => page.canonical)?.canonical || 'http://127.0.0.1:4321').origin;
 const homeUrl = `${origin}${base}/`;
@@ -85,6 +93,42 @@ for (const item of index) {
 const writingPages = [...pages.keys()]
   .filter(file => /^writing\/[^/]+\/index\.html$/.test(file))
   .map(file => `${base}/${file.replace(/index\.html$/, '')}`);
+// Guard the semantics of the controls whose keyboard behaviour is checked in-browser.
+for (const file of ['ai/index.html', 'credits/index.html', 'experience/index.html']) {
+  let previous = 0;
+  for (const level of pages.get(file)?.headings || []) {
+    if (level > previous + 1) errors.push(`${file}: heading jumps from h${previous} to h${level}`);
+    previous = level;
+  }
+}
+const aiPage = pages.get('ai/index.html');
+const projectDialog = aiPage?.controls.find(({attrs}) => 'data-project-detail-panel' in attrs);
+if (projectDialog?.tag !== 'dialog') errors.push('ai/index.html: project details must use a native dialog');
+if (aiPage?.controls.filter(({attrs}) => 'data-project-node' in attrs).length !== searchProjects.length) errors.push('ai/index.html: project opener coverage does not match the project directory');
+for (const {tag, attrs} of aiPage?.controls || []) {
+  if (!('data-project-node' in attrs)) continue;
+  if (tag !== 'button' || attrs['aria-haspopup'] !== 'dialog' || attrs['aria-controls'] !== projectDialog?.attrs.id || 'aria-pressed' in attrs) {
+    errors.push(`ai/index.html: invalid project opener ${attrs['data-project-id']}`);
+  }
+}
+function validateRadioChoices(file, marker, name, expectedCount) {
+  const page = pages.get(file);
+  const choices = page?.controls.filter(({attrs}) => marker in attrs) || [];
+  if (choices.length !== expectedCount || choices.filter(({attrs}) => 'checked' in attrs).length !== 1) errors.push(`${file}: expected one selected ${name} choice`);
+  for (const {tag, attrs, labelled} of choices) {
+    if (tag !== 'input' || attrs.type !== 'radio' || attrs.name !== name || !labelled || 'aria-pressed' in attrs) errors.push(`${file}: ${name} requires labelled native radios`);
+    if (attrs['aria-controls'] && !page.ids.has(attrs['aria-controls'])) errors.push(`${file}: missing radio-controlled content`);
+  }
+}
+validateRadioChoices('projects/fund-similarity-dashboard/index.html', 'data-model-choice', 'cluster-representation', 2);
+const noncompeteData = JSON.parse(await readFile(new URL('../src/data/noncompete.json', import.meta.url), 'utf8'));
+validateRadioChoices('projects/noncompete-10k-dashboard/index.html', 'data-period', 'filing-period', noncompeteData.periods.length + 1);
+for (const file of pages.keys()) if (/^writing\/[^/]+\/index\.html$/.test(file)) validateRadioChoices(file, 'data-reading-choice', 'reading-surface', 2);
+const experiencePage = pages.get('experience/index.html');
+for (const {attrs} of experiencePage?.controls.filter(({attrs}) => attrs.role === 'tab') || []) {
+  const panel = experiencePage.controls.find(({attrs: candidate}) => candidate.id === attrs['aria-controls']);
+  if (panel?.attrs.role !== 'tabpanel' || panel.attrs['aria-labelledby'] !== attrs.id) errors.push('experience/index.html: tab and panel are not linked');
+}
 const indexedWritingPages = new Set(index.filter(item => item.type === 'writing').map(item => item.url));
 for (const url of writingPages) {
   if (!indexedWritingPages.has(url)) errors.push(`search-index.json: missing writing page ${url}`);

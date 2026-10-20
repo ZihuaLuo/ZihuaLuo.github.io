@@ -52,6 +52,7 @@ const { meta } = data;
           <button class="reset-filter" type="button" data-reset-filter hidden>Show all categories</button>
         </div>
         <p class="selection-line" aria-live="polite" data-selection-line>All scandal categories</p>
+        <p class="scroll-hint">Charts and tables scroll horizontally when needed.</p>
         <div class="kpis">
           <article class="kpi"><span>Cases in view</span><strong data-kpi-cases>{meta.cases}</strong><small>Distinct research case IDs</small></article>
           <article class="kpi"><span>Coded records in view</span><strong data-kpi-records>{meta.codedRecords}</strong><small>Multiple records may belong to one case</small></article>
@@ -64,14 +65,14 @@ const { meta } = data;
         <section class="chart-card chart-card--wide" aria-labelledby="timeline-title">
           <div class="chart-card__head"><div><p class="section-label">02 / Time</p><h2 id="timeline-title">Coded records by year</h2></div><span class="chart-key"><i></i> Records</span></div>
           <p class="chart-description">Dates of coded entries, 1998–2024. Peaks reflect this research sample and its collection process.</p>
-          <div class="timeline-scroll"><svg data-timeline role="img" aria-label="Annual coded record counts from 1998 to 2024" viewBox="0 0 1000 330"></svg></div>
+          <div class="timeline-scroll" tabindex="0" role="region" aria-labelledby="timeline-title"><svg data-timeline role="img" aria-label="Annual coded record counts from 1998 to 2024" viewBox="0 0 1000 330"></svg></div>
           <p class="chart-footnote">Two dated entries before 1998 and one entry with an invalid date are included in totals but not placed on this timeline.</p>
         </section>
 
         <section class="chart-card" aria-labelledby="category-title">
           <div class="chart-card__head"><div><p class="section-label">03 / Composition</p><h2 id="category-title">Cases by scandal category</h2></div></div>
           <p class="chart-description">Distinct cases, classified by the workbook's category field. Select a bar to filter the timeline and action mix.</p>
-          <div class="bar-list" data-categories></div>
+          <div class="bar-list" data-categories role="group" aria-label="Filter charts by scandal category"></div>
         </section>
 
         <section class="chart-card" aria-labelledby="action-title">
@@ -83,7 +84,7 @@ const { meta } = data;
         <section class="chart-card chart-card--wide" aria-labelledby="matrix-title">
           <div class="chart-card__head"><div><p class="section-label">05 / Cross-section</p><h2 id="matrix-title">Where responses appear</h2></div></div>
           <p class="chart-description">Counts for the five largest case categories and six most frequent action labels. This comparison stays on the full sample.</p>
-          <div class="matrix-scroll"><table class="matrix" data-matrix><caption class="sr-only">Coded records by scandal category and response action</caption></table></div>
+          <div class="matrix-scroll" tabindex="0" role="region" aria-labelledby="matrix-title"><table class="matrix" data-matrix><caption class="sr-only">Coded records by scandal category and response action</caption></table></div>
           <p class="chart-footnote">A darker cell means more coded records within its category row. Color is scaled within each row, so compare the printed counts across rows.</p>
         </section>
       </div>
@@ -118,4 +119,9 @@ const { meta } = data;
   .method{margin-top:42px;padding:28px 30px;border:1px solid #cddfdd;border-radius:14px;background:#eaf2f0}.method__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 30px;margin-top:20px}.method h3{margin:0 0 5px;font:700 1.06rem Georgia,serif}.method p{margin-bottom:10px;color:#4d626a;font-size:.8rem}.dashboard footer{margin-top:26px;color:#75858b;font-size:.7rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   @media(max-width:950px){.dashboard{padding-inline:20px}.hero__copy{padding:42px}.hero{grid-template-columns:1fr 30%}.hero__visual{opacity:.65}.hero__orbit{left:20%}.hero__core{left:20%}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-grid{grid-template-columns:1fr}.chart-card--wide{grid-column:auto}}
   @media(max-width:620px){.dashboard{padding-inline:12px}.top-nav{font-size:.69rem}.top-nav>span{max-width:55%;text-align:right}.hero{display:block;min-height:auto}.hero__copy{padding:34px 25px}.hero__visual{display:none}.hero h1{font-size:2.55rem}.scope{grid-template-columns:1fr;gap:7px;margin-bottom:31px}.scope div{padding:10px 13px}.kpis{gap:9px}.kpi{min-height:116px;padding:15px}.kpi strong{font-size:2rem}.chart-card{padding:19px 16px}.chart-card h2{font-size:1.45rem}.bar-row{grid-template-columns:minmax(0,125px) minmax(50px,1fr) 28px;gap:6px}.bar-list--actions .bar-row{grid-template-columns:minmax(0,145px) minmax(35px,1fr) 28px}.bar-label{font-size:.64rem}.method{padding:23px 19px}.method__grid{grid-template-columns:1fr}}
+
+  .bar-row--button,.reset-filter{min-height:44px}
+  .timeline-scroll:focus-visible,.matrix-scroll:focus-visible{outline:3px solid #087f81;outline-offset:3px}
+  .scroll-hint{font-size:.8rem;color:#647985}
+  @media(max-width:760px){.timeline-scroll svg{min-width:1000px}.bar-label,.bar-value{font-size:.8rem}}
 </style>

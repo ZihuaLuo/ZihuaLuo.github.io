@@ -508,7 +508,7 @@ import TheCutLogo from "../TheCutLogo.astro";
   .future-chat__quick button {
     grid-column: span 2;
     min-width: 0;
-    min-height: 2.45rem;
+    min-height: 44px;
     padding: 0.38rem 0.5rem;
     border: 1px solid rgba(125, 211, 252, 0.24);
     border-radius: 0.55rem;
@@ -520,7 +520,7 @@ import TheCutLogo from "../TheCutLogo.astro";
     font-weight: 650;
     line-height: 1.25;
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
     cursor: pointer;
     transition: border-color 180ms ease, color 180ms ease, background 180ms ease, box-shadow 180ms ease;
   }
@@ -600,7 +600,8 @@ import TheCutLogo from "../TheCutLogo.astro";
   }
 
   @media (max-width: 640px) {
-    .future-chat { height: 43.8rem; min-height: 0; border-radius: 1.15rem; }
+    .future-chat { height: clamp(29rem, calc(100svh - 6rem), 43.8rem); min-height: 0; border-radius: 1.15rem; }
+    .future-chat__composer input { font-size: 1rem; }
     .future-chat__identity p { max-width: 12rem; }
     .future-chat__online { align-self: flex-start; }
     .future-chat__body { min-height: 0; padding-inline: 1rem; }

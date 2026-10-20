@@ -672,7 +672,7 @@ const initializeLab = (lab: LabElement) => {
   const canvas = lab.querySelector<HTMLCanvasElement>("[data-ai-lab-canvas]");
   const projectJson = lab.querySelector<HTMLScriptElement>("[data-ai-projects]");
   const status = lab.querySelector<HTMLElement>("[data-lab-status]");
-  const panel = lab.querySelector<HTMLElement>("[data-project-detail-panel]");
+  const panel = lab.querySelector<HTMLDialogElement>("[data-project-detail-panel]");
   const closeButton = lab.querySelector<HTMLButtonElement>("[data-detail-close]");
   const accessibleButtons = [...lab.querySelectorAll<HTMLButtonElement>("[data-project-node]")];
   if (!canvas || !projectJson || !panel || !closeButton) return;
@@ -1077,13 +1077,14 @@ const initializeLab = (lab: LabElement) => {
   const fillDetailPanel = (project: ProjectDefinition) => {
     const button = accessibleButtons.find((item) => item.dataset.projectId === project.id);
     if (!button) return;
-    accessibleButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+    accessibleButtons.forEach((item) => item.setAttribute("aria-expanded", String(item === button)));
     const title = panel.querySelector<HTMLElement>("[data-detail-title]");
     if (title) title.textContent = project.title;
     panel.querySelectorAll<HTMLElement>("[data-detail-project]").forEach((detail) => {
       detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "fund-similarity", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(project.id) ? project.id : "pending");
     });
     panel.hidden = false;
+    if (!panel.open) panel.showModal();
     lab.dataset.panelOpen = "true";
     animation?.setPaused(true);
     lab.dispatchEvent(new CustomEvent("projectselect", { detail: { project } }));
@@ -1091,7 +1092,8 @@ const initializeLab = (lab: LabElement) => {
   };
 
   const selectProject = (index: number, updateUrl = true, trigger: HTMLElement = canvas) => {
-    if (index < 0 || index >= planetSystems.length || planetSystems[index].reveal < 1) return;
+      // Keyboard navigation must not depend on the decorative planet reveal sequence.
+      if (index < 0 || index >= planetSystems.length || (trigger === canvas && planetSystems[index].reveal < 1)) return;
     projectTrigger = trigger;
     selectedIndex = index;
     planetSystems[index].pulse = 1;
@@ -1116,13 +1118,14 @@ const initializeLab = (lab: LabElement) => {
   };
 
   const closeProject = () => {
+    panel.close();
     panel.hidden = true;
     delete lab.dataset.panelOpen;
     animation?.setPaused(false);
     const nextUrl = new URL(window.location.href);
     nextUrl.searchParams.delete("project");
     window.history.replaceState(window.history.state, "", nextUrl);
-    accessibleButtons.forEach((button) => button.setAttribute("aria-pressed", "false"));
+    accessibleButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
     selectedIndex = -1;
     // Pointer/deep-link entry returns to the canvas; keyboard entry returns to its button.
     // Focusing a clipped keyboard button after a pointer click would reveal it over the planets.
@@ -1215,21 +1218,9 @@ const initializeLab = (lab: LabElement) => {
     updatePointer(event);
     if (Math.hypot(event.clientX - pointerDownX, event.clientY - pointerDownY) < 7) selectProject(hoveredIndex);
   }, eventOptions);
-  lab.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !panel.hidden) closeProject();
-    if (event.key !== "Tab" || panel.hidden) return;
-    const focusable = [...panel.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]")]
-      .filter((element) => !element.closest("[hidden]"));
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (!first || !last) return;
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
+  panel.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeProject();
   }, eventOptions);
 
   const resizeObserver = new ResizeObserver(resize);
@@ -1404,6 +1395,8 @@ const initializeLab = (lab: LabElement) => {
   const destroy = () => {
     if (destroyed) return;
     destroyed = true;
+    if (panel.open) panel.close();
+    panel.hidden = true;
     animation?.destroy();
     events.abort();
     resizeObserver.disconnect();

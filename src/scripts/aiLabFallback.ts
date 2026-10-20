@@ -2,7 +2,7 @@
 export function initializeLabFallback(lab: HTMLElement) {
   lab.dataset.renderFallback = "true";
   const notice = lab.querySelector<HTMLElement>("[data-webgl-fallback]");
-  const panel = lab.querySelector<HTMLElement>("[data-project-detail-panel]");
+  const panel = lab.querySelector<HTMLDialogElement>("[data-project-detail-panel]");
   const title = lab.querySelector<HTMLElement>("[data-detail-title]");
   const close = lab.querySelector<HTMLButtonElement>("[data-detail-close]");
   const buttons = [...lab.querySelectorAll<HTMLButtonElement>("[data-project-node]")];
@@ -17,8 +17,9 @@ export function initializeLabFallback(lab: HTMLElement) {
     panel.querySelectorAll<HTMLElement>("[data-detail-project]").forEach((detail) => {
       detail.hidden = detail.dataset.detailProject !== (["canadian-electricity", "retention-lab", "fund-similarity", "cloudline", "finance-phd-eda", "corporate-scandal", "noncompete-10k"].includes(button.dataset.projectId ?? "") ? button.dataset.projectId : "pending");
     });
-    buttons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+    buttons.forEach(item => item.setAttribute("aria-expanded", String(item === button)));
     panel.hidden = false;
+    if (!panel.open) panel.showModal();
     lab.dataset.panelOpen = "true";
     const url = new URL(window.location.href);
     url.searchParams.set("project", button.dataset.projectId ?? "");
@@ -26,9 +27,10 @@ export function initializeLabFallback(lab: HTMLElement) {
     close.focus({ preventScroll: true });
   };
   const dismiss = () => {
+    panel.close();
     panel.hidden = true;
     delete lab.dataset.panelOpen;
-    buttons.forEach(item => item.setAttribute("aria-pressed", "false"));
+    buttons.forEach(item => item.setAttribute("aria-expanded", "false"));
     const url = new URL(window.location.href);
     url.searchParams.delete("project");
     window.history.replaceState(window.history.state, "", url);
@@ -36,18 +38,15 @@ export function initializeLabFallback(lab: HTMLElement) {
   };
   buttons.forEach(button => button.addEventListener("click", () => open(button), options));
   close.addEventListener("click", dismiss, options);
-  lab.addEventListener("keydown", event => {
-    if (panel.hidden) return;
-    if (event.key === "Escape") dismiss();
-    if (event.key !== "Tab") return;
-    const focusable = [...panel.querySelectorAll<HTMLElement>("button:not([disabled]), a[href]")]
-      .filter((element) => !element.closest("[hidden]"));
-    const first = focusable[0], last = focusable[focusable.length - 1];
-    if (!first || !last) return;
-    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  panel.addEventListener("cancel", event => {
+    event.preventDefault();
+    dismiss();
   }, options);
-  document.addEventListener("astro:before-swap", () => controller.abort(), { once: true, ...options });
+  document.addEventListener("astro:before-swap", () => {
+    if (panel.open) panel.close();
+    panel.hidden = true;
+    controller.abort();
+  }, { once: true, ...options });
   const projectId = new URL(window.location.href).searchParams.get("project");
   const target = buttons.find(button => button.dataset.projectId === projectId);
   if (target) open(target);

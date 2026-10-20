@@ -208,7 +208,9 @@ const clientProjects = projects.map((project) => ({
             data-project-node
             data-project-id={project.id}
             data-project-title={project.title}
-            aria-pressed="false"
+            aria-haspopup="dialog"
+            aria-controls="ai-lab-project-dialog"
+            aria-expanded="false"
           >
             Open project: {project.title}
           </button>
@@ -222,9 +224,9 @@ const clientProjects = projects.map((project) => ({
 
     <script is:inline type="application/json" data-ai-projects set:html={JSON.stringify(clientProjects)}></script>
 
-    <section class="ai-lab__detail" data-project-detail-panel role="dialog" aria-modal="true" aria-labelledby="ai-lab-detail-title" hidden>
+    <dialog id="ai-lab-project-dialog" class="ai-lab__detail" data-project-detail-panel role="dialog" aria-modal="true" aria-labelledby="ai-lab-detail-title" hidden>
       <header class="ai-lab__detail-header">
-        <h3 id="ai-lab-detail-title" data-detail-title>{projects[0].title}</h3>
+        <h2 id="ai-lab-detail-title" data-detail-title>{projects[0].title}</h2>
         <button type="button" data-detail-close>Close</button>
       </header>
       <div class="ai-lab__detail-body">
@@ -295,7 +297,7 @@ const clientProjects = projects.map((project) => ({
           <p class="ai-lab__detail-summary">Project details will be updated here.</p>
         </div>
       </div>
-    </section>
+    </dialog>
   </div>
 </section>
 
@@ -414,7 +416,7 @@ const clientProjects = projects.map((project) => ({
     display: block;
     width: 100%;
     height: 100%;
-    touch-action: none;
+    touch-action: pan-y;
   }
 
   .ai-lab__scan {
@@ -516,24 +518,31 @@ const clientProjects = projects.map((project) => ({
     gap: 0.5rem;
     width: auto;
     height: auto;
+    max-height: calc(100% - 2rem);
     padding: 0.75rem;
-    overflow: visible;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     clip: auto;
     clip-path: none;
     white-space: normal;
     border-radius: 0.5rem;
     background: rgba(3, 8, 24, 0.95);
   }
-  .ai-lab__project-controls button { color: #b8edff; text-align: left; }
+  .ai-lab__project-controls button { min-height: 44px; color: #b8edff; text-align: left; }
   .ai-lab__project-controls button:focus-visible { outline: 1px solid #67e8f9; outline-offset: 3px; }
 
   .ai-lab__detail {
-    position: absolute;
-    inset: 0.85rem;
+    position: fixed;
+    inset: 0;
+    width: min(42rem, calc(100vw - 2rem));
+    max-width: none;
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
     z-index: 10;
     display: grid;
-    grid-template-rows: auto 1fr;
-    overflow: auto;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
     border: 1px solid rgba(103, 232, 249, 0.34);
     border-radius: 0.65rem;
     color: #e8f4ff;
@@ -541,13 +550,14 @@ const clientProjects = projects.map((project) => ({
       radial-gradient(circle at 88% 10%, rgba(92, 57, 186, 0.14), transparent 36%),
       rgba(3, 8, 24, 0.965);
     box-shadow:
-      0 0 0 999px rgba(1, 4, 14, 0.74),
       0 0 3rem rgba(37, 99, 235, 0.24),
       inset 0 1px 0 rgba(248, 250, 252, 0.06);
     backdrop-filter: blur(20px);
   }
 
-  .ai-lab__detail[hidden] { display: none; }
+  .ai-lab__detail[hidden], .ai-lab__detail:not([open]) { display: none; }
+  .ai-lab__detail::backdrop { background: rgba(1, 4, 14, 0.78); backdrop-filter: blur(8px); }
+  :global(body:has(dialog[data-project-detail-panel][open])) { overflow: hidden; }
 
   .ai-lab__detail::before {
     position: absolute;
@@ -573,7 +583,9 @@ const clientProjects = projects.map((project) => ({
     border-bottom: 1px solid rgba(148, 163, 184, 0.12);
   }
 
-  .ai-lab__detail-header h3 {
+  .ai-lab__detail-header h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
     font-family: Newsreader, "Source Serif 4", Georgia, serif;
     font-size: clamp(1.65rem, 3vw, 2.35rem);
     font-weight: 560;
@@ -582,13 +594,16 @@ const clientProjects = projects.map((project) => ({
   }
 
   .ai-lab__detail-header button {
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0.48rem 0.68rem;
     border: 1px solid rgba(125, 211, 252, 0.24);
     border-radius: 0.42rem;
     color: rgba(226, 239, 255, 0.78);
     background: rgba(15, 23, 42, 0.68);
     font: inherit;
-    font-size: 0.62rem;
+    font-size: 0.75rem;
     font-weight: 700;
     cursor: pointer;
   }
@@ -601,9 +616,13 @@ const clientProjects = projects.map((project) => ({
   }
 
   .ai-lab__detail-body {
-    align-self: center;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
     padding: 0.75rem 1.2rem;
   }
+
+  .ai-lab__detail-header button:focus-visible { outline: 2px solid #67e8f9; outline-offset: 3px; }
 
   .ai-lab__project-detail[hidden] { display: none; }
 
@@ -706,9 +725,11 @@ const clientProjects = projects.map((project) => ({
     .ai-lab__header h2 { font-size: 0.92rem; }
     .ai-lab__viewport { aspect-ratio: 0.84; min-height: 0; }
     .ai-lab__telemetry { inset-inline: 0.7rem; }
-    .ai-lab__detail { inset: 0.75rem; }
     .ai-lab__detail-header,
     .ai-lab__detail-body { padding-inline: 0.9rem; }
+    .ai-lab__detail-summary { font-size: 0.875rem; line-height: 1.65; }
+    .ai-lab__privacy-note { font-size: 0.75rem; }
+    .ai-lab__dashboard-link { min-height: 44px; font-size: 0.82rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {

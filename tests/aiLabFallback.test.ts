@@ -9,6 +9,9 @@ test('no-WebGL project buttons support deep links, selection, close, and cleanup
     textContent = '';
     attributes = new Map();
     focused = false;
+    open = false;
+    showModal() { this.open = true; }
+    close() { this.open = false; }
     focus() { this.focused = true; }
     setAttribute(key: string, value: string) { this.attributes.set(key, value); }
     querySelectorAll(_selector: string) { return [] as Element[]; }
@@ -47,9 +50,14 @@ test('no-WebGL project buttons support deep links, selection, close, and cleanup
   assert.equal(notice.hidden,false); assert.equal(panel.hidden,false); assert.equal(title.textContent,'Project Two');
   assert.equal(dashboardDetail.hidden,true); assert.equal(pendingDetail.hidden,false);
   assert.equal(close.focused,true);
+  assert.equal(panel.open,true);
+  assert.equal(second.attributes.get('aria-expanded'),'true');
+  assert.equal(second.attributes.has('aria-pressed'),false);
   close.dispatchEvent(new Event('click'));
   assert.equal(panel.hidden,true); assert.equal(new URL(location.href).searchParams.has('project'),false);
   assert.equal(second.focused,true);
+  assert.equal(panel.open,false);
+  assert.equal(second.attributes.get('aria-expanded'),'false');
   first.dispatchEvent(new Event('click'));
   assert.equal(title.textContent,'Canadian Electricity Research'); assert.equal(panel.hidden,false);
   assert.equal(dashboardDetail.hidden,false); assert.equal(pendingDetail.hidden,true);
@@ -69,8 +77,11 @@ test('no-WebGL project buttons support deep links, selection, close, and cleanup
   eighth.dispatchEvent(new Event('click'));
   assert.equal(fundDetail.hidden,false); assert.equal(noncompeteDetail.hidden,true);
   assert.equal(title.textContent,'Fund Similarity Research'); assert.equal(pendingDetail.hidden,true);
-  const escape = Object.assign(new Event('keydown'),{key:'Escape'}); lab.dispatchEvent(escape);
+  const escape = new Event('cancel',{cancelable:true}); panel.dispatchEvent(escape);
   assert.equal(panel.hidden,true);
+  assert.equal(escape.defaultPrevented,true);
+  first.dispatchEvent(new Event('click')); assert.equal(panel.open,true);
   document.dispatchEvent(new Event('astro:before-swap'));
+  assert.equal(panel.open,false);
   first.dispatchEvent(new Event('click')); assert.equal(panel.hidden,true);
 });

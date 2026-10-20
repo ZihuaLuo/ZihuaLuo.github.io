@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Tag from "@components/Tag.astro";
+import ReadingPreferences from "@components/ReadingPreferences.astro";
 import { entryDateTime, formatEntryDate, readingTime, withBase, type Language } from "@i18n/routes";
 import { siteInfo, ui } from "@i18n/ui";
 
@@ -28,7 +29,7 @@ const dateTime = entryDateTime(entry.data);
   canonicalPath={canonicalPath}
   type="article"
 >
-  <article>
+  <article data-reading-article data-reading-mode="dark">
     <header class="finance-shell py-14 sm:py-20">
       <div class="container-page relative z-10">
         <a
@@ -60,8 +61,9 @@ const dateTime = entryDateTime(entry.data);
       </div>
     </header>
 
-    <div class="container-page mt-[-24px] grid gap-10 pb-16 lg:grid-cols-[minmax(0,760px)_1fr]">
+    <div class="container-page relative z-10 mt-[-24px] grid gap-10 pb-16 lg:grid-cols-[minmax(0,760px)_1fr]">
       <div class="min-w-0">
+        <ReadingPreferences />
         <div class="prose-article premium-card rounded-2xl p-6 sm:p-9">
           <slot />
         </div>
@@ -78,3 +80,26 @@ const dateTime = entryDateTime(entry.data);
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .prose-article { overflow-wrap: anywhere; }
+  [data-reading-mode="light"] .prose-article {
+    color-scheme: light;
+    --body: #253342;
+    --ink: #122232;
+    --body-soft: #34495e;
+    --muted: #536373;
+    --soft: #1e3845;
+    --line: #d6dce0;
+    --accent: #065e73;
+    --violet: #5b5293;
+    --rgb-violet-soft: 87, 73, 125;
+    --bg-code: #e8edf0;
+    --background-card: #fbfaf6;
+    --border-glow: #d6dce0;
+    --shadow-card: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  [data-reading-mode="light"] .prose-article::before,
+  [data-reading-mode="light"] .prose-article::after { display: none; }
+  [data-reading-mode="light"] .prose-article :global(a) { color: var(--accent); text-decoration: underline; }
+</style>

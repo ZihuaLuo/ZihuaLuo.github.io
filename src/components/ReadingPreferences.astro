@@ -1,0 +1,45 @@
+<fieldset class="reading-controls" data-reading-controls aria-describedby="reading-scope">
+  <legend>Reading mode</legend>
+  <div class="reading-controls__row">
+    <label><input class="sr-only" type="radio" name="reading-surface" value="dark" data-reading-choice checked />Dark</label>
+    <label><input class="sr-only" type="radio" name="reading-surface" value="light" data-reading-choice />Light</label>
+    <span id="reading-scope">Article text only</span>
+  </div>
+</fieldset>
+
+<style>
+  .reading-controls { min-width: 0; margin: 0 0 1rem; padding: 0; border: 0; }
+  legend { padding: 0; color: var(--body); font-size: 0.8rem; font-weight: 750; }
+  .reading-controls__row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  label { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.04); color: var(--body); font-size: 0.8rem; font-weight: 750; cursor: pointer; }
+  label:has(input:checked) { border-color: var(--accent); color: var(--ink); background: rgba(var(--rgb-cyan-soft),0.12); }
+  label:focus-within { outline: 2px solid var(--accent); outline-offset: 3px; }
+  span { color: var(--muted); font-size: 0.75rem; margin-left: 0.25rem; }
+</style>
+
+<script>
+  const initializeReadingPreferences = () => {
+    document.querySelectorAll<HTMLElement>("[data-reading-controls]").forEach((controls) => {
+      if (controls.dataset.ready === "true") return;
+      const article = controls.closest<HTMLElement>("[data-reading-article]");
+      if (!article) return;
+      controls.dataset.ready = "true";
+      const choices = [...controls.querySelectorAll<HTMLInputElement>("[data-reading-choice]")];
+      const apply = (mode: string | null) => {
+        article.dataset.readingMode = mode === "light" ? "light" : "dark";
+        choices.forEach((choice) => { choice.checked = choice.value === article.dataset.readingMode; });
+      };
+      try { apply(localStorage.getItem("zihua-article-reading-mode")); } catch { apply("dark"); }
+      const controller = new AbortController();
+      controls.addEventListener("change", (event) => {
+        const choice = event.target;
+        if (!(choice instanceof HTMLInputElement) || !choice.checked) return;
+        apply(choice.value);
+        try { localStorage.setItem("zihua-article-reading-mode", choice.value); } catch { /* The current page still works without storage. */ }
+      }, { signal: controller.signal });
+      document.addEventListener("astro:before-swap", () => controller.abort(), { once: true, signal: controller.signal });
+    });
+  };
+  document.addEventListener("astro:page-load", initializeReadingPreferences);
+  initializeReadingPreferences();
+</script>

@@ -96,7 +96,7 @@ if (root) {
       const row = barRow(item.name, item.cases, maximum, "category") as HTMLButtonElement;
       row.type = "button";
       row.setAttribute("aria-label", `${item.name}: ${item.cases} ${item.cases === 1 ? "case" : "cases"}. Select to filter other charts.`);
-      row.setAttribute("aria-pressed", String(selectedCategory === item.name));
+      row.dataset.category = item.name;
       row.addEventListener("click", () => {
         selectedCategory = selectedCategory === item.name ? null : item.name;
         render();
@@ -176,7 +176,12 @@ if (root) {
       : data.meta.classifiedRecords);
     selectionLine.textContent = selectedCategory ? `Viewing: ${selectedCategory}` : "All scandal categories";
     reset.hidden = !selectedCategory;
-    renderCategories();
+    categories.querySelectorAll<HTMLButtonElement>("[data-category]").forEach((button) => {
+      const selected = button.dataset.category === selectedCategory;
+      button.setAttribute("aria-current", String(selected));
+      const item = data.categories.find((item) => item.name === button.dataset.category)!;
+      button.setAttribute("aria-label", `${item.name}: ${item.cases} ${item.cases === 1 ? "case" : "cases"}. ${selected ? "Current filter. Activate to show all categories." : "Filter the timeline and action mix by this category."}`);
+    });
     renderActions();
     renderTimeline();
   };
@@ -184,7 +189,9 @@ if (root) {
   reset.addEventListener("click", () => {
     selectedCategory = null;
     render();
+    categories.querySelector<HTMLButtonElement>("[data-category]")?.focus({ preventScroll: true });
   });
+  renderCategories();
   renderMatrix();
   render();
 }

@@ -8,7 +8,7 @@ if (root) {
   const featureBars = root.querySelector<HTMLElement>("[data-feature-bars]")!;
   const themeBars = root.querySelector<HTMLElement>("[data-theme-bars]")!;
   const matrix = root.querySelector<HTMLTableElement>("[data-period-matrix]")!;
-  const buttons = [...root.querySelectorAll<HTMLButtonElement>("[data-period]")];
+  const choices = [...root.querySelectorAll<HTMLInputElement>("[data-period]")];
   let selected = "all";
 
   const appendSvg = (parent: SVGElement, tag: string, attributes: Record<string, string>, content?: string) => {
@@ -113,10 +113,14 @@ if (root) {
     root!.querySelector<HTMLElement>("[data-kpi-type]")!.textContent = String(metrics.typeAnnotatedFilings);
     root!.querySelector<HTMLElement>("[data-kpi-exclusion]")!.textContent = String(metrics.exclusionNoteFilings);
     root!.querySelector<HTMLElement>("[data-selection-line]")!.textContent = current ? `Showing filing years ${current.name} · ${current.filings} sampled snippets` : "All sampled filing years";
-    buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.period === selected)));
+    choices.forEach((choice) => { choice.checked = choice.dataset.period === selected; });
     renderTimeline(); renderFeatures(); renderThemes();
   }
 
-  buttons.forEach((button) => button.addEventListener("click", () => { selected = button.dataset.period ?? "all"; render(); }));
+  choices.forEach((choice) => choice.addEventListener("change", () => {
+    if (!choice.checked) return;
+    selected = choice.dataset.period ?? "all";
+    render();
+  }));
   renderMatrix(); render();
 }

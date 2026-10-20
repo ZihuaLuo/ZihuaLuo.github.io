@@ -200,7 +200,7 @@ export const initializeSiteSearch = () => {
     };
 
     const openSearch = () => {
-      if (!modal.hidden) return;
+      if (!modal.hidden || document.querySelector('dialog[open]')) return;
       previousFocus = document.activeElement;
       previousOverflow = document.body.style.overflow;
       modal.hidden = false;

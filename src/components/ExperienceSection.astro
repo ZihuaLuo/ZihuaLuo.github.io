@@ -93,6 +93,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
         aria-labelledby={tabId("professional")}
         data-experience-panel="professional"
       >
+        <h2 class="sr-only">Professional experience</h2>
         <div class="experience-timeline">
           {professionalGroups.map((group) => (
             <section class="experience-year-group" aria-label={group.year}>
@@ -132,6 +133,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
         data-experience-panel="research"
         hidden
       >
+        <h2 class="sr-only">Research experience</h2>
         <div class="experience-timeline experience-timeline--research">
           {researchGroups.map((group) => (
             <section class="experience-year-group" aria-label={group.year}>
@@ -171,6 +173,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
         data-experience-panel="education"
         hidden
       >
+        <h2 class="sr-only">Education</h2>
         <div class="experience-timeline experience-timeline--education">
           {educationGroups.map((group) => (
             <section class="experience-year-group" aria-label={group.year}>
@@ -256,6 +259,7 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
         data-experience-panel="credentials"
         hidden
       >
+        <h2 class="sr-only">Credentials</h2>
         <div class="experience-timeline experience-timeline--credentials">
           {credentialGroups.map((group) => (
             <section class="experience-year-group" aria-label={group.year}>
