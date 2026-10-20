@@ -1,4 +1,5 @@
 import { creditEntries, creditEntryAnchor, type CreditEntry } from "./credits.ts";
+import { searchProjects } from "./searchProjects.ts";
 
 export type ProfileTopic = {
   id: string;
@@ -36,12 +37,68 @@ const privateInformationResponse =
   "I can share a few public basics about Zihua, such as his age, gender, and university, but I cannot help with other private or sensitive details. You can ask about his experience, personality, strengths, growth areas, preferred teammates or supervisor, feedback style, career goals, research, technical skills, values, or approach to AI.";
 
 const assistantScopeResponse =
-  "I'm Zihua's dedicated assistant. I'm here to help visitors learn about him, including his experience, personality, thinking, work style, projects, and approach to AI. You could try asking, \"What is Zihua like to work with?\" or \"What motivates him?\"";
+  "I'm Zihua's dedicated assistant. I can help you learn about his experience, personality, thinking, work style, projects, and approach to AI. I can also help you find public dashboards, play Cloudline, request his resume, or reach Let's Connect. I cannot send messages or book meetings for you. Try asking, \"What is Zihua like to work with?\" or \"Where can I get his resume?\"";
 
 // Public summaries reviewed against 面试文档 v2.docx on 20 October 2026.
-export const profileCorpusRevision = "2026-10-20-interview-v2";
+export const profileCorpusRevision = "2026-10-20-interview-v2-visitor-help";
 
 export const profileTopics: ProfileTopic[] = [
+  {
+    id: "resume_request",
+    label: "request a resume",
+    keywords: ["resume download", "cv download", "resume pdf", "简历下载"],
+    phrases: ["where can I download Zihua's resume", "can I get his CV", "is his resume available", "下载简历", "获取简历"],
+    answer: "This website does not currently provide a downloadable resume or CV. To request Zihua's latest resume, please contact him through Let's Connect on the About page using Email or LinkedIn.",
+    detail: "Use the Let's Connect link below to contact Zihua directly and request his latest resume. His professional work, research, education, and credentials are also available in the Experience section. I cannot send a resume or submit a request on your behalf.",
+  },
+  {
+    id: "public_contact",
+    label: "public contact",
+    keywords: ["contact", "email", "linkedin", "connect", "联系方式"],
+    phrases: ["how can I contact Zihua", "get in touch with him", "联系Zihua", "怎么联系"],
+    answer: "Zihua's public Email, LinkedIn, and Instagram links are collected in Let's Connect on the About page. For resume requests, professional questions, or introductions, Email or LinkedIn is a good place to start.",
+    detail: "Open Let's Connect below and choose Email, LinkedIn, or Instagram. You will contact Zihua directly through that service. This assistant does not send messages or notify him when you chat here.",
+  },
+  {
+    id: "collaboration_contact",
+    label: "collaboration and opportunities",
+    keywords: ["collaboration inquiry", "hiring inquiry", "recruiting", "合作邀约"],
+    phrases: ["I want to hire Zihua", "is he available for collaboration", "invite him to an interview", "想找他合作"],
+    answer: "For a collaboration, research opportunity, role, or interview invitation, please contact Zihua directly through Email or LinkedIn in Let's Connect. Include a short introduction and the opportunity you have in mind. I cannot confirm his current availability or accept an invitation for him.",
+    detail: "A useful introduction explains who you are, the work or opportunity, and any relevant timing. Zihua can discuss fit and availability with you directly. This website does not provide live availability or a booking calendar.",
+  },
+  {
+    id: "message_request",
+    label: "send a message or arrange a meeting",
+    keywords: ["send a message", "schedule a meeting", "forward a message", "预约", "留言"],
+    phrases: ["can you send him a message", "can you schedule a call with Zihua", "帮我联系他", "帮我转告"],
+    answer: "I can point you to Zihua's public contact links, but I cannot send or forward messages, notify him, or book a meeting. Please use Email or LinkedIn in Let's Connect to contact him and arrange a conversation directly.",
+    detail: "Messages typed here are not delivered to Zihua as contact requests. Open Let's Connect below, choose a contact channel, and send your message there. Any meeting time or invitation needs to be agreed with him directly.",
+  },
+  {
+    id: "research_materials",
+    label: "research files and data access",
+    keywords: ["source code request", "raw data request", "research files", "数据下载", "源码"],
+    phrases: ["where can I download the raw data", "can I get the source code", "request research materials", "下载原始数据"],
+    answer: "The site provides public project overviews and selected interactive dashboards. It does not provide a general download of research source code, original datasets, or private research files. Contact Zihua through Let's Connect about a specific request. Confidential or licensed material may not be shareable.",
+    detail: "Public dashboard access does not imply access to the underlying research records or permission to redistribute them. The Volunteer Retention dashboard is private; only its public overview is available. Zihua can clarify what, if anything, can be shared for your request.",
+  },
+  {
+    id: "website_source",
+    label: "website source code",
+    keywords: ["website repository", "website source", "github repository", "网站源码"],
+    phrases: ["where is the website GitHub repository", "can I see the website code", "网站的源码在哪里"],
+    answer: "The source code for this personal website is available in Zihua's public GitHub repository. Use the link below to view it. That repository is not a general release of the original research datasets or private project materials.",
+    detail: "The GitHub repository contains the code used to build and publish this website. Public pages and dashboard excerpts do not grant access to confidential or licensed research records. Contact Zihua about any specific research-code or data request.",
+  },
+  {
+    id: "website_help",
+    label: "website help",
+    keywords: ["site navigation", "website help", "search website", "网站导航"],
+    phrases: ["how do I use this website", "where can I find things on this site", "how do I search the site", "怎么使用这个网站"],
+    answer: "Use Experience for work, research, education, and credentials; Writing for essays; and AI Lab's Project Constellation for project overviews, public dashboards, and Cloudline. The Search button in the top navigation searches across the site. For a resume or a direct conversation with Zihua, use Let's Connect on About.",
+    detail: "You can ask me to open a named public dashboard, play Cloudline, find the Writing section, or explain how to contact Zihua. If a resource is not published here, I will say so rather than invent a download or claim to send a request.",
+  },
   {
     id: "background",
     label: "background",
@@ -1299,7 +1356,7 @@ const normalize = (value: string) =>
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[’']/g, "")
-    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/[^a-z0-9\u3400-\u9fff\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
@@ -1423,6 +1480,9 @@ const projectTopicIds = new Set([
 ]);
 
 const navigationForTopic = (topicId: string): ProfileLink | undefined => {
+  if (topicId === "website_source") return { href: "https://github.com/ZihuaLuo/ZihuaLuo.github.io", label: "View the website on GitHub" };
+  if (["resume_request", "public_contact", "collaboration_contact", "message_request", "research_materials"].includes(topicId)) return sectionLinks.connect;
+  if (topicId === "website_help") return sectionLinks.projects;
   if (["fund_similarity", "fund_data_quality", "fund_common_window", "clustering_validation", "fund_distributions"].includes(topicId)) {
     return { href: "/projects/fund-similarity-dashboard/", label: "Explore the Fund Similarity dashboard" };
   }
@@ -1447,6 +1507,63 @@ const answerForTopic = (topic: ProfileTopic, useDetail = false): ProfileAnswer =
   topicId: topic.id,
   link: navigationForTopic(topic.id),
 });
+
+// Handle visitor actions before biography scoring. Public project destinations
+// come from the same metadata as site search, including the private overview.
+const visitorProjectLookup = searchProjects.map((project) => ({
+  project,
+  names: [project.id, project.title, project.title.replace(/\s+(Research|Lab|Time-to-Degree)$/i, ""), ...project.aliases, project.direct?.title, ...(project.direct?.aliases ?? [])]
+    .filter((name): name is string => Boolean(name)).map(normalize),
+}));
+
+const visitorRequestAnswer = (question: string, previousTopicId?: string): ProfileAnswer | undefined => {
+  const query = normalize(question);
+  const reply = (id: string) => answerForTopic(profileTopics.find((topic) => topic.id === id)!);
+  const accessIntent = /\b(download|copy|pdf|file|request|receive|send|get|find|access|available|provide|where|have|see|view|open|read)\b|下载|获取|索取|发给|哪里|在哪|查看|打开/.test(query);
+
+  if (/手机号|电话号码|家庭住址|私人地址|护照|密码/.test(query)) return { text: privateInformationResponse };
+
+  if (/\b(send|forward|deliver)\b.*\bmy (resume|cv)\b.*\b(to )?(zihua|him)\b/.test(query)) return reply("message_request");
+
+  if ((/\b(resume|cv|curriculum vitae)\b|简历/.test(query) && (accessIntent || /^(resume|cv|简历)$/.test(query))) ||
+    (previousTopicId === "resume_request" && /^(can|could|would) you (please )?(send|email|download) (it|that)( to me)?$|^(can|could|may) i (please )?(get|download|have) (it|that)$/.test(query))) {
+    return reply("resume_request");
+  }
+
+  if (/\b(website|site)\b.*\b(source code|code|github|repository)\b|\b(source code|github|repository)\b.*\b(website|site)\b|网站.*源码|网站.*代码/.test(query) && accessIntent) return reply("website_source");
+
+  const asksAboutHisMethods = /\b(how|where|why) (did|does|would|should) (he|zihua)\b/.test(query);
+  if (!asksAboutHisMethods && ((/\b(source code|raw data|original data|datasets?|research files|source files|github repository|github repo)\b|原始数据|研究文件|源代码|源码/.test(query) && accessIntent) || /\b(download|request|send|share|provide)\b.*\b(data|code|files)\b|\b(can|could|may) i (get|access|have)\b.*\b(data|code|files)\b/.test(query))) return reply("research_materials");
+
+  if (/\b(can|could|would) you\b.*\b(send|forward|deliver|pass on|notify|book|schedule|arrange)\b.*\b(message|email|zihua|him|meeting|call|interview)\b|\b(book|schedule|arrange) (a |an )?(meeting|call|interview)\b|帮我(联系|转告|发消息)|预约|给他留言/.test(query)) return reply("message_request");
+
+  if (/\b(hire|recruit|hiring|recruiting)\b.*\b(zihua|him)\b|\b(collaborate|collaborating|partner|work) with (zihua|him)\b|\b(invite|offer)\b.*\b(zihua|him)\b.*\b(interview|role|opportunity)\b|\b(is|would) (he|zihua) (be )?(available|open|interested|looking)\b.*\b(work|role|job|research|collaboration|opportunity)\b|\b(i (would like|want) to collaborate|can we collaborate)\b|找他合作|合作邀约|招聘|面试邀请/.test(query)) return reply("collaboration_contact");
+
+  if (/\b(contact|reach|email|message) (zihua|him)\b|\b(get in touch|connect) with (zihua|him)\b|\b(zihuas|his) (contact|email|linkedin)\b|联系方式|联系他|联系\s*zihua|怎么联系/.test(query)) return reply("public_contact");
+
+  const projectIntent = /\b(open|show|see|view|visit|access|launch|play|try|download|link)\b|\bwhere\b.*\b(dashboard|game|project)\b|打开|查看|游玩|试玩|仪表盘在哪/.test(query);
+  if (projectIntent) {
+    const match = visitorProjectLookup.find(({ names }) => names.some((name) => query.includes(name)));
+    if (match) {
+      const { project } = match;
+      const direct = project.direct;
+      return {
+        text: direct
+          ? `${project.description} Use the link below to ${direct.kind === "game" ? "play directly in your browser" : "open the public interactive dashboard"}.`
+          : "The Volunteer Retention dashboard is not publicly available because of data privacy. You can view its public overview in AI Lab; private dashboard access and underlying records are not provided on this site.",
+        topicId: `visitor_project_${project.id}`,
+        link: direct ? { href: direct.url, label: direct.title } : { href: `/ai/?project=${project.id}#ai-lab-title`, label: "View the public Volunteer Retention overview" },
+      };
+    }
+    if (/\b(dashboards?|games?)\b|仪表盘|游戏/.test(query)) return {
+      text: "Open Project Constellation in AI Lab and choose a named project. Public projects offer their dashboard or game link; Volunteer Retention provides a public overview because its dashboard is private.",
+      topicId: "projects", link: sectionLinks.projects,
+    };
+  }
+
+  if (/\b(how (do|can) i (use|navigate|search) (this|the) (website|site)|where can i find things|help (me )?(use|navigate) (this|the) (website|site))\b|网站导航|怎么使用.*网站|怎么搜索|网站怎么用/.test(query)) return reply("website_help");
+  return undefined;
+};
 
 type AcknowledgementLookup = {
   entry: CreditEntry;
@@ -1629,6 +1746,9 @@ export function getProfileAnswer(question: string, previousTopicId?: string): Pr
   ) {
     return { text: privateInformationResponse };
   }
+
+  const visitorAnswer = visitorRequestAnswer(question, previousTopicId);
+  if (visitorAnswer) return visitorAnswer;
 
   if (
     /^(year|school year|academic year|study year|what year|which year|what year is zihua|which year is zihua|what year is he|which year is he|what year are you in|what year is zihua in|what year is he in)$/.test(

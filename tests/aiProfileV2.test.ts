@@ -65,8 +65,8 @@ test('v2 interview questions resolve independently of an unrelated previous topi
 });
 
 test('v2 profile facts agree across overview, education, minor shortcuts, and career answers', () => {
-  assert.equal(profileCorpusRevision, '2026-10-20-interview-v2');
-  assert.equal(profileTopics.length, 125);
+  assert.equal(profileCorpusRevision, '2026-10-20-interview-v2-visitor-help');
+  assert.equal(profileTopics.length, 132);
   assert.equal(new Set(profileTopics.map(t => t.id)).size, profileTopics.length);
   for (const question of ['Tell me about yourself', 'education', 'minors', 'What are his minors?']) {
     const text = getProfileAnswer(question).text;
