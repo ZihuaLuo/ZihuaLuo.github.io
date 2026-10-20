@@ -30,7 +30,7 @@ export const suggestedProfileQuestions = [
 ];
 
 const profileOverview =
-  "A simple way to describe Zihua is that he likes turning difficult questions into useful work. His background brings together finance, research, data, and applied AI. He is completing an Honours Bachelor of Commerce at McMaster University, has worked with TD Asset Management and CIBC Mellon, and has supported several university research projects. Across all of those experiences, he has been curious, dependable, and thoughtful about the people who will actually use his work.";
+  "Zihua is a final-year commerce student at McMaster, specializing in Finance with minors in Economics, Mathematics, and Innovation. His experience at CIBC Mellon and TD Asset Management gave him a practical understanding of investment funds. Five research assistant roles, including recent mutual fund and ETF work, strengthened his interest in investment research. He has passed CFA Level II and is a certified FRM, and his longer-term goal is portfolio management.";
 
 const privateInformationResponse =
   "I can share a few public basics about Zihua, such as his age, gender, and university, but I cannot help with other private or sensitive details. You can ask about his experience, personality, strengths, growth areas, preferred teammates or supervisor, feedback style, career goals, research, technical skills, values, or approach to AI.";
@@ -38,15 +38,18 @@ const privateInformationResponse =
 const assistantScopeResponse =
   "I'm Zihua's dedicated assistant. I'm here to help visitors learn about him, including his experience, personality, thinking, work style, projects, and approach to AI. You could try asking, \"What is Zihua like to work with?\" or \"What motivates him?\"";
 
+// Public summaries reviewed against 面试文档 v2.docx on 20 October 2026.
+export const profileCorpusRevision = "2026-10-20-interview-v2";
+
 export const profileTopics: ProfileTopic[] = [
   {
     id: "background",
     label: "background",
-    keywords: ["background", "profile", "overview", "introduce", "biography", "bio"],
-    phrases: ["who is zihua", "tell me about zihua", "professional story", "career story"],
+    keywords: ["background","profile","overview","introduce","biography","bio"],
+    phrases: ["who is zihua","tell me about zihua","professional story","career story","tell me about yourself","introduce zihua","walk me through your resume","walk me through his resume"],
     answer: profileOverview,
     detail:
-      "What connects his experiences is a practical way of thinking. Fund reporting and valuation work taught him to be precise and accountable. Research taught him how to bring structure to messy information. AI has become another tool in that process, but he still believes a person should understand the reasoning and own the final result.",
+      "He wants to understand how information about businesses, markets, and risk informs investment decisions. Research has taught him to question whether a pattern supports the conclusion being drawn. Graduate study is his intended next step toward deeper financial and quantitative training. Outside academic and professional work, mentoring, tutoring, and giving back remain important parts of his story.",
   },
   {
     id: "thinking",
@@ -61,22 +64,22 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "current",
     label: "current focus",
-    keywords: ["current", "today", "now", "present", "focus"],
-    phrases: ["what is he doing", "current role", "current focus"],
+    keywords: ["current","today","now","present","focus"],
+    phrases: ["what is he doing","current role","current focus"],
     answer:
-      "Right now, Zihua is completing his final year at McMaster University's DeGroote School of Business while continuing research work in finance. He is especially interested in bringing financial analysis, careful research, and AI tools together to solve real investment and decision-making problems.",
+      "Zihua is completing his final year at McMaster while continuing finance research. His recent mutual fund and ETF project studies what historical similarity does and does not tell us about investments. He is also preparing for graduate study to strengthen his financial economics and quantitative foundations, with investment research and ultimately portfolio management as his direction.",
     detail:
-      "He does not see finance, research, and AI as separate interests. He is trying to build enough depth in each one to connect sound judgment, reliable data, and clear communication in the same piece of work.",
+      "His next step is about developing judgment as well as technical capability. He wants to learn from professors, classmates, and experienced investors, connect statistical methods to financial questions, and become better at explaining the assumptions and risks behind a conclusion.",
   },
   {
     id: "education",
     label: "education",
-    keywords: ["education", "school", "college", "university", "degree", "gpa", "course", "study", "mcmaster", "degroote", "student"],
-    phrases: ["academic background", "what did he study", "what does he study", "where does he study"],
+    keywords: ["education","school","college","university","degree","gpa","course","study","mcmaster","degroote","student"],
+    phrases: ["academic background","what did he study","what does he study","where does he study"],
     answer:
-      "Zihua is completing an Honours Bachelor of Commerce with Internship at McMaster University's DeGroote School of Business and expects to graduate in Spring 2027. His major is Finance, and his minors are Mathematics and Economics. He has a 3.89 out of 4.00 cumulative GPA, made the Dean's Honour List from 2022 to 2025, and ranked in DeGroote's top 10% during those years.",
+      "Zihua is completing an Honours Bachelor of Commerce with Internship at McMaster University's DeGroote School of Business, with expected graduation in Spring 2027. He specializes in Finance and has minors in Economics, Mathematics, and Innovation. His cumulative GPA is 3.89 out of 4.00, and he made the Dean's Honour List and DeGroote's top 10% from 2022 to 2025.",
     detail:
-      "Economics is his favorite university subject. His coursework also includes financial modelling, big data in finance, financial risk management, statistics, linear algebra, and multivariable calculus. It is a good reflection of how he learns. He likes strong fundamentals, quantitative tools, and enough breadth to connect ideas across disciplines.",
+      "Mathematics supports his quantitative training, Economics helps him understand markets and incentives, and Innovation teaches him to identify needs, test assumptions, and develop practical solutions. He wants graduate study to deepen these foundations and improve his ability to evaluate financial research independently.",
   },
   {
     id: "credentials",
@@ -91,62 +94,62 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "asset_management",
     label: "asset-management experience",
-    keywords: ["td", "asset", "management", "valuation", "oversight", "mrfp", "statement", "fund"],
-    phrases: ["td asset management", "fund valuation oversight", "financial reporting"],
+    keywords: ["td","asset","management","valuation","oversight","mrfp","statement","fund"],
+    phrases: ["td asset management","fund valuation oversight","financial reporting"],
     answer:
-      "At TD Asset Management, Zihua worked on investment-fund financial statements, valuation oversight, and MRFP reporting across fixed income, derivatives, fund-of-funds, and other multi-asset products. Much of the job came down to careful review. He checked NAV figures, valuation records, disclosures, and supporting schedules, then followed exceptions until the correction was actually confirmed.",
+      "At TD Asset Management, Zihua worked as a Business Management Intern within Fund Valuation Oversight. His main responsibility was supporting investment-fund financial statement production and review, with additional exposure to MRFP reporting. He checked balances, NAV-related figures, valuation records, schedules, and disclosures, then followed questions through to a verified correction.",
     detail:
-      "That role strengthened his sense of ownership. During busy reporting periods, he used Excel-based exception reviews to focus on unusual movements and kept track of several deadlines at once. If he raised an issue, he checked the revised material himself instead of assuming someone else had fixed it.",
+      "He adjusted review priorities to the product: pricing and income for fixed income, contract terms and valuation inputs for derivatives, and underlying-fund rollups for fund-of-funds. He maintained issue trackers and review evidence, compared document versions, and rechecked related sections when revised materials arrived. This was oversight and reporting work, rather than a portfolio-management role.",
   },
   {
     id: "fund_accounting",
     label: "fund-accounting experience",
-    keywords: ["cibc", "mellon", "nav", "accounting", "reconciliation", "custodian", "broker", "institutional"],
-    phrases: ["cibc mellon", "fund accountant", "institutional funds"],
+    keywords: ["cibc","mellon","nav","accounting","reconciliation","custodian","broker","institutional"],
+    phrases: ["cibc mellon","fund accountant","institutional funds"],
     answer:
-      "At CIBC Mellon, Zihua helped deliver daily NAVs for eight institutional funds with more than $3 billion in assets under management. The deadlines were tight, so he had to stay calm while reconciling pricing, FX, cash, accruals, corporate actions, and positions. He also worked with custodians and brokers to investigate breaks and explain the results clearly to clients.",
+      "At CIBC Mellon, Zihua supported daily NAV delivery for eight institutional funds with more than $3 billion in assets under management. The work involved reconciling prices, FX, cash, accruals, positions, and corporate actions within tight post-market-close deadlines. He also prepared monthly reporting and worked with custodians, colleagues, and clients to investigate breaks.",
     detail:
-      "One issue required him to trace a discrepancy across systems that used different formats and cutoff times. He eventually found a late corporate-action adjustment, coordinated the correction, and confirmed the result in time for the NAV delivery. It is a good example of how he combines technical care with calm communication.",
+      "He traced differences to their underlying records, distinguished timing issues from errors, documented corrections, and reran checks before release. For year-end distributions, his contribution focused on validating income and capital-gains inputs, reconciling positions and cash, and checking distribution amounts and cutoffs for review and sign-off.",
   },
   {
     id: "research",
     label: "research experience",
-    keywords: ["research", "dataset", "database", "professor", "phd", "publication", "scandal", "volunteer", "retention"],
-    phrases: ["research assistant", "research projects", "data research"],
+    keywords: ["research","dataset","database","professor","phd","publication","scandal","volunteer","retention"],
+    phrases: ["research assistant","research projects","data research","five research assistant roles","research assistant experience","what research has he done"],
     answer:
-      "Zihua's research has covered a surprisingly wide range of questions, from finance PhD outcomes and food-bank volunteer engagement to non-compete disclosures and corporate scandals. The common thread is hands-on data work. He builds datasets from several sources, cleans and checks the records, studies the patterns, and turns the findings into dashboards or visual reports that people can use.",
+      "Zihua has held five research assistant roles covering mutual fund and ETF similarity, Canadian electricity systems, Finance PhD outcomes, volunteer engagement, and corporate scandals and non-compete disclosures. Across these projects, he turns broad questions into structured datasets, checked comparisons, and visual explanations. He is especially interested in whether the evidence supports a useful interpretation.",
     detail:
-      "Some of those projects involved more than 30 years of SEC filings, over 2,000 news articles, or more than 30 volunteer-engagement visualizations. He learned not to begin by building everything at once. He starts with the decision or research question, creates the smallest useful analysis, gets feedback, and expands from there.",
+      "Recent work includes fund risk and return profiles, clustering and common-period comparisons, and integrating Statistics Canada electricity data. Other roles involved academic-outcome records, volunteer cohorts, SEC disclosures, and news evidence. The shared discipline is to define the unit of analysis, check coverage and missing data, document decisions, and communicate the limits of the result.",
   },
   {
     id: "ai_approach",
     label: "approach to AI",
-    keywords: ["ai", "artificial", "llm", "model", "prompt", "codex", "claude", "automation", "agent"],
-    phrases: ["approach ai", "use ai", "think about ai", "thinking about ai", "thoughts on ai", "views on ai", "opinion on ai", "prompt the ai", "ai philosophy"],
+    keywords: ["ai","artificial","llm","model","prompt","codex","claude","automation","agent"],
+    phrases: ["approach ai","use ai","think about ai","thinking about ai","thoughts on ai","views on ai","opinion on ai","prompt the ai","ai philosophy"],
     answer:
-      "Zihua is excited about AI, but he does not trust it blindly. He usually breaks a large task into smaller pieces, tests the process on a realistic sample, and checks the output himself. If a case is unclear, he would rather pause for human judgment than scale a workflow that is fast but unreliable.",
+      "Zihua uses AI as support for research and learning while retaining responsibility for the result. He breaks work into small tasks, tests realistic samples, reviews suggested code, and checks important claims against original sources. He also asks whether a successful calculation actually answers the financial or research question. Speed matters, but so do understanding, repeatability, and sound judgment.",
     detail:
-      "A research database project changed the way he works with AI. One broad prompt produced plenty of output, but the quality was inconsistent. He started treating the workflow more like coaching a junior analyst: explain one task clearly, inspect the evidence, give specific feedback, and keep a record of what works. His view is simple. AI can make the work faster, but a person still needs to understand the logic and take responsibility for the result.",
+      "In volunteer research, AI helped him organize data, develop code, and create visualizations. He still had to define cohorts and fair observation windows himself. When learning, he tries a problem first, asks focused questions, and explains or changes the code independently. In investment analysis, he would use AI to challenge an idea, while personally evaluating evidence, valuation assumptions, and portfolio fit.",
   },
   {
     id: "ai_reliability",
     label: "AI reliability and validation",
-    keywords: ["reliable", "reliability", "accurate", "accuracy", "validate", "validation", "verify", "hallucination"],
-    phrases: ["trust ai output", "check ai output", "ensure ai accuracy", "ensure ai output", "ai outputs are reliable", "reliable ai output", "validate ai", "quality control for ai"],
+    keywords: ["reliable","reliability","accurate","accuracy","validate","validation","verify","hallucination"],
+    phrases: ["trust ai output","check ai output","ensure ai accuracy","ensure ai output","ai outputs are reliable","reliable ai output","validate ai","quality control for ai"],
     answer:
-      "Zihua never treats an AI output as the final answer. He starts with a realistic sample, compares the result with the original source, refines the instructions, and only scales the workflow after it performs consistently. He then checks for missing values, duplicates, unusual classifications, and formatting problems, while sending ambiguous cases to a person for review.",
+      "Zihua treats AI output as a draft requiring validation. He tests a workflow on a small sample, compares it with original records, refines decision rules, and adds checks for missing values, duplicates, unusual classifications, and inconsistent formats. Ambiguous records go to human review. After scaling, he traces selected completed records back to their sources.",
     detail:
-      "He used this process while building a research database. After the full dataset was complete, he traced selected records back to their sources to confirm accuracy and completeness. For him, AI quality comes from several layers of control, not from confidence in a single prompt.",
+      "Validation also includes checking definitions and reasoning. In volunteer research, recent entrants could not fairly be compared with volunteers observed for six months. If AI contradicts his analysis, he checks that both sides use the same data, dates, and definitions, then independently tests the point of disagreement. Neither confidence nor automation substitutes for evidence.",
   },
   {
     id: "ai_prompting",
     label: "AI prompting workflow",
-    keywords: ["prompt", "prompting", "instruction", "iterate", "iteration", "workflow"],
-    phrases: ["prompt ai", "prompt the ai", "prompt to code", "write prompts", "use codex", "manage ai"],
+    keywords: ["prompt","prompting","instruction","iterate","iteration","workflow"],
+    phrases: ["prompt ai","prompt the ai","prompt to code","write prompts","use codex","manage ai"],
     answer:
-      "Zihua approaches prompting like managing a junior analyst. He explains the context and objective, divides the work into small tasks, reviews each result, and gives specific feedback about what is correct and what needs to change. Once a step works across several examples, he saves the prompt and applies the same tested process more broadly.",
+      "Zihua approaches prompting as an iterative workflow rather than a single request. He provides context and an objective, separates the project into small tasks, tests each step, and gives specific feedback. Once a step works consistently across examples, he saves its instructions and decision rules and records progress so the work can be repeated and reviewed.",
     detail:
-      "His first attempt at an AI-assisted research database asked the model to do too much at once, so the output was inconsistent. He rebuilt the process around one field, one rule, or one record type at a time and kept a progress log. That made the final workflow faster, more consistent, and easier to audit.",
+      "An early attempt to build an ad hoc research database asked AI to do too much at once. It produced output quickly, but classifications and formats were inconsistent. He rebuilt the workflow around one field, rule, or record type at a time, then added automated checks and manual review. That experience shifted his focus from maximum automation to less rework and dependable results.",
   },
   {
     id: "human_advantage",
@@ -181,12 +184,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "strengths",
     label: "strengths",
-    keywords: ["strength", "advantage", "best", "excel", "capability", "skill", "talent"],
-    phrases: ["what is he good at", "what are zihuas strengths", "top strengths", "sets him apart", "stand out"],
+    keywords: ["strength","advantage","best","excel","capability","skill","talent"],
+    phrases: ["what is he good at","what are zihuas strengths","top strengths","sets him apart","stand out"],
     answer:
-      "I would point to three things. Zihua learns quickly, stays steady when the pressure rises, and thinks carefully about what the person using his work actually needs. That last point matters. He does not stop at producing numbers. He asks what decision those numbers should support.",
+      "Zihua describes his strengths as willingness to learn, resilience under pressure, and the ability to understand another person's perspective. He has developed these habits through professional exams, extra mathematics courses, internships, and research. Before producing an analysis or explaining a concept, he tries to understand what the other person needs and what would make the work useful.",
     detail:
-      "Those qualities work well together. Curiosity helps him ask better questions, discipline helps him finish the job, and empathy keeps the analysis relevant to the audience. People who have worked with him would also notice his attention to detail, reliability, ownership, and willingness to improve.",
+      "Balancing work, coursework, research, and exams has taught him to identify priorities and adjust when a plan is not working. Tutoring and working with professors have reinforced the value of listening first. He sees these habits as relevant to graduate study as well as work: learn from others, contribute reliably, and remain open about gaps in his understanding.",
   },
   {
     id: "personality",
@@ -241,22 +244,22 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "team_contribution",
     label: "contribution to a team",
-    keywords: ["contribution", "contribute", "support", "dependable", "flexible", "reliable", "helpful"],
-    phrases: ["contribute to the team", "bring to the team", "value to a team", "help his teammates", "role on a team"],
+    keywords: ["contribution","contribute","support","dependable","flexible","reliable","helpful"],
+    phrases: ["contribute to the team","bring to the team","value to a team","help his teammates","role on a team"],
     answer:
-      "Zihua wants to be the person a team can reliably build around. He takes care of his own responsibilities, pays attention when someone else is overloaded, and is willing to step into detailed or repetitive work when it protects the final result. His contribution is often quiet but practical: fewer loose ends, clearer information, and smoother execution.",
+      "Zihua wants to be a reliable teammate who understands what the group needs, owns his responsibilities, and speaks up early about delivery risks. He also looks beyond his assigned section when another person needs help. Detailed work such as checking figures, explaining an unfamiliar point, or reviewing a final report matters to him even when it is less visible.",
     detail:
-      "He once described himself as a dependable screw in a complex machine. The point was not to make himself small, but to emphasize reliability. He wants teammates to know that if he accepts responsibility for something, he will follow it through carefully and speak up early if the plan needs to change.",
+      "He compares this contribution to a screw that helps a complex machine run smoothly. The point is dependable execution rather than visibility. He checks that his own commitments are covered before offering additional help, then supports the shared outcome instead of treating completion of his section as the end of his responsibility.",
   },
   {
     id: "weaknesses",
     label: "weaknesses and growth areas",
-    keywords: ["weakness", "weaknesses", "flaw", "disadvantage", "improve", "overthink", "overanalyze"],
-    phrases: ["areas for improvement", "growth areas", "what is he working on", "biggest weakness", "top weaknesses"],
+    keywords: ["weakness","weaknesses","flaw","disadvantage","improve","overthink","overanalyze"],
+    phrases: ["areas for improvement","growth areas","what is he working on","biggest weakness","top weaknesses"],
     answer:
-      "Zihua has worked on three recurring tendencies. He used to pack his schedule too tightly, sometimes offered help before checking his own deadlines, and could overanalyze major decisions while looking for a perfect answer. He now leaves buffer time, sets clearer boundaries around extra work, and uses decision criteria and deadlines to keep analysis from turning into hesitation.",
+      "Zihua has worked on overscheduling, offering help before checking his own commitments, and overthinking major career decisions. He now leaves buffer time, communicates how much support he can realistically provide, and accepts that a decision will rarely come with perfect information. He is learning to choose based on the opportunities and development that matter to his longer-term goals.",
     detail:
-      "These lessons came from real situations. An unexpected system issue once collided with a lunch meeting because he had left no margin in the day. He has also learned that being supportive is only useful when his own commitments remain protected. He treats weaknesses as processes that can be redesigned, not fixed labels about his personality.",
+      "When considering graduate study versus full-time work, collecting more opinions sometimes increased uncertainty because each person was reasoning from a different experience. He began asking which path would offer stronger learning, resources, and market exposure. An over-scripted TD presentation taught him a related lesson: preparation should include a way to recover when the plan changes.",
   },
   {
     id: "burnout",
@@ -311,12 +314,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "adaptability",
     label: "adaptability",
-    keywords: ["adaptability", "adapt", "change", "unexpected", "quick", "rotation", "new role"],
-    phrases: ["last minute change", "think on his feet", "adapt quickly", "different roles", "new team", "handle change"],
+    keywords: ["adaptability","adapt","change","unexpected","quick","rotation","new role"],
+    phrases: ["last minute change","think on his feet","adapt quickly","different roles","new team","handle change"],
     answer:
-      "Zihua adapts by identifying what matters most when the original plan no longer fits. In a case competition, earlier speakers used more time than expected and left him only about 40 seconds. He cut secondary detail, reorganized his section around the essential message, and helped the team finish within the limit.",
+      "Zihua adapts by understanding what a situation requires and identifying the message or task that matters most. In a case competition, he had only about 40 seconds left for his section and reorganized it around the essential points. Across roles, he asks what a useful contribution looks like before assuming a previous approach will fit.",
     detail:
-      "When entering a new role, he does something similar at a larger scale. He first learns what the team is trying to achieve, reviews existing materials, shadows experienced colleagues, and asks why the process works that way. Then he applies transferable skills without assuming that an old team's habits belong in the new one.",
+      "CIBC Mellon required accurate NAV work under daily deadlines. TD Asset Management involved careful document review and follow-up. Research is more open-ended and requires exploring methods and testing interpretations. He carries forward data and communication skills while adjusting the process, asking focused questions, and seeking feedback early.",
   },
   {
     id: "leadership",
@@ -371,12 +374,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "communication",
     label: "communication",
-    keywords: ["communication", "communicate", "explain", "present", "client", "audience", "trust", "feedback"],
-    phrases: ["communication style", "complex concept", "build trust", "different audiences"],
+    keywords: ["communication","communicate","explain","present","client","audience","trust","feedback"],
+    phrases: ["communication style","complex concept","build trust","different audiences"],
     answer:
-      "Zihua adjusts the way he explains something to the person in front of him. With institutional clients, he keeps valuation issues clear and avoids unnecessary jargon. As a tutor or mentor, he might use a step-by-step explanation, a big-picture view, or a practical example depending on what helps that person understand.",
+      "Zihua starts with what the other person already understands and adapts the amount of detail to their needs. When tutoring a student on swaps, he began with a familiar example of exchanging help, then explained that a financial swap exchanges cash flows under agreed rules, such as fixed and floating interest payments. He uses analogies as a starting point, then clarifies the actual concept.",
     detail:
-      "One example is how he explains a financial swap. He compares it to two students exchanging help in the subjects where each is strongest. The analogy makes the basic purpose intuitive before adding the technical detail. For him, explaining something clearly is a sign that you understand it well.",
+      "His mentoring experience also taught him to listen before advising. One student wanted campus and social guidance, while another wanted practical finance and career discussions. If his wording causes a misunderstanding, he asks what the person heard, clarifies the specific point, and takes responsibility for the impact rather than relying only on his intentions.",
   },
   {
     id: "client_trust",
@@ -391,12 +394,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "time_management",
     label: "time management",
-    keywords: ["time", "schedule", "priority", "deadline", "productivity", "organized", "burnout", "busy"],
-    phrases: ["time management", "manage priorities", "multiple deadlines", "stay organized"],
+    keywords: ["time","schedule","priority","deadline","productivity","organized","burnout","busy"],
+    phrases: ["time management","manage priorities","multiple deadlines","stay organized"],
     answer:
-      "Zihua relies on a simple system when several priorities compete for attention. He breaks larger goals into weekly and daily steps, keeps a few focused tasks ready for short gaps in the day, and uses an Excel-based tracker to see what matters most. He also leaves buffer time because unexpected work is part of the plan, not an exception to it.",
+      "Zihua uses an Excel task system to organize priorities, dates, and smaller milestones across research, study, and work. He keeps short review tasks for gaps in the day and protects longer blocks for unfamiliar analysis. He also leaves room for unexpected issues rather than assuming a tightly packed schedule will hold.",
     detail:
-      "Balancing internships, research, coursework, and professional exams taught him that working longer is not the same as managing time well. He decides what is non-negotiable, says no when something does not support the main goal, and protects enough flexibility to maintain quality without burning out.",
+      "The system began as consistent task and event tables. He used Excel's Record Macro feature to capture repeated sorting steps, then connected the macro to a button to reorder tasks by priority and date. He developed the tool gradually as his needs changed. The purpose is to reduce repetitive organization and make the next important task clear.",
   },
   {
     id: "resilience",
@@ -411,12 +414,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "learning",
     label: "learning and growth",
-    keywords: ["learn", "learning", "growth", "improve", "feedback", "curiosity", "quickly", "training"],
-    phrases: ["learn quickly", "growth mindset", "respond to feedback", "keep learning"],
+    keywords: ["learn","learning","growth","improve","feedback","curiosity","quickly","training"],
+    phrases: ["learn quickly","growth mindset","respond to feedback","keep learning","learning something quickly","how does he learn quickly","how does he check his understanding"],
     answer:
-      "Zihua learns best when he understands why something works, not just how to repeat it. He asks focused questions, keeps organized notes, and tries the idea on a real task as soon as he can. He also takes feedback seriously, even when his first reaction is to be skeptical, and often turns a useful lesson into a tool or repeatable workflow.",
+      "Zihua learns by breaking an unfamiliar subject into the next useful step, working through a simple example, and applying it to real data. He checks understanding by explaining why a method is appropriate, what its output means, and where it can mislead. If he cannot explain or modify the work himself, he goes back to the underlying concept.",
     detail:
-      "At CIBC Mellon, he shadowed experienced fund accountants and kept his own log of recurring issues and solutions. Over time, that helped him troubleshoot more independently. In another example, a friend's suggestion to keep a to-do list eventually became an automated personal productivity system after he gave the idea a fair try.",
+      "His mutual fund and ETF project is a recent example. Learning that funds can have similar average returns while moving differently in the same months helped him see why one measure cannot answer every question. He combines focused study blocks with smaller milestones and uses documentation or AI for support while testing and owning the analysis.",
   },
   {
     id: "initiative",
@@ -461,12 +464,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "project_reflection",
     label: "project reflection and improvement",
-    keywords: ["repeat", "redo", "retrospective", "reflection", "prototype", "improve", "dashboard"],
-    phrases: ["do differently", "repeat a project", "improve a past project", "improve about a past project", "what would he improve", "what would he change", "lesson from a project"],
+    keywords: ["repeat","redo","retrospective","reflection","prototype","improve","dashboard"],
+    phrases: ["do differently","repeat a project","improve a past project","improve about a past project","what would he improve","what would he change","lesson from a project"],
     answer:
-      "If Zihua repeated his volunteer-retention dashboard, he would begin with the professor's key research questions and decisions before producing many visualizations. He would build a small prototype, collect feedback on the metrics and filters, and only then expand the dashboard.",
+      "If Zihua repeated an early AI-assisted database project, he would start with smaller, testable steps rather than ask the model to process a large task at once. He would agree on definitions, validate representative examples, save working instructions, and include review points before scaling. The aim would be a useful and repeatable process with less corrective work.",
     detail:
-      "The original project produced more than 30 visualizations and a useful final deliverable, but some early charts were interesting rather than essential. The experience taught him to start with what the stakeholder needs to understand, not simply with everything the data makes possible.",
+      "He applies the same principle to dashboards. In electricity research, the questions about generation, final users, and flows determined the views and labels. He wants a clear starting point and enough detail to explore a pattern, rather than presenting every available variable. A useful deliverable begins with the question and the checks behind the chart.",
   },
   {
     id: "presentation_setback",
@@ -491,12 +494,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "tough_decision",
     label: "a difficult decision",
-    keywords: ["decision", "difficult", "tough", "tradeoff", "choose", "choice", "frm"],
-    phrases: ["tough decision", "difficult decision", "hard choice", "important tradeoff", "decision under pressure", "decision he made"],
+    keywords: ["decision","difficult","tough","tradeoff","choose","choice","frm"],
+    phrases: ["tough decision","difficult decision","hard choice","important tradeoff","decision under pressure","decision he made","why did he choose tdam","why did he choose td asset management","choosing between career opportunities"],
     answer:
-      "During a semester with six courses, an internship, recruiting, and FRM Part II preparation, Zihua had to decide whether to postpone the exam. He compared the short-term relief with the role the qualification played in his longer-term plan. He chose to continue, but only after reducing lower-value commitments and redesigning his schedule around the most important work.",
+      "One important career decision was choosing TD Asset Management among opportunities in several banking functions. Zihua asked which environment would bring him closer to understanding investments and portfolio decisions. He knew the internship focused on valuation oversight and reporting, but chose it for its relevant fund exposure and opportunities to learn from asset-management professionals.",
     detail:
-      "He used early mornings for FRM study, evenings for coursework, and attended networking events selectively. He passed the exam, maintained strong grades, and preserved meaningful professional relationships. The experience taught him that following through does not mean ignoring constraints. It means making the tradeoffs explicit and changing the system around the commitment.",
+      "He used coffee chats and networking across the firm to explore work beyond his immediate responsibilities. Another demanding decision was continuing FRM Part II alongside six courses, an internship, and recruiting. In that case, he reduced lower-priority commitments and reorganized his schedule. Both experiences taught him to make tradeoffs explicit and connect a choice to what he wants to learn.",
   },
   {
     id: "high_pressure_nav",
@@ -511,12 +514,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "competing_commitments",
     label: "competing commitments",
-    keywords: ["competing", "commitments", "priorities", "juggle", "multitask", "workload", "schedule"],
-    phrases: ["juggled multiple priorities", "competing priorities", "many commitments", "manage multiple projects", "several priorities at once", "overlapping commitments"],
+    keywords: ["competing","commitments","priorities","juggle","multitask","workload","schedule"],
+    phrases: ["juggled multiple priorities","competing priorities","many commitments","manage multiple projects","several priorities at once","overlapping commitments"],
     answer:
-      "Zihua has balanced a full-time role at CIBC Mellon, research work with different professors, CFA Level II preparation, and financial planning for a startup. He kept the workload manageable by separating fixed deadlines from flexible work, creating smaller milestones, and using short blocks of time for focused tasks that did not require a full working session.",
+      "Zihua has balanced a full-time TD Asset Management internship with two part-time research roles and CFA Level II preparation, and has managed similar overlaps at CIBC Mellon. He divides large goals into smaller milestones, plans around fixed deadlines, and uses short gaps for focused review while reserving longer blocks for difficult learning or analysis.",
     detail:
-      "He also kept detailed notes and reviewed them regularly so that switching between fund accounting, research, and study did not create repeated relearning. When the volume threatened quality, he communicated early and proposed a narrower near-term scope. The goal was not to appear busy. It was to keep every important commitment dependable.",
+      "The system includes communicating limits. When SEC-screening work and fund-accounting deadlines converged, he proposed reviewing a smaller group of firms that week rather than quietly weakening accuracy. His recent fund research also required learning new methods alongside final-year courses and another project, so he planned around both deadlines and the depth of each task.",
   },
   {
     id: "tight_deadline_due_diligence",
@@ -541,12 +544,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "influence_without_authority",
     label: "influencing without authority",
-    keywords: ["influence", "authority", "persuade", "alignment", "departments", "buy-in", "leadership"],
-    phrases: ["influence without authority", "gain buy in", "lead without authority", "persuade other teams", "influence stakeholders", "no formal authority"],
+    keywords: ["influence","authority","persuade","alignment","departments","buy-in","leadership"],
+    phrases: ["influence without authority","gain buy in","lead without authority","persuade other teams","influence stakeholders","no formal authority","leadership without being the team leader","lead without a title","leadership without authority"],
     answer:
-      "At a startup, Zihua coordinated monthly financial planning with four departments even though he did not manage those teams. He gathered their budget information, summarized the shared facts, and structured the discussion around variances, upcoming needs, and practical tradeoffs. Giving each department room to explain its constraints helped the group reach decisions without turning the meeting into a contest for resources.",
+      "Zihua believes leadership can mean creating clarity and helping others contribute without holding a formal title. If a group were stuck, he would summarize the options, confirm the shared objective, invite quieter voices, and help agree on the next actions. When another person has the relevant expertise, he is comfortable supporting their lead.",
     detail:
-      "His approach to influence is to make the problem easier to see and the decision easier to discuss. He uses evidence, asks what each person needs, and connects the recommendation to a shared outcome. That creates more durable support than relying on title or pressure.",
+      "His startup financial-planning work provides a practical example. He coordinated four departments around common budget information, invited their context, and focused discussion on variances and priorities. His aim is to make collaboration easier through evidence, listening, and follow-through rather than relying on authority.",
   },
   {
     id: "data_driven_recommendation",
@@ -731,12 +734,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "project_off_track",
     label: "recovering a project that is off track",
-    keywords: ["project", "off-track", "stalled", "recover", "milestone", "scope", "progress"],
-    phrases: ["project is off track", "project falls behind", "recover a delayed project", "work is not progressing", "project going wrong", "get a project back on track"],
+    keywords: ["project","off-track","stalled","recover","milestone","scope","progress"],
+    phrases: ["project is off track","project falls behind","recover a delayed project","work is not progressing","project going wrong","get a project back on track"],
     answer:
-      "If a project were off track, Zihua would identify whether the problem came from scope, ownership, information, or execution. He would return to the intended decision or deliverable, separate essential work from optional work, assign clear next actions, and create a near-term checkpoint that shows whether the recovery plan is working.",
+      "If a project were off track, Zihua would return to the original question and identify whether the barrier was scope, evidence, method, or execution. He would keep useful completed work, make the next required comparison explicit, and agree on a smaller checkpoint that could show whether the revised approach was working.",
     detail:
-      "His volunteer dashboard reflection shaped this approach. Producing many charts created activity, but not every chart advanced the professor's main questions. He would now build a small prototype around the core metrics, collect feedback early, and expand only after the direction is confirmed.",
+      "In fund research, grouping on mean return and volatility was useful but could not show whether funds moved together. He kept that benchmark and added matching-period return comparisons. His AI database experience showed another kind of problem: when the process creates inconsistent output, smaller validated steps can be more effective than simply increasing effort.",
   },
   {
     id: "team_idea_rejected",
@@ -761,12 +764,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "delegating_work",
     label: "delegating and assigning work",
-    keywords: ["delegate", "delegating", "assign", "ownership", "workload", "responsibility", "lead"],
-    phrases: ["delegate work", "assign tasks", "divide responsibilities", "decide who does what", "share workload", "delegate under pressure"],
+    keywords: ["delegate","delegating","assign","ownership","workload","responsibility","lead"],
+    phrases: ["delegate work","assign tasks","divide responsibilities","decide who does what","share workload","delegate under pressure","how would you delegate an important task"],
     answer:
-      "When dividing work, Zihua would match tasks to people's strengths, confirm the expected output, and set internal checkpoints before the external deadline. He also wants each person to understand how their section connects to the final result, because a team can complete every individual task and still produce an inconsistent deliverable.",
+      "When delegating an important task, Zihua would explain its purpose, expected outcome, deadline, and requirements, then discuss the person's workload and comfort with the assignment. He would agree on ownership and support, give them room to choose their approach, and use an early checkpoint when other work depends on the result.",
     detail:
-      "His group-project experience taught him not to treat delegation as a one-time split of the assignment. The team needs progress visibility, shared quality standards, and a plan for integration. As a leader, he prefers clear ownership with enough communication to catch gaps early.",
+      "He would avoid taking a task back simply because he would have done it differently. A teammate may be ready to present findings while needing help with the underlying analysis. Good delegation makes that support explicit and gives someone genuine responsibility, with enough shared context to produce a coherent final project.",
   },
   {
     id: "values",
@@ -774,9 +777,9 @@ export const profileTopics: ProfileTopic[] = [
     keywords: ["value", "values", "principle", "motivate", "purpose", "society", "give", "donation", "impact"],
     phrases: ["what motivates him", "give back", "social impact", "personal values"],
     answer:
-      "One belief that matters to Zihua is that good intentions should lead to action. He wants professional growth to increase his ability to contribute, and he has connected important career milestones with support for human-rights and children's-welfare initiatives. He does not see ambition and social responsibility as competing ideas.",
+      "Zihua is motivated by learning, becoming useful to others, and turning good intentions into action. His interest in investment research and portfolio management reflects a desire to build sound judgment and take responsibility for meaningful decisions. He also wants professional growth to increase his ability to contribute to the wider community, not simply improve his own position.",
     detail:
-      "You can also see that value in smaller choices. He has mentored new students, tutored people who lacked confidence, helped students file tax returns, and built tools that made a team's work easier. Larger opportunities appeal to him partly because they create more room to learn, contribute, and give back.",
+      "He has linked career milestones with charitable giving and has supported other students through mentoring, tutoring, and tax volunteering. Research offers another kind of contribution: careful work that helps someone investigate an important question. His guiding idea is that actions speak louder than words, with ambition and responsibility growing together.",
   },
   {
     id: "mentoring",
@@ -791,22 +794,22 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "career_goals",
     label: "career goals",
-    keywords: ["career", "future", "goal", "goals", "ambition", "years", "aspire", "become"],
-    phrases: ["career goal", "long term goal", "five years", "ten years", "future plans", "person he wants to be"],
+    keywords: ["career","future","goal","goals","ambition","years","aspire","become"],
+    phrases: ["career goal","long term goal","five years","ten years","future plans","person he wants to be","long term career goal","where does he want his career to go","what does he want to do after graduation","investment research analyst","portfolio management goal"],
     answer:
-      "Zihua's long-term goal is less about locking himself into one title and more about becoming capable enough to handle larger problems and create wider impact. He is building depth in finance, mathematics, research, data, and AI so that future choices come from strength rather than fear of uncertainty.",
+      "Zihua's long-term goal is to become a portfolio manager who makes well-researched investment decisions and manages risk carefully. In the nearer term, he hopes to develop as an investment research analyst at an asset management firm. Graduate study is his intended next step toward deeper financial economics, stronger quantitative skills, and more independent investment judgment.",
     detail:
-      "He compares career development to climbing a mountain. Staring only at the summit can make the journey feel overwhelming, so he focuses on the next useful step: a demanding course, a real project, a professional conversation, or a skill that expands his options. He wants each step to compound into better judgment and a greater ability to contribute.",
+      "CIBC Mellon and TD Asset Management introduced him to investment-fund operations and oversight. Mutual fund and ETF research made him more curious about how investments behave together. Over time, he wants to earn greater responsibility for recommendations and portfolio decisions while staying honest about uncertainty and the trust involved in managing other people's money.",
   },
   {
     id: "internship_purpose",
     label: "purpose of internships",
-    keywords: ["internship", "intern", "platform", "exposure", "opportunity", "experience"],
-    phrases: ["why internships", "goal of an internship", "value of internship", "what internships mean", "seeking an internship"],
+    keywords: ["internship","intern","platform","exposure","opportunity","experience"],
+    phrases: ["why internships","goal of an internship","value of internship","what internships mean","seeking an internship"],
     answer:
-      "Zihua sees an internship as more than a credential or a technical-skills exercise. It is a chance to learn from talented people, face real constraints, understand how a larger organization works, and test his judgment in situations where the result matters to other people.",
+      "Zihua values internships as a way to learn from real constraints and people whose work he hopes to understand more deeply. At CIBC Mellon he learned how investment funds operate day to day. At TD Asset Management, fund oversight and conversations across teams broadened his view of asset management and strengthened his interest in investment research.",
     detail:
-      "At TD Asset Management, he actively spoke with professionals beyond his immediate responsibilities to understand more of the asset-management business. Experiences like that reinforce his belief that larger platforms offer not only resources, but also a responsibility to learn quickly and use future capability to contribute more broadly.",
+      "He also sees professional growth as connected to giving back. Career milestones prompted him to act on a long-standing commitment to support social causes. An internship is valuable to him when it develops useful skills, expands his perspective, and helps him become more capable of contributing to both a team and the wider community.",
   },
   {
     id: "cfa_journey",
@@ -851,12 +854,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "research_motivation",
     label: "motivation for research",
-    keywords: ["research", "professor", "academic", "evidence", "open-ended", "question"],
-    phrases: ["why research", "why research assistant", "enjoy research", "research interests him", "research motivation"],
+    keywords: ["research","professor","academic","evidence","open-ended","question"],
+    phrases: ["why research","why research assistant","enjoy research","research interests him","research motivation"],
     answer:
-      "Zihua enjoys research because it begins with an open question rather than a known answer. He likes deciding what evidence is needed, testing whether the data is reliable, and gradually building an explanation that can withstand scrutiny. Working with professors has also taught him how much judgment sits behind good data work.",
+      "Zihua continues taking research roles because he enjoys questions whose answers are not obvious at the beginning. He likes turning a broad idea into an investigation, testing whether the evidence supports the interpretation, and receiving feedback from professors. That process has strengthened his interest in investment research and his motivation for graduate study.",
     detail:
-      "He is comfortable starting with foundational tasks such as collection, cleaning, validation, and documentation because they determine whether later analysis is trustworthy. His goal is to become increasingly independent while still producing work that genuinely moves the professor's research forward.",
+      "Volunteer research made him examine observation windows and overlapping engagement measures. Mutual fund and ETF research made him distinguish statistical similarity from moving together over time. Both taught him to question a first interpretation, learn the limits of a method, and form a judgment he can explain rather than simply report an appealing pattern.",
   },
   {
     id: "consulting_motivation",
@@ -881,12 +884,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "excel",
     label: "Excel and workflow automation",
-    keywords: ["excel", "vba", "macro", "formula", "spreadsheet", "lookup", "pivot"],
-    phrases: ["excel skills", "use excel", "excel model", "excel automation", "built in excel"],
+    keywords: ["excel","vba","macro","formula","spreadsheet","lookup","pivot"],
+    phrases: ["excel skills","use excel","excel model","excel automation","built in excel"],
     answer:
-      "Zihua uses Excel for financial analysis, reconciliation, workflow tracking, and practical automation. He is comfortable with pivots, lookup functions, variance flags, conditional formatting, data validation, and VBA macros. He tends to build tools that reduce repeated work and make the next decision easier to see.",
+      "Zihua uses Excel for financial review, reconciliation, budgeting, and practical workflow tools. He works with lookup formulas, pivots, variance flags, conditional formatting, and linked dashboards. His task-management system uses recorded macros and a button to repeat sorting steps. He develops these tools incrementally around a specific need rather than automating for its own sake.",
     detail:
-      "Examples include fund-reporting exception reviews, pricing and FX sensitivity checks, budgeting dashboards, a grade calculator, and a personal task system with automated sorting and progress tracking. His focus is not the formula by itself. It is whether the spreadsheet stays understandable, reliable, and useful over time.",
+      "Examples include a TD fund-reporting exception file, a student grade calculator, and startup templates for departmental expense input, budget consolidation, actual-versus-budget analysis, and a summary dashboard. He checks that identifiers, dates, units, and assumptions align before treating a spreadsheet difference as an error.",
   },
   {
     id: "business_intelligence",
@@ -901,22 +904,22 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "sql",
     label: "SQL",
-    keywords: ["sql", "database", "query", "join", "select", "group", "table"],
-    phrases: ["sql skills", "use sql", "do with sql", "write sql", "database queries", "inner join", "left join"],
+    keywords: ["sql","database","query","join","select","group","table"],
+    phrases: ["sql skills","use sql","do with sql","write sql","database queries","inner join","left join","duckdb sql","how has he used sql","sql research workflow"],
     answer:
-      "Zihua uses SQL to filter large datasets, aggregate financial or customer measures, and combine related tables into a clean analysis-ready dataset. He is comfortable with core operations such as SELECT, WHERE, GROUP BY, and JOIN, and chooses the query structure based on what the business question needs to preserve.",
+      "Zihua has used SQL and DuckDB to clean, filter, join, and aggregate Statistics Canada electricity records. He preserves the original data, checks categories and units, and validates the output before using it in analysis. He sees a query that runs successfully as the beginning of verification rather than proof that the result is correct.",
     detail:
-      "For example, an INNER JOIN is useful when the analysis should include only matched records, while a LEFT JOIN preserves every record from the primary table and reveals missing relationships through null values. He sees that choice as a business decision about the population being analyzed, not just syntax.",
+      "In one annual-generation query, a filter returned no rows because the source used 'producer' rather than 'producers'. He inspected distinct labels, corrected the filter, and checked for twelve distinct, nonmissing months per province-year. He selected the official total instead of adding totals to components, and compared annual results with a prepared reference dataset.",
   },
   {
     id: "python",
     label: "Python",
-    keywords: ["python", "pandas", "numpy", "seaborn", "matplotlib", "scikit", "code", "coding"],
-    phrases: ["python skills", "use python", "do with python", "python experience", "code in python", "python libraries"],
+    keywords: ["python","pandas","numpy","seaborn","matplotlib","scikit","code","coding"],
+    phrases: ["python skills","use python","do with python","python experience","code in python","python libraries","python learning progress","how does he use python in research"],
     answer:
-      "Zihua uses Python for data cleaning, validation, extraction, visualization, and machine-learning workflows. His main tools include pandas, NumPy, Matplotlib, Seaborn, and scikit-learn. He has applied them to SEC filings, news datasets, research classification, regression modelling, and financial-data projects.",
+      "Zihua uses Python for data cleaning, statistical analysis, visualization, and repeatable research workflows. His recent mutual fund and ETF project covered approximately 2.56 million monthly return observations. He calculated fund-level return and volatility measures, built a K-means benchmark, and compared distributions and matching-period correlations to understand the limits of the initial groups.",
     detail:
-      "His projects include extracting more than 30 years of filings, structuring evidence from over 2,000 news articles, coding 300-plus text snippets for model development, and comparing predictive models on business datasets. He combines code with source checks and manual review when the data is ambiguous.",
+      "He uses pandas and NumPy to organize data, combine records, handle missing values, and calculate measures, with visualization and scikit-learn tools for analysis. He continues strengthening his programming and methodological understanding. When code is unfamiliar, he uses documentation and AI assistance, then reviews intermediate results and tests the logic before relying on it.",
   },
   {
     id: "market_platforms",
@@ -931,12 +934,12 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "data_analysis",
     label: "data analysis approach",
-    keywords: ["analysis", "analyze", "data", "insight", "dataset", "clean", "visualize"],
-    phrases: ["approach data analysis", "analyze data", "turn data into insights", "data analysis process", "work with data"],
+    keywords: ["analysis","analyze","data","insight","dataset","clean","visualize"],
+    phrases: ["approach data analysis","analyze data","turn data into insights","data analysis process","work with data"],
     answer:
-      "Zihua starts data analysis with the decision or research question, then cleans and validates the underlying information before looking for patterns. He compares results, investigates unusual values, and communicates the finding in a form the audience can use, whether that is a concise explanation, a dashboard, or a controlled reporting file.",
+      "Zihua starts data analysis by defining the question and checking whether the data and measures fit it. He cleans, joins, and validates information before examining patterns. He asks whether a comparison is fair, whether a result makes sense, and what the method leaves out, then explains findings in plain language with appropriate charts.",
     detail:
-      "His experience spans pricing, FX, cash flows, NAV movements, fund disclosures, academic outcomes, SEC filings, news evidence, and volunteer engagement. The tools change across Excel, Python, SQL, Power BI, Bloomberg, and FactSet, but the sequence stays consistent: clarify, validate, analyze, explain, and verify.",
+      "Examples include checking province-year uniqueness before electricity joins, using matching calendars to compare fund returns, and requiring enough follow-up before evaluating volunteer commitment. His TD reporting experience added another discipline: a difference may reflect a date, unit, series, or version mismatch, so its meaning needs investigation before correction.",
   },
   {
     id: "valuation_projects",
@@ -951,22 +954,22 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "machine_learning",
     label: "machine learning projects",
-    keywords: ["machine", "learning", "model", "regression", "ridge", "polynomial", "gridsearch", "prediction"],
-    phrases: ["machine learning", "ml project", "predictive model", "regression model", "data science project"],
+    keywords: ["machine","learning","model","regression","ridge","polynomial","gridsearch","prediction"],
+    phrases: ["machine learning","ml project","predictive model","regression model","data science project"],
     answer:
-      "Zihua has built and compared linear, polynomial, and ridge-regression models using scikit-learn pipelines and hyperparameter tuning. He also uses correlation heatmaps, residual plots, and other diagnostics to understand feature relationships, model performance, and possible bias rather than looking only at a headline score.",
+      "Zihua's machine-learning experience includes a Python K-means benchmark for fund similarity and scikit-learn regression projects. In the fund benchmark, he compared twelve cluster counts across five random seeds, totaling sixty model fits. He used silhouette scores for separation and adjusted Rand indices for agreement across starting points, while keeping financial interpretation separate from numerical stability.",
     detail:
-      "In one IBM data-analysis project, his tuned model reached an R-squared of about 0.65 on test data. Another team project used pandas, NumPy, visualizations, and multiple models to study which variables influenced movie popularity. These projects strengthened his interest in combining technical modelling with business interpretation.",
+      "In an IBM project, he compared linear, polynomial, and ridge regressions with pipelines and GridSearchCV; the tuned ridge model achieved about 0.65 R-squared on test data. He used heatmaps and residual plots to examine relationships and fit. Clustering and prediction answer different questions, so he does not present one metric as validation of every kind of model.",
   },
   {
     id: "technical",
     label: "technical toolkit",
-    keywords: ["technical", "technology", "python", "sql", "excel", "vba", "tableau", "power", "bloomberg", "factset", "tool"],
-    phrases: ["technical skills", "tools does he use", "technology stack"],
+    keywords: ["technical","technology","python","sql","excel","vba","tableau","power","bloomberg","factset","tool"],
+    phrases: ["technical skills","tools does he use","technology stack"],
     answer:
-      "Zihua is comfortable with advanced Excel and VBA, Python, SQL, Tableau, Power BI, Bloomberg, FactSet, and AI development tools such as Codex and Claude. He is practical about technology. He uses it to check financial data, automate repetitive work, organize research, visualize decisions, and make complicated processes easier to manage.",
+      "Zihua's toolkit combines Excel, Python, SQL and DuckDB, Power BI, Bloomberg, FactSet, and AI-assisted workflows. He uses these tools to validate financial reporting, organize research data, examine statistical patterns, and communicate findings. He is continuing to deepen his programming and quantitative skills alongside the practical experience he has already developed.",
     detail:
-      "Some concrete examples include an automated Excel task system, exception-review files for fund reporting, Python pipelines for SEC filings and news data, Power BI sales dashboards, and AI-assisted classification workflows with manual quality checks.",
+      "Recent examples include recorded Excel macros for task sorting, an exception-review file for fund statements, DuckDB checks on monthly electricity data, Python fund clustering and distribution comparisons, and sample-tested AI workflows. He wants to understand and review a process, not merely produce an output through a tool.",
   },
   {
     id: "interests",
@@ -981,12 +984,312 @@ export const profileTopics: ProfileTopic[] = [
   {
     id: "candidate",
     label: "professional fit",
-    keywords: ["hire", "candidate", "fit", "recruit", "role", "employer", "contribute"],
-    phrases: ["why hire him", "strong candidate", "good fit", "bring to a team"],
+    keywords: ["hire","candidate","fit","recruit","role","employer","contribute"],
+    phrases: ["why hire him","strong candidate","good fit","bring to a team"],
     answer:
-      "What makes Zihua a strong candidate is the combination of skills he brings. He understands finance and risk, has hands-on fund operations experience, can work carefully with research and data, and uses AI with good judgment. He is still early in his career, but he learns quickly, takes ownership, stays composed under pressure, and follows through on the details.",
+      "Zihua brings practical investment-fund experience, a foundation in finance and risk, and hands-on research and data skills. He is willing to learn, takes ownership of detailed work, and tries to understand what others need from an analysis. His direction is investment research and eventually portfolio management, with graduate study intended to deepen his financial and quantitative foundations.",
     detail:
-      "He would be especially well suited to a role that values careful analysis, curiosity, and communication across teams. He is comfortable with detailed work such as reconciliations, validation, datasets, and controls. At the same time, he keeps asking the larger questions: what decision needs to be made, what risk matters most, and what would genuinely help the person using the work.",
+      "He would contribute through dependable execution, careful validation, and clear communication while remaining honest about what he still needs to learn. His recent research demonstrates the habit he wants to develop further: investigate a question, test the assumptions, and distinguish a persuasive-looking result from a conclusion the evidence can support.",
+  },
+  {
+    id: "innovation_minor",
+    label: "innovation minor",
+    keywords: ["innovation","minor","entrepreneurship","prototype","customer","assumptions"],
+    phrases: ["what is his innovation minor","what is your innovation minor and what have you learned from it","innovation studies"],
+    answer:
+      "Zihua's Innovation minor at McMaster focuses on turning an idea into something useful. It combines entrepreneurship, creative problem-solving, and business development: understanding unmet needs, identifying the user, testing a simple prototype, and considering the value proposition and financial viability of a business model.",
+    detail:
+      "The most useful habit for him is testing assumptions before committing to a solution. He also practices presenting ideas and responding to feedback. In finance, that perspective helps him look beyond a model to the customer need, how a company creates value, and what could prevent its business from succeeding.",
+  },
+  {
+    id: "graduate_study",
+    label: "motivation for graduate study",
+    keywords: ["masters","master","graduate","degree","postgraduate","foundation","quantitative"],
+    phrases: ["why a masters degree","why graduate study","why does he want a masters","why do you still want a masters degree","with ai making learning more accessible"],
+    answer:
+      "Zihua wants graduate study to provide a structured foundation in financial economics and quantitative methods, with opportunities to apply ideas and receive feedback. AI has made unfamiliar topics easier to explore, but it has also shown him how much independent judgment matters when evaluating assumptions, methods, and conclusions. His longer-term goal is portfolio management.",
+    detail:
+      "He values learning with professors and classmates who approach problems differently. Explaining and defending an idea can reveal gaps that studying alone may miss. He would continue using AI as a tool while developing the ability to assess its suggestions independently, rather than treating access to an answer as equivalent to understanding it.",
+  },
+  {
+    id: "fund_similarity",
+    label: "mutual fund and ETF research",
+    keywords: ["fund","etf","mutual","similarity","clustering","maheu","ra5"],
+    phrases: ["mutual fund and etf project","mutual funds and etfs","fund similarity research","ra5","john maheu research","john maheu","research with john maheu"],
+    answer:
+      "Zihua's recent work with Professor John Maheu examines historical similarity among mutual funds and ETFs. He worked with about 2.56 million monthly return observations across 17,970 fund records, built risk and return profiles, and tested clustering choices. He then compared return distributions and matching-period correlations to ask what the apparent similarity actually meant.",
+    detail:
+      "The main lesson is that similar average returns and volatility do not establish that two funds move together or can replace one another. A grouping can help identify candidates for further investigation, but financial interpretation requires additional evidence. The public dashboard presents aggregate profiles and sensitivity comparisons rather than raw fund histories.",
+  },
+  {
+    id: "fund_data_quality",
+    label: "missing returns and fund data quality",
+    keywords: ["missing","zero","returns","coverage","identifier","gaps"],
+    phrases: ["missing fund returns","why not replace missing returns with zero","handle missing returns","fund data quality"],
+    answer:
+      "In fund research, Zihua kept missing returns separate from zero returns. A zero is an observed outcome; a missing value means no return was observed. He matched records using fund identifiers, checked whether gaps occurred inside or outside each history, and retained valid-month counts and date coverage alongside the calculated profiles.",
+    detail:
+      "Replacing gaps with zero would invent observations and alter estimated mean returns and volatility. He therefore used valid observations for the initial statistics and made their support visible. This also showed why funds with different history lengths needed additional calendar comparisons before interpreting their differences.",
+  },
+  {
+    id: "fund_common_window",
+    label: "common-window fund comparisons",
+    keywords: ["common","window","120","6863","calendar","funds","history"],
+    phrases: ["common window fund analysis","different lengths of return history","compare funds with different histories","common period fund comparison"],
+    answer:
+      "Zihua compared available-history fund profiles with a common window from July 2016 to June 2026. The common-window sample contained 6,863 fund records observed in all 120 months. Comparing the same eligible records across calendars helped examine whether apparent similarities depended on the market periods represented.",
+    detail:
+      "The tradeoff is selection: requiring complete coverage excludes many other records. He treats the common window as a sensitivity check rather than the entire fund universe, and keeps the broader 17,970-record panel as a separate historical view. Matching dates improves comparability but does not remove every limitation.",
+  },
+  {
+    id: "clustering_validation",
+    label: "clustering validation",
+    keywords: ["kmeans","k","means","silhouette","rand","ari","seeds","clusters"],
+    phrases: ["k means benchmark","silhouette score and adjusted rand index","how did he validate clustering","why choose k means","why did you choose k means as the initial benchmark","why did he choose k means"],
+    answer:
+      "Zihua standardized mean return and volatility, compared twelve cluster counts, and used five random seeds for each, producing sixty K-means fits. Silhouette scores assessed separation within a solution. Adjusted Rand indices compared assignments across starting points at the same cluster count. These checks distinguish separation from repeatability.",
+    detail:
+      "K-means offered an interpretable baseline, but feature scale, extreme values, and assumptions about group shape still matter. A four-group benchmark was useful without proving there are exactly four economic types of funds. Numerical stability needs to be considered alongside group size and the financial question.",
+  },
+  {
+    id: "fund_distributions",
+    label: "fund distributions and co-movement",
+    keywords: ["distribution","kde","wasserstein","correlation","substitutability","comovement"],
+    phrases: ["fund return distributions","similar distributions but low correlation","similar return distributions but low correlation","kde and wasserstein distance","can similar funds replace one another","fund substitutability"],
+    answer:
+      "Zihua used kernel density estimation to visualize return distributions, Wasserstein distance to quantify their differences, and correlations over matching months to examine co-movement. These are complementary questions. A distribution describes which outcomes occurred and how often, while correlation preserves the pairing of outcomes in time.",
+    detail:
+      "Two return series can contain the same outcomes in a different order, producing similar distributions but weak or negative correlation. KDE also depends on smoothing choices, so it should not be the only comparison. His conclusion is that distributional or mean-volatility similarity alone does not establish that one fund is a suitable replacement for another.",
+  },
+  {
+    id: "electricity_research",
+    label: "Canadian electricity research",
+    keywords: ["canada","canadian","electricity","province","generation","consumption","ra4"],
+    phrases: ["canadian electricity project","electricity systems research","electricity availability and final user consumption","regional electricity research"],
+    answer:
+      "Zihua's Canadian electricity research integrated three Statistics Canada datasets covering more than 21,000 records, ten provinces, and 2015 to 2024. He compared generation scale and mix, electricity sold to final users, and electricity flows, then built an interactive dashboard. Both totals and shares matter when provinces differ greatly in size.",
+    detail:
+      "He kept supply-side electricity availability separate from final-user sales and checked that joins preserved one row per province and year, giving 100 main comparison rows. Canada-level figures remained separate benchmarks. The work describes system patterns rather than treating higher consumption as proof of lower efficiency.",
+  },
+  {
+    id: "electricity_sql",
+    label: "electricity SQL validation",
+    keywords: ["electricity","duckdb","sql","annual","months","producer","aggregation"],
+    phrases: ["annual electricity totals","electricity sql query","sql query returned no rows","twelve distinct months","producers versus producer"],
+    answer:
+      "Zihua used DuckDB and SQL to prepare and aggregate a subset of more than 5,500 electricity records. When a query returned no rows, he inspected the actual category labels and found a singular-versus-plural filter mismatch. Correct syntax had not guaranteed a correct query.",
+    detail:
+      "Before accepting annual totals, he required twelve rows, twelve distinct months, and twelve nonmissing values per group. He selected the official total-generation category to avoid counting totals and components together. Twelve annual comparisons matched an earlier prepared dataset, a consistency check rather than independent verification of the underlying official figures.",
+  },
+  {
+    id: "phd_research",
+    label: "Finance PhD outcomes research",
+    keywords: ["phd","completion","placement","advisor","publication","cohort"],
+    phrases: ["finance phd research","phd completion and outcomes","academic outcomes project","finance phd dataset"],
+    answer:
+      "Zihua's Finance PhD research brings together student, faculty, publication, and placement information from multiple sources. He standardizes fields such as institutions, dates, and outcomes, checks duplicates and ambiguous records, and documents definitions so the database remains comparable and reviewable.",
+    detail:
+      "He then examines completion timelines, publication activity, advisor relationships, and graduate placements across programs and cohorts. Tables and visualizations make patterns easier to inspect, while outlier and sample-size checks help separate potentially meaningful differences from data-quality issues or a few influential observations.",
+  },
+  {
+    id: "volunteer_research",
+    label: "volunteer engagement research",
+    keywords: ["volunteer","retention","commitment","cohort","onboarding","food","bank"],
+    phrases: ["volunteer engagement and retention","food bank research","six month commitment measure","volunteer retention project"],
+    answer:
+      "Zihua studied volunteer participation and retention using validated cohort data and more than thirty visualizations. He checked that people had enough follow-up before comparing six-month commitment, defined in the project as at least six shifts within six months of the first shift. The underlying dashboard and records remain private; the website offers an illustrative overview.",
+    detail:
+      "He used Spearman rank correlations and cohort comparisons to examine early participation and the gap between initial shifts. He was careful that early shifts also contribute to the six-month measure, so the variables partly overlap. These are descriptive associations, not proof that increasing early participation causes stronger retention.",
+  },
+  {
+    id: "disclosure_research",
+    label: "non-compete and corporate scandal research",
+    keywords: ["noncompete","non","compete","sec","scandal","filings","annotations"],
+    phrases: ["non compete research","corporate scandal research","sec research project","non compete disclosures"],
+    answer:
+      "Zihua supported research on non-compete disclosures and corporate scandals by structuring evidence from SEC filings and news. His work included more than three hundred annotated snippets, historical filings spanning over thirty years, and screening more than two thousand news articles. He used clear coding rules and source review to make the evidence consistent.",
+    detail:
+      "Python helped clean text, standardize fields, flag duplicates, and organize company, event-date, and category information. He also used KNIME for text preprocessing and pattern checks. His contribution was evidence preparation and validation for further empirical research, rather than treating an annotation dataset as proof of a valuation effect.",
+  },
+  {
+    id: "post_submission_error",
+    label: "correcting an error after submission",
+    keywords: ["submitted","submission","correction","error","notify","impact"],
+    phrases: ["error after submitting","error after submission","discovered an error after submitting","mistake after sending work"],
+    answer:
+      "If Zihua discovered an error after submitting work, he would assess what was wrong and whether it could change a conclusion or decision. He would notify the relevant person promptly, take responsibility, and flag the concern immediately if someone was about to rely on the result. He would not wait for a complete investigation before warning about a material risk.",
+    detail:
+      "He would correct the work, review related calculations, and make clear what changed in the new version. Afterwards, he would investigate the cause and add a practical check where needed. If the implications required a supervisor's decision, he would explain the issue and bring options for the next step.",
+  },
+  {
+    id: "analysis_disagreement",
+    label: "disagreeing with a team analysis",
+    keywords: ["analysis","disagreement","consensus","assumptions","evidence","view"],
+    phrases: ["analysis disagreed with the team","analysis disagrees with the team","different conclusion from the team","analysis contradicts team view"],
+    answer:
+      "If Zihua's analysis disagreed with the team's view, he would first review his own data, assumptions, and calculations. He would then ask how the team reached its conclusion and compare definitions, time periods, and assumptions. He would explain both the evidence and the uncertainty, and discuss what could change either view.",
+    detail:
+      "A company can have strong growth prospects while its price already reflects those expectations, so apparent disagreement may concern valuation rather than business quality. He would update his position if he missed relevant evidence. If a difference remained, he would make the concern clear and follow the team's decision process.",
+  },
+  {
+    id: "evidence_integrity",
+    label: "keeping conclusions within the evidence",
+    keywords: ["evidence","conclusion","overstate","causation","correlation","misleading"],
+    phrases: ["stronger conclusion than the evidence supports","present a stronger conclusion","overstate findings","correlation versus causation","conclusion beyond the evidence"],
+    answer:
+      "If asked to present a stronger conclusion, Zihua would first clarify whether the request meant clearer communication or a claim beyond the evidence. He is willing to improve a message, but would explain when the proposed wording overstates the result and suggest an accurate alternative. A relationship in the data should not silently become a causal claim.",
+    detail:
+      "He would explain why a finding matters, retain its limitations, and identify what further analysis would strengthen the case. If pressure to mislead continued, he would state the boundary and seek appropriate guidance. His priority is a useful conclusion the reader can trust, including an honest account of what is not yet known.",
+  },
+  {
+    id: "delivering_bad_news",
+    label: "delivering bad news",
+    keywords: ["bad","news","delay","impact","options","updates"],
+    phrases: ["deliver bad news","communicate bad news","tell someone a deliverable will be delayed"],
+    answer:
+      "Zihua would deliver bad news early, with checked facts, a clear explanation of the impact, and practical options. If he contributed to the problem, he would acknowledge it. For a delayed research deliverable, he might propose sharing the completed section first or agreeing a revised deadline, while asking which priorities matter most to the recipient.",
+    detail:
+      "He would give the person room to respond, confirm the plan, and provide updates if circumstances changed. The purpose is not simply to announce a problem. It is to give others enough time and information to make a useful decision and to follow through on what has been agreed.",
+  },
+  {
+    id: "fair_credit",
+    label: "fair recognition for team contributions",
+    keywords: ["credit","recognition","contribution","ownership","attribution"],
+    phrases: ["someone took credit for his work","someone takes credit for your work","credit for my work","fair recognition"],
+    answer:
+      "If someone appeared to take credit for Zihua's work, he would first check whether the contribution had simply been unclear in a collective presentation. If the attribution was inaccurate, he would discuss a specific example privately and agree on an appropriate clarification. He would also acknowledge the support others had given him.",
+    detail:
+      "A one-time misunderstanding may need only a correction. A repeated issue or one affecting performance assessment would warrant raising the documented contributions with the project lead. Keeping responsibilities and progress visible can prevent ambiguity while preserving a collaborative relationship.",
+  },
+  {
+    id: "helping_competitor",
+    label: "helping a classmate competing for an opportunity",
+    keywords: ["classmate","competing","competitor","opportunity","help","resources"],
+    phrases: ["help a classmate competing for the same opportunity","helping a competitor","competing for the same opportunity"],
+    answer:
+      "Zihua would help a classmate preparing for the same opportunity by sharing public resources, practising questions together, or offering feedback. He sees learning together as valuable beyond a single selection decision. He would still protect his own preparation time and ensure that each person's application reflected their own work and experience.",
+    detail:
+      "The boundaries matter: he would not share confidential information or neglect commitments in order to help. Tutoring and mentoring have shaped this approach. He would want disappointment about an outcome to remain separate from how fairly and supportively he treats other people.",
+  },
+  {
+    id: "changing_direction",
+    label: "knowing when to change an approach",
+    keywords: ["persist","persistence","pivot","direction","approach","sunk","method"],
+    phrases: ["keep working or change direction","when to change direction","persistence versus changing approach","method cannot answer the question"],
+    answer:
+      "Zihua distinguishes a difficult method from one that cannot answer the question. In fund research, mean-return and volatility groups were useful but could not establish whether funds moved together. He kept the benchmark and added common-period return comparisons, rather than either discarding useful work or expecting more effort to overcome the method's limitation.",
+    detail:
+      "He would persist when practice or investigation can resolve the obstacle. When the problem is the match between method and question, he would adjust the approach. Time already spent is not, by itself, a reason to continue in a direction that cannot produce the evidence needed.",
+  },
+  {
+    id: "confidentiality",
+    label: "handling confidential information",
+    keywords: ["confidential","privacy","permission","authorized","sharing","sensitive"],
+    phrases: ["share confidential information","handle confidential information","request for research data","data privacy in research"],
+    answer:
+      "Before sharing confidential information, Zihua would clarify the request and check whether the recipient was authorized. Knowing someone or understanding their reason would not establish permission. For research data, he would confirm the terms with the professor; removing names alone might not make the information safe to share.",
+    detail:
+      "While checking, he could suggest public data or explain the general method instead. If sharing were approved, he would use the agreed channel and provide only the necessary information. His approach is to remain helpful while honoring the responsibilities attached to the material, including information obtained through an internship.",
+  },
+  {
+    id: "project_handover",
+    label: "handing over a research project",
+    keywords: ["handover","hand","over","documentation","versions","remaining","workflow"],
+    phrases: ["hand over a project","handover a project","project handover","someone else continue his research"],
+    answer:
+      "Zihua would prepare a short handover covering the purpose, current progress, remaining tasks, relevant versions, data sources, assumptions, and unresolved questions. He wants the next person to understand why the work was done a certain way and avoid mistaking an open issue for a confirmed result.",
+    detail:
+      "He would walk through the workflow and let the recipient try it, so gaps in the notes become visible. He would confirm upcoming deadlines, contacts, and whether follow-up support was available. To him, quality includes whether someone else can understand and continue the work with confidence.",
+  },
+  {
+    id: "rejection",
+    label: "responding to an unsuccessful application",
+    keywords: ["rejection","rejected","selected","application","opportunity","disappointment"],
+    phrases: ["not selected for an opportunity","handle rejection","unsuccessful application","opportunity he really wanted"],
+    answer:
+      "Zihua would acknowledge disappointment after an unsuccessful application, seek feedback respectfully if available, and choose a concrete improvement. He would also recognize that selection involves factors he cannot fully observe, rather than interpreting every rejection as a verdict on his ability.",
+    detail:
+      "He would reflect on how clearly he communicated his experience and motivation, then keep exploring other routes toward relevant skills. His interest in portfolio management can be developed through different research and investment-learning opportunities. Resilience means learning what he can while continuing to take useful steps.",
+  },
+  {
+    id: "misunderstanding",
+    label: "clarifying a misunderstanding",
+    keywords: ["misunderstood","misunderstanding","wording","context","clarify","intentions"],
+    phrases: ["someone misunderstood what he said","misunderstood something you said","clarify a misunderstanding"],
+    answer:
+      "If someone misunderstood Zihua, he would first ask what they heard and listen before defending his intention. He would identify whether the issue was wording, context, or a different assumption, then clarify the specific concern and apologize if his language was unfair. If others heard the original comment, he would ensure they also received the clarification.",
+    detail:
+      "For example, saying an analysis needs more work can sound like criticism of effort when the real concern is one unsupported conclusion. He would explain that distinction, invite the person's perspective, and consider how to communicate more precisely next time. Good intentions do not remove responsibility for how a message lands.",
+  },
+  {
+    id: "tested_innovation",
+    label: "choosing between a proven method and a new idea",
+    keywords: ["proven","new","innovation","pilot","experiment","baseline"],
+    phrases: ["proven approach and a new idea","choose between a proven method and a new idea","test a new workflow","reliable baseline"],
+    answer:
+      "Zihua would weigh the task, deadline, and consequences before replacing a proven approach. Close to delivery, he would use a reliable method that meets the need. With room to experiment, he would test a new idea on a small sample, compare it with the existing process, and check accuracy, time savings, and reviewability.",
+    detail:
+      "He would expand gradually if the results were promising and investigate inconsistent outputs before relying on them. A dependable baseline makes experimentation easier because it provides a comparison and a way to continue working while an idea develops. Novelty needs to offer a meaningful improvement.",
+  },
+  {
+    id: "ai_benefits",
+    label: "opportunities created by AI",
+    keywords: ["ai","benefits","opportunities","demand","needs","generative"],
+    phrases: ["positive impact of generative ai","advantage of generative ai","benefits of ai","hidden needs created by ai"],
+    answer:
+      "Zihua sees AI's potential as broader than completing existing tasks faster. He is interested in whether new capabilities reveal needs people could not previously serve and make new activities or services practical. In his view, that possibility is a reason to study the user and the problem, not simply measure how much output a tool produces.",
+    detail:
+      "He uses technological change as a way to think about new demand and behavior. At the same time, his own work keeps him attentive to validation, implementation, and value. A capability becomes useful when it supports something people need and can rely on, rather than only demonstrating technical novelty.",
+  },
+  {
+    id: "ai_research",
+    label: "using AI in volunteer research",
+    keywords: ["ai","research","volunteer","codex","cohort","workflow"],
+    phrases: ["example of how he used ai in research","example of how you used ai in your research","ai in volunteer research","ai assisted research example"],
+    answer:
+      "In volunteer-engagement research, Zihua used AI to help develop code for organizing records, comparing participation, and producing visualizations. He split the workflow into specific tasks, tested samples, and reviewed the suggested code. He remained responsible for the definitions and comparisons, including whether volunteers had enough follow-up to be evaluated fairly.",
+    detail:
+      "AI reduced repetitive coding work, giving him more time to examine the analysis itself. A convincing chart can still be misleading if its cohort definition is wrong. He therefore treats tool assistance and research judgment as separate responsibilities and validates both the intermediate data and the interpretation.",
+  },
+  {
+    id: "ai_learning",
+    label: "learning independently while using AI",
+    keywords: ["ai","learning","understanding","independent","explain","modify"],
+    phrases: ["ai supports learning rather than replacing it","ai supports his learning","learning without relying on ai","make sure you understand ai code"],
+    answer:
+      "Zihua tries a problem himself before turning to AI, so he can identify the actual gap. He asks focused questions or requests a small example instead of immediately seeking a complete solution. Afterwards, he explains the reasoning in his own words and makes a change independently. If he cannot do that, he knows he has more to learn.",
+    detail:
+      "For code, he asks why a step is needed, which assumptions it makes, and what changes when the input changes. He also connects the method back to the financial or research question. The goal is to become more capable of asking good questions and identifying weak answers over time.",
+  },
+  {
+    id: "ai_investment",
+    label: "AI as support for investment judgment",
+    keywords: ["ai","investment","decision","valuation","portfolio","thesis"],
+    phrases: ["rely on ai to make an investment decision","ai investment decision","use ai for investment decisions","ai and portfolio decisions"],
+    answer:
+      "Zihua would use AI to support investment analysis, but would need to understand and defend the reasoning before acting. It could organize public information, compare assumptions, or challenge a thesis. He would verify important claims against original sources, examine valuation assumptions, and consider the investor's objectives and existing portfolio exposures.",
+    detail:
+      "A persuasive case for a company is not automatically a suitable portfolio investment. If he could not explain the opportunity, downside risks, and evidence that would change his view, he would do more work. His interest in portfolio management makes judgment and accountability central to how he would use the tool.",
+  },
+  {
+    id: "ai_disagreement",
+    label: "investigating disagreement with AI",
+    keywords: ["ai","contradict","contradiction","disagreement","recalculate","independent"],
+    phrases: ["ai contradicts his analysis","ai contradicted your analysis","ai gave you an answer that contradicted your own analysis","ai answer disagrees with me"],
+    answer:
+      "If AI contradicted Zihua's analysis, he would investigate rather than assume either answer was correct. He would first check whether both used the same question, definitions, data, and dates. Then he would isolate the point of disagreement and test it through original sources, a simple example, or an independent recalculation.",
+    detail:
+      "If his own analysis was wrong, he would correct it and understand the failure. If the AI claim was unsupported, he would set it aside. If the conflict remained unresolved, he would explain the uncertainty and seek another perspective. He wants neither confidence in a tool nor attachment to his first answer to replace evidence.",
+  },
+  {
+    id: "misconceptions",
+    label: "misconceptions about his achievements",
+    keywords: ["misconception","naturally","smart","confidence","effort","preparation"],
+    phrases: ["misconceptions about zihua","achievements came easily","naturally smart and confident","what people misunderstand about him"],
+    answer:
+      "People sometimes assume Zihua's academic and professional achievements came easily or reflect natural confidence. He describes a different process: substantial preparation, repeated practice, organized notes, and careful review. The confidence comes from having worked through the material and being willing to keep learning, rather than believing he already knows everything.",
+    detail:
+      "Professional exam preparation involved breaking the curriculum into weekly targets, practising difficult concepts, and adjusting the plan around weak areas. He applies a similar habit before presentations and reporting tasks. He wants others to understand the work behind the outcome without presenting hard work as a guarantee that nothing will go wrong.",
   },
 ];
 
@@ -1021,7 +1324,9 @@ const scoreTopic = (normalizedQuestion: string, tokens: Set<string>, topic: Prof
   const normalizedLabel = prepared.label;
   if (normalizedLabel === normalizedQuestion) score += 70;
   else if (normalizedLabel && normalizedQuestion.includes(normalizedLabel)) {
-    score += 24 + prepared.labelTokens * 4;
+    // A generic one-word label such as SQL should not outweigh a more specific
+    // phrase such as an electricity SQL query in a longer question.
+    score += prepared.labelTokens === 1 ? 8 : 24 + prepared.labelTokens * 4;
   }
 
   prepared.phrases.forEach(({ value: normalizedPhrase, tokens: phraseTokens }) => {
@@ -1055,8 +1360,10 @@ const scoreTopic = (normalizedQuestion: string, tokens: Set<string>, topic: Prof
   return score;
 };
 
+// Only context-dependent follow-ups reuse the previous topic. A new question
+// containing "example" or "evidence" must still be matched on its own merits.
 const isFollowUp = (question: string) =>
-  /\b(tell me more|more detail|another example|example|evidence|expand|go deeper|why is that)\b/i.test(question);
+  /^(?:(?:can|could|would) you )?(?:(?:please )?(?:tell me more|more details?|another example|an example|example|evidence|expand|go deeper|why is that|give (?:me |us )?(?:an |another )?example|show (?:me )?(?:the )?evidence))(?: (?:please|about (?:that|this)|of (?:that|this)))?$/.test(normalize(question));
 
 const sectionLinks = {
   about: { href: "/#about", label: "Explore Zihua's story" },
@@ -1085,8 +1392,12 @@ const sectionLinks = {
 
 const aboutTopicIds = new Set(["background", "personality", "values", "interests", "career_goals"]);
 const professionalTopicIds = new Set(["asset_management", "fund_accounting", "internship_purpose"]);
-const researchTopicIds = new Set(["research", "research_motivation"]);
-const educationTopicIds = new Set(["current", "education", "international_experience"]);
+const researchTopicIds = new Set([
+  "research", "research_motivation", "fund_similarity", "fund_data_quality",
+  "fund_common_window", "clustering_validation", "fund_distributions",
+  "electricity_research", "electricity_sql", "phd_research", "volunteer_research", "disclosure_research",
+]);
+const educationTopicIds = new Set(["current", "education", "international_experience", "innovation_minor", "graduate_study"]);
 const credentialTopicIds = new Set(["credentials", "cfa_journey", "frm_journey"]);
 const projectTopicIds = new Set([
   "ai_approach",
@@ -1104,9 +1415,23 @@ const projectTopicIds = new Set([
   "valuation_projects",
   "machine_learning",
   "technical",
+  "ai_benefits",
+  "ai_research",
+  "ai_learning",
+  "ai_investment",
+  "ai_disagreement",
 ]);
 
 const navigationForTopic = (topicId: string): ProfileLink | undefined => {
+  if (["fund_similarity", "fund_data_quality", "fund_common_window", "clustering_validation", "fund_distributions"].includes(topicId)) {
+    return { href: "/projects/fund-similarity-dashboard/", label: "Explore the Fund Similarity dashboard" };
+  }
+  if (["electricity_research", "electricity_sql"].includes(topicId)) {
+    return { href: "/projects/canadian-provincial-electricity-dashboard.html", label: "Explore the Canadian Electricity dashboard" };
+  }
+  if (topicId === "phd_research") return { href: "/projects/finance-phd-eda-report.html", label: "Explore the Finance PhD analysis" };
+  if (topicId === "volunteer_research") return { href: "/ai/?project=retention-lab#ai-lab-title", label: "View the public Volunteer Retention overview" };
+  if (topicId === "disclosure_research") return sectionLinks.research;
   if (topicId === "thinking") return sectionLinks.writing;
   if (aboutTopicIds.has(topicId)) return sectionLinks.about;
   if (professionalTopicIds.has(topicId)) return sectionLinks.professional;
@@ -1292,9 +1617,10 @@ export function getProfileAnswer(question: string, previousTopicId?: string): Pr
   }
 
   if (
-    /\b(phone|telephone|mobile|wechat|whatsapp|dating|girlfriend|boyfriend|spouse|married|marital|single|salary|compensation|income|wealth|visa|immigration|citizenship|nationality|birthday|born|family|parent|parents|mother|father|sibling|siblings|brother|sister|religion|political|health|medical|passport|password)\b/.test(
+    /\b(phone|telephone|mobile|wechat|whatsapp|dating|girlfriend|boyfriend|spouse|married|marital|single|salary|compensation|wealth|visa|immigration|citizenship|nationality|birthday|born|family|parent|parents|mother|father|sibling|siblings|brother|sister|religion|political|health|medical|passport|password)\b/.test(
       normalizedQuestion,
     ) ||
+    /^(?:(?:annual|monthly|personal|employment) )?income$|\b(?:his|zihuas|your|personal)(?: (?:annual|monthly|employment))? income\b|\bhow much (?:does|did) (?:he|zihua) (?:earn|make)\b/.test(normalizedQuestion) ||
     /\b(home address|private address|where does he live|where do you live|date of birth|birth date|net worth|social security|sin number|relationship status|romantic relationship|romantic partner)\b/.test(
       normalizedQuestion,
     ) ||
@@ -1382,7 +1708,7 @@ export function getProfileAnswer(question: string, previousTopicId?: string): Pr
     /\b(his|zihuas) minors?\b|\bdoes (zihua|he) have (a |any )?minors?\b/.test(normalizedQuestion)
   ) {
     return {
-      text: "Zihua's minors are Mathematics and Economics. You could also ask about his Finance major or favorite university subject.",
+      text: "Zihua's minors are Economics, Mathematics, and Innovation. You could also ask what he has learned from the Innovation minor or about his Finance major.",
       topicId: "education",
       link: sectionLinks.education,
     };
@@ -1406,7 +1732,7 @@ export function getProfileAnswer(question: string, previousTopicId?: string): Pr
     (/\b(course|class)\b/.test(normalizedQuestion) || /\buniversity subject\b/.test(normalizedQuestion))
   ) {
     return {
-      text: "Zihua's favorite university subject is Economics. You could also ask about his Finance major or Mathematics and Economics minors.",
+      text: "Zihua's favorite university subject is Economics. You could also ask about his Finance major or his Economics, Mathematics, and Innovation minors.",
       topicId: "education",
       link: sectionLinks.education,
     };
@@ -1426,7 +1752,18 @@ export function getProfileAnswer(question: string, previousTopicId?: string): Pr
   }
 
   const acknowledgedPerson = findAcknowledgement(question);
-  if (acknowledgedPerson) return acknowledgementAnswer(acknowledgedPerson);
+  if (acknowledgedPerson) {
+    // A question about a named professor's project should describe the work;
+    // a question about the person still opens their acknowledgement.
+    if (/\b(research|projects?|funds?|etfs?|clustering|electricity)\b/.test(normalizedQuestion)) {
+      const researchMatch = profileTopics
+        .filter((topic) => researchTopicIds.has(topic.id))
+        .map((topic) => ({ topic, score: scoreTopic(normalizedQuestion, questionTokens, topic) }))
+        .sort((first, second) => second.score - first.score)[0];
+      if (researchMatch && researchMatch.score >= 8) return answerForTopic(researchMatch.topic);
+    }
+    return acknowledgementAnswer(acknowledgedPerson);
+  }
 
   const navigationAnswer = sectionNavigationAnswer(question);
   if (navigationAnswer) return navigationAnswer;

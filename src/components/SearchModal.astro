@@ -1,5 +1,6 @@
 ---
 import { withBase, type Language } from "@i18n/routes";
+import { profileCorpusRevision } from "@data/aiProfile";
 
 interface Props {
   lang: Language;
@@ -41,7 +42,7 @@ const labels = {
 const serializedLabels = JSON.stringify(labels);
 const inputId = `site-search-input-${lang}`;
 const titleId = `site-search-title-${lang}`;
-const searchIndexRevision = "2026-10-19-fund-similarity";
+const searchIndexRevision = profileCorpusRevision;
 const searchIndexUrl = `${withBase("/search-index.json")}?v=${searchIndexRevision}`;
 ---
 
