@@ -4,8 +4,8 @@ An English-only personal website built with Astro and Tailwind CSS. The producti
 
 ## Public routes
 
-- `/` — Redirects to the canonical About page
-- `/about/` — About landing page, personal story, principles, soundtrack, and contact details
+- `/` — Canonical About landing page
+- `/about/` — Compatible About view with the home page as its canonical URL
 - `/experience/` — Professional, research, education, and credential records
 - `/writing/` — Full writing archive and series
 - `/credits/` — Searchable acknowledgements directory
@@ -72,11 +72,11 @@ Add Experience records under `src/content/experience/en/`. Supported tracks are:
 - `education`
 - `credentials`
 
-Do not add placeholder study maps, inferred personal writing, or unpublished Notes. Search is generated only from approved Writing and Experience collections.
+Do not add placeholder study maps, inferred personal writing, or unpublished Notes. Search combines approved Writing and Experience collections, site sections, acknowledgements, public projects, and chatbot topics.
 
 Credits are maintained in `src/data/credits.ts`. The visible directory and `/credit-data.json` are generated from the same source.
 
-Chatbot answers and navigation live in `src/data/aiProfile.ts`. Add synonyms to the appropriate topic rather than introducing competing substring handlers. The search index consumes those same topics. Project configuration remains in `AILabShowcase.astro`; the corresponding search entries live in `search-index.json.ts`.
+Chatbot answers and navigation live in `src/data/aiProfile.ts`. Add synonyms to the appropriate topic rather than introducing competing substring handlers. The search index consumes those same topics. Project configuration remains in `AILabShowcase.astro`; shared public project metadata lives in `src/data/searchProjects.ts` and feeds search, project metadata, and the sitemap.
 
 Keep GLSL in `aiLabShaders.ts`, flight mathematics in `aiLabMotion.ts`, and the one-shot scan timeline in `aiLabSequence.ts`. New animated surfaces should use `createVisibleAnimationLoop`; page-local timers should use `createTaskScope`. Abort page-local listeners on `astro:before-swap`. A persisted audio element must not retain handlers referencing a previous page's controls.
 
@@ -104,7 +104,7 @@ Copy `.env.example` to `.env` for local overrides. Important variables include:
 Before uploading changes:
 
 1. Run `npm run validate` (type checks, regression tests, build, and built-link validation).
-2. Confirm `/` redirects to `/about/` and all five navigation destinations work.
+2. Confirm `/` renders the About landing page, `/about/` points canonically to `/`, and all five navigation destinations work.
 3. Test search results for About, Experience, Writing, Acknowledgements, and AI content.
 4. Validate internal links, section anchors, document downloads, and public assets.
 5. Confirm `dist/sitemap.xml` contains only current canonical routes.

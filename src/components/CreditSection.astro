@@ -342,16 +342,16 @@ const creditGroups = tiers.map((tierConfig) => {
 
 <script is:inline define:vars={{ copy }}>
   (() => {
-    window.__creditSectionController?.abort();
-    const listenerController = new AbortController();
-    window.__creditSectionController = listenerController;
-    const listenerOptions = { signal: listenerController.signal };
-    document.addEventListener("astro:before-swap", () => listenerController.abort(), { once: true, ...listenerOptions });
-
     const initializeCreditSections = () => {
       document.querySelectorAll("[data-credit-section]").forEach((section) => {
         if (section.dataset.creditReady === "true") return;
         section.dataset.creditReady = "true";
+
+        window.__creditSectionController?.abort();
+        const listenerController = new AbortController();
+        window.__creditSectionController = listenerController;
+        const listenerOptions = { signal: listenerController.signal };
+        document.addEventListener("astro:before-swap", () => listenerController.abort(), { once: true, ...listenerOptions });
 
         const search = section.querySelector("[data-credit-search]");
         const lists = new Map([...section.querySelectorAll("[data-credit-list]")].map((list) => [list.dataset.creditTier, list]));

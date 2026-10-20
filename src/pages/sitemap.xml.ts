@@ -1,3 +1,4 @@
+import { searchProjects } from "@data/searchProjects";
 import { getCollection } from "astro:content";
 import { essaysPerPage, writingSeries, writingSeriesPath } from "@data/writingSeries";
 import { entrySlug, withBase } from "@i18n/routes";
@@ -33,7 +34,7 @@ export async function GET({ site }: { site: URL }) {
     ...writing.map((entry) => `/writing/${entrySlug(entry.id)}/`),
   ];
 
-  const urls = [...staticPaths, ...contentPaths]
+  const urls = [...new Set([...staticPaths, ...contentPaths, ...searchProjects.flatMap(project => project.direct ? [project.direct.url] : [])])]
     .map((path) => `  <url><loc>${urlFor(path, site)}</loc></url>`)
     .join("\n");
 

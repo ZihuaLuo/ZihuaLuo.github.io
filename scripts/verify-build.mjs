@@ -25,6 +25,7 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
   const headings = [];
   const controls = [];
   let canonical;
+  let description;
   visit(parse(html), node => {
     const attrs = Object.fromEntries((node.attrs || []).map(attr => [attr.name, attr.value]));
     if (/^h[1-6]$/.test(node.tagName || '')) headings.push(Number(node.tagName.slice(1)));
@@ -41,9 +42,10 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
       if ('data-credit-card' in attrs) creditCards.add(attrs.id);
     }
     if (attrs.rel === 'canonical') canonical = attrs.href;
+    if (node.tagName === 'meta' && attrs.name === 'description') description = attrs.content;
     for (const attr of ['href', 'src', 'poster']) if (attrs[attr]) links.push(attrs[attr]);
   });
-  pages.set(relative(file), {ids, links, canonical, experienceCards, creditCards, headings, controls});
+  pages.set(relative(file), {ids, links, canonical, description, experienceCards, creditCards, headings, controls});
 }
 const origin = new URL([...pages.values()].find(page => page.canonical)?.canonical || 'http://127.0.0.1:4321').origin;
 const homeUrl = `${origin}${base}/`;
@@ -143,6 +145,18 @@ for (const project of searchProjects) {
   }
   if (project.direct) {
     const directUrl = `${base}${project.direct.url}`;
+    const file = project.direct.url.replace(/^\//, '').replace(/\/$/, '/index.html');
+    const page = pages.get(file);
+    if (page?.canonical !== `${origin}${directUrl}`) errors.push(`${file}: missing or incorrect project canonical`);
+    if (!page?.description?.trim()) errors.push(`${file}: missing project description`);
+    if (!sitemap.includes(`<loc>${origin}${directUrl}</loc>`)) errors.push(`sitemap.xml: missing public project ${directUrl}`);
+    if (page?.headings[0] !== 1) errors.push(`${file}: missing leading h1`);
+    let previous = 0;
+    for (const level of page?.headings || []) {
+      if (level > previous + 1) errors.push(`${file}: heading jumps from h${previous} to h${level}`);
+      previous = level;
+    }
+
     if (!index.some(item => item.type === project.direct.kind && item.url === directUrl)) {
       errors.push(`search-index.json: missing direct page ${project.direct.url}`);
     }
@@ -160,6 +174,12 @@ for (const [type, file, cardKey] of [
   const indexed = new Set(index.filter(item => item.type === type).map(item => new URL(item.url, origin).hash.slice(1)));
   for (const id of expected) if (!indexed.has(id)) errors.push(`search-index.json: missing ${type} card ${id}`);
   for (const id of indexed) if (!expected.has(id)) errors.push(`search-index.json: extra ${type} card ${id}`);
+}
+if (/projects\/[^<]*(?:volunteer|retention)/i.test(sitemap)) errors.push('sitemap.xml: private retention dashboard must not be published');
+const canadaHtml = await readFile(path.join(root, 'projects/canadian-provincial-electricity-dashboard.html'), 'utf8');
+if (canadaHtml.includes('data:application/zip;base64,')) errors.push('Canadian dashboard: ZIP must remain a separate download');
+for (const id of ['kpiGen', 'kpiCons', 'kpiAvail']) {
+  if (new RegExp(`id="${id}"[^<]*>[^<]*<\\/div><div class="k-note">million MWh`).test(canadaHtml)) errors.push(`Canadian dashboard: duplicate million scaling for ${id}`);
 }
 const indexedChatTopics = new Set(index.filter(item => item.type === 'chatbot').map(item => new URL(item.url, origin).searchParams.get('ask')).filter(Boolean));
 for (const topic of profileTopics) if (!indexedChatTopics.has(topic.id)) errors.push(`search-index.json: missing chatbot topic ${topic.id}`);

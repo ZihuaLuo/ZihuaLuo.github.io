@@ -29,6 +29,11 @@ export const initializeSiteSearch = () => {
     let indexPromise = indexCache.get(cacheKey);
     let previousFocus;
     let previousOverflow = "";
+    const backgroundStates = new Map();
+    const restoreBackground = () => {
+      backgroundStates.forEach((wasInert, element) => { element.inert = wasInert; });
+      backgroundStates.clear();
+    };
     let searchQueued = false;
     let searchRevision = 0;
     const pageSize = 12;
@@ -104,6 +109,18 @@ export const initializeSiteSearch = () => {
         <div class="site-search__state">
           <h3>${escapeHtml(labels.noResults)}</h3>
           <p>${escapeHtml(labels.emptyDescription)}</p>
+        </div>
+      `;
+    };
+
+    const renderFailure = () => {
+      resetPagination();
+      status.textContent = labels.loadFailure;
+      results.innerHTML = `
+        <div class="site-search__state">
+          <h3>${escapeHtml(labels.loadFailure)}</h3>
+          <p>${escapeHtml(labels.retryDescription)}</p>
+          <button class="site-search__more" style="margin-top:1rem" type="button" data-search-retry>${escapeHtml(labels.retry)}</button>
         </div>
       `;
     };
@@ -186,7 +203,7 @@ export const initializeSiteSearch = () => {
           if (revision === searchRevision && !modal.hidden && modal.isConnected && !listenerController.signal.aborted) renderResults(query);
         })
         .catch(() => {
-          if (revision === searchRevision && !modal.hidden && modal.isConnected && !listenerController.signal.aborted) renderNoResults();
+          if (revision === searchRevision && !modal.hidden && modal.isConnected && !listenerController.signal.aborted) renderFailure();
         });
     };
 
@@ -205,6 +222,11 @@ export const initializeSiteSearch = () => {
       previousOverflow = document.body.style.overflow;
       modal.hidden = false;
       document.body.style.overflow = "hidden";
+      for (const element of document.body.children) {
+        if (element.contains(modal) || ["SCRIPT", "STYLE", "LINK"].includes(element.tagName)) continue;
+        backgroundStates.set(element, element.inert);
+        element.inert = true;
+      }
       renderEmpty();
       track("Open Search", { language: lang });
       window.requestAnimationFrame(() => {
@@ -212,11 +234,12 @@ export const initializeSiteSearch = () => {
         input.focus();
         input.select();
       });
+      const revision = ++searchRevision;
       loadIndex().then(() => {
-        if (listenerController.signal.aborted || modal.hidden || !modal.isConnected) return;
-        if (input.value.trim()) renderResults(input.value);
+        if (revision !== searchRevision || listenerController.signal.aborted || modal.hidden || !modal.isConnected) return;
+        renderResults(input.value || "");
       }).catch(() => {
-        status.textContent = "";
+        if (revision === searchRevision && !listenerController.signal.aborted && !modal.hidden && modal.isConnected) renderFailure();
       });
     };
 
@@ -224,6 +247,7 @@ export const initializeSiteSearch = () => {
       searchRevision += 1;
       modal.hidden = true;
       document.body.style.overflow = previousOverflow;
+      restoreBackground();
       if (previousFocus && typeof previousFocus.focus === "function") {
         previousFocus.focus();
       }
@@ -231,6 +255,7 @@ export const initializeSiteSearch = () => {
 
     document.addEventListener("astro:before-swap", () => {
       if (!modal.hidden) document.body.style.overflow = previousOverflow;
+      restoreBackground();
       listenerController.abort();
     }, { once: true, ...listenerOptions });
 
@@ -264,6 +289,17 @@ export const initializeSiteSearch = () => {
 
     results.addEventListener("click", (event) => {
       const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest("[data-search-retry]")) {
+        renderLoading();
+        const revision = ++searchRevision;
+        input.focus();
+        loadIndex().then(() => {
+          if (revision === searchRevision && !modal.hidden && modal.isConnected && !listenerController.signal.aborted) renderResults(input.value || "");
+        }).catch(() => {
+          if (revision === searchRevision && !modal.hidden && modal.isConnected && !listenerController.signal.aborted) renderFailure();
+        });
+        return;
+      }
       const suggestion = target?.closest("[data-search-suggestion]");
       if (suggestion && results.contains(suggestion)) {
         input.value = suggestion.dataset.searchSuggestion || suggestion.textContent || "";

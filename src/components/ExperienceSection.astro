@@ -476,6 +476,16 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
     transform: translateY(-2px);
   }
 
+  .experience-entry__header > div:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .experience-year-entries,
+  .experience-entry {
+    min-width: 0;
+  }
+
   .experience-entry__header,
   .education-profile__identity {
     align-items: center;
@@ -806,12 +816,6 @@ const entryId = (entry: any) => `experience-${entrySlug(entry.id)}`;
     .education-path,
     .education-record__grid {
       grid-template-columns: 1fr;
-    }
-  }
-
-  @media (min-width: 720px) {
-    .experience-entry--credential .experience-entry__description {
-      white-space: nowrap;
     }
   }
 
