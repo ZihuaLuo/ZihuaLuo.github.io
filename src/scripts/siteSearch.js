@@ -16,6 +16,8 @@ export const initializeSiteSearch = () => {
     const input = modal.querySelector("[data-search-input]");
     const results = modal.querySelector("[data-search-results]");
     const status = modal.querySelector("[data-search-status]");
+    const footer = modal.querySelector("[data-search-footer]");
+    const moreButton = modal.querySelector("[data-search-more]");
     const labels = JSON.parse(modal.dataset.labels || "{}");
     const lang = modal.dataset.lang || "en";
     const indexUrl = modal.dataset.indexUrl || "/search-index.json";
@@ -29,6 +31,9 @@ export const initializeSiteSearch = () => {
     let previousOverflow = "";
     let searchQueued = false;
     let searchRevision = 0;
+    const pageSize = 12;
+    let currentMatches = [];
+    let shownCount = 0;
 
     const escapeHtml = (value) =>
       String(value ?? "")
@@ -69,7 +74,15 @@ export const initializeSiteSearch = () => {
       });
     };
 
+    const resetPagination = () => {
+      currentMatches = [];
+      shownCount = 0;
+      footer.hidden = true;
+      results.scrollTop = 0;
+    };
+
     const renderEmpty = () => {
+      resetPagination();
       status.textContent = "";
       results.innerHTML = `
         <div class="site-search__state">
@@ -85,6 +98,7 @@ export const initializeSiteSearch = () => {
     };
 
     const renderNoResults = () => {
+      resetPagination();
       status.textContent = "";
       results.innerHTML = `
         <div class="site-search__state">
@@ -95,27 +109,16 @@ export const initializeSiteSearch = () => {
     };
 
     const renderLoading = () => {
+      resetPagination();
+      results.innerHTML = "";
       status.textContent = labels.loading || "";
     };
 
-    const renderResults = (query) => {
-      const trimmed = query.trim();
-      if (!trimmed) {
-        renderEmpty();
-        return;
-      }
-
-      const { matches, total } = rankSearchItems(indexedItems, trimmed);
-
-      if (!matches.length) {
-        renderNoResults();
-        return;
-      }
-
-      status.textContent = total > matches.length
-        ? `${labels.showing} ${matches.length} ${labels.of} ${total} ${labels.resultCount}`
-        : `${matches.length} ${matches.length === 1 ? labels.resultSingle : labels.resultCount}`;
-      results.innerHTML = matches
+    const renderNextResults = (moveFocus = false) => {
+      const previousCount = shownCount;
+      const nextMatches = currentMatches.slice(shownCount, shownCount + pageSize);
+      if (!nextMatches.length) return;
+      results.insertAdjacentHTML("beforeend", nextMatches
         .map((item) => {
           const tags = (item.tags || [])
             .slice(0, 4)
@@ -141,7 +144,32 @@ export const initializeSiteSearch = () => {
             </a>
           `;
         })
-        .join("");
+        .join(""));
+      shownCount += nextMatches.length;
+      const total = currentMatches.length;
+      status.textContent = total > shownCount
+        ? `${labels.showing} ${shownCount} ${labels.of} ${total} ${labels.resultCount}`
+        : `${shownCount} ${shownCount === 1 ? labels.resultSingle : labels.resultCount}`;
+      footer.hidden = shownCount >= total;
+      if (moveFocus) results.querySelectorAll("[data-search-result]")[previousCount]?.focus();
+    };
+
+    const renderResults = (query) => {
+      const trimmed = query.trim();
+      if (!trimmed) {
+        renderEmpty();
+        return;
+      }
+      // Rank once per query and keep every match available for later batches.
+      const { matches } = rankSearchItems(indexedItems, trimmed, indexedItems.length);
+      if (!matches.length) {
+        renderNoResults();
+        return;
+      }
+      resetPagination();
+      currentMatches = matches;
+      results.innerHTML = "";
+      renderNextResults();
     };
 
     const runSearch = () => {
@@ -231,6 +259,8 @@ export const initializeSiteSearch = () => {
     closeButtons.forEach((button) => {
       button.addEventListener("click", closeSearch, listenerOptions);
     });
+
+    moreButton.addEventListener("click", () => renderNextResults(true), listenerOptions);
 
     results.addEventListener("click", (event) => {
       const target = event.target instanceof Element ? event.target : null;

@@ -38,3 +38,18 @@ test("search handles punctuation, Chinese aliases, years, and short exact terms"
 test("query lowercasing is locale-stable", () => {
   assert.equal(normalizeSearchValue("I"), "i");
 });
+
+test("all ranked matches remain available beyond the initial result limit", () => {
+  const entries = Array.from({ length: 52 }, (_, index) => ({
+    ...item(`Fund research ${String(index).padStart(2, '0')}`, 'fund research'),
+    url: `/projects/fund-${index}/`,
+  }));
+  const firstBatch = rankSearchItems(entries, 'fund');
+  const complete = rankSearchItems(entries, 'fund', entries.length);
+  assert.equal(firstBatch.total, 52);
+  assert.equal(firstBatch.matches.length, 12);
+  assert.equal(complete.matches.length, 52);
+  assert.deepEqual(complete.matches.slice(0, 12), firstBatch.matches);
+  assert.equal(new Set(complete.matches.map(match => match.url)).size, 52);
+  assert.equal(rankSearchItems(entries, 'no matching phrase', entries.length).matches.length, 0);
+});
