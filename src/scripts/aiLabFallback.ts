@@ -20,6 +20,8 @@ export function initializeLabFallback(lab: HTMLElement) {
     buttons.forEach(item => item.setAttribute("aria-expanded", String(item === button)));
     panel.hidden = false;
     if (!panel.open) panel.showModal();
+    const body = panel.querySelector<HTMLElement>(".ai-lab__detail-body");
+    if (body) { body.scrollTop = 0; body.scrollLeft = 0; }
     lab.dataset.panelOpen = "true";
     const url = new URL(window.location.href);
     url.searchParams.set("project", button.dataset.projectId ?? "");

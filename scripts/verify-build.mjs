@@ -29,7 +29,7 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
   visit(parse(html), node => {
     const attrs = Object.fromEntries((node.attrs || []).map(attr => [attr.name, attr.value]));
     if (/^h[1-6]$/.test(node.tagName || '')) headings.push(Number(node.tagName.slice(1)));
-    if (['button', 'input', 'dialog'].includes(node.tagName) || ['tab', 'tabpanel', 'radiogroup'].includes(attrs.role)) {
+    if (['button', 'input', 'dialog'].includes(node.tagName) || ['tab', 'tabpanel', 'radiogroup', 'region', 'log'].includes(attrs.role)) {
       let label = node.parentNode;
       while (label && label.tagName !== 'label') label = label.parentNode;
       controls.push({tag: node.tagName, attrs, labelled: Boolean(label)});
@@ -105,6 +105,13 @@ for (const file of ['ai/index.html', 'credits/index.html', 'experience/index.htm
 }
 const aiPage = pages.get('ai/index.html');
 const projectDialog = aiPage?.controls.find(({attrs}) => 'data-project-detail-panel' in attrs);
+const projectOverview = aiPage?.controls.find(({attrs}) => attrs.role === 'region' && attrs['aria-label'] === 'Project overview');
+if (projectOverview?.attrs.tabindex !== '0') errors.push('ai/index.html: project overview needs a named keyboard scroll region');
+const transcript = aiPage?.controls.find(({attrs}) => 'data-chat-transcript' in attrs);
+if (transcript?.attrs.role !== 'log' || transcript.attrs['aria-live'] !== 'polite' || transcript.attrs['aria-relevant'] !== 'additions' || transcript.attrs.tabindex !== '0' || !transcript.attrs['aria-label']) errors.push('ai/index.html: conversation needs a named, focusable polite log');
+const chatInput = aiPage?.controls.find(({attrs}) => 'data-chat-input' in attrs);
+if (chatInput?.attrs['aria-controls'] !== transcript?.attrs.id || chatInput?.attrs.enterkeyhint !== 'send') errors.push('ai/index.html: chat input must identify its conversation and mobile send action');
+
 if (projectDialog?.tag !== 'dialog') errors.push('ai/index.html: project details must use a native dialog');
 if (aiPage?.controls.filter(({attrs}) => 'data-project-node' in attrs).length !== searchProjects.length) errors.push('ai/index.html: project opener coverage does not match the project directory');
 for (const {tag, attrs} of aiPage?.controls || []) {

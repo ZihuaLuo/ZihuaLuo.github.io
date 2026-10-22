@@ -10,6 +10,9 @@ test('no-WebGL project buttons support deep links, selection, close, and cleanup
     attributes = new Map();
     focused = false;
     open = false;
+    scrollTop = 0;
+    scrollLeft = 0;
+    querySelector(_selector: string): Element | null { return null; }
     showModal() { this.open = true; }
     close() { this.open = false; }
     focus() { this.focused = true; }
@@ -24,7 +27,9 @@ test('no-WebGL project buttons support deep links, selection, close, and cleanup
   const sixth = new Element(); sixth.dataset = {projectId:'corporate-scandal', projectTitle:'Corporate Scandal Research'};
   const seventh = new Element(); seventh.dataset = {projectId:'noncompete-10k', projectTitle:'Non-Compete 10-K Research'};
   const eighth = new Element(); eighth.dataset = {projectId:'fund-similarity', projectTitle:'Fund Similarity Research'};
-  const panel = new Element(), title = new Element(), close = new Element(), notice = new Element();
+  const panel = new Element(), title = new Element(), close = new Element(), notice = new Element(), body = new Element();
+  panel.querySelector = () => body;
+  body.scrollTop = 142; body.scrollLeft = 8;
   const dashboardDetail = new Element(), cloudlineDetail = new Element(), retentionDetail = new Element(), financeDetail = new Element(), corporateDetail = new Element(), noncompeteDetail = new Element(), pendingDetail = new Element();
   dashboardDetail.dataset.detailProject = 'canadian-electricity';
   cloudlineDetail.dataset.detailProject = 'cloudline';
@@ -50,6 +55,7 @@ test('no-WebGL project buttons support deep links, selection, close, and cleanup
   assert.equal(notice.hidden,false); assert.equal(panel.hidden,false); assert.equal(title.textContent,'Project Two');
   assert.equal(dashboardDetail.hidden,true); assert.equal(pendingDetail.hidden,false);
   assert.equal(close.focused,true);
+  assert.equal(body.scrollTop,0); assert.equal(body.scrollLeft,0);
   assert.equal(panel.open,true);
   assert.equal(second.attributes.get('aria-expanded'),'true');
   assert.equal(second.attributes.has('aria-pressed'),false);
@@ -58,7 +64,9 @@ test('no-WebGL project buttons support deep links, selection, close, and cleanup
   assert.equal(second.focused,true);
   assert.equal(panel.open,false);
   assert.equal(second.attributes.get('aria-expanded'),'false');
+  body.scrollTop = 90;
   first.dispatchEvent(new Event('click'));
+  assert.equal(body.scrollTop,0);
   assert.equal(title.textContent,'Canadian Electricity Research'); assert.equal(panel.hidden,false);
   assert.equal(dashboardDetail.hidden,false); assert.equal(pendingDetail.hidden,true);
   third.dispatchEvent(new Event('click'));

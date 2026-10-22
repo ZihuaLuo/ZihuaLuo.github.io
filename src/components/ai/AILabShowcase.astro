@@ -229,7 +229,7 @@ const clientProjects = projects.map((project) => ({
         <h2 id="ai-lab-detail-title" data-detail-title>{projects[0].title}</h2>
         <button type="button" data-detail-close>Close</button>
       </header>
-      <div class="ai-lab__detail-body">
+      <div class="ai-lab__detail-body" role="region" aria-label="Project overview" tabindex="0">
         <div class="ai-lab__project-detail" data-detail-project="canadian-electricity" hidden>
           <p class="ai-lab__detail-pending">RESEARCH PROJECT · CANADA · 2015–2024</p>
           <p class="ai-lab__detail-summary">A research assistant project exploring how generation, final-user consumption, and electricity flows differ across Canada's provinces.</p>
@@ -621,6 +621,8 @@ const clientProjects = projects.map((project) => ({
     overscroll-behavior: contain;
     padding: 0.75rem 1.2rem;
   }
+
+  .ai-lab__detail-body:focus-visible { outline: 2px solid #67e8f9; outline-offset: -3px; }
 
   .ai-lab__detail-header button:focus-visible { outline: 2px solid #67e8f9; outline-offset: 3px; }
 

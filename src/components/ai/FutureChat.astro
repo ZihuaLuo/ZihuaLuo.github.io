@@ -19,12 +19,14 @@ import TheCutLogo from "../TheCutLogo.astro";
   </header>
 
   <div class="future-chat__body">
-    <div class="future-chat__transcript" data-chat-transcript aria-live="polite">
+    <div id="future-chat-transcript" class="future-chat__transcript" data-chat-transcript role="log" aria-label="Conversation with APOCALYPSE" aria-live="polite" aria-relevant="additions" aria-atomic="false" tabindex="0">
       <article class="future-chat__message future-chat__message--ai">
-        <span class="future-chat__role future-chat__role--robot" aria-label="AI">
+        <span class="future-chat__role future-chat__role--robot">
+          <span class="sr-only">AI</span>
           <ChatRobotIcon />
         </span>
-        <p aria-label="Hi! Curious about Zihua? Ask me about his experience, thinking, strengths, values, or approach to AI.">
+        <p>
+          <span class="sr-only">Hi! Curious about Zihua? Ask me about his experience, thinking, strengths, values, or approach to AI.</span>
           <span
             aria-hidden="true"
             data-chat-intro
@@ -46,6 +48,8 @@ import TheCutLogo from "../TheCutLogo.astro";
       ))}
     </div>
 
+    <p class="sr-only" role="status" aria-atomic="true" data-chat-status></p>
+
     <form class="future-chat__composer" data-chat-form>
       <label class="sr-only" for="future-chat-input">Ask about Zihua</label>
       <input
@@ -55,6 +59,8 @@ import TheCutLogo from "../TheCutLogo.astro";
         autocomplete="off"
         placeholder="Ask about Zihua..."
         maxlength="240"
+        enterkeyhint="send"
+        aria-controls="future-chat-transcript"
         data-chat-input
       />
       <button type="submit" aria-label="Send question">
@@ -93,14 +99,32 @@ import TheCutLogo from "../TheCutLogo.astro";
       const transcript = chat.querySelector<HTMLElement>("[data-chat-transcript]");
       const form = chat.querySelector<HTMLFormElement>("[data-chat-form]");
       const input = chat.querySelector<HTMLInputElement>("[data-chat-input]");
+      const status = chat.querySelector<HTMLElement>("[data-chat-status]");
+      const sendButton = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const prompts = [...chat.querySelectorAll<HTMLButtonElement>("[data-chat-prompt]")];
       const intro = chat.querySelector<HTMLElement>("[data-chat-intro]");
       const robotTemplate = chat.querySelector<HTMLTemplateElement>("[data-chat-robot-template]");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let previousTopicId: string | undefined;
+      let followingLatest = true;
+      transcript?.addEventListener("scroll", () => {
+        followingLatest = transcript.scrollHeight - transcript.scrollTop - transcript.clientHeight <= 32;
+      }, { passive: true, signal: tasks.signal });
+
+      const setPending = (pending: boolean) => {
+        if (input) input.readOnly = pending;
+        if (status) status.textContent = pending ? "APOCALYPSE is preparing a reply." : "";
+        if (pending) { form?.setAttribute("aria-busy", "true"); transcript?.setAttribute("aria-busy", "true"); }
+        else { form?.removeAttribute("aria-busy"); transcript?.removeAttribute("aria-busy"); }
+        for (const button of [sendButton, ...prompts]) {
+          if (pending) button?.setAttribute("aria-disabled", "true");
+          else button?.removeAttribute("aria-disabled");
+        }
+      };
 
       const scrollTranscriptToLatest = () => {
-        if (!transcript || tasks.signal.aborted) return;
-        transcript.scrollTo({ top: transcript.scrollHeight, behavior: reduceMotion ? "auto" : "smooth" });
+        if (!transcript || tasks.signal.aborted || !followingLatest) return;
+        transcript.scrollTop = transcript.scrollHeight;
       };
 
       const createRoleLabel = (role: "AI" | "You") => {
@@ -108,7 +132,10 @@ import TheCutLogo from "../TheCutLogo.astro";
         label.className = "future-chat__role";
         if (role === "AI") {
           label.classList.add("future-chat__role--robot");
-          label.setAttribute("aria-label", "AI");
+          const accessibleLabel = document.createElement("span");
+          accessibleLabel.className = "sr-only";
+          accessibleLabel.textContent = role;
+          label.append(accessibleLabel);
           const robot = robotTemplate?.content.cloneNode(true);
           if (robot) label.append(robot);
           else label.textContent = role;
@@ -177,7 +204,7 @@ import TheCutLogo from "../TheCutLogo.astro";
             if (nextVisibleCharacters !== visibleCharacters) {
               visibleCharacters = nextVisibleCharacters;
               messageText.textContent = characters.slice(0, visibleCharacters).join("");
-              transcript.scrollTop = transcript.scrollHeight;
+              if (followingLatest) transcript.scrollTop = transcript.scrollHeight;
             }
             if (progress < 1) {
               tasks.frame(revealFrame);
@@ -200,7 +227,7 @@ import TheCutLogo from "../TheCutLogo.astro";
         if (!transcript) return null;
         const article = document.createElement("article");
         article.className = "future-chat__message future-chat__message--ai future-chat__message--thinking future-chat__message--response";
-        article.setAttribute("aria-label", "AI is considering the question");
+        article.setAttribute("aria-hidden", "true");
         const label = createRoleLabel("AI");
         const indicator = document.createElement("p");
         indicator.className = "sr-only";
@@ -220,10 +247,11 @@ import TheCutLogo from "../TheCutLogo.astro";
           input?.focus({ preventScroll: true });
           return;
         }
+        followingLatest = true;
+        setPending(true);
         appendMessage("You", question);
         input.value = "";
-        input.disabled = true;
-        form?.setAttribute("aria-busy", "true");
+
         const thinking = appendThinking();
         tasks.timeout(async () => {
           const response = getProfileAnswer(question, previousTopicId);
@@ -231,15 +259,13 @@ import TheCutLogo from "../TheCutLogo.astro";
           if (thinking) { messageObserver.unobserve(thinking); thinking.remove(); }
           await appendMessage("AI", response.text, response.link);
           if (tasks.signal.aborted || !chat.isConnected) return;
-          input.disabled = false;
-          form?.removeAttribute("aria-busy");
-          input.focus({ preventScroll: true });
+          setPending(false);
         }, reduceMotion ? 0 : 520);
       });
 
-      chat.querySelectorAll<HTMLButtonElement>("[data-chat-prompt]").forEach((button) => {
+      prompts.forEach((button) => {
         button.addEventListener("click", () => {
-          if (!input || input.disabled) return;
+          if (!input || input.readOnly) return;
           input.value = button.dataset.chatPrompt ?? "";
           form?.requestSubmit();
         });
@@ -250,7 +276,7 @@ import TheCutLogo from "../TheCutLogo.astro";
       if (deepLinkedTopic && chat.dataset.deepLinkHandled !== deepLinkedTopic.id) {
         chat.dataset.deepLinkHandled = deepLinkedTopic.id;
         tasks.timeout(() => {
-          if (!input || input.disabled) return;
+          if (!input || input.readOnly) return;
           input.value = deepLinkedTopic.label;
           form?.requestSubmit();
         }, reduceMotion ? 40 : 320);
@@ -582,9 +608,11 @@ import TheCutLogo from "../TheCutLogo.astro";
     filter: drop-shadow(0 0 0.22rem rgba(103, 232, 249, 0.72));
     transform: translateY(-1.5px);
   }
-  .future-chat__composer:has(input:disabled) { opacity: 0.72; }
-  .future-chat__composer input:disabled,
-  .future-chat__composer input:disabled + button { cursor: wait; }
+  .future-chat__composer:has(input:read-only) { opacity: 0.72; }
+  .future-chat__composer input:read-only,
+  .future-chat__composer input:read-only + button { cursor: wait; }
+
+  .future-chat__transcript:focus-visible { outline: 2px solid rgba(34, 211, 238, 0.82); outline-offset: -2px; }
 
   .future-chat :is(button, input):focus-visible { outline: 1px solid rgba(34, 211, 238, 0.82); outline-offset: 3px; }
 
@@ -609,6 +637,10 @@ import TheCutLogo from "../TheCutLogo.astro";
     .future-chat__message p { font-size: 0.83rem; }
     .future-chat__quick { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .future-chat__quick button { grid-column: span 1; }
+  }
+
+  @media (max-width: 1040px) and (max-height: 500px) {
+    .future-chat__composer input { font-size: 1rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {

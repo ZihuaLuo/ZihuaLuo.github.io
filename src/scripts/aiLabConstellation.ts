@@ -1085,6 +1085,8 @@ const initializeLab = (lab: LabElement) => {
     });
     panel.hidden = false;
     if (!panel.open) panel.showModal();
+    const body = panel.querySelector<HTMLElement>(".ai-lab__detail-body");
+    if (body) { body.scrollTop = 0; body.scrollLeft = 0; }
     lab.dataset.panelOpen = "true";
     animation?.setPaused(true);
     lab.dispatchEvent(new CustomEvent("projectselect", { detail: { project } }));
